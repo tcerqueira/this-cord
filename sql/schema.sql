@@ -21,7 +21,7 @@ CREATE TABLE channel_message (
     PRIMARY KEY (id, channel_id)
 );
 
-CREATE TABLE user (
+CREATE TABLE this_user (
     id SERIAL,
     username VARCHAR(64) NOT NULL,
     userstatus INTEGER,
