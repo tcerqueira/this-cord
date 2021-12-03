@@ -10,15 +10,22 @@ if($requestMethod != 'POST')
 }
 
 $input = (array) json_decode(file_get_contents('php://input'), TRUE);
-if(empty($input))
+
+if(!isset($input['id']) && !isset($input['username']))
 {
     sendResponse(unprocessableEntityResponse());
     exit();
 }
 
-$username = $input['username'];
-
 $controller = new UserController($dbConnection);
-$response = $controller->createUser(array($username));
+if(isset($input['id']))
+{
+    $id = $input['id'];
+    $response = $controller->deleteUserById($id);
+}
+else {
+    $username = $input['username'];
+    $response = $controller->deleteUserByUsername($username);
+}
 sendResponse($response);
 ?>

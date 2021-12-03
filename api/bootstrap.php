@@ -1,6 +1,7 @@
 <?php
 require_once 'database_connector.php';
 require_once 'responses/sendResponse.php';
+require_once 'responses/method_not_allowed_405.php';
 require_once 'responses/unprocessable_entity_422.php';
 require_once 'responses/service_unavailable_503.php';
 require_once 'gateways/UserGateway.php';

@@ -22,9 +22,18 @@ class UserController
         return $response;
     }
 
-    public function getUser($id)
+    public function getUserById($id)
     {
         $result = $this->userGateway->find($id);
+        $result = pg_fetch_assoc($result);
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode($result);
+        return $response;
+    }
+
+    public function getUserByUsername($username)
+    {
+        $result = $this->userGateway->find(0, $username);
         $result = pg_fetch_assoc($result);
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
@@ -39,6 +48,38 @@ class UserController
         if(!$result)
         {
             $response['body'] = json_encode(array('success' => false, 'message' => pg_result_error($result)));
+        }
+        return $response;
+    }
+
+    public function deleteUserById($id)
+    {
+        $result = $this->userGateway->delete($id);
+        $response = $this->handleDeleteUserResponse($result);
+        return $response;
+    }
+
+    public function deleteUserByUsername($username)
+    {
+        $result = $this->userGateway->delete(0, $username);
+        $response = $this->handleDeleteUserResponse($result);
+        return $response;
+    }
+
+    private function handleDeleteUserResponse($result)
+    {
+        if(pg_affected_rows($result) > 0)
+        {
+            $response['status_code_header'] = 'HTTP/1.1 200 OK';
+            $response['body'] = json_encode(['success' => true]);
+        }
+        else
+        {
+            $response['status_code_header'] = 'HTTP/1.1 200 OK';
+            $response['body'] = json_encode(array(
+                'success' => false, 
+                'message' => 'No rows found.'
+            ));
         }
         return $response;
     }

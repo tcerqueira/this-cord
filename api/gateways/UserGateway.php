@@ -14,9 +14,9 @@ class UserGateway
         return $result;
     }
 
-    public function find($id)
+    public function find($id = 0, $username = 'NULL')
     {
-        $query = "SELECT * FROM this_user WHERE id=".$id.";";
+        $query = "SELECT * FROM this_user WHERE id=".$id." OR username='".$username."';";
         $result = pg_exec($this->db, $query);
         return $result;
     }
@@ -34,9 +34,11 @@ class UserGateway
 
     }
 
-    public function delete($id)
+    public function delete($id = 0, $username = 'NULL')
     {
-
+        $query = "DELETE FROM this_user WHERE id=".$id." OR username='".$username."';";
+        $result = pg_exec($this->db, $query);
+        return $result;
     }
 }
 ?>
