@@ -47,7 +47,7 @@ class UserController
         $response['body'] = json_encode(array('success' => true));
         if(!$result)
         {
-            $response['body'] = json_encode(array('success' => false, 'message' => pg_result_error($result)));
+            $response['body'] = json_encode(array('success' => false, 'error' => pg_result_error($result)));
         }
         return $response;
     }
@@ -78,7 +78,7 @@ class UserController
             $response['status_code_header'] = 'HTTP/1.1 200 OK';
             $response['body'] = json_encode(array(
                 'success' => false, 
-                'message' => 'No rows found.'
+                'error' => 'No rows found.'
             ));
         }
         return $response;
