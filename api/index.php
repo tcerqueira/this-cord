@@ -17,18 +17,12 @@
     <br>
     <span>// create a user</span> <br>
     <span>POST /user/create/</span> <br>
-    <span>Headers:</span> <br>
-    <span>Content-Type: application/x-www-form-urlencoded</span> <br>
     <br>
     <span>// update a user</span> <br>
     <span>POST /user/update/</span> <br>
-    <span>Headers:</span> <br>
-    <span>Content-Type: application/x-www-form-urlencoded</span> <br>
     <br>
     <span>// delete a user</span> <br>
     <span>POST /user/delete/</span> <br>
-    <span>Headers:</span> <br>
-    <span>Content-Type: application/x-www-form-urlencoded</span> <br>
     <br>
 </body>
 </html>
