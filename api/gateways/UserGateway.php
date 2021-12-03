@@ -10,22 +10,21 @@ class UserGateway
 
     public function findAll()
     {
-        $result = pg_exec($this->db, 'SELECT * FROM this_user;');
+        $result = pg_exec($this->db, "SELECT * FROM this_user;");
         return $result;
     }
 
     public function find($id = 0, $username = 'NULL')
     {
-        $query = "SELECT * FROM this_user WHERE id=".$id." OR username='".$username."';";
-        $result = pg_exec($this->db, $query);
+        $query = "SELECT * FROM this_user WHERE id=$1 OR username=$2;";
+        $result = pg_query_params($this->db, $query, [$id, $username]);
         return $result;
     }
 
     public function insert(Array $input)
     {
         $query = "INSERT INTO this_user (username) VALUES ($1);";
-        $result = pg_prepare($this->db, "insert_user", $query);
-        $result = pg_execute($this->db, "insert_user", $input);
+        $result = pg_query_params($this->db, $query, $input);
         return $result;
     }
 
@@ -36,8 +35,8 @@ class UserGateway
 
     public function delete($id = 0, $username = 'NULL')
     {
-        $query = "DELETE FROM this_user WHERE id=".$id." OR username='".$username."';";
-        $result = pg_exec($this->db, $query);
+        $query = "DELETE FROM this_user WHERE id=$1 OR username=$2;";
+        $result = pg_exec($this->db, $query, [$id, $username]);
         return $result;
     }
 }
