@@ -43,12 +43,12 @@ class UserController
     public function createUser(array $input)
     {
         $result = $this->userGateway->insert($input);
-        $response['status_code_header'] = 'HTTP/1.1 201 Created';
-        $response['body'] = json_encode(array('success' => true));
         if(!$result)
         {
-            $response['body'] = json_encode(array('success' => false, 'error' => pg_result_error($result)));
+            $response = internalServerErrorResponse();
         }
+        $response['status_code_header'] = 'HTTP/1.1 201 Created';
+        $response['body'] = json_encode(array('success' => true));
         return $response;
     }
 
@@ -68,18 +68,17 @@ class UserController
 
     private function handleDeleteUserResponse($result)
     {
-        if(pg_affected_rows($result) > 0)
+        if(!$result)
         {
-            $response['status_code_header'] = 'HTTP/1.1 200 OK';
-            $response['body'] = json_encode(['success' => true]);
+            $response = internalServerErrorResponse();
         }
         else
         {
             $response['status_code_header'] = 'HTTP/1.1 200 OK';
-            $response['body'] = json_encode(array(
-                'success' => false, 
-                'error' => 'No rows found.'
-            ));
+            $response['body'] = json_encode([
+                'success' => true,
+                'rows_affected' => pg_affected_rows($result)
+            ]);
         }
         return $response;
     }

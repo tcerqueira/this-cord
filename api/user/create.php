@@ -1,6 +1,6 @@
 <?php
-require_once '../../bootstrap.php';
-require_once '../UserController.php';
+require_once '../bootstrap.php';
+require_once 'UserController.php';
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 if($requestMethod != 'POST')
@@ -10,22 +10,15 @@ if($requestMethod != 'POST')
 }
 
 $input = (array) json_decode(file_get_contents('php://input'), TRUE);
-
-if(!isset($input['id']) && !isset($input['username']))
+if(empty($input))
 {
     sendResponse(unprocessableEntityResponse());
     exit();
 }
 
+$username = $input['username'];
+
 $controller = new UserController($dbConnection);
-if(isset($input['id']))
-{
-    $id = $input['id'];
-    $response = $controller->deleteUserById($id);
-}
-else {
-    $username = $input['username'];
-    $response = $controller->deleteUserByUsername($username);
-}
+$response = $controller->createUser(array($username));
 sendResponse($response);
 ?>
