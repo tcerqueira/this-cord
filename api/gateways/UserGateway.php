@@ -36,7 +36,7 @@ class UserGateway
     public function delete($id = 0, $username = 'NULL')
     {
         $query = "DELETE FROM this_user WHERE id=$1 OR username=$2;";
-        $result = pg_exec($this->db, $query, [$id, $username]);
+        $result = pg_query_params($this->db, $query, [$id, $username]);
         return $result;
     }
 }
