@@ -18,5 +18,12 @@ class DatabaseConnector {
     {
         return $this->dbConnection;
     }
+
+    public function setSchema($schema_name)
+    {
+        $schema_escaped = pg_escape_string($schema_name);
+        $query = "set search_path to '".$schema_escaped."';";
+        return pg_exec($this->dbConnection, $query);
+    }
 }
 ?>

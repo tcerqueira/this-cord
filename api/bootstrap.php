@@ -11,9 +11,11 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 $schema = 'this-cord';
-$dbConnection = (new DatabaseConnector)->getConnection();
+$connector = new DatabaseConnector;
+
+$dbConnection = $connector->getConnection();
 if($dbConnection)
-    pg_exec($dbConnection, "set search_path to '".$schema."';");
+    $connector->setSchema($schema);
 else {
     sendResponse(serviceUnavailableResponse());
     exit();
