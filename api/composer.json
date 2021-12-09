@@ -5,7 +5,8 @@
     "autoload": {
         "psr-4": {
             "controllers\\": "controllers/",
-            "gateways\\": "gateways/"
+            "gateways\\": "gateways/",
+            "responses\\": "responses"
         }
     }
 }

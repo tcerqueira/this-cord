@@ -1,6 +1,6 @@
 <?php
 require_once '../bootstrap.php';
-require_once 'UserController.php';
+use controllers\UserController;
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 if($requestMethod != 'POST')

@@ -5,13 +5,11 @@ use gateways\UserGateway;
 class UserController
 {
     private $db;
-
     private $userGateway;
 
     public function __construct($db)
     {
         $this->db = $db;
-
         $this->userGateway = new UserGateway($db);
     }
 

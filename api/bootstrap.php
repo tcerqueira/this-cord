@@ -2,10 +2,7 @@
 require __DIR__ . '/vendor/autoload.php';
 require 'database_connector.php';
 require 'responses/sendResponse.php';
-require 'responses/method_not_allowed_405.php';
-require 'responses/unprocessable_entity_422.php';
-require 'responses/internal_server_error_500.php';
-require 'responses/service_unavailable_503.php';
+require 'responses/responses.php';
 
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
