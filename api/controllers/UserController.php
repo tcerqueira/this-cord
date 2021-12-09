@@ -1,4 +1,6 @@
 <?php
+namespace controllers;
+use gateways\UserGateway;
 
 class UserController
 {

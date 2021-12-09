@@ -1,14 +1,11 @@
 <?php
-require_once 'database_connector.php';
-require_once 'responses/sendResponse.php';
-require_once 'responses/method_not_allowed_405.php';
-require_once 'responses/unprocessable_entity_422.php';
-require_once 'responses/internal_server_error_500.php';
-require_once 'responses/service_unavailable_503.php';
-require_once 'gateways/UserGateway.php';
-require_once 'gateways/TextChannelGateway.php';
-require_once 'gateways/MessageGateway.php';
-require_once 'gateways/GuildGateway.php';
+require __DIR__ . '/vendor/autoload.php';
+require 'database_connector.php';
+require 'responses/sendResponse.php';
+require 'responses/method_not_allowed_405.php';
+require 'responses/unprocessable_entity_422.php';
+require 'responses/internal_server_error_500.php';
+require 'responses/service_unavailable_503.php';
 
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");

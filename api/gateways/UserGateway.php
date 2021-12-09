@@ -1,4 +1,5 @@
 <?php
+namespace gateways;
 class UserGateway
 {
     private $db = null;
