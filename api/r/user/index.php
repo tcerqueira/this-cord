@@ -1,5 +1,5 @@
 <?php
-require_once '../bootstrap.php';
+require_once '../../bootstrap.php';
 use controllers\UserController;
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
