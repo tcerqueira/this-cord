@@ -24,6 +24,8 @@ CREATE TABLE channel_message (
 CREATE TABLE this_user (
     id SERIAL,
     username VARCHAR(64) NOT NULL,
+    pass CHAR(60) NOT NULL,
+    email VARCHAR(320) UNIQUE NOT NULL,
     userstatus INTEGER,
     PRIMARY KEY (id)
 );

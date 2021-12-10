@@ -40,17 +40,17 @@ class UserController
         return $response;
     }
 
-    public function createUser(array $input)
-    {
-        $result = $this->userGateway->insert($input);
-        if(!$result)
-        {
-            $response = internalServerErrorResponse();
-        }
-        $response['status_code_header'] = 'HTTP/1.1 201 Created';
-        $response['body'] = json_encode(array('success' => true));
-        return $response;
-    }
+    // public function createUser(Array $input)
+    // {
+    //     $result = $this->userGateway->insert($input);
+    //     if(!$result)
+    //     {
+    //         $response = internalServerErrorResponse();
+    //     }
+    //     $response['status_code_header'] = 'HTTP/1.1 201 Created';
+    //     $response['body'] = json_encode(array('success' => true));
+    //     return $response;
+    // }
 
     public function deleteUserById($id)
     {

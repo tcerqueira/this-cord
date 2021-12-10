@@ -9,6 +9,12 @@ if($requestMethod != 'GET')
     exit();
 }
 
+if(!isAuthenticated())
+{
+    sendResponse(unauthorizedResponse());
+    exit();
+}
+
 if(count($_GET) > 1)
 {
     sendResponse(unprocessableEntityResponse());
