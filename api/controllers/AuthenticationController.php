@@ -19,9 +19,9 @@ class AuthenticationController
         if(!$result)
         {
             $response = internalServerErrorResponse();
+            return $response;
         }
-        $response['status_code_header'] = 'HTTP/1.1 201 Created';
-        $response['body'] = json_encode(Array('success' => true));
+        $response = okResponse();
         return $response;
     }
 
@@ -44,8 +44,7 @@ class AuthenticationController
 
     public function signOut($id)
     {
-        $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        $response['body'] = json_encode(Array('success' => true));
+        $response = okResponse();
         return $response;
     }
 

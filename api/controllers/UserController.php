@@ -58,9 +58,7 @@ class UserController
         }
         else
         {
-            $response['status_code_header'] = 'HTTP/1.1 200 OK';
-            $response['body'] = json_encode([
-                'success' => true,
+            $response = okResponse([
                 'rows_affected' => pg_affected_rows($result)
             ]);
         }

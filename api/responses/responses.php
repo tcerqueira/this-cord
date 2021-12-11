@@ -1,11 +1,13 @@
 <?php
 
-function okResponse()
+function okResponse(Array $fields = [])
 {
     $response['status_code_header'] = 'HTTP/1.1 200 OK';
-    $response['body'] = json_encode([
+    $response['body'] = json_encode(array_merge([
         'success' => true
-    ]);
+    ],
+        $fields
+    ));
     return $response;
 }
 
