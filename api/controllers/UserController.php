@@ -52,6 +52,11 @@ class UserController
     //     return $response;
     // }
 
+    public function updateUser($id, Array $input)
+    {
+        
+    }
+
     public function deleteUserById($id)
     {
         $result = $this->userGateway->delete($id);
