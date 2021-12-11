@@ -11,7 +11,7 @@ if($requestMethod != 'POST')
 
 if(isAuthenticated())
 {
-    sendResponse(unauthorizedResponse('Already logged in.'));
+    sendResponse(unauthorizedResponse('You need to log out first.'));
     exit();
 }
 
