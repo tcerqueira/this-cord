@@ -1,0 +1,12 @@
+{
+    "require": {
+        "pusher/pusher-php-server": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "controllers\\": "controllers/",
+            "gateways\\": "gateways/",
+            "responses\\": "responses"
+        }
+    }
+}
