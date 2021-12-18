@@ -1,0 +1,18 @@
+.side-nav {
+    display: flex;
+    position: fixed;
+    height: 100vh;
+    width: var(--nav-w);
+}
+
+.primary-nav {
+    flex-grow: 1;
+    height: 100%;
+    background-color: red;
+}
+
+.secondary-nav {
+    flex-grow: 8;
+    height: 100%;
+    background-color: blue;
+}

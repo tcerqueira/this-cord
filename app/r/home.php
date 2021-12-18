@@ -5,7 +5,11 @@
 </head>
 <body>
 
-    <?php include "../components/nav-primary.php" ?>
+    <?php include "../components/nav.php" ?>
+
+    <main class="main-container">
+        
+    </main>
 
 </body>
 </html>

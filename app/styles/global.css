@@ -1,0 +1,29 @@
+*,
+::after,
+::before {
+    box-sizing: border-box;
+}
+
+:root {
+    --nav-w: 20rem;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul, ol {
+    text-decoration: none;
+}
+
+.main-container {
+    margin-left: var(--nav-w);
+    min-height: 100vh;
+    background-color: green;
+}
