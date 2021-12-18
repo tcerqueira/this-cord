@@ -5,7 +5,15 @@
 }
 
 :root {
+    /* color scheme */
+    --color-dark-grey:   #23272a;
+    --color-medium-grey: #2c2f33;
+    --color-light-grey:  #99aab5;
+    --color-light:       #ffffff;
+    --color-primary:     #7289da; 
+    /* fixed sizes */
     --nav-w: 20rem;
+    --card-size: 4rem;
 }
 
 body {
@@ -16,14 +24,24 @@ body {
 
 a {
     text-decoration: none;
+    color: inherit;
 }
 
 ul, ol {
     text-decoration: none;
 }
 
+hr {
+    border: none;
+    height: 1px;
+    width: 60%;
+    /* Set the hr color */
+    color: var(--color-light-grey); /* old IE */
+    background-color: var(--color-light-grey); /* Modern Browsers */
+}
+
 .main-container {
     margin-left: var(--nav-w);
     min-height: 100vh;
-    background-color: green;
+    /* background-color: green; */
 }

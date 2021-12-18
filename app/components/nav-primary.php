@@ -1,11 +1,14 @@
 <nav class="primary-nav">
-    <div class="home-card">
-        Home
-    </div>
+    <a href="#">
+        <div class="side-card">
+            Home
+        </div>
+    </a>
+    <hr/>
     <div class="guilds-container">
 
     </div>
-    <div class="create-card">
+    <div class="side-card">
         +
     </div>
 </nav>
