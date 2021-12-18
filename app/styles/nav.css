@@ -1,0 +1,42 @@
+.side-nav {
+    position: fixed;
+    display: flex;
+    height: 100vh;
+    width: var(--nav-w);
+}
+
+.primary-nav {
+    flex-grow: 1;
+    height: 100%;
+    background-color: var(--color-dark-grey);
+}
+
+.secondary-nav {
+    flex-grow: 8;
+    height: 100%;
+    background-color: var(--color-medium-grey);
+}
+
+.side-card {
+    --side-size: var(--card-size);
+    height: var(--side-size);
+    width: var(--side-size);
+    border-radius: 50%;
+    margin: 6px auto;
+    overflow: hidden;
+
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: border-radius 200ms ease-in-out,
+                background-color 100ms ease-in-out;
+
+    background-color: var(--color-medium-grey);
+    color: white;
+}
+
+.side-card:hover {
+    border-radius: 40%;
+    background-color: var(--color-primary);
+}
