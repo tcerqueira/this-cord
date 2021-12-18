@@ -23,6 +23,7 @@
     width: var(--side-size);
     border-radius: 50%;
     margin: 6px auto;
+    overflow: hidden;
 
     position: relative;
     display: flex;
