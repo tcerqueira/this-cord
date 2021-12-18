@@ -30,8 +30,10 @@ class UserGateway
     }
 
     public function update($id, Array $input)
-    {
-
+    {  
+        $query = "UPDATE this_user SET username = $1, email = $2, pass = $3 WHERE id = ".$id.";";
+        $result = pg_query_params($this->db, $query, $input);
+        return $result;
     }
 
     public function delete($id = 0, $username = 'NULL')
