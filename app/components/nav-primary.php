@@ -1,14 +1,15 @@
 <nav class="primary-nav">
     <a href="#">
-        <div class="side-card">
-            Home
+        <div class="side-card" data-tooltip="Home">
+            <span>Home</span>
+            <!-- <span class="tooltip">Home</span> -->
         </div>
     </a>
     <hr/>
     <div class="guilds-container">
 
     </div>
-    <div class="side-card">
+    <div class="side-card" data-tooltip="Create Server" data-server-selected>
         +
     </div>
 </nav>

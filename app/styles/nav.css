@@ -1,7 +1,8 @@
 .primary-nav {
     background-color: var(--color-dark-grey);
     grid-area: primary-nav;
-    z-index: 2;
+    overflow-y: auto;
+    /* z-index: 1; */
 }
 
 .secondary-nav {
@@ -11,11 +12,11 @@
 
 .side-card {
     --side-size: var(--card-size);
+    position: relative;
     height: var(--side-size);
     width: var(--side-size);
     border-radius: 50%;
     margin: 6px auto;
-    overflow: hidden;
 
     position: relative;
     display: flex;
@@ -26,9 +27,44 @@
 
     background-color: var(--color-medium-grey);
     color: white;
+    /* z-index: 1; */
 }
 
 .side-card:hover {
     border-radius: 40%;
     background-color: var(--color-primary);
+}
+
+.side-card:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 35%;
+    left: 150%;
+    color: white;
+    transition: all 200ms ease-in-out;
+    z-index: 999;
+}
+
+/* .side-card > .tooltip {
+    transform: scale(0);
+    transition: all 200ms ease;
+    top: 45%;
+    left: 0%;
+}
+
+.side-card:hover > .tooltip {
+    transform: scale(1);
+    z-index: 999;
+} */
+
+[data-server-selected]::before {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 45%;
+    left: -28%;
+    height: 0.5rem;
+    width: 0.5rem;
+    border-radius: 50%;
+    background-color: white;
 }

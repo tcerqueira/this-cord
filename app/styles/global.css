@@ -72,13 +72,13 @@ label {
     grid-area: server-header;
     background-color: var(--color-medium-grey);
     border-top-left-radius: 10px;
-    z-index: 1;
+    /* z-index: 1; */
 }
 
 .channel-header {
     grid-area: channel-header;
     background-color: var(--color-light-grey);
-    z-index: 1;
+    /* z-index: 1; */
 }
 
 .right-sidebar {
@@ -99,4 +99,8 @@ label {
 
 .shadow {
     box-shadow: 1px 0px 6px -2px black;
+}
+
+.tooltip {
+    position: absolute;
 }
