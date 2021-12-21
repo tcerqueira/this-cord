@@ -14,7 +14,7 @@ require 'scripts/StartSession.php';
         <div class="login-container">
             <div class="flex-column login-inputs">
                 <div class="flex-center flex-column">
-                    Welcome back!
+                    <h2>Welcome back!</h2>
                 </div>
                 <form class="flex-column" id="login-form" action="">
                     <label for="username-input">Username</label>
