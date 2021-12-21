@@ -11,11 +11,16 @@ require 'scripts/SendHeaders.php';
 </head>
 <body>
 
-    <?php include "../components/nav.php" ?>
-
-    <main class="main-container">
+    <div class="default-container global-container">
+        <?php include '../components/nav-primary.php'; ?>
+        <?php include '../components/nav-secondary.php'; ?>
+        <?php include '../components/server-header.php'; ?>
+        <?php include '../components/channel-header.php'; ?>
+        <main class="main-container">
         
-    </main>
+        </main>
+        <?php include "../components/right-sidebar.php"; ?>
+    </div>
 
 </body>
 </html>

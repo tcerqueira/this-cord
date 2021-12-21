@@ -12,8 +12,7 @@
     --color-light:       #ffffff;
     --color-primary:     #7289da; 
     /* fixed sizes */
-    --nav-w: 20rem;
-    --card-size: 4rem;
+    --card-size: 3.5rem;
 }
 
 body {
@@ -45,10 +44,46 @@ label {
     color: var(--color-light-grey);
 }
 
+.global-container {
+    min-height: 850px;
+    min-width: 1000px;
+    background-color: var(--color-dark-grey);
+}
+
+.default-container {
+    display: grid;
+    grid-template-columns: 5rem 16rem auto 16rem;
+    grid-template-rows: 4rem auto;
+    grid-template-areas: 
+        "primary-nav server-header channel-header channel-header"
+        "primary-nav secondary-nav main right-sidebar";
+    height: 100vh;
+}
+
+.settings-container {
+    display: grid;
+}
+
 .main-container {
-    margin-left: var(--nav-w);
-    min-height: 100vh;
-    /* background-color: green; */
+    background-color: green;
+}
+
+.server-header {
+    grid-area: server-header;
+    background-color: var(--color-medium-grey);
+    border-top-left-radius: 10px;
+    z-index: 1;
+}
+
+.channel-header {
+    grid-area: channel-header;
+    background-color: var(--color-light-grey);
+    z-index: 1;
+}
+
+.right-sidebar {
+    grid-area: right-sidebar;
+    background-color: var(--color-medium-grey);
 }
 
 .flex-center {
@@ -60,4 +95,8 @@ label {
 .flex-column {
     display: flex;
     flex-direction: column;
+}
+
+.shadow {
+    box-shadow: 1px 0px 6px -2px black;
 }

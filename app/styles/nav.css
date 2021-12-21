@@ -1,20 +1,12 @@
-.side-nav {
-    position: fixed;
-    display: flex;
-    height: 100vh;
-    width: var(--nav-w);
-}
-
 .primary-nav {
-    flex-grow: 1;
-    height: 100%;
     background-color: var(--color-dark-grey);
+    grid-area: primary-nav;
+    z-index: 2;
 }
 
 .secondary-nav {
-    flex-grow: 8;
-    height: 100%;
     background-color: var(--color-medium-grey);
+    grid-area: secondary-nav;
 }
 
 .side-card {
