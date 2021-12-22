@@ -5,7 +5,7 @@
 }
 
 .secondary-nav {
-    background-color: var(--color-medium-grey);
+    background-color: var(--color-medium-grey-1);
     grid-area: secondary-nav;
 }
 
@@ -24,7 +24,7 @@
     transition: border-radius 200ms ease-in-out,
                 background-color 100ms ease-in-out;
 
-    background-color: var(--color-medium-grey);
+    background-color: var(--color-medium-grey-1);
     color: white;
 }
 
