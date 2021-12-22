@@ -6,7 +6,7 @@
         </div>
     </a>
     <hr/>
-    <div class="guilds-container">
+    <div id="guilds-container" class="guilds-container">
 
     </div>
     <div class="side-card" data-tooltip="Create Server" data-server-selected>

@@ -4,4 +4,5 @@
 <title>This-Cord</title>
 <link rel="stylesheet" href="../styles/global.css">
 <link rel="stylesheet" href="../styles/nav.css">
+<script src="../javascript/nav.js" defer></script>
 <script src="../javascript/index.js" defer></script>
