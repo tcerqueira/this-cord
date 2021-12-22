@@ -73,7 +73,7 @@ label {
     grid-area: server-header;
     background-color: var(--color-medium-grey-1);
     border-top-left-radius: 10px;
-    z-index: 1;
+    /* z-index: 1; */
 }
 
 .channel-header {
@@ -100,4 +100,8 @@ label {
 
 .shadow {
     box-shadow: 1px 0px 6px -2px black;
+}
+
+.tooltip {
+    position: absolute;
 }
