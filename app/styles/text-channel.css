@@ -1,0 +1,22 @@
+.text-channel-container {
+    display: grid;
+    grid-template-rows: auto 4rem;
+
+    background-color: var(--color-medium-grey-2);
+}
+
+.messages-container {
+
+}
+
+.input-container {
+    
+}
+
+.message-box {
+    
+}
+
+#message-input {
+    width: 80%;
+}

@@ -11,7 +11,8 @@
     --color-medium-grey-2:  #36393f;
     --color-light-grey:     #40444b;
     --color-light:          #ffffff;
-    --color-primary:        #7289da; 
+    --color-primary:        #7289da;
+    --font-color:           #dee0fc;
     /* fixed sizes */
     --card-size: 3.5rem;
 }
@@ -20,7 +21,7 @@ body {
     margin: 0;
     padding: 0;
     font-size: 1rem;
-    color: var(--color-light);
+    color: var(--font-color);
 }
 
 a {
@@ -43,6 +44,21 @@ hr {
 
 label {
     color: var(--color-light-grey);
+}
+
+input, textarea {
+    /* display: inline-block; */
+    width: 100%;
+}
+
+input[type=text] {
+    background-color: transparent;
+    border: none;
+    color: inherit;
+}
+
+input[type=text]:focus {
+    outline: none;
 }
 
 .global-container {
@@ -84,9 +100,11 @@ label {
 
 .right-sidebar {
     grid-area: right-sidebar;
-    background-color: var(--color-medium-grey-2);
+    background-color: var(--color-medium-grey-1);
 }
 
+/************************************* CSS utility classes *************************************/
+/***********************************************************************************************/
 .flex-center {
     display: flex;
     justify-content: center;
@@ -100,4 +118,10 @@ label {
 
 .shadow {
     box-shadow: 1px 0px 6px -2px black;
+}
+
+.text-input-container {
+    background-color: var(--color-light-grey);
+    border-radius: 10px;
+    padding: 1rem;
 }
