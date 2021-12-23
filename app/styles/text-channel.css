@@ -77,11 +77,12 @@
 
 .author-avatar {
     --avatar-size: 3rem;
-    
+
     position: absolute;
     top: 0;
-    left: -4rem;
+    left: calc(var(--avatar-size) / 4);
     height: var(--avatar-size);
     width: var(--avatar-size);
+    background-color: var(--color-dark-grey);
     border-radius: calc(var(--avatar-size) / 2);
 }

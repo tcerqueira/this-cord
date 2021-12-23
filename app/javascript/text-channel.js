@@ -23,10 +23,10 @@ const messages = [
 
 let lastMessage = undefined;
 messages.forEach(message => {
-    renderMessage(message);
+    const messageItem = renderMessage(message);
     if(lastMessage && lastMessage.author != message.author)
     {
-        renderMessageAuthor(lastMessage.author);
+        renderMessageAuthor(messageItem, lastMessage.author);
     }
     lastMessage = message;
 });
@@ -46,6 +46,8 @@ function renderMessage(message)
     listItem.innerText = message.content;
     renderMessageOptions(listItem, true);
     messagesList.append(listItem);
+
+    return listItem;
 }
 
 function renderMessageOptions(listItem, deletable)
@@ -67,11 +69,11 @@ function renderMessageOptions(listItem, deletable)
     listItem.append(div);
 }
 
-function renderMessageAuthor(author)
+function renderMessageAuthor(messageItem, author)
 {
     console.log(author);
     const authorAvatar = document.createElement('div');
     authorAvatar.classList.add('author-avatar');
     authorAvatar.innerText = author;
-    messagesList.append(authorAvatar);
+    messageItem.append(authorAvatar);
 }
