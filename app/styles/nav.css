@@ -32,3 +32,58 @@
     border-radius: 40%;
     background-color: var(--color-primary);
 }
+
+.server-nav{
+    display: grid;
+    grid-template-rows: auto 4rem;
+    grid-template-areas: 
+        "server-overview"
+        "user";
+}
+
+.user img {
+    height: 2rem;
+    border-radius: 40px;
+}
+
+.server-overview {
+    display: flex;
+    grid-area: server-overview;
+    flex-direction: column;
+    padding: 0.5rem;
+}
+
+.server-overview a {
+    color: inherit;
+}
+
+.text-channel{  
+    display: flex;
+    justify-content: space-between;
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 0.5rem;
+    padding-bottom: 0;
+}
+
+.text-channel:hover{
+    background-color: var(--color-dark-grey);
+    border-radius: 7px;
+}
+
+.user{
+    grid-area: user;
+    background-color: var(--color-dark-grey);
+    display: flex;
+    align-items: center;
+    padding: 2%;
+    justify-content: space-between;
+}
