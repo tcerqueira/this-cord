@@ -9,11 +9,17 @@
             <ul>
                 <li class="text-channel">
                     <a href="#"><span>text channel 1</span></a>
-                    <a href="#"> <img src="../public/add_user.svg" alt="add_user"></a>
+                    <div>
+                        <a href="#"> <img src="../public/add_user.svg" alt="add_user"></a>
+                        <a href="#"><img src="../public/settings.svg" alt=""></a>
+                    </div>
                 </li>
                 <li class="text-channel">
                     <a href="#"><span>text channel 2</span></a>
-                    <a href="#"> <img src="../public/add_user.svg" alt="add_user"></a>
+                    <div>
+                        <a href="#"> <img src="../public/add_user.svg" alt="add_user"></a>
+                        <a href="#"><img src="../public/settings.svg" alt=""></a>
+                    </div>
                 </li>
             </ul>
         </section>
@@ -25,7 +31,10 @@
             <ul>
                 <li class="text-channel">
                     <a href="#"><span>voice channel 1</span></a>
-                    <a href="#"> <img src="../public/add_user.svg" alt="add_user"></a>
+                    <div>
+                        <a href="#"> <img src="../public/add_user.svg" alt="add_user"></a>
+                        <a href="#"><img src="../public/settings.svg" alt=""></a>
+                    </div>
                 </li>
             </ul>
         </section>
