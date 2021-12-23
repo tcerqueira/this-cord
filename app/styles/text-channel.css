@@ -19,14 +19,14 @@
 .messages-container > ol {
     display: flex;
     flex-direction: column-reverse;
+    padding: 0;
 }
 
 .message {
     position: relative;
-    width: calc(100% - 2.5rem);
+    width: 100%;
     word-wrap: break-word;
-    padding: 1rem 1rem 1rem 1rem;
-    margin-left: 2.5rem;
+    padding: 1rem 1rem 1rem 4.5rem;
 }
 
 .message:hover {
@@ -73,4 +73,15 @@
 
 #message-input {
     width: 80%;
+}
+
+.author-avatar {
+    --avatar-size: 3rem;
+    
+    position: absolute;
+    top: 0;
+    left: -4rem;
+    height: var(--avatar-size);
+    width: var(--avatar-size);
+    border-radius: calc(var(--avatar-size) / 2);
 }
