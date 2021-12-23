@@ -19,7 +19,49 @@ require 'scripts/SendHeaders.php';
         <?php include '../components/server-header.php'; ?>
         <?php include '../components/channel-header.php'; ?>
         <main class="main-container text-channel-container">
-            <div class="messages-container"></div>
+            <div class="messages-container">
+                <ol>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                    <li class="message">Hello</li>
+                </ol>
+            </div>
             <div class="input-container">
                 <div class="text-input-container message-box">
                     <span>+</span>

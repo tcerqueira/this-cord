@@ -1,16 +1,32 @@
 .text-channel-container {
     display: grid;
     grid-template-rows: auto 4rem;
+    overflow: hidden;
 
     background-color: var(--color-medium-grey-2);
 }
 
 .messages-container {
+    display: flex;
+    flex-direction: column-reverse;
+    overflow-y: scroll;
+    margin-right: 4px;
+    /* hide scrollbar */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
 
+.messages-container::-webkit-scrollbar {
+    /* display: none; */
+}
+
+.message {
+    width: calc(100% - 2.5rem);
+    margin: 1rem 0 1rem 2.5rem;
 }
 
 .input-container {
-    
+    padding: 0px 1rem;
 }
 
 .message-box {
