@@ -9,20 +9,58 @@
 .messages-container {
     display: flex;
     flex-direction: column-reverse;
-    overflow-y: scroll;
+    overflow-y: auto;
     margin-right: 4px;
     /* hide scrollbar */
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
 
-.messages-container::-webkit-scrollbar {
-    /* display: none; */
+.messages-container > ol {
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 .message {
+    position: relative;
     width: calc(100% - 2.5rem);
-    margin: 1rem 0 1rem 2.5rem;
+    word-wrap: break-word;
+    padding: 1rem 1rem 1rem 1rem;
+    margin-left: 2.5rem;
+}
+
+.message:hover {
+    background-color: var(--color-light-grey);
+}
+
+.message:hover .message-options {
+    position: absolute;
+    display: block;
+    top: -0.2rem;
+    right: 1rem;
+    cursor: pointer;
+    transform: scale(1);
+
+    transition: transform 200ms ease;
+}
+
+.message-options {
+    display: none;
+    transform: scale(0);
+    margin: 0;
+    padding: 0;
+    border-radius: 0.3rem;
+    border: solid 1px var(--color-dark-grey);
+    background-color: var(--color-medium-grey-2);
+}
+
+.message-options img {
+    height: 1.5rem;
+    width: 1.5rem;
+    padding: 0;
+    margin: 0;
+    fill: var(--font-color);
+    filter: invert(90%) sepia(77%) saturate(5716%) hue-rotate(180deg) brightness(104%) contrast(97%);
 }
 
 .input-container {

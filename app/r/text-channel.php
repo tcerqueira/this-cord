@@ -9,7 +9,7 @@ require 'scripts/SendHeaders.php';
 <head>
     <?php include "../components/head.php" ?>
     <link rel="stylesheet" href="../styles/text-channel.css">
-    <script src="../javascript/text-channel.js"></script>
+    <script src="../javascript/text-channel.js" defer></script>
 </head>
 <body>
 
@@ -20,46 +20,15 @@ require 'scripts/SendHeaders.php';
         <?php include '../components/channel-header.php'; ?>
         <main class="main-container text-channel-container">
             <div class="messages-container">
-                <ol>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
-                    <li class="message">Hello</li>
+                <ol id="messages-list">
+                    <!-- <li class="message">
+                        Hello 
+                        <div class="message-options">
+                            <a href="#"><img src="../public/reply-svgrepo-com.svg" alt="relpy-icon"></a>
+                            <a href="#"><img src="../public/reply-svgrepo-com.svg" alt="relpy-icon"></a>
+                        </div>
+                    </li> -->
+                    <!-- FETCHED CLIENT-SIDE -->
                 </ol>
             </div>
             <div class="input-container">
