@@ -15,6 +15,11 @@ class TextChannelController
         $this->id = $channel_id;
     }
 
+    public function getAllFromGuild($guild_id)
+    {
+        
+    }
+
     public function createTextChannel($input)
     {
 

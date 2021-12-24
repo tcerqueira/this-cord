@@ -40,6 +40,16 @@ class UserController
         return $response;
     }
 
+    public function getFriendsList($id)
+    {
+
+    }
+
+    public function updateUser($id)
+    {
+        
+    }
+
     public function deleteUser($id, $password)
     {
         $result = $this->userGateway->getPassword($id);

@@ -13,6 +13,11 @@ class MessageController
         $this->messageGateway = new MessageGateway($db);
     }
 
+    public function getMessagesFromChannel($channel_id, $params)
+    {
+
+    }
+
     public function createMessage($channel_id, $input)
     {
 

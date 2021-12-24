@@ -22,7 +22,7 @@ class GuildController
 
     public function getUserRoles($user_id)
     {
-        
+
     }
 
     public function createGuild($user_id, $input)
@@ -40,14 +40,9 @@ class GuildController
 
     }
 
-    public function createTextChannel($input)
+    public function getMembers()
     {
-
-    }
-
-    public function deleteTextChannel($channel_id)
-    {
-
+        
     }
 
     public function inviteMember($added_user_id, $invite_sender_id)
