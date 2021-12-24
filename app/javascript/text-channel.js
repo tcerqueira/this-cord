@@ -22,14 +22,18 @@ const messages = [
 ];
 
 let lastMessage = undefined;
+let lastMessageItem = undefined;
 messages.forEach(message => {
-    const messageItem = renderMessage(message);
     if(lastMessage && lastMessage.author != message.author)
     {
-        renderMessageAuthor(messageItem, lastMessage.author);
+        renderMessageAuthor(lastMessageItem, lastMessage.author);
     }
+    const messageItem = renderMessage(message);
     lastMessage = message;
+    lastMessageItem = messageItem;
 });
+
+renderMessageAuthor(lastMessageItem, lastMessage.author);
 
 const replyIcons = document.querySelectorAll('.reply-message-icon');
 replyIcons.forEach(icon => {
@@ -43,7 +47,7 @@ function renderMessage(message)
 {
     const listItem = document.createElement('li');
     listItem.classList.add('message');
-    listItem.innerText = message.content;
+    listItem.innerText = message.content + ' - ' + message.author;
     renderMessageOptions(listItem, true);
     messagesList.append(listItem);
 
