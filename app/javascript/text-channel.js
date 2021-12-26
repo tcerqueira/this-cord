@@ -134,23 +134,24 @@ function renderReply(messageItem, reply)
 function renderReplying(replyTo)
 {
     const replyContainer = document.getElementById('reply-container');
-    const replyingTo = document.getElementById('replyingToUsername');
-    if(replyContainer.style.display === 'flex')
-    {
-        replyingTo.innerText = replyTo;
-        return;
-    }
     const channelContainer = document.querySelector('.text-channel-container');
+    document.getElementById('replyingToUsername').remove();
+    const replyingTo = createUsernameRef(replyTo, "#0000ff");
+    replyingTo.id = 'replyingToUsername';
+    document.querySelector('#reply-container > span').append(replyingTo);
     
-    channelContainer.classList.toggle('text-channel-container-replying');
-    replyingTo.innerText = replyTo;
-    replyContainer.style.display = 'flex';
+    if(replyContainer.style.display !== 'flex')
+    {
+        channelContainer.classList.toggle('text-channel-container-replying');
+        replyContainer.style.display = 'flex';
+    }
 }
 
 function removeReplying()
 {
     const replyContainer = document.getElementById('reply-container');
     const channelContainer = document.querySelector('.text-channel-container');
+    document.getElementById('replyingToUsername').remove();
     channelContainer.classList.toggle('text-channel-container-replying');
     replyContainer.style.display = '';
 }
