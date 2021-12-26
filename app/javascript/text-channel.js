@@ -108,10 +108,8 @@ function renderMessageAuthor(messageItem, message)
     h3.append(authorAvatar);
 
     const authorSpan = document.createElement('span');
-    const usernameSpan = document.createElement('span');
     const dateSpan = document.createElement('span');
-    usernameSpan.classList.add('username');
-    usernameSpan.innerText = message.author;
+    const usernameSpan = createUsernameRef(message.author, '#00ff00');
     dateSpan.classList.add('message-date');
     dateSpan.innerText = message.sentAt;
     authorSpan.append(usernameSpan);
@@ -127,9 +125,7 @@ function renderReply(messageItem, reply)
     div.classList.add('reply-preview');
     div.innerText = ': ' + reply.content;
 
-    const span = document.createElement('span');
-    span.classList.add('username');
-    span.innerText = '@' + reply.author;
+    const span = createUsernameRef('@' + reply.author, '#ff0000');
     div.insertBefore(span, div.childNodes[0]);
 
     messageItem.insertBefore(div, messageItem.childNodes[0]);
@@ -157,4 +153,14 @@ function removeReplying()
     const channelContainer = document.querySelector('.text-channel-container');
     channelContainer.classList.toggle('text-channel-container-replying');
     replyContainer.style.display = '';
+}
+
+function createUsernameRef(username, theme)
+{
+    const usernameSpan = document.createElement('span');
+    usernameSpan.classList.add('username');
+    usernameSpan.style = '--user-theme: ' + theme + ';';
+    usernameSpan.innerText = username;
+
+    return usernameSpan;
 }
