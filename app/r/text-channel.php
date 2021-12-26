@@ -20,6 +20,8 @@ require 'scripts/SendHeaders.php';
         <?php include '../components/channel-header.php'; ?>
         <main class="main-container text-channel-container">
             <div class="messages-container">
+                <!-- Empty element to reference to go back to bottom messages -->
+                <div id="back-to-bottom"></div>
                 <ol id="messages-list">
                     <!-- <li id="message-2" class="message">
                         <div class="reply-preview"><span class="username">@tanso</span>: hello bro</div>
