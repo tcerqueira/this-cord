@@ -1,39 +1,47 @@
-const messagesList = document.getElementById("messages-list");
+const messagesList = document.getElementById('messages-list');
 
 const messages = [
-    { id: 1, author: 'lou', content: "Hellommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"},
-    { id: 1, author: 'lou', content: "Hello"},
-    { id: 1, author: 'lou', content: "Hello"},
-    { id: 1, author: 'lou', content: "Hello"},
-    { id: 1, author: 'lou', content: "Hello"},
-    { id: 1, author: 'lou', content: "Hello"},
-    { id: 1, author: 'lou', content: "Hello"},
-    { id: 1, author: 'tansi', content: "Hello"},
-    { id: 1, author: 'lou', content: "Hello"},
-    { id: 1, author: 'lou', content: "Hello"},
-    { id: 1, author: 'lou', content: "Hello"},
-    { id: 1, author: 'lou', content: "Hello"},
-    { id: 1, author: 'burro', content: "Hello"},
-    { id: 1, author: 'lou', content: "Hello"},
-    { id: 1, author: 'lou', content: "Hello"},
-    { id: 1, author: 'lou', content: "Hello"},
-    { id: 1, author: 'lou', content: "Hello"},
-    { id: 1, author: 'lou', content: "Hello"}
+    { id: '19', author: 'lou', content: "Hellommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm", sentAt: '25/12/2021 at 18h30m', replyTo: { author: 'maninho', content: 'Hello oh maninho'}},
+    { id: '18', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '17', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '16', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '15', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '14', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '13', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '12', author: 'tansi', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '11', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '10', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '8', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '7', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '6', author: 'burro', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '5', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '4', author: 'lou', content: "replied", sentAt: '25/12/2021 at 18h30m', reply: { author: 'maninho', content: 'Hello oh maninho'} },
+    { id: '3', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '2', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '1', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null }
 ];
 
 let lastMessage = undefined;
 let lastMessageItem = undefined;
 messages.forEach(message => {
-    if(lastMessage && lastMessage.author != message.author)
-    {
-        renderMessageAuthor(lastMessageItem, lastMessage.author);
-    }
     const messageItem = renderMessage(message);
+
+    if(message.reply !== null)
+    {
+        renderMessageAuthor(messageItem, message);
+        renderReply(messageItem, message.reply);
+    }
+    else if(lastMessage && lastMessage.author != message.author)
+    {
+        renderMessageAuthor(lastMessageItem, lastMessage);
+    }
+    
     lastMessage = message;
     lastMessageItem = messageItem;
 });
 
-renderMessageAuthor(lastMessageItem, lastMessage.author);
+if(messages.length !==0)
+    renderMessageAuthor(lastMessageItem, lastMessage);
 
 const replyIcons = document.querySelectorAll('.reply-message-icon');
 replyIcons.forEach(icon => {
@@ -46,8 +54,9 @@ replyIcons.forEach(icon => {
 function renderMessage(message)
 {
     const listItem = document.createElement('li');
+    listItem.id = 'message-' + message.id;
     listItem.classList.add('message');
-    listItem.innerText = message.content + ' - ' + message.author;
+    listItem.innerText = message.content;
     renderMessageOptions(listItem, true);
     messagesList.append(listItem);
 
@@ -73,11 +82,31 @@ function renderMessageOptions(listItem, deletable)
     listItem.append(div);
 }
 
-function renderMessageAuthor(messageItem, author)
+function renderMessageAuthor(messageItem, message)
 {
-    console.log(author);
+    const h3 = document.createElement('h3');
+    h3.classList.add('message-author');
+
     const authorAvatar = document.createElement('div');
     authorAvatar.classList.add('author-avatar');
-    authorAvatar.innerText = author;
-    messageItem.append(authorAvatar);
+    authorAvatar.innerText = message.author;
+    h3.append(authorAvatar);
+
+    const authorSpan = document.createElement('span');
+    const usernameSpan = document.createElement('span');
+    const dateSpan = document.createElement('span');
+    usernameSpan.classList.add('username');
+    usernameSpan.innerText = message.author;
+    dateSpan.classList.add('message-date');
+    dateSpan.innerText = message.sentAt;
+    authorSpan.append(usernameSpan);
+    authorSpan.append(dateSpan);
+    h3.append(authorSpan);
+
+    messageItem.insertBefore(h3, messageItem.childNodes[0]);
+}
+
+function renderReply(messageItem, reply)
+{
+
 }

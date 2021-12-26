@@ -24,6 +24,8 @@
 
 .message {
     position: relative;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     word-wrap: break-word;
     padding: 1rem 1rem 1rem calc(var(--card-size) + 2rem);
@@ -31,6 +33,23 @@
 
 .message:hover {
     background-color: var(--color-light-grey);
+}
+
+.reply-preview {
+    opacity: 0.7;
+    font-size: 0.9rem;
+}
+
+.message-author {
+    position: relative;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+.message-date {
+    font-size: 0.675rem;
+    opacity: 0.5;
+    margin-left: 1rem;
 }
 
 .message:hover .message-options {
@@ -85,13 +104,13 @@
 }
 
 .author-avatar {
-    --avatar-size: var(--card-size);
+    --avatar-size: calc(var(--card-size) - 0.5rem);
 
     position: absolute;
     top: 0;
-    left: 1rem;
+    left: calc(var(--avatar-size) * -1.5);
     height: var(--avatar-size);
     width: var(--avatar-size);
-    background-color: var(--color-dark-grey);
+    background-color: var(--color-primary);
     border-radius: calc(var(--avatar-size) / 2);
 }
