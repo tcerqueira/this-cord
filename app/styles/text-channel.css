@@ -64,7 +64,12 @@
 }
 
 .message-options img[alt=remove-icon]:hover {
-    filter: invert(38%) sepia(90%) saturate(3991%) hue-rotate(338deg) brightness(103%) contrast(88%);
+    /* filter: invert(38%) sepia(90%) saturate(3991%) hue-rotate(338deg) brightness(103%) contrast(88%); */
+    filter: invert(29%) sepia(97%) saturate(760%) hue-rotate(319deg) brightness(112%) contrast(107%);
+}
+
+.message-options img[alt=reply-icon]:hover {
+    filter: invert(59%) sepia(49%) saturate(1684%) hue-rotate(198deg) brightness(89%) contrast(91%);
 }
 
 .input-container {
