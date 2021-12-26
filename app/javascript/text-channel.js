@@ -15,7 +15,7 @@ const messages = [
     { id: '7', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
     { id: '6', author: 'burro', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
     { id: '5', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '4', author: 'lou', content: "replied", sentAt: '25/12/2021 at 18h30m', reply: { author: 'maninho', content: 'Hello oh maninho'} },
+    { id: '4', author: 'lou', content: "replied", sentAt: '25/12/2021 at 18h30m', reply: { author: 'maninho', content: 'Hello oh maninhommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm'} },
     { id: '3', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
     { id: '2', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
     { id: '1', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null }

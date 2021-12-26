@@ -61,6 +61,12 @@
     font-size: 0.9rem;
     margin-bottom: 0.6125rem;
     width: fit-content;
+
+    max-width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    overflow: hidden;
     cursor: pointer;
 }
 
