@@ -1,0 +1,29 @@
+.nav-settings {
+    grid-area: nav-settings;
+    background-color: var(--color-medium-grey-1);
+    display: flex;
+    justify-content: flex-end;
+    padding: 2rem;
+}
+
+.nav-settings-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.settings-display {
+    grid-area: settings-display;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 2rem;
+
+}
+
+.esc {
+    border:1px solid black;
+    border-radius: 50%;
+    width: fit-content;
+    position: relative;
+    margin-right: 2rem;
+    margin-top: 2rem;
+}
