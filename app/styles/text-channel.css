@@ -63,6 +63,10 @@
     filter: invert(90%) sepia(77%) saturate(5716%) hue-rotate(180deg) brightness(104%) contrast(97%);
 }
 
+.message-options img[alt=remove-icon]:hover {
+    filter: invert(38%) sepia(90%) saturate(3991%) hue-rotate(338deg) brightness(103%) contrast(88%);
+}
+
 .input-container {
     padding: 0px 1rem;
 }
