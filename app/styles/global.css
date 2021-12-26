@@ -13,6 +13,9 @@
     --color-light:          #ffffff;
     --color-primary:        #7289da;
     --color-red:            #ed4245;
+    --color-yellow:         #faa81a;
+    --color-dark-yellow:    #715b34;
+    --color-dark-yellow-2:  #49443c;
     --font-color:           #dee0fc;
     /* fixed sizes */
     --card-size: 3.5rem;
@@ -35,6 +38,8 @@ a {
 }
 
 ul, ol {
+    padding: 0;
+    margin: 0;
     text-decoration: none;
     list-style: none;
 }

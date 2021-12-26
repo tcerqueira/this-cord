@@ -43,6 +43,10 @@ require 'scripts/SendHeaders.php';
                     <!-- FETCHED CLIENT-SIDE -->
                 </ol>
             </div>
+            <div id="reply-container" class="reply-container">
+                    <span>Replying to <span id="replyingToUsername" class=username></span></span>
+                    <img id="cancel-reply-icon" src="../public/cancel-svgrepo-com.svg" alt="cancel-icon">
+            </div>
             <div class="input-container">
                 <div class="text-input-container message-box">
                     <span>+</span>

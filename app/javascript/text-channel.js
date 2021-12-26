@@ -43,19 +43,33 @@ messages.forEach(message => {
 if(messages.length !==0)
     renderMessageAuthor(lastMessageItem, lastMessage);
 
+
+let replyTo = null;
 const replyIcons = document.querySelectorAll('.reply-message-icon');
 replyIcons.forEach(icon => {
     icon.addEventListener('click', () => {
-        console.log('Reply icon clicked');
-        // implement replies
+        const replyingMessage = messages.find(m => m.id === icon.id.split('_')[1]);
+        renderReplying(replyingMessage.author);
     })
 });
+
+const cancelReplyingIcon = document.getElementById('cancel-reply-icon');
+cancelReplyingIcon.addEventListener('click', evt => {
+    removeReplying();
+})
+
+// ############################################################### FUNCTIONS #####################################################################
+// ###############################################################################################################################################
 
 function renderMessage(message)
 {
     const listItem = document.createElement('li');
-    listItem.id = 'message-' + message.id;
+    listItem.id = 'message_' + message.id;
     listItem.classList.add('message');
+    // add logic to check if its replying to active user
+    if(message.author === 'burro')
+        listItem.classList.add('message-replying-to-me');
+
     listItem.innerText = message.content;
     renderMessageOptions(listItem, true);
     messagesList.append(listItem);
@@ -69,6 +83,7 @@ function renderMessageOptions(listItem, deletable)
     div.classList.add('message-options');
     const replyIcon = document.createElement('img');
     replyIcon.classList.add('reply-message-icon');
+    replyIcon.id = 'reply_' + listItem.id.split('_')[1];
     replyIcon.src = "../public/reply-svgrepo-com.svg";
     replyIcon.alt = 'reply-icon';
     div.append(replyIcon);
@@ -118,4 +133,28 @@ function renderReply(messageItem, reply)
     div.insertBefore(span, div.childNodes[0]);
 
     messageItem.insertBefore(div, messageItem.childNodes[0]);
+}
+
+function renderReplying(replyTo)
+{
+    const replyContainer = document.getElementById('reply-container');
+    const replyingTo = document.getElementById('replyingToUsername');
+    if(replyContainer.style.display === 'flex')
+    {
+        replyingTo.innerText = replyTo;
+        return;
+    }
+    const channelContainer = document.querySelector('.text-channel-container');
+    
+    channelContainer.classList.toggle('text-channel-container-replying');
+    replyingTo.innerText = replyTo;
+    replyContainer.style.display = 'flex';
+}
+
+function removeReplying()
+{
+    const replyContainer = document.getElementById('reply-container');
+    const channelContainer = document.querySelector('.text-channel-container');
+    channelContainer.classList.toggle('text-channel-container-replying');
+    replyContainer.style.display = '';
 }
