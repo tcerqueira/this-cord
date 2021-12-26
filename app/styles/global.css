@@ -6,11 +6,12 @@
 
 :root {
     /* color scheme */
-    --color-dark-grey:   #23272a;
-    --color-medium-grey: #2c2f33;
-    --color-light-grey:  #99aab5;
-    --color-light:       #ffffff;
-    --color-primary:     #7289da; 
+    --color-dark-grey:      #202225;
+    --color-medium-grey-1:  #2f3136;
+    --color-medium-grey-2:  #36393f;
+    --color-light-grey:     #40444b;
+    --color-light:          #ffffff;
+    --color-primary:        #7289da; 
     /* fixed sizes */
     --card-size: 3.5rem;
 }
@@ -73,20 +74,20 @@ label {
 
 .server-header {
     grid-area: server-header;
-    background-color: var(--color-medium-grey);
+    background-color: var(--color-medium-grey-1);
     border-top-left-radius: 10px;
-    z-index: 1;
+    /* z-index: 1; */
 }
 
 .channel-header {
     grid-area: channel-header;
-    background-color: var(--color-light-grey);
+    background-color: var(--color-medium-grey-2);
     z-index: 1;
 }
 
 .right-sidebar {
     grid-area: right-sidebar;
-    background-color: var(--color-medium-grey);
+    background-color: var(--color-medium-grey-2);
 }
 
 .flex-center {
@@ -102,4 +103,8 @@ label {
 
 .shadow {
     box-shadow: 1px 0px 6px -2px black;
+}
+
+.tooltip {
+    position: absolute;
 }
