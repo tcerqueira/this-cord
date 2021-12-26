@@ -1,7 +1,7 @@
 const messagesList = document.getElementById('messages-list');
 
 const messages = [
-    { id: '19', author: 'lou', content: "Hellommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm", sentAt: '25/12/2021 at 18h30m', replyTo: { author: 'maninho', content: 'Hello oh maninho'}},
+    { id: '19', author: 'lou', content: "Hellommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm", sentAt: '25/12/2021 at 18h30m', reply: { author: 'maninho', content: 'Hello oh maninho'}},
     { id: '18', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
     { id: '17', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
     { id: '16', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
@@ -108,5 +108,14 @@ function renderMessageAuthor(messageItem, message)
 
 function renderReply(messageItem, reply)
 {
+    const div = document.createElement('div');
+    div.classList.add('reply-preview');
+    div.innerText = ': ' + reply.content;
 
+    const span = document.createElement('span');
+    span.classList.add('username');
+    span.innerText = '@' + reply.author;
+    div.insertBefore(span, div.childNodes[0]);
+
+    messageItem.insertBefore(div, messageItem.childNodes[0]);
 }
