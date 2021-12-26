@@ -64,6 +64,10 @@
     cursor: pointer;
 }
 
+.reply-preview:hover {
+    opacity: 1;
+}
+
 .message-author {
     position: relative;
     font-size: inherit;
