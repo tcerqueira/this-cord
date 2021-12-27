@@ -1,0 +1,110 @@
+*,
+::after,
+::before {
+    box-sizing: border-box;
+}
+
+:root {
+    /* color scheme */
+    --color-dark-grey:      #202225;
+    --color-medium-grey-1:  #2f3136;
+    --color-medium-grey-2:  #36393f;
+    --color-light-grey:     #40444b;
+    --color-light:          #ffffff;
+    --color-primary:        #7289da; 
+    /* fixed sizes */
+    --card-size: 3.5rem;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    color: var(--color-light);
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-primary);
+}
+
+ul, ol {
+    text-decoration: none;
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    width: 60%;
+    /* Set the hr color */
+    color: var(--color-light-grey); /* old IE */
+    background-color: var(--color-light-grey); /* Modern Browsers */
+}
+
+label {
+    color: var(--color-light-grey);
+}
+
+.global-container {
+    /* min-height: 850px; */
+    min-width: 1000px;
+    background-color: var(--color-dark-grey);
+}
+
+.default-container {
+    display: grid;
+    grid-template-columns: 5rem 16rem auto 16rem;
+    grid-template-rows: 4rem auto;
+    grid-template-areas: 
+        "primary-nav server-header channel-header channel-header"
+        "primary-nav secondary-nav main right-sidebar";
+    height: 100vh;
+}
+
+.settings-container {
+    display: grid;
+}
+
+.main-container {
+    background-color: green;
+}
+
+.server-header {
+    grid-area: server-header;
+    background-color: var(--color-medium-grey-1);
+    border-top-left-radius: 10px;
+    /* z-index: 1; */
+}
+
+.channel-header {
+    grid-area: channel-header;
+    background-color: var(--color-medium-grey-2);
+    z-index: 1;
+}
+
+.right-sidebar {
+    grid-area: right-sidebar;
+    background-color: var(--color-medium-grey-2);
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.shadow {
+    box-shadow: 1px 0px 6px -2px black;
+}
+
+.tooltip {
+    position: absolute;
+}

@@ -9,23 +9,22 @@ if($requestMethod != 'POST')
     exit();
 }
 
-$input = (array) json_decode(file_get_contents('php://input'), TRUE);
+if(!isAuthenticated())
+{
+    sendResponse(unauthorizedResponse());
+    exit();
+}
 
-if(!isset($input['id']) && !isset($input['username']))
+$input = (array) json_decode(file_get_contents('php://input'), TRUE);
+if(!isset($input['password']))
 {
     sendResponse(unprocessableEntityResponse());
     exit();
 }
 
 $controller = new UserController($dbConnection);
-if(isset($input['id']))
-{
-    $id = $input['id'];
-    $response = $controller->deleteUserById($id);
-}
-else {
-    $username = $input['username'];
-    $response = $controller->deleteUserByUsername($username);
-}
+$response = $controller->deleteUser($_SESSION['id'], $input['password']);
+setAuthenticated(false);
+
 sendResponse($response);
 ?>

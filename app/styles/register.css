@@ -1,0 +1,17 @@
+main {
+    padding-top: 25vh;
+    height: 100vh;
+
+    background-color: var(--color-light-grey);
+}
+
+.register-container {
+    border: solid 1px black;
+    max-width: 550px;
+    margin: 0 auto;
+
+    background-color: var(--color-dark-grey);
+}
+
+.register-inputs {
+}

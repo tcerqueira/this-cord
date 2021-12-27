@@ -19,15 +19,15 @@ class AuthenticationController
         if(!$result)
         {
             $response = internalServerErrorResponse();
+            return $response;
         }
-        $response['status_code_header'] = 'HTTP/1.1 201 Created';
-        $response['body'] = json_encode(Array('success' => true));
+        $response = okResponse();
         return $response;
     }
 
     public function signIn($username, $password)
     {
-        $result = $this->userGateway->find(0, $username);
+        $result = $this->userGateway->find('00000000-0000-0000-0000-000000000000', $username);
         $result = pg_fetch_assoc($result);
         $id = $result['id'];
         if(empty($id))
@@ -44,8 +44,7 @@ class AuthenticationController
 
     public function signOut($id)
     {
-        $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        $response['body'] = json_encode(Array('success' => true));
+        $response = okResponse();
         return $response;
     }
 
