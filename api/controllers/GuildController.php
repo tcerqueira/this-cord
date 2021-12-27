@@ -35,20 +35,31 @@ class GuildController
 
     public function createGuild($user_id, $input)
     {
-        $result = $this->guildGateway->insert([
+        $result_g = $this->guildGateway->insert([
             $input['guildname'],
             $input['initials'],
             $user_id,
             $input['open_invite_key'],
             $input['theme_color']
         ]);
-        if(!$result)
+        if(!$result_g)
         {
             $response = internalServerErrorResponse();
             return $response;
         }
-        $result = pg_fetch_assoc($result);
-        $response = okResponse(['guild_id' => $result['id']]);
+        $result_g = pg_fetch_assoc($result_g);
+        $result_m = $this->guildGateway->insertMember($result_g['id'], [
+            $user_id,
+            1,  // accepted
+            NULL,
+            2   // admin
+        ]);
+        if(!$result_m)
+        {
+            $response = internalServerErrorResponse('Problem inserting member.');
+            return $response;
+        }
+        $response = okResponse(['guild_id' => $result_g['id']]);
         return $response;
     }
 

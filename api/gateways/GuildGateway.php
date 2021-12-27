@@ -36,5 +36,13 @@ class GuildGateway
         $result = pg_query_params($this->db, $query, $input);
         return $result;
     }
+
+    public function insertMember($id, $input)
+    {
+        $query = "INSERT INTO guild_members (guild_id, member_id, invite_status, invite_sender, guild_role) ".
+                 "VALUES ($1, $2, $3, $4, $5);";
+        $result = pg_query_params($this->db, $query, array_merge([$id],$input));
+        return $result;
+    }
 }
 ?>
