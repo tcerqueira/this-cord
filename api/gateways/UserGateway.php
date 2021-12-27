@@ -15,7 +15,7 @@ class UserGateway
         return $result;
     }
 
-    public function find($id = 0, $username = 'NULL')
+    public function find($id = '', $username = 'NULL')
     {
         $query = "SELECT id, username, email, userstatus FROM this_user WHERE id=$1 OR username=$2;";
         $result = pg_query_params($this->db, $query, [$id, $username]);

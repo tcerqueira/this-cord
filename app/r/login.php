@@ -7,6 +7,7 @@ require 'scripts/StartSession.php';
 <head>
     <?php include "../components/head.php" ?>
     <link rel="stylesheet" href="../styles/login.css">
+    <script src="../javascript/login.js" defer></script>
 </head>
 <body>
 
@@ -16,9 +17,9 @@ require 'scripts/StartSession.php';
                 <div class="flex-center flex-column">
                     <h2>Welcome back!</h2>
                 </div>
-                <form class="flex-column" id="login-form" action="">
+                <form id="login-form" class="flex-column" action="">
                     <label for="username-input">Username</label>
-                    <input type="email" name="username" id="username-input">
+                    <input type="text" name="username" id="username-input">
                     <label for="password-input">Password</label>
                     <input type="password" name="password" id="password-input">
                     <a href="#">Forgot your password?</a>
