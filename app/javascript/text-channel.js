@@ -135,7 +135,7 @@ function renderReplying(replyTo)
 {
     const replyContainer = document.getElementById('reply-container');
     const channelContainer = document.querySelector('.text-channel-container');
-    document.getElementById('replyingToUsername').remove();
+    document.getElementById('replyingToUsername')?.remove();
     const replyingTo = createUsernameRef(replyTo, "#0000ff");
     replyingTo.id = 'replyingToUsername';
     document.querySelector('#reply-container > span').append(replyingTo);
