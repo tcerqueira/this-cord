@@ -18,7 +18,13 @@ require 'scripts/SendHeaders.php';
             alterar coisas
             
             <div class="esc">
-                X
+                <a href="#"> <img src="../public/esc.svg" alt="esc"></a>
+            </div>
+            <div id="my-account">
+
+            </div>
+            <div id="user-profile">
+                
             </div>
         </div>
         

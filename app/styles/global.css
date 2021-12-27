@@ -50,7 +50,7 @@ label {
 
 .global-container {
     /* min-height: 850px; */
-    min-width: 1000px;
+    /* min-width: 1000px; */
     background-color: var(--color-dark-grey);
 }
 
@@ -69,6 +69,7 @@ label {
     grid-template-columns: 20% 80%;
     grid-template-areas: 
         "nav-settings settings-display";
+    height: 100vh;
 }
 
 .main-container {
