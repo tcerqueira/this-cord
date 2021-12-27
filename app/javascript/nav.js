@@ -7,11 +7,11 @@ const userServers = [
 ];
 
 userServers.forEach((server) => {
-    const serverCard = createServerCard(server);
+    const serverCard = renderServerCard(server);
     serversContainer.append(serverCard);
 });
 
-function createServerCard(server)
+function renderServerCard(server)
 {
     const serverCard = document.createElement('div');
     serverCard.className = "side-card";
