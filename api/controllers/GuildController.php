@@ -16,6 +16,11 @@ class GuildController
 
     public function getGuild($id, $user_id)
     {
+        if(!$this->isMember($id, $user_id))
+        {
+            $response = forbiddenResponse();
+            return $response;
+        }
         $result = $this->guildGateway->find($id);
         $result = pg_fetch_assoc($result);
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
@@ -91,6 +96,17 @@ class GuildController
     public function updateMemberRole($id, $member_id, $requester_id)
     {
 
+    }
+
+    private function isMember($id, $user_id)
+    {
+        $result = $this->guildGateway->findMembers($id);
+        while($row = pg_fetch_assoc($result))
+        {
+            if($row['member_id'] == $user_id && $row['invite_status'] == 1)
+                return true;
+        }
+        return false;
     }
 }
 ?>

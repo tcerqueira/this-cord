@@ -20,7 +20,11 @@ class GuildGateway
 
     public function findMembers($id)
     {
-
+        $query = "SELECT DISTINCT member_id, invite_status ".
+                 "FROM guild_members ".
+                 "WHERE guild_id=$1;";
+        $result = pg_query_params($this->db, $query, [$id]);
+        return $result;
     }
 
     public function findAllOfMember($member_id)
