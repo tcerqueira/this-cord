@@ -1,6 +1,6 @@
 <?php
 require 'scripts/StartSession.php';
-require 'scripts/AuthenticationCheck.php';
+require 'scripts/NotAuthenticatedCheck.php';
 require 'scripts/SendHeaders.php';
 ?>
 

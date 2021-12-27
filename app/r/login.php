@@ -1,5 +1,7 @@
 <?php
 require 'scripts/StartSession.php';
+require 'scripts/IsAuthenticatedCheck.php';
+require 'scripts/SendHeaders.php';
 ?>
 
 <!DOCTYPE html>
