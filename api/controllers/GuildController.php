@@ -16,7 +16,8 @@ class GuildController
 
     public function getGuild($id, $user_id)
     {
-        if(!$this->isMember($id, $user_id))
+        $membership = $this->guildMembership($id, $user_id);
+        if(!$membership['is_member'])
         {
             $response = forbiddenResponse();
             return $response;
@@ -118,15 +119,15 @@ class GuildController
 
     }
 
-    private function isMember($id, $user_id)
+    private function guildMembership($id, $user_id)
     {
         $result = $this->guildGateway->findMembers($id);
         while($row = pg_fetch_assoc($result))
         {
             if($row['member_id'] == $user_id && $row['invite_status'] == 1)
-                return true;
+                return ['is_member' => true, 'role' => $row['guild_role']];
         }
-        return false;
+        return ['is_member' => false, 'role' => -1];
     }
 }
 ?>

@@ -20,7 +20,7 @@ class GuildGateway
 
     public function findMembers($id)
     {
-        $query = "SELECT DISTINCT member_id, username, userstatus, theme_color, invite_status ".
+        $query = "SELECT DISTINCT member_id, username, userstatus, theme_color, guild_role, invite_status ".
                  "FROM guild_members ".
                  "JOIN this_user ".
                  "ON id=member_id ".
