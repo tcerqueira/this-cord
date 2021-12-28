@@ -20,8 +20,10 @@ class GuildGateway
 
     public function findMembers($id)
     {
-        $query = "SELECT DISTINCT member_id, invite_status ".
+        $query = "SELECT DISTINCT member_id, username, userstatus, theme_color, invite_status ".
                  "FROM guild_members ".
+                 "JOIN this_user ".
+                 "ON id=member_id ".
                  "WHERE guild_id=$1;";
         $result = pg_query_params($this->db, $query, [$id]);
         return $result;
@@ -29,7 +31,13 @@ class GuildGateway
 
     public function findAllOfMember($member_id)
     {
-
+        $query = "SELECT guild.id, guildname, initials, theme_color ".
+                 "FROM guild_members ".
+                 "JOIN guild ".
+                 "ON guild.id=guild_id ".
+                 "WHERE member_id=$1;";
+        $result = pg_query_params($this->db, $query, [$member_id]);
+        return $result;
     }
 
     public function insert($input)

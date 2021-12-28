@@ -23,14 +23,21 @@ class GuildController
         }
         $result = $this->guildGateway->find($id);
         $result = pg_fetch_assoc($result);
-        $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        $response['body'] = json_encode($result);
+        $response = okResponse($result);
         return $response;
     }
 
     public function getGuildsByUser($user_id)
     {
-
+        $result = $this->guildGateway->findAllOfMember($user_id);
+        if(!$result)
+        {
+            $response = internalServerErrorResponse();
+            return $response;
+        }
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        $response['body'] = json_encode(pg_fetch_all($result));
+        return $response;
     }
 
     public function getUserRoles($id, $user_id)
@@ -78,9 +85,23 @@ class GuildController
 
     }
 
-    public function getMembers($id)
+    public function getMembers($id, $user_id)
     {
-        
+        $result = $this->guildGateway->findMembers($id);
+        $found = false;
+        while($row = pg_fetch_assoc($result))
+        {
+            if($row['member_id'] == $user_id && $row['invite_status'] == 1)
+                $found = true;
+        }
+
+        if(!$found)
+        {
+            $response = forbiddenResponse();
+            return $response;
+        }
+        $response['status_code_header'] = 'HTTP/1.1 200 OK';
+        // $repsonse['body']
     }
 
     public function inviteMember($id, $added_user_id, $invite_sender_id)
