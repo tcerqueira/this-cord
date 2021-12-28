@@ -66,4 +66,14 @@ function forbiddenResponse($error_msg = 'Permission denied.')
     ]);
     return $response;
 }
+
+function conflictResponse($error_msg = 'Resource already exists.')
+{
+    $response['status_code_header'] = 'HTTP/1.1 409 Conflict';
+    $response['body'] = json_encode([
+        'success' => false,
+        'error' => $error_msg
+    ]);
+    return $response;
+}
 ?>
