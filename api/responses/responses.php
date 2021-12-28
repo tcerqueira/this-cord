@@ -76,4 +76,14 @@ function conflictResponse($error_msg = 'Resource already exists.')
     ]);
     return $response;
 }
+
+function notFoundResponse($error_msg = 'Not found.')
+{
+    $response['status_code_header'] = 'HTTP/1.1 404 Not Found';
+    $response['body'] = json_encode([
+        'success' => false,
+        'error' => $error_msg
+    ]);
+    return $response;
+}
 ?>
