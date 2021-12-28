@@ -63,7 +63,7 @@ class GuildController
         $result_m = $this->guildGateway->insertMember($result_g['id'], [
             $user_id,
             1,  // accepted
-            NULL,
+            $user_id,
             2   // admin
         ]);
         if(!$result_m)
@@ -75,7 +75,7 @@ class GuildController
         return $response;
     }
 
-    public function updateGuild($id, $input)
+    public function updateGuild($id, Array $input)
     {
 
     }
@@ -126,6 +126,40 @@ class GuildController
         if(!$result)
         {
             $response = internalServerErrorResponse();
+            return $response;
+        }
+        $response = okResponse(['success' => true]);
+        return $response;
+    }
+
+    public function answerInvite($id, $user_id, bool $answer)
+    {
+        $membership = $this->guildMembership($id, $user_id);
+        if(!$membership['is_member'])
+        {
+            $response = notFoundResponse('Invite not found.');
+            return $response;
+        }
+        if($membership['invite_status'] != 0)
+        {
+            $response = conflictResponse('Invite already answered.');
+            return $response;
+        }
+        if($answer)
+        {
+            $result = $this->guildGateway->updateMember($id, $user_id, [
+                'invite_status' => 1,
+                'guild_role' => 0
+            ]);
+        }
+        else
+        {
+            $result = $this->guildGateway->deleteMember($id, $user_id);
+        }
+
+        if(!$result)
+        {
+            $response = internalServerErrorResponse('Problem answering invite.');
             return $response;
         }
         $response = okResponse(['success' => true]);
