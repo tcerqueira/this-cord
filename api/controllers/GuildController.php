@@ -106,7 +106,30 @@ class GuildController
 
     public function inviteMember($id, $added_user_id, $invite_sender_id)
     {
-
+        $membership = $this->guildMembership($id, $invite_sender_id);
+        if(!$membership['is_member'] || intval($membership['role']) < 1)
+        {
+            $response = forbiddenResponse();
+            return $response;
+        }
+        $membership = $this->guildMembership($id, $added_user_id);
+        if($membership['is_member']){
+            $response = conflictResponse();
+            return $response;
+        }
+        $result = $this->guildGateway->insertMember($id, [
+            'member_id' => $added_user_id,
+            'invite_status' => 0,
+            'invite_sender' => $invite_sender_id,
+            'guild_role' => 0
+        ]);
+        if(!$result)
+        {
+            $response = internalServerErrorResponse();
+            return $response;
+        }
+        $response = okResponse(['success' => true]);
+        return $response;
     }
 
     public function kickMember($id, $member_id, $requester_id)
@@ -124,10 +147,13 @@ class GuildController
         $result = $this->guildGateway->findMembers($id);
         while($row = pg_fetch_assoc($result))
         {
-            if($row['member_id'] == $user_id && $row['invite_status'] == 1)
-                return ['is_member' => true, 'role' => $row['guild_role']];
+            if($row['member_id'] == $user_id){
+                return ['is_member' => true,
+                        'invite_status' => $row['invite_status'],
+                        'role' => $row['guild_role']];
+            }
         }
-        return ['is_member' => false, 'role' => -1];
+        return ['is_member' => false];
     }
 }
 ?>
