@@ -58,13 +58,24 @@
     color: inherit;
 }
 
-.text-channel{  
+.text-channel{ 
+    --font-height: 1rem;
+    --padding-height: 0.5rem; 
     display: flex;
     justify-content: space-between;
     padding-left: 1rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     padding-right: 0.5rem;
+    height: calc(var(--font-height) + (2 * var(--padding-height)));
+}
+
+.text-channel-icons {
+    display: none;
+}
+
+.text-channel:hover .text-channel-icons {
+    display: block;
 }
 
 .title{

@@ -8,6 +8,7 @@ require 'scripts/SendHeaders.php';
 <html lang="en">
 <head>
     <?php include "../components/head.php" ?>
+    <script src="../javascript/secondary-nav.js" defer></script>
 </head>
 <body>
 

@@ -179,3 +179,8 @@ input[type=text]:focus {
     padding: 0.7rem 1rem;
     font-size: 1.2rem;
 }
+
+.icon-text-size {
+    height: 1rem;
+    width: 1rem;
+}
