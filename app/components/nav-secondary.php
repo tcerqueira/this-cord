@@ -7,7 +7,7 @@
                 <a href="#"><img src="../public/add_button.svg" alt="add_button"> </a>
             </div>
             <ul>
-                <li class="text-channel">
+                <li id="text-channel">
                     <a href="#"><span>text channel 1</span></a>
                     <div>
                         <a href="#"> <img src="../public/add_user.svg" alt="add_user"></a>

@@ -66,9 +66,9 @@ label {
 
 .settings-container {
     display: grid;
-    grid-template-columns: 20% 80%;
+    grid-template-columns: 20% 70% 10%;
     grid-template-areas: 
-        "nav-settings settings-display";
+        "nav-settings settings-display esc";
     height: 100vh;
 }
 

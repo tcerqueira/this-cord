@@ -1,8 +1,8 @@
 <nav class= "nav-settings">
     <div class="nav-settings-content">
         <ul>
-            <li><a href="#"> My Account</a></li>
-            <li><a href="#"> User Profile</a></li>
+            <li><a href="#my-account"> My Account</a></li>
+            <li><a href="#user-profile"> User Profile</a></li>
             <li><a href="#"> settingssss</a></li>
         </ul>
         <hr>
