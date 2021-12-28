@@ -71,7 +71,7 @@ class GuildController
             $response = internalServerErrorResponse('Problem inserting member.');
             return $response;
         }
-        $response = okResponse($result_g['id']);
+        $response = okResponse(['id' => $result_g['id']]);
         return $response;
     }
 

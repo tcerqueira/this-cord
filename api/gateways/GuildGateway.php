@@ -90,7 +90,10 @@ class GuildGateway
 
     public function deleteMember($id, $member_id)
     {
-        
+        $query = "DELETE FROM guild_members
+                 WHERE guild_id=$1 AND member_id=$2;";
+        $result = pg_query_params($this->db, $query, [$id, $member_id]);
+        return $result;
     }
 }
 ?>
