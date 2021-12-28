@@ -32,11 +32,10 @@ class GuildController
         $result = $this->guildGateway->findAllOfMember($user_id);
         if(!$result)
         {
-            $response = internalServerErrorResponse();
+            $response = internalServerErrorResponse('Problem finding guilds of member.');
             return $response;
         }
-        $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        $response['body'] = json_encode(pg_fetch_all($result));
+        $response = okResponse(pg_fetch_all($result));
         return $response;
     }
 
@@ -71,7 +70,7 @@ class GuildController
             $response = internalServerErrorResponse('Problem inserting member.');
             return $response;
         }
-        $response = okResponse(['guild_id' => $result_g['id']]);
+        $response = okResponse($result_g['id']);
         return $response;
     }
 
@@ -100,8 +99,8 @@ class GuildController
             $response = forbiddenResponse();
             return $response;
         }
-        $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        // $repsonse['body']
+        $response = okResponse(pg_fetch_all($result));
+        return $response;
     }
 
     public function inviteMember($id, $added_user_id, $invite_sender_id)
