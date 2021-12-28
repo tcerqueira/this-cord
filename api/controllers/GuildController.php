@@ -168,7 +168,20 @@ class GuildController
 
     public function kickMember($id, $member_id, $requester_id)
     {
-
+        $membership = $this->guildMembership($id, $requester_id);
+        if(!$membership['is_member'] || intval($membership['role']) < 1)
+        {
+            $response = forbiddenResponse();
+            return $response;
+        }
+        $result = $this->guildGateway->deleteMember($id, $member_id);
+        if(!$result)
+        {
+            $response = internalServerErrorResponse('Problem kicking member.');
+            return $response;
+        }
+        $response = okResponse(['success' => true]);
+        return $response;
     }
 
     public function updateMemberRole($id, $member_id, $requester_id)
