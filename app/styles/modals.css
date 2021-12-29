@@ -13,22 +13,54 @@
 }
 
 .modal-container {
+    /* z-index: 999; */
     border-radius: var(--border-radius-size);
     background-color: var(--color-black);
+    overflow: hidden;
 }
 
+/* ###################################################### USER ######################################################## */
+/* #################################################################################################################### */
 .user-modal {
     display: block;
-    padding: 1rem;
     margin: 5px;
     width: 100%;
-    max-width: 600px;
+    max-width: 500px;
 }
 
+.user-modal > header {
+    height: 10rem;
+}
+
+.user-modal > main {
+    padding: 1rem;
+}
+
+.user-theme-panel {
+    background-color: var(--user-bg-panel, var(--color-primary));
+    min-height: 50%;
+}
+
+.username-container {
+    display: flex;
+    justify-content: space-between;
+    height: 50%;
+    padding: 1.5rem 3rem;
+}
+
+.username-container > span {
+    font-size: 1.3rem;
+    color: var(--color-primary);
+}
+
+/* ##################################################### GUILD ######################################################## */
+/* #################################################################################################################### */
 .guild-modal {
     display: none;
 }
 
+/* ##################################################### CHANNEL ###################################################### */
+/* #################################################################################################################### */
 .channel-modal {
     display: none;
 }

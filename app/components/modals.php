@@ -2,13 +2,17 @@
     <div class="modal-container user-modal">
         <header>
             <div class="user-theme-panel"></div>
-            <span class="user-name"></span>
+            <div class="username-container">
+                <span>what</span>
+                <button class="button bg-green">Add</button>
+            </div>
         </header>
+        <hr>
         <main>
             <h3>About me</h3>
-            <p class="about-user"></p>
+            <p id="about-user"></p>
             <h3>Note</h3>
-            <p class="about-user"></p>
+            <p id="note-user"></p>
             <div class="text-input-container user-text-input">
                 <input type="text" id="direct-message-input" placeholder="Message directly">
             </div>
