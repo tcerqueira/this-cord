@@ -4,7 +4,7 @@
             <div id="theme-user-modal" class="theme-user-panel"></div>
             <div class="username-container">
                 <span id="username-user-modal">User</span>
-                <button class="button bg-green">Add</button>
+                <button id="add-remove-friend-btn" class="button bg-green">Add</button>
             </div>
         </header>
         <hr>

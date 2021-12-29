@@ -1,5 +1,4 @@
 const modalPane = document.querySelector('.modal-pane');
-let currentModal
 
 window.onclick = evt => {
     if(evt.target == modalPane)
@@ -28,17 +27,39 @@ document.getElementById('direct-message-input').addEventListener('keypress', evt
     }
 })
 
-function renderUserModal({username, theme_color, description, user_note})
+function renderUserModal(user)
 {
+    const {
+        id,
+        username,
+        theme_color,
+        description,
+        userstatus,
+        is_friend
+    } = user;
+    // = fetchUser
+    console.log(is_friend);
+    const user_note = localStorage.getItem(`note_${id}`);
+
     const usernameSpan = document.getElementById('username-user-modal');
     const themeDiv = document.getElementById('theme-user-modal');
     const aboutP = document.getElementById('about-user-modal');
     const noteP = document.getElementById('note-user-modal');
+    const friendBtn = document.getElementById('add-remove-friend-btn');
 
     usernameSpan.innerText = username;
+    usernameSpan.style = userstatus === '1' ? '--bg-color: var(--color-green);' : '--bg-color: var(--color-dark-grey);';
     themeDiv.style = `--user-bg-panel: ${theme_color};`;
     aboutP.innerText = description;
     noteP.innerText = user_note;
+    if(is_friend)
+    {
+        friendBtn.innerText = 'Remove';
+        // https://stackoverflow.com/questions/9251837/how-to-remove-all-listeners-in-an-element
+    }
+    else {
+        friendBtn.innerText = 'Add';
+    }
 }
 
 function openModal(elemId)
