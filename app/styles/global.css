@@ -152,6 +152,24 @@ input[type=text]:focus {
     text-decoration: underline;
 }
 
+.icon-card {
+    height: var(--side-size);
+    width: var(--side-size);
+    border-radius: 50%;
+}
+
+.icon-size-big {
+    --side-size: calc(var(--card-size) + 1rem);
+}
+
+.icon-size-medium {
+    --side-size: var(--card-size);
+}
+
+.icon-size-small {
+    --side-size: calc(var(--card-size) - 0.5rem);
+}
+
 /************************************* CSS utility classes *************************************/
 /***********************************************************************************************/
 .flex-center {
