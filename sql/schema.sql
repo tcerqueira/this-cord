@@ -25,7 +25,7 @@ CREATE TABLE text_channel (
     channelname VARCHAR(64) NOT NULL,
     guild_id UUID NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (guild_id) REFERENCES guild(id)
+    FOREIGN KEY (guild_id) REFERENCES guild(id) ON DELETE CASCADE
 );
 
 CREATE TABLE channel_message (
@@ -37,7 +37,7 @@ CREATE TABLE channel_message (
     content TEXT NOT NULL,
     -- attachment_id (???)
     PRIMARY KEY (id),
-    FOREIGN KEY (channel_id) REFERENCES text_channel(id)
+    FOREIGN KEY (channel_id) REFERENCES text_channel(id) ON DELETE CASCADE
 );
 
 CREATE TABLE guild_members (
@@ -47,8 +47,8 @@ CREATE TABLE guild_members (
     invite_sender UUID,
     guild_role INTEGER CHECK(guild_role >= 0 AND guild_role <= 2),
     PRIMARY KEY (guild_id, member_id),
-    FOREIGN KEY (guild_id) REFERENCES guild(id),
-    FOREIGN KEY (member_id) REFERENCES this_user(id) 
+    FOREIGN KEY (guild_id) REFERENCES guild(id) ON DELETE CASCADE,
+    FOREIGN KEY (member_id) REFERENCES this_user(id) ON DELETE CASCADE
 );
 
 CREATE TABLE this_friends (
@@ -57,9 +57,10 @@ CREATE TABLE this_friends (
     invite_status INTEGER DEFAULT 0 CHECK(invite_status >= 0 AND invite_status <= 1), -- 0 - invited; 1 - accepted
     request_sender UUID CHECK(friend_1=request_sender OR friend_2=request_sender),
     PRIMARY KEY (friend_1, friend_2),
-    FOREIGN KEY (friend_1) REFERENCES this_user(id),
-    FOREIGN KEY (friend_2) REFERENCES this_user(id),
-    FOREIGN KEY (request_sender) REFERENCES this_user(id),
+    FOREIGN KEY (friend_1) REFERENCES this_user(id) ON DELETE CASCADE,
+    FOREIGN KEY (friend_2) REFERENCES this_user(id) ON DELETE CASCADE,
+    FOREIGN KEY (request_sender) REFERENCES this_user(id) ON DELETE CASCADE,
     UNIQUE (friend_1, friend_2)
     -- CONSTRAINT U_Friendship UNIQUE (LEAST(friend_1, friend_2), GREATEST(friend_1, friend_2))
 );
+
