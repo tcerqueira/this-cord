@@ -8,5 +8,6 @@
 <link rel="stylesheet" href="../styles/modals.css">
 <!-- JavaScript -->
 <script src="../javascript/data-fetching.js" defer></script>
+<script src="../javascript/modals.js" defer></script>
 <script src="../javascript/nav.js" defer></script>
 <script src="../javascript/index.js" defer></script>
