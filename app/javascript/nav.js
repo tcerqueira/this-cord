@@ -17,6 +17,7 @@ function renderServerCard(server)
     serverCard.className = "icon-size-medium icon-card side-card";
     serverCard.dataset.tooltip = server.name;
     serverCard.innerText = server.initials;
+    serverCard.style = '--icon-bg-color: ' + server.theme_color + ';';
 
     return serverCard;
 }

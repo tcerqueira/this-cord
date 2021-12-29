@@ -21,7 +21,7 @@
     transition: border-radius 200ms ease-in-out,
                 background-color 100ms ease-in-out;
 
-    background-color: var(--color-medium-grey-1);
+    /* background-color: var(--color-medium-grey-1); */
     color: white;
 }
 
