@@ -3,11 +3,7 @@
 function okResponse(Array $fields = [])
 {
     $response['status_code_header'] = 'HTTP/1.1 200 OK';
-    $response['body'] = json_encode(array_merge([
-        'success' => true
-    ],
-        $fields
-    ));
+    $response['body'] = json_encode($fields);
     return $response;
 }
 
@@ -64,6 +60,26 @@ function unauthorizedResponse($error_msg = 'Authentication required.')
 function forbiddenResponse($error_msg = 'Permission denied.')
 {
     $response['status_code_header'] = 'HTTP/1.1 403 Forbidden';
+    $response['body'] = json_encode([
+        'success' => false,
+        'error' => $error_msg
+    ]);
+    return $response;
+}
+
+function conflictResponse($error_msg = 'Resource already exists.')
+{
+    $response['status_code_header'] = 'HTTP/1.1 409 Conflict';
+    $response['body'] = json_encode([
+        'success' => false,
+        'error' => $error_msg
+    ]);
+    return $response;
+}
+
+function notFoundResponse($error_msg = 'Not found.')
+{
+    $response['status_code_header'] = 'HTTP/1.1 404 Not Found';
     $response['body'] = json_encode([
         'success' => false,
         'error' => $error_msg

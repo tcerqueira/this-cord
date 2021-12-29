@@ -15,6 +15,7 @@ CREATE TABLE guild (
     initials VARCHAR(3) DEFAULT 'SRV',
     admin_id UUID NOT NULL,
     open_invite_key VARCHAR(64) DEFAULT 'this-cord',
+    theme_color CHAR(7) DEFAULT '#7289da',
     PRIMARY KEY (id),
     FOREIGN KEY (admin_id) REFERENCES this_user(id)
 );

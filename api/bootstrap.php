@@ -50,5 +50,10 @@ function setAuthenticated($bool)
 {
     $_SESSION['authenticated'] = $bool;
 }
+
+function getId()
+{
+    return $_SESSION['id'];
+}
     
 ?>

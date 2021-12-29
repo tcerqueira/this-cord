@@ -21,7 +21,7 @@ class AuthenticationController
             $response = internalServerErrorResponse();
             return $response;
         }
-        $response = okResponse();
+        $response = okResponse(['success' => true]);
         return $response;
     }
 
@@ -44,7 +44,7 @@ class AuthenticationController
 
     public function signOut($id)
     {
-        $response = okResponse();
+        $response = okResponse(['success' => true]);
         return $response;
     }
 
