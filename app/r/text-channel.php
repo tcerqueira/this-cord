@@ -12,7 +12,7 @@ require 'scripts/SendHeaders.php';
     <script src="../javascript/text-channel.js" defer></script>
 </head>
 <body>
-
+    <?php include '../components/modals.php'; ?>
     <div class="default-container global-container">
         <?php include '../components/nav-primary.php'; ?>
         <?php include '../components/nav-secondary.php'; ?>

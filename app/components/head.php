@@ -5,6 +5,7 @@
 <!-- CSS -->
 <link rel="stylesheet" href="../styles/global.css">
 <link rel="stylesheet" href="../styles/nav.css">
+<link rel="stylesheet" href="../styles/modals.css">
 <!-- JavaScript -->
 <script src="../javascript/data-fetching.js" defer></script>
 <script src="../javascript/nav.js" defer></script>

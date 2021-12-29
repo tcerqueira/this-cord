@@ -1,0 +1,34 @@
+.modal-pane {
+    display: flex; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    justify-content: center;
+    align-items: center;
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100vw; /* Full width */
+    height: 100vh; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-container {
+    border-radius: var(--border-radius-size);
+    background-color: var(--color-black);
+}
+
+.user-modal {
+    display: block;
+    padding: 1rem;
+    margin: 5px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.guild-modal {
+    display: none;
+}
+
+.channel-modal {
+    display: none;
+}
