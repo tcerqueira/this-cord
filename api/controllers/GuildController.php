@@ -78,9 +78,34 @@ class GuildController
         return $response;
     }
 
-    public function updateGuild($id, Array $input)
+    public function updateGuild($id, Array $input, $user_id)
     {
-
+        $result = $this->guildGateway->findExact($id);
+        $result = pg_fetch_assoc($result);
+        if(!$result)
+        {
+            $response = notFoundResponse('Guild not found.');
+            return $response;
+        }
+        if($result['admin_id'] != $user_id)
+        {
+            $response = forbiddenResponse();
+            return $response;
+        }
+        $update_in = [
+            'guildname' => isset($input['guildname']) ? $input['guildname'] : $result['guildname'],
+            'initials' => isset($input['initials']) ? $input['initials'] : $result['initials'],
+            'open_invite_key' => isset($input['open_invite_key']) ? $input['open_invite_key'] : $result['open_invite_key'],
+            'theme_color' => isset($input['theme_color']) ? $input['theme_color'] : $result['theme_color']
+        ];
+        $result = $this->guildGateway->update($id, $update_in);
+        if(!$result)
+        {
+            $response = internalServerErrorResponse('Problem updating guild.');
+            return $response;
+        }
+        $response = okResponse(['success' => true]);
+        return $response;
     }
 
     public function deleteGuild($id, $user_id)

@@ -20,6 +20,13 @@ class GuildGateway
         return $result;
     }
 
+    public function findExact($id)
+    {
+        $query = "SELECT * FROM guild WHERE id=$1;";
+        $result = pg_query_params($this->db, $query, [$id]);
+        return $result;
+    }
+
     public function findMembers($id)
     {
         // $query = "SELECT DISTINCT member_id, member.username, member.userstatus, member.theme_color, guild_role,invite_status, inviter.username 
@@ -66,6 +73,15 @@ class GuildGateway
                  "VALUES ($1, $2, $3, $4, $5) ".
                  "RETURNING id;";
         $result = pg_query_params($this->db, $query, $input);
+        return $result;
+    }
+
+    public function update($id, Array $input)
+    {
+        $query = "UPDATE guild
+                SET guildname=$2, initials=$3, open_invite_key=$4, theme_color=$5
+                WHERE id=$1;";
+        $result = pg_query_params($this->db, $query, array_merge([$id],$input));
         return $result;
     }
 
