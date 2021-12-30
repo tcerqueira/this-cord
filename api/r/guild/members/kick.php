@@ -1,5 +1,5 @@
 <?php
-require "../../bootstrap.php";
+require "../../../bootstrap.php";
 use controllers\GuildController;
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
@@ -24,7 +24,6 @@ if(!isset($input['guild_id']) ||
 }
 
 $controller = new GuildController($dbConnection);
-// TODO dont allow kick admin of guild
 $response = $controller->kickMember($input['guild_id'], $input['member_id'], getId());
 
 sendResponse($response);

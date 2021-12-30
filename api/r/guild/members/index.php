@@ -1,5 +1,5 @@
 <?php
-require_once '../../bootstrap.php';
+require_once '../../../bootstrap.php';
 use controllers\GuildController;
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
