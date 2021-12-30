@@ -108,7 +108,7 @@ class GuildController
         return $response;
     }
 
-    public function deleteGuild($id, $user_id)
+    public function deleteGuild($id, $user_id, $password)
     {
 
     }
@@ -196,7 +196,32 @@ class GuildController
 
     public function openInvite($id, $user_id, $key)
     {
-
+        $membership = $this->guildMembership($id, $user_id);
+        if($membership['is_member'])
+        {
+            $response = conflictResponse('Already a member or invited.');
+            return $response;
+        }
+        $result = $this->guildGateway->findExact($id);
+        $result = pg_fetch_assoc($result);
+        if(!$result || $result['open_invite_key'] != $key)
+        {
+            $response = forbiddenResponse();
+            return $response;
+        }
+        $result = $this->guildGateway->insertMember($id, [
+            'member_id' => $user_id,
+            'invite_status' => 1,
+            'invite_sender' => $result['admin_id'],
+            'guild_role' => 0
+        ]);
+        if(!$result)
+        {
+            $response = internalServerErrorResponse('Problem joining with open invite key.');
+            return $response;
+        }
+        $response = okResponse(['success' => true]);
+        return $response;
     }
 
     public function kickMember($id, $member_id, $requester_id)
