@@ -2,17 +2,18 @@
 namespace controllers;
 use gateways\GuildGateway;
 use gateways\UserGateway;
-use GuzzleHttp\Psr7\Response;
 
 class GuildController
 {
     private $db;
     private $guildGateway;
+    // private $authorization;
 
     public function __construct($db)
     {
         $this->db = $db;
         $this->guildGateway = new GuildGateway($db);
+        // $this->authorization = new AuthorizationController($db);
     }
 
     public function getGuild($id, $user_id)

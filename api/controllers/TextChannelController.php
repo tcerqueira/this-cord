@@ -6,13 +6,11 @@ class TextChannelController
 {
     private $db;
     private $textChannelGateway;
-    private $id;
 
-    public function __construct($db, $channel_id)
+    public function __construct($db)
     {
         $this->db = $db;
         $this->textChannelGateway = new TextChannelGateway($db);
-        $this->id = $channel_id;
     }
 
     public function getAllFromGuild($guild_id)
@@ -20,17 +18,22 @@ class TextChannelController
         
     }
 
-    public function createTextChannel($input)
+    public function getTextChannel($id)
     {
 
     }
 
-    public function updateTextChannel($input)
+    public function createTextChannel($guild_id, $user_id, $input)
     {
 
     }
 
-    public function deleteTextChannel($channel_id)
+    public function updateTextChannel($id, $user_id, $input)
+    {
+
+    }
+
+    public function deleteTextChannel($id, $user_id)
     {
 
     }
