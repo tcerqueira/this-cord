@@ -200,7 +200,6 @@ class GuildController
         $membership = $this->guildMembership($id, $old_admin);
         if(!$membership['is_member'] || $membership['invite_status'] != 1 || $membership['role'] != 2)
         {
-            var_dump($membership);
             $response = forbiddenResponse();
             return $response;
         }
@@ -209,7 +208,6 @@ class GuildController
         $result = pg_fetch_assoc($result);
         if(!password_verify($password, $result['pass']))
         {
-            echo 'second';
             $response = forbiddenResponse();
             return $response;
         }
@@ -220,9 +218,28 @@ class GuildController
         return $response;
     }
 
-    public function updateMemberRole($id, $member_id, $requester_id)
+    public function updateMemberRole($id, $member_id, $guild_role, $requester_id)
     {
-
+        $membership = $this->guildMembership($id, $requester_id);
+        if(!$membership['is_member'] || $membership['role'] != 2)
+        {
+            $response = forbiddenResponse();
+            return $response;
+        }
+        $membership = $this->guildMembership($id, $member_id);
+        if(!$membership['is_member'] || $membership['role'] == 2)
+        {
+            $response = forbiddenResponse();
+            return $response;
+        }
+        $result = $this->guildGateway->updateMember($id, $member_id, [1,$guild_role]);
+        if(!$result)
+        {
+            $response = internalServerErrorResponse('Problem updating member role.');
+            return $response;
+        }
+        $response = okResponse(['success' => true]);
+        return $response;
     }
 
     private function guildMembership($id, $user_id)
