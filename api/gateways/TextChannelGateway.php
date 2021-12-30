@@ -26,5 +26,12 @@ class TextChannelGateway
         $result = pg_query_params($this->db, $query, [$id]);
         return $result;
     }
+
+    public function findAllOfGuild($guild_id)
+    {
+        $query = "SELECT * FROM text_channel WHERE guild_id=$1;";
+        $result = pg_query_params($this->db, $query, [$guild_id]);
+        return $result;
+    }
 }
 ?>

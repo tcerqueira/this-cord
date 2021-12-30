@@ -22,8 +22,8 @@ class AuthorizationController
         {
             if($row['member_id'] == $user_id){
                 return ['is_member' => true,
-                        'invite_status' => $row['invite_status'],
-                        'role' => $row['guild_role']];
+                        'invite_status' => intval($row['invite_status']),
+                        'role' => intval($row['guild_role'])];
             }
         }
         return ['is_member' => false];
