@@ -31,12 +31,9 @@ if(!isset($_GET['guild_id']) && !isset($_GET['channel_id']))
 
 $authorization = new AuthorizationController($dbConnection);
 if(isset($_GET['channel_id']))
-{
     $membebership = $authorization->membershipByChannel($_GET['channel_id'], getId());
-}
-else {
+else
     $membebership = $authorization->membershipByGuild($_GET['guild_id'], getId());
-}
 
 if(!$membebership['is_member'] || $membebership['invite_status'] != 1)
 {
@@ -46,12 +43,9 @@ if(!$membebership['is_member'] || $membebership['invite_status'] != 1)
 
 $controller = new TextChannelController($dbConnection);
 if(isset($_GET['channel_id']))
-{
     $response = $controller->getTextChannel($_GET['channel_id']);
-}
-else {
+else
     $response = $controller->getAllFromGuild($_GET['guild_id']);
-}
 
 sendResponse($response);
 ?>
