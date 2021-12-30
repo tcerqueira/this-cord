@@ -110,7 +110,26 @@ class GuildController
 
     public function deleteGuild($id, $user_id, $password)
     {
+        $membership = $this->guildMembership($id, $user_id);
+        if(!$membership['is_member'] || $membership['role'] != 2)
+        {
+            $response = forbiddenResponse();
+            return $response;
+        }
 
+        if(!$this->validatePassword($user_id, $password))
+        {
+            $response = forbiddenResponse();
+            return $response;
+        }
+        $result = $this->guildGateway->delete($id);
+        if(!$result)
+        {
+            $response = internalServerErrorResponse('Problem deleting guild.');
+            return $response;
+        }
+        $response = okResponse(['success' => true]);
+        return $response;
     }
 
     public function getMembers($id, $user_id)
@@ -256,10 +275,8 @@ class GuildController
             $response = forbiddenResponse();
             return $response;
         }
-        $userGateway = new UserGateway($this->db);
-        $result = $userGateway->getPassword($old_admin);
-        $result = pg_fetch_assoc($result);
-        if(!password_verify($password, $result['pass']))
+        
+        if(!$this->validatePassword($old_admin, $password))
         {
             $response = forbiddenResponse();
             return $response;
@@ -307,6 +324,14 @@ class GuildController
             }
         }
         return ['is_member' => false];
+    }
+
+    private function validatePassword($user_id, $password)
+    {
+        $userGateway = new UserGateway($this->db);
+        $result = $userGateway->getPassword($user_id);
+        $result = pg_fetch_assoc($result);
+        return password_verify($password, $result['pass']);
     }
 }
 ?>

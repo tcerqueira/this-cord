@@ -85,6 +85,13 @@ class GuildGateway
         return $result;
     }
 
+    public function delete($id)
+    {
+        $query = "DELETE FROM guild WHERE id=$1;";
+        $result = pg_query_params($this->db, $query, [$id]);
+        return $result;
+    }
+
     public function updateAdmin($id, $user_id)
     {
         $query = "UPDATE guild SET admin_id=$1 WHERE id=$2;";

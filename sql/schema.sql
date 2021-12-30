@@ -38,7 +38,7 @@ CREATE TABLE channel_message (
     content TEXT NOT NULL,
     -- attachment_id (???)
     PRIMARY KEY (id),
-    FOREIGN KEY (channel_id) REFERENCES text_channel(id) ON DELETE CASCADE
+    FOREIGN KEY (channel_id) REFERENCES text_channel(id) ON DELETE CASCADE,
 );
 
 CREATE TABLE guild_members (
