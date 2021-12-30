@@ -7,18 +7,18 @@ class GuildController
 {
     private $db;
     private $guildGateway;
-    // private $authorization;
+    private $authorization;
 
     public function __construct($db)
     {
         $this->db = $db;
         $this->guildGateway = new GuildGateway($db);
-        // $this->authorization = new AuthorizationController($db);
+        $this->authorization = new AuthorizationController($db);
     }
 
     public function getGuild($id, $user_id)
     {
-        $membership = $this->guildMembership($id, $user_id);
+        $membership = $this->authorization->membershipByGuild($id, $user_id);
         if(!$membership['is_member'])
         {
             $response = forbiddenResponse();
@@ -111,7 +111,7 @@ class GuildController
 
     public function deleteGuild($id, $user_id, $password)
     {
-        $membership = $this->guildMembership($id, $user_id);
+        $membership = $this->authorization->membershipByGuild($id, $user_id);
         if(!$membership['is_member'] || $membership['role'] != 2)
         {
             $response = forbiddenResponse();
@@ -154,13 +154,13 @@ class GuildController
 
     public function inviteMember($id, $added_user_id, $invite_sender_id)
     {
-        $membership = $this->guildMembership($id, $invite_sender_id);
+        $membership = $this->authorization->membershipByGuild($id, $invite_sender_id);
         if(!$membership['is_member'] || intval($membership['role']) < 1)
         {
             $response = forbiddenResponse();
             return $response;
         }
-        $membership = $this->guildMembership($id, $added_user_id);
+        $membership = $this->authorization->membershipByGuild($id, $added_user_id);
         if($membership['is_member']){
             $response = conflictResponse();
             return $response;
@@ -182,7 +182,7 @@ class GuildController
 
     public function answerInvite($id, $user_id, bool $answer)
     {
-        $membership = $this->guildMembership($id, $user_id);
+        $membership = $this->authorization->membershipByGuild($id, $user_id);
         if(!$membership['is_member'])
         {
             $response = notFoundResponse('Invite not found.');
@@ -216,7 +216,7 @@ class GuildController
 
     public function openInvite($id, $user_id, $key)
     {
-        $membership = $this->guildMembership($id, $user_id);
+        $membership = $this->authorization->membershipByGuild($id, $user_id);
         if($membership['is_member'])
         {
             $response = conflictResponse('Already a member or invited.');
@@ -246,13 +246,13 @@ class GuildController
 
     public function kickMember($id, $member_id, $requester_id)
     {
-        $membership = $this->guildMembership($id, $requester_id);
+        $membership = $this->authorization->membershipByGuild($id, $requester_id);
         if(!$membership['is_member'] || intval($membership['role']) < 1)
         {
             $response = forbiddenResponse();
             return $response;
         }
-        $membership = $this->guildMembership($id, $member_id);
+        $membership = $this->authorization->membershipByGuild($id, $member_id);
         if(!$membership['is_member'] || intval($membership['role']) == 2)
         {
             $response = forbiddenResponse();
@@ -270,7 +270,7 @@ class GuildController
 
     public function transferAdmin($id, $new_admin, $old_admin, $password)
     {
-        $membership = $this->guildMembership($id, $old_admin);
+        $membership = $this->authorization->membershipByGuild($id, $old_admin);
         if(!$membership['is_member'] || $membership['invite_status'] != 1 || $membership['role'] != 2)
         {
             $response = forbiddenResponse();
@@ -291,13 +291,13 @@ class GuildController
 
     public function updateMemberRole($id, $member_id, $guild_role, $requester_id)
     {
-        $membership = $this->guildMembership($id, $requester_id);
+        $membership = $this->authorization->membershipByGuild($id, $requester_id);
         if(!$membership['is_member'] || $membership['role'] != 2)
         {
             $response = forbiddenResponse();
             return $response;
         }
-        $membership = $this->guildMembership($id, $member_id);
+        $membership = $this->authorization->membershipByGuild($id, $member_id);
         if(!$membership['is_member'] || $membership['role'] == 2)
         {
             $response = forbiddenResponse();
