@@ -11,9 +11,18 @@ class GuildGateway
 
     public function find($id)
     {
-        $query = "SELECT id,guildname,initials,admin_id,theme_color ".
-                 "FROM guild ".
-                 "WHERE id=$1;";
+        $query = "SELECT guild.id,guildname,initials,admin_id,this_user.username AS admin_username,guild.theme_color
+                 FROM guild
+                 JOIN this_user
+                 ON admin_id=this_user.id
+                 WHERE guild.id=$1;";
+        $result = pg_query_params($this->db, $query, [$id]);
+        return $result;
+    }
+
+    public function findExact($id)
+    {
+        $query = "SELECT * FROM guild WHERE id=$1;";
         $result = pg_query_params($this->db, $query, [$id]);
         return $result;
     }
@@ -53,7 +62,7 @@ class GuildGateway
                  "FROM guild_members ".
                  "JOIN guild ".
                  "ON guild.id=guild_id ".
-                 "WHERE member_id=$1;";
+                 "WHERE member_id=$1 AND invite_status=1;";
         $result = pg_query_params($this->db, $query, [$member_id]);
         return $result;
     }
@@ -64,6 +73,29 @@ class GuildGateway
                  "VALUES ($1, $2, $3, $4, $5) ".
                  "RETURNING id;";
         $result = pg_query_params($this->db, $query, $input);
+        return $result;
+    }
+
+    public function update($id, Array $input)
+    {
+        $query = "UPDATE guild
+                SET guildname=$2, initials=$3, open_invite_key=$4, theme_color=$5
+                WHERE id=$1;";
+        $result = pg_query_params($this->db, $query, array_merge([$id],$input));
+        return $result;
+    }
+
+    public function delete($id)
+    {
+        $query = "DELETE FROM guild WHERE id=$1;";
+        $result = pg_query_params($this->db, $query, [$id]);
+        return $result;
+    }
+
+    public function updateAdmin($id, $user_id)
+    {
+        $query = "UPDATE guild SET admin_id=$1 WHERE id=$2;";
+        $result = pg_query_params($this->db, $query, [$id, $user_id]);
         return $result;
     }
 

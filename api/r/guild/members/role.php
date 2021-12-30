@@ -1,5 +1,5 @@
 <?php
-require "../../bootstrap.php";
+require "../../../bootstrap.php";
 use controllers\GuildController;
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
@@ -17,14 +17,15 @@ if(!isAuthenticated())
 
 $input = (Array) json_decode(file_get_contents('php://input'), TRUE);
 if(!isset($input['guild_id']) ||
-    !isset($input['member_id']))
+    !isset($input['member_id']) ||
+    !isset($input['guild_role']))
 {
     sendResponse(unprocessableEntityResponse());
     exit();
 }
 
 $controller = new GuildController($dbConnection);
-$response = $controller->kickMember($input['guild_id'], $input['member_id'], getId());
+$response = $controller->updateMemberRole($input['guild_id'], $input['member_id'], intval($input['guild_role']), getId());
 
 sendResponse($response);
 ?>

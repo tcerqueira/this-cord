@@ -1,5 +1,5 @@
 <?php
-require "../../bootstrap.php";
+require "../../../bootstrap.php";
 use controllers\GuildController;
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
@@ -17,14 +17,14 @@ if(!isAuthenticated())
 
 $input = (Array) json_decode(file_get_contents('php://input'), TRUE);
 if(!isset($input['guild_id']) ||
-    !isset($input['added_user_id']))
+    !isset($input['answer']))
 {
     sendResponse(unprocessableEntityResponse());
     exit();
 }
 
 $controller = new GuildController($dbConnection);
-$response = $controller->inviteMember($input['guild_id'], $input['added_user_id'], getId());
+$response = $controller->answerInvite($input['guild_id'], getId(), $input['answer']);
 
 sendResponse($response);
 ?>
