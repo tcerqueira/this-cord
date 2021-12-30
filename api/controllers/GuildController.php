@@ -1,6 +1,7 @@
 <?php
 namespace controllers;
 use gateways\GuildGateway;
+use gateways\UserGateway;
 use GuzzleHttp\Psr7\Response;
 
 class GuildController
@@ -36,7 +37,11 @@ class GuildController
             $response = internalServerErrorResponse('Problem finding guilds of member.');
             return $response;
         }
-        $response = okResponse(pg_fetch_all($result));
+        $result = pg_fetch_all($result);
+        if(!$result)
+            $response = okResponse([]);
+        else
+            $response = okResponse($result);
         return $response;
     }
 
@@ -180,6 +185,31 @@ class GuildController
             $response = internalServerErrorResponse('Problem kicking member.');
             return $response;
         }
+        $response = okResponse(['success' => true]);
+        return $response;
+    }
+
+    public function transferAdmin($id, $new_admin, $old_admin, $password)
+    {
+        $membership = $this->guildMembership($id, $old_admin);
+        if(!$membership['is_member'] || $membership['invite_status'] != 1 || $membership['role'] != 2)
+        {
+            var_dump($membership);
+            $response = forbiddenResponse();
+            return $response;
+        }
+        $userGateway = new UserGateway($this->db);
+        $result = $userGateway->getPassword($old_admin);
+        $result = pg_fetch_assoc($result);
+        if(!password_verify($password, $result['pass']))
+        {
+            echo 'second';
+            $response = forbiddenResponse();
+            return $response;
+        }
+        $result = $this->guildGateway->updateAdmin($id, $new_admin);
+        $result = $this->guildGateway->updateMember($id, $new_admin, [1,2]); // 1:accepted invite; 2:admin role
+        $result = $this->guildGateway->updateMember($id, $old_admin, [1,1]); // 1:accepted invite; 1:mod role
         $response = okResponse(['success' => true]);
         return $response;
     }

@@ -53,7 +53,7 @@ class GuildGateway
                  "FROM guild_members ".
                  "JOIN guild ".
                  "ON guild.id=guild_id ".
-                 "WHERE member_id=$1;";
+                 "WHERE member_id=$1 AND invite_status=1;";
         $result = pg_query_params($this->db, $query, [$member_id]);
         return $result;
     }
@@ -64,6 +64,13 @@ class GuildGateway
                  "VALUES ($1, $2, $3, $4, $5) ".
                  "RETURNING id;";
         $result = pg_query_params($this->db, $query, $input);
+        return $result;
+    }
+
+    public function updateAdmin($id, $user_id)
+    {
+        $query = "UPDATE guild SET admin_id=$1 WHERE id=$2;";
+        $result = pg_query_params($this->db, $query, [$id, $user_id]);
         return $result;
     }
 

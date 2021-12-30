@@ -17,15 +17,15 @@ if(!isAuthenticated())
 
 $input = (Array) json_decode(file_get_contents('php://input'), TRUE);
 if(!isset($input['guild_id']) ||
-    !isset($input['member_id']))
+    !isset($input['new_admin']) ||
+    !isset($input['password']))
 {
     sendResponse(unprocessableEntityResponse());
     exit();
 }
 
 $controller = new GuildController($dbConnection);
-// TODO dont allow kick admin of guild
-$response = $controller->kickMember($input['guild_id'], $input['member_id'], getId());
+$response = $controller->transferAdmin($input['guild_id'], $input['new_admin'], getId(), $input['password']);
 
 sendResponse($response);
 ?>
