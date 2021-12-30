@@ -11,9 +11,11 @@ class GuildGateway
 
     public function find($id)
     {
-        $query = "SELECT id,guildname,initials,admin_id,theme_color ".
-                 "FROM guild ".
-                 "WHERE id=$1;";
+        $query = "SELECT guild.id,guildname,initials,admin_id,this_user.username AS admin_username,guild.theme_color
+                 FROM guild
+                 JOIN this_user
+                 ON admin_id=this_user.id
+                 WHERE guild.id=$1;";
         $result = pg_query_params($this->db, $query, [$id]);
         return $result;
     }

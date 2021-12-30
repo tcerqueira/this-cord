@@ -25,7 +25,10 @@ class GuildController
         }
         $result = $this->guildGateway->find($id);
         $result = pg_fetch_assoc($result);
-        $response = okResponse($result);
+        if(!$result)
+            $response = notFoundResponse();
+        else
+            $response = okResponse($result);
         return $response;
     }
 
@@ -43,11 +46,6 @@ class GuildController
         else
             $response = okResponse($result);
         return $response;
-    }
-
-    public function getUserRoles($id, $user_id)
-    {
-
     }
 
     public function createGuild($user_id, $input)
@@ -169,6 +167,11 @@ class GuildController
         }
         $response = okResponse(['success' => true]);
         return $response;
+    }
+
+    public function openInvite($id, $user_id, $key)
+    {
+
     }
 
     public function kickMember($id, $member_id, $requester_id)
