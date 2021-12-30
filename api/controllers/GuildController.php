@@ -179,6 +179,12 @@ class GuildController
             $response = forbiddenResponse();
             return $response;
         }
+        $membership = $this->guildMembership($id, $member_id);
+        if(!$membership['is_member'] || intval($membership['role']) == 2)
+        {
+            $response = forbiddenResponse();
+            return $response;
+        }
         $result = $this->guildGateway->deleteMember($id, $member_id);
         if(!$result)
         {
