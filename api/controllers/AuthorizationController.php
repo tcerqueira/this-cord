@@ -53,7 +53,8 @@ class AuthorizationController
             return ['is_member' => false];
         }
         
-        return $this->membershipByGuild($result['id'], $user_id);
+        return array_merge(['is_author' => $result['author_id'] == $user_id],
+            $this->membershipByGuild($result['id'], $user_id));
     }
 
     public function validatePassword($user_id, $password)
