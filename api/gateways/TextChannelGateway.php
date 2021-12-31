@@ -40,5 +40,12 @@ class TextChannelGateway
         $result = pg_query_params($this->db, $query, $input);
         return $result;
     }
+
+    public function update($id, $input)
+    {
+        $query = "UPDATE text_channel SET channelname=$2 WHERE id=$1;";
+        $result = pg_query_params($this->db, $query, array_merge([$id], $input));
+        return $result;
+    }
 }
 ?>

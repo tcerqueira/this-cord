@@ -21,7 +21,8 @@ class TextChannelController
             $response = internalServerErrorResponse('Problem retrieving text channels.');
             return $response;
         }
-        $response = okResponse(pg_fetch_all($result));
+        $result = pg_fetch_all($result);
+        $response = okResponse($result);
         return $response;
     }
 
@@ -33,7 +34,9 @@ class TextChannelController
             $response = internalServerErrorResponse('Problem retrieving text channel.');
             return $response;
         }
-        $response = okResponse(pg_fetch_assoc($result));
+        $result = pg_fetch_assoc($result);
+        // $result['is_direct_message'] = $result['is_direct_message'] == 't';
+        $response = okResponse($result);
         return $response;
     }
 
@@ -54,14 +57,23 @@ class TextChannelController
         return $response;
     }
 
-    public function updateTextChannel($id, $user_id, $input)
+    public function updateTextChannel($id, $input)
     {
-
+        $result = $this->channelGateway->update($id, [
+            'channelname' => $input['channelname']
+        ]);
+        if(!$result)
+        {
+            $response = internalServerErrorResponse('Problem updating channel.');
+            return $response;
+        }
+        $response = okResponse(['success' => true]);
+        return $response;
     }
 
     public function deleteTextChannel($id, $user_id)
     {
-
+        
     }
 }
 ?>
