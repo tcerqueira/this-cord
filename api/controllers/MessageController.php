@@ -64,7 +64,7 @@ class MessageController
         ]);
         if(!$result)
         {
-            $response = internalServerErrorResponse('Problem sending message.');
+            $response = internalServerErrorResponse('Problem editing message.');
             return $response;
         }
         $response = okResponse(['success' => true]);
@@ -73,7 +73,14 @@ class MessageController
 
     public function deleteMessage($id)
     {
-
+        $result = $this->messageGateway->delete($id);
+        if(!$result)
+        {
+            $response = internalServerErrorResponse('Problem deleting message.');
+            return $response;
+        }
+        $response = okResponse(['success' => true]);
+        return $response;
     }
 }
 ?>
