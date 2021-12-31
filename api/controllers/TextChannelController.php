@@ -22,7 +22,7 @@ class TextChannelController
             return $response;
         }
         $result = pg_fetch_all($result);
-        $response = okResponse($result);
+        $response = okResponse($result ? $result : []);
         return $response;
     }
 

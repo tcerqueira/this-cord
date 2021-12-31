@@ -42,10 +42,7 @@ class GuildController
             return $response;
         }
         $result = pg_fetch_all($result);
-        if(!$result)
-            $response = okResponse([]);
-        else
-            $response = okResponse($result);
+        $response = okResponse($result ? $result : []);
         return $response;
     }
 
@@ -148,7 +145,8 @@ class GuildController
             $response = forbiddenResponse();
             return $response;
         }
-        $response = okResponse(pg_fetch_all($result));
+        $result = pg_fetch_all($result);
+        $response = okResponse($result ? $result : []);
         return $response;
     }
 
