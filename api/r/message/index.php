@@ -31,11 +31,11 @@ if(!isset($_GET['channel_id']) && !isset($_GET['message_id']))
 
 $authorization = new AuthorizationController($dbConnection);
 if(isset($_GET['message_id']))
-    $membebership = $authorization->membershipByMessage($_GET['message_id'], getId());
+    $membership = $authorization->membershipByMessage($_GET['message_id'], getId());
 else
-    $membebership = $authorization->membershipByChannel($_GET['channel_id'], getId());
+    $membership = $authorization->membershipByChannel($_GET['channel_id'], getId());
 
-if(!$membebership['is_member'] || $membebership['invite_status'] != 1)
+if(!$membership['is_member'] || $membership['invite_status'] != 1)
 {
     sendResponse(forbiddenResponse());
     exit();

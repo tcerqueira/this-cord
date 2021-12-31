@@ -28,8 +28,8 @@ if(!isset($input['channel_id']) ||
 }
 
 $authorization = new AuthorizationController($dbConnection);
-$membebership = $authorization->membershipByChannel($input['channel_id'], getId());
-if(!$membebership['is_member'])
+$membership = $authorization->membershipByChannel($input['channel_id'], getId());
+if(!$membership['is_member'])
 {
     sendResponse(forbiddenResponse());
     exit();
