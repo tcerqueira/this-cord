@@ -11,14 +11,21 @@ class UserGateway
 
     public function findAll()
     {
-        $result = pg_exec($this->db, "SELECT id, username, email, userstatus FROM this_user;");
+        $result = pg_exec($this->db, "SELECT id, username, userstatus, theme_color, user_description FROM this_user;");
         return $result;
     }
 
-    public function find($id = '', $username = 'NULL')
+    public function find($id)
     {
-        $query = "SELECT id, username, email, userstatus FROM this_user WHERE id=$1 OR username=$2;";
-        $result = pg_query_params($this->db, $query, [$id, $username]);
+        $query = "SELECT id, username, userstatus, theme_color, user_description FROM this_user WHERE id=$1;";
+        $result = pg_query_params($this->db, $query, [$id]);
+        return $result;
+    }
+
+    public function findByUsername($username)
+    {
+        $query = "SELECT id, username, userstatus, theme_color, user_description FROM this_user WHERE username LIKE $1 LIMIT 50;";
+        $result = pg_query_params($this->db, $query, ['%'.$username.'%']);
         return $result;
     }
 
@@ -36,10 +43,10 @@ class UserGateway
         return $result;
     }
 
-    public function delete($id = 0, $username = 'NULL')
+    public function delete($id)
     {
-        $query = "DELETE FROM this_user WHERE id=$1 OR username=$2;";
-        $result = pg_query_params($this->db, $query, [$id, $username]);
+        $query = "DELETE FROM this_user WHERE id=$1;";
+        $result = pg_query_params($this->db, $query, [$id]);
         return $result;
     }
 

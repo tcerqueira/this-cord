@@ -1,6 +1,7 @@
 <?php
 namespace controllers;
 use gateways\UserGateway;
+use stdClass;
 
 class UserController
 {
@@ -17,23 +18,33 @@ class UserController
     {
         $result = $this->userGateway->findAll();
         $result = pg_fetch_all($result);
-        $response = okResponse($result);
+        $response = okResponse($result ? $result : []);
         return $response;
     }
 
     public function getUserById($id)
     {
         $result = $this->userGateway->find($id);
+        if(!$result)
+        {
+            $response = internalServerErrorResponse('Problem retrieving user.');
+            return $response;
+        }
         $result = pg_fetch_assoc($result);
-        $response = okResponse($result);
+        $response = okResponse($result ? $result : new stdClass());
         return $response;
     }
 
-    public function getUserByUsername($username)
+    public function searchUser($username)
     {
-        $result = $this->userGateway->find(0, $username);
-        $result = pg_fetch_assoc($result);
-        $response = okResponse($result);
+        $result = $this->userGateway->findByUsername($username);
+        if(!$result)
+        {
+            $response = internalServerErrorResponse('Problem retrieving user.');
+            return $response;
+        }
+        $result = pg_fetch_all($result);
+        $response = okResponse($result ? $result : []);
         return $response;
     }
 
@@ -42,33 +53,20 @@ class UserController
 
     }
 
-    public function updateUser($id)
+    public function updateUser($id, $input)
     {
         
     }
 
-    public function deleteUser($id, $password)
-    {
-        $result = $this->userGateway->getPassword($id);
-        $result = pg_fetch_assoc($result);
-        $hashed_password = $result['pass'];
-        if(!password_verify($password, $hashed_password))
-        {
-            $response = unauthorizedResponse('Could not authenticate.');
-            return $response;
-        }
-        
+    public function deleteUser($id)
+    {        
         $result = $this->userGateway->delete($id);
         if(!$result)
         {
-            $response = internalServerErrorResponse();
+            $response = internalServerErrorResponse('Problem deleting user.');
+            return $response;
         }
-        else
-        {
-            $response = okResponse([
-                'rows_affected' => pg_affected_rows($result)
-            ]);
-        }
+        $response = okResponse(['success' => true]);
         return $response;
     }
 }

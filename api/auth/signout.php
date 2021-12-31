@@ -15,9 +15,8 @@ if(!isAuthenticated())
     exit();
 }
 
-$id = $_SESSION['id'];
 $controller = new AuthenticationController($dbConnection);
-$response = $controller->signOut($id);
+$response = $controller->signOut(getId());
 setAuthenticated(false);
 
 sendResponse($response);

@@ -29,7 +29,7 @@ else if(isset($_GET['id'])) {
     $response = $controller->getUserById($_GET['id']);
 }
 else if(isset($_GET['username'])) {
-    $response = $controller->getUserByUsername($_GET['username']);
+    $response = $controller->searchUser($_GET['username']);
 }
 else {
     sendResponse(unprocessableEntityResponse());
