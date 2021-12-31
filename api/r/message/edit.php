@@ -27,7 +27,7 @@ if(!isset($input['message_id']) ||
 
 $authorization = new AuthorizationController($dbConnection);
 $membership = $authorization->membershipByMessage($input['message_id'], getId());
-if(!$membership['is_member'] || $membership['role'] < 1 || !$membership['is_author'])
+if(!$membership['is_member'] || $membership['invite_status'] != 1 || !$membership['is_author'])
 {
     sendResponse(forbiddenResponse());
     exit();

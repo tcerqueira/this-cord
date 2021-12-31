@@ -29,7 +29,7 @@ if(!isset($input['channel_id']) ||
 
 $authorization = new AuthorizationController($dbConnection);
 $membership = $authorization->membershipByChannel($input['channel_id'], getId());
-if(!$membership['is_member'])
+if(!$membership['is_member'] || $membership['invite_status'] != 1)
 {
     sendResponse(forbiddenResponse());
     exit();
