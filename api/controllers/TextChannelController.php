@@ -33,14 +33,25 @@ class TextChannelController
             $response = internalServerErrorResponse('Problem retrieving text channel.');
             return $response;
         }
-        var_dump(pg_fetch_all($result));
         $response = okResponse(pg_fetch_assoc($result));
         return $response;
     }
 
-    public function createTextChannel($guild_id, $user_id, $input)
+    public function createTextChannel($guild_id, $input)
     {
-
+        $result = $this->channelGateway->insert(array_merge([
+            $guild_id],
+            ['channelname' => $input['channelname'],
+            'is_direct_message' => 'f'
+        ]));
+        if(!$result)
+        {
+            $response = internalServerErrorResponse('Problem creating text channel.');
+            return $response;
+        }
+        $result = pg_fetch_assoc($result);
+        $response = okResponse(['id' => $result['id']]);
+        return $response;
     }
 
     public function updateTextChannel($id, $user_id, $input)

@@ -33,5 +33,12 @@ class TextChannelGateway
         $result = pg_query_params($this->db, $query, [$guild_id]);
         return $result;
     }
+
+    public function insert($input)
+    {
+        $query = "INSERT INTO text_channel (guild_id, channelname, is_direct_message) VALUES ($1, $2, $3) RETURNING id;";
+        $result = pg_query_params($this->db, $query, $input);
+        return $result;
+    }
 }
 ?>
