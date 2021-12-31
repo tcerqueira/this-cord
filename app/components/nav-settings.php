@@ -3,13 +3,13 @@
         <ul>
             <li><a href="#my-account"> My Account</a></li>
             <li><a href="#user-profile"> User Profile</a></li>
-            <li><a href="#"> settingssss</a></li>
+            <li><a href="#"> </a></li>
         </ul>
         <hr>
         <ul>
-            <li><a href="#"> settings</a></li>
-            <li><a href="#"> settingsuser</a></li>
-            <li><a href="#"> settingssss</a></li>
+            <li><a href="#"> </a></li>
+            <li><a href="#"> </a></li>
+            <li><a href="#"> </a></li>
         </ul>
     </div>
 </nav>

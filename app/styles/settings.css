@@ -10,15 +10,25 @@
     display: flex;
     flex-direction: column;
     color: var(--font-color);
+    position: fixed;
+}
+
+.nav-settings-content li {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
 }
 
 .settings-display {
     grid-area: settings-display;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 2rem;
+    padding-left: 6rem;
+    padding-right: 6rem;
+    padding-bottom: 6rem;
+    padding-top: 3rem;
     justify-content: center;
-
 }
 
 .esc {
@@ -36,11 +46,21 @@
     align-items: center;
 }
 
+.esc a {
+    margin: 0;
+    padding: 0;
+    height: fit-content;
+    display: flex;
+}
+
+.esc:hover {
+    background-color: var(--color-medium-grey-1);
+}
+
 hr {
     margin-left: 0;
     margin-right: 0;
     width: 100%;
-    color: var(--color-medium-grey-1);
 }
 
 .nav-settings-content li:hover {
@@ -48,24 +68,103 @@ hr {
     border-radius: 7px;
 }
 
-#my-account {
+#my-account-container {
     background-color: var(--color-light-grey);
     border-radius: 7px;
     align-items: center;
     justify-content: center;
     margin: 0;
-    padding: 2rem;
+    padding: 3rem;
 }
 
-#my-account a{
+#my-account-container a{
     background-color: var(--color-medium-grey-1);
     padding: 0.5rem 1rem;
     border-radius: 7px;
     height: fit-content;
 }
 
-#my-account div {
+#my-account-container div {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+#delete-account {
+    border-radius: 5px;
+    background-color: red;
+    color: inherit;
+    border: none;
+    padding: 0.5rem 0.5rem;
+    margin-top: 1rem;
+}
+
+#user-profile-container {
+    background-color: var(--color-light-grey);
+    border-radius: 7px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+    padding: 3rem;
+}
+
+#user-bar-color {
+    display: flex;
+    position: relative;
+    border-radius: 10px;
+    width: 400px;
+    height: 200px;
+    margin: 0;
+}
+
+#user-preview {
+    background-color: var(--color-dark-grey);
+    display: flex;
+    width: 400px;
+    height: 150px;    
+    position: absolute;
+    bottom: 0;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 1rem;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#user-icon {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.color-user {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#user-color {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+}
+
+#pick-color {
+    display: flex;
+    align-items: center;
+}
+
+#pick-color span {
+    padding-right: 0.5rem;
+}
+
+#about-me {
+    margin-top: 3rem;
+    width: 300px;
+    height: 200px;
+    background-color: var(--color-dark-grey);
+    color: inherit;
 }

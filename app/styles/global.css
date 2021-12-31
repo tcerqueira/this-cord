@@ -69,7 +69,6 @@ label {
     grid-template-columns: 20% 70% 10%;
     grid-template-areas: 
         "nav-settings settings-display esc";
-    height: 100vh;
 }
 
 .main-container {
@@ -111,4 +110,16 @@ label {
 
 .tooltip {
     position: absolute;
+}
+
+button {
+    border-radius: 5px;
+    background-color: var(--color-primary);
+    color: inherit;
+    border: none;
+    padding: 0.5rem 0.5rem;
+}
+
+button:hover {
+    opacity: 0.8;
 }

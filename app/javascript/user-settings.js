@@ -9,6 +9,8 @@ getUserInfo(userInfo);
 
 function getUserInfo(userInfo)
 {
+    const userProfileSpan = document.getElementById('userprofile-username');
+    userProfileSpan.innerText = userInfo.username;
     const usernameSpan = document.getElementById('myaccount-username');
     usernameSpan.innerText = userInfo.username;
     const emailSpan = document.getElementById('myaccount-email');
