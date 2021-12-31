@@ -3,6 +3,7 @@ namespace controllers;
 
 use gateways\GuildGateway;
 use gateways\TextChannelGateway;
+use gateways\MessageGateway;
 use gateways\UserGateway;
 
 class AuthorizationController
@@ -33,6 +34,19 @@ class AuthorizationController
     {
         $channelGateway = new TextChannelGateway($this->db);
         $result = $channelGateway->findGuildOfChannel($channel_id);
+        $result = pg_fetch_assoc($result);
+        if(!$result)
+        {
+            return ['is_member' => false];
+        }
+        
+        return $this->membershipByGuild($result['id'], $user_id);
+    }
+
+    public function membershipByMessage($message_id, $user_id)
+    {
+        $messageGateway = new MessageGateway($this->db);
+        $result = $messageGateway->findGuildOfMessage($message_id);
         $result = pg_fetch_assoc($result);
         if(!$result)
         {

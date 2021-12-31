@@ -13,9 +13,30 @@ class MessageController
         $this->messageGateway = new MessageGateway($db);
     }
 
-    public function getMessagesFromChannel($channel_id, $params)
+    public function getMessage($id)
     {
+        $result = $this->messageGateway->find($id);
+        if(!$result)
+        {
+            $response = internalServerErrorResponse('Problem retrieving message.');
+            return $response;
+        }
+        $result = pg_fetch_assoc($result);
+        $response = okResponse($result);
+        return $response;
+    }
 
+    public function getAllFromChannel($channel_id, $params = [])
+    {
+        $result = $this->messageGateway->findAllOfChannel($channel_id);
+        if(!$result)
+        {
+            $response = internalServerErrorResponse('Problem retrieving messages of channel.');
+            return $response;
+        }
+        $result = pg_fetch_all($result);
+        $response = okResponse($result ? $result : []);
+        return $response;
     }
 
     public function createMessage($channel_id, $input)
