@@ -55,7 +55,19 @@ class UserController
 
     public function updateUser($id, $input)
     {
-        
+        $result = $this->userGateway->update($id, [
+            'username' => $input['username'],
+            'email' => $input['email'],
+            'theme_color' => $input['theme_color'],
+            'user_description' => $input['user_description']
+        ]);
+        if(!$result)
+        {
+            $response = internalServerErrorResponse('Problem updating user.');
+            return $response;
+        }
+        $response = okResponse(['success' => true]);
+        return $response;
     }
 
     public function deleteUser($id)

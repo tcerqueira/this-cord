@@ -38,8 +38,8 @@ class UserGateway
 
     public function update($id, Array $input)
     {  
-        $query = "UPDATE this_user SET username = $1, email = $2, pass = $3 WHERE id = ".$id.";";
-        $result = pg_query_params($this->db, $query, $input);
+        $query = "UPDATE this_user SET username=$2, email=$3, theme_color=$4, user_description=$5 WHERE id=$1;";
+        $result = pg_query_params($this->db, $query, array_merge([$id], $input));
         return $result;
     }
 
