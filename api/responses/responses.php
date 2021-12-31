@@ -1,6 +1,6 @@
 <?php
 
-function okResponse(Array $fields = [])
+function okResponse($fields = [])
 {
     $response['status_code_header'] = 'HTTP/1.1 200 OK';
     $response['body'] = json_encode($fields ? $fields : []);
