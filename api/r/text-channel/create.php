@@ -26,8 +26,8 @@ if(!isset($input['channelname']) ||
 }
 
 $authorization = new AuthorizationController($dbConnection);
-$membebership = $authorization->membershipByGuild($input['guild_id'], getId());
-if(!$membebership['is_member'] || $membebership['role'] < 1)
+$membership = $authorization->membershipByGuild($input['guild_id'], getId());
+if(!$membership['is_member'] || $membership['role'] < 1)
 {
     sendResponse(forbiddenResponse());
     exit();
