@@ -71,9 +71,16 @@ class TextChannelController
         return $response;
     }
 
-    public function deleteTextChannel($id, $user_id)
+    public function deleteTextChannel($id)
     {
-        
+        $result = $this->channelGateway->delete($id);
+        if(!$result)
+        {
+            $response = internalServerErrorResponse('Problem deleting channel.');
+            return $response;
+        }
+        $response = okResponse(['success' => true]);
+        return $response;
     }
 }
 ?>

@@ -47,5 +47,12 @@ class TextChannelGateway
         $result = pg_query_params($this->db, $query, array_merge([$id], $input));
         return $result;
     }
+
+    public function delete($id)
+    {
+        $query = "DELETE FROM text_channel WHERE id=$1;";
+        $result = pg_query_params($this->db, $query, [$id]);
+        return $result;
+    }
 }
 ?>
