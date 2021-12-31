@@ -59,7 +59,16 @@ class MessageController
 
     public function updateMessage($id, $input)
     {
-
+        $result = $this->messageGateway->update($id, [
+            'content' => $input['content']
+        ]);
+        if(!$result)
+        {
+            $response = internalServerErrorResponse('Problem sending message.');
+            return $response;
+        }
+        $response = okResponse(['success' => true]);
+        return $response;
     }
 
     public function deleteMessage($id)

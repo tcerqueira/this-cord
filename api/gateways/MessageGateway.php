@@ -25,7 +25,7 @@ class MessageGateway
 
     public function findGuildOfMessage($id)
     {
-        $query = "SELECT guild.id
+        $query = "SELECT guild.id, channel_message.author_id
                 FROM channel_message
                 JOIN text_channel
                 ON channel_id=text_channel.id
@@ -42,6 +42,13 @@ class MessageGateway
                 VALUES ($1, $2, $3, $4)
                 RETURNING id;";
         $result = pg_query_params($this->db, $query, $input);
+        return $result;
+    }
+
+    public function update($id, $input)
+    {
+        $query = "UPDATE channel_message SET content=$2 WHERE id=$1;";
+        $result = pg_query_params($this->db, $query, array_merge([$id], $input));
         return $result;
     }
 }
