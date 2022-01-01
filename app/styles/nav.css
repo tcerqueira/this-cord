@@ -47,10 +47,14 @@
     grid-area: server-overview;
     flex-direction: column;
     padding: 0.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .server-overview a {
     color: inherit;
+    width: fit-content;
+    height: fit-content;
 }
 
 .server-overview ul {
@@ -62,23 +66,24 @@
     --font-height: 1rem;
     --padding-height: 0.5rem; 
     display: flex;
-    /* justify-content: space-between; */
+    justify-content: space-between;
+    align-items: center;
     padding-left: 1rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     padding-right: 0.5rem;
     height: calc(var(--font-height) + (2 * var(--padding-height)));
-    overflow-x: hidden;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .text-channel-icons {
     display: none;
-    justify-self: end;
 }
 
 .text-channel:hover .text-channel-icons {
-    display: block;
-    justify-self: end;
+    display: flex;
 }
 
 .title {
