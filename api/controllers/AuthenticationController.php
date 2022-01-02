@@ -21,13 +21,13 @@ class AuthenticationController
             $response = internalServerErrorResponse();
             return $response;
         }
-        $response = okResponse();
+        $response = okResponse(['success' => true]);
         return $response;
     }
 
     public function signIn($username, $password)
     {
-        $result = $this->userGateway->find(0, $username);
+        $result = $this->userGateway->find('00000000-0000-0000-0000-000000000000', $username);
         $result = pg_fetch_assoc($result);
         $id = $result['id'];
         if(empty($id))
@@ -44,7 +44,7 @@ class AuthenticationController
 
     public function signOut($id)
     {
-        $response = okResponse();
+        $response = okResponse(['success' => true]);
         return $response;
     }
 

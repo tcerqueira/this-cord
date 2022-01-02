@@ -11,16 +11,25 @@
     --color-medium-grey-2:  #36393f;
     --color-light-grey:     #40444b;
     --color-light:          #ffffff;
-    --color-primary:        #7289da; 
+    --color-primary:        #7289da;
+    --color-red:            #ed4245;
+    --color-yellow:         #faa81a;
+    --color-dark-yellow:    #715b34;
+    --color-dark-yellow-2:  #49443c;
+    --font-color:           #dee0fc;
     /* fixed sizes */
     --card-size: 3.5rem;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
     margin: 0;
     padding: 0;
     font-size: 1rem;
-    color: var(--color-light);
+    color: var(--font-color);
 }
 
 a {
@@ -31,6 +40,11 @@ a {
 ul, ol {
     text-decoration: none;
     list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
     padding-left: 0;
     margin: 0;
 }
@@ -47,6 +61,44 @@ hr {
 label {
     color: var(--color-light-grey);
 }
+
+input, textarea {
+    /* display: inline-block; */
+    width: 100%;
+}
+
+input[type=text] {
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+input[type=text]:focus {
+    outline: none;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--color-medium-grey-1);
+  border-radius: 4px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--color-dark-grey);
+  border-radius: 4px;
+}
+
+/* Handle on hover */
+/* ::-webkit-scrollbar-thumb:hover {
+  background: #555;
+} */
 
 .global-container {
     /* min-height: 850px; */
@@ -90,9 +142,43 @@ label {
 
 .right-sidebar {
     grid-area: right-sidebar;
-    background-color: var(--color-medium-grey-2);
+    background-color: var(--color-medium-grey-1);
 }
 
+.username {
+    font-weight: bold;
+    color: var(--user-theme);
+    cursor: pointer;
+}
+
+.username:hover {
+    text-decoration: underline;
+}
+
+.icon-card {
+    height: var(--side-size);
+    width: var(--side-size);
+    border-radius: 50%;
+    background-color: var(--icon-bg-color, var(--color-medium-grey-1));
+
+    -webkit-transition: .3s -webkit-filter linear;
+    -moz-transition: .3s -moz-filter linear;
+    -moz-transition: .3s filter linear;
+    -ms-transition: .3s -ms-filter linear;
+    -o-transition: .3s -o-filter linear;
+    transition: .3s filter linear, .3s -webkit-filter linear;
+}
+
+.icon-card:hover {
+    /* -webkit-filter: blur(3px);
+    -moz-filter: blur(3px);
+    -ms-filter: blur(3px);
+    -o-filter: blur(3px);
+    filter: blur(3px); */
+}
+
+/************************************* CSS utility classes *************************************/
+/***********************************************************************************************/
 .flex-center {
     display: flex;
     justify-content: center;
@@ -122,4 +208,23 @@ button {
 
 button:hover {
     opacity: 0.8;
+}
+
+.text-input-container {
+    background-color: var(--color-light-grey);
+    border-radius: 10px;
+    padding: 0.7rem 1rem;
+    font-size: 1.2rem;
+}
+
+.icon-size-big {
+    --side-size: calc(var(--card-size) + 1rem);
+}
+
+.icon-size-medium {
+    --side-size: var(--card-size);
+}
+
+.icon-size-small {
+    --side-size: calc(var(--card-size) - 0.5rem);
 }
