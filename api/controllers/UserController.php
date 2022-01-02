@@ -37,7 +37,7 @@ class UserController
 
     public function searchUser($username)
     {
-        $result = $this->userGateway->findByUsername($username);
+        $result = $this->userGateway->searchByUsername($username);
         if(!$result)
         {
             $response = internalServerErrorResponse('Problem retrieving user.');

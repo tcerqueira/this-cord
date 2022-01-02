@@ -22,10 +22,17 @@ class UserGateway
         return $result;
     }
 
-    public function findByUsername($username)
+    public function searchByUsername($username)
     {
         $query = "SELECT * FROM \"this-cord\".\"public_user_VIEW\" WHERE username LIKE $1 LIMIT 50;";
         $result = pg_query_params($this->db, $query, ['%'.$username.'%']);
+        return $result;
+    }
+
+    public function findByUsername($username)
+    {
+        $query = "SELECT * FROM \"this-cord\".\"public_user_VIEW\" WHERE username=$1;";
+        $result = pg_query_params($this->db, $query, [$username]);
         return $result;
     }
 
