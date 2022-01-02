@@ -39,6 +39,14 @@ class AuthorizationController
         {
             return ['is_member' => false];
         }
+        if($result['is_direct_message'] == 't')
+        {
+            $userGateway = new UserGateway($this->db);
+            $result_f = $userGateway->findFriendByChannel($channel_id);
+            $result_f = pg_fetch_assoc($result_f);
+            if($result_f['friend_1'] != $user_id && $result_f['friend_2'] != $user_id)
+                return ['is_member' => false];
+        }
         
         return $this->membershipByGuild($result['id'], $user_id);
     }

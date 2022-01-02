@@ -1,5 +1,7 @@
 <?php
 namespace controllers;
+
+use gateways\GuildGateway;
 use gateways\UserGateway;
 
 class AuthenticationController
@@ -15,13 +17,29 @@ class AuthenticationController
 
     public function signUp(Array $input)
     {
+        $guildGateway = new GuildGateway($this->db);
+        $error = false;
+
+        pg_query($this->db, 'BEGIN');
+
         $result = $this->userGateway->insert($input);
-        if(!$result)
-        {
+        $result = pg_fetch_assoc($result);
+        if(!$result) $error = true;
+        $id = $result['id'];
+
+        $result = $guildGateway->insertMember('00000000-0000-0000-0000-000000000000', [
+            $id,
+            1,
+            '00000000-0000-0000-0000-000000000000',
+            0
+        ]);
+        if(!$result) $error = true;
+        pg_query($this->db, 'COMMIT');
+
+        if($error)
             $response = internalServerErrorResponse();
-            return $response;
-        }
-        $response = okResponse(['success' => true]);
+        else
+            $response = okResponse(['id' => $id]);
         return $response;
     }
 

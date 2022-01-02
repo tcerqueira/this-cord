@@ -18,7 +18,7 @@ class TextChannelGateway
 
     public function findGuildOfChannel($id)
     {
-        $query = "SELECT guild.*
+        $query = "SELECT guild.*, is_direct_message
                 FROM text_channel
                 JOIN guild
                 ON guild.id=guild_id

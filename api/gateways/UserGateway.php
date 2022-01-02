@@ -38,7 +38,7 @@ class UserGateway
 
     public function insert(Array $input)
     {
-        $query = "INSERT INTO this_user (username, email, pass) VALUES ($1, $2, $3);";
+        $query = "INSERT INTO this_user (username, email, pass) VALUES ($1, $2, $3) RETURNING id;";
         $result = pg_query_params($this->db, $query, $input);
         return $result;
     }
@@ -89,6 +89,15 @@ class UserGateway
                 ON friend_1=public_user_VIEW.id
                 WHERE friend_2=$1;";
         $result = pg_query_params($this->db, $query, [$user_id]);
+        return $result;
+    }
+
+    public function findFriendByChannel($channel_id)
+    {
+        $query = "SELECT friend_1, friend_2
+                FROM this_friends
+                WHERE message_channel=$1;";
+        $result = pg_query_params($this->db, $query, [$channel_id]);
         return $result;
     }
 
