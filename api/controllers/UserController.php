@@ -99,7 +99,8 @@ class UserController
             $response = internalServerErrorResponse('Problem sendind friend request');
             return $response;
         }
-
+        $response = okResponse(['success' => true]);
+        return $response;
     }
 
     public function addFriend($user_1, $user_2)
