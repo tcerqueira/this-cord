@@ -53,17 +53,21 @@ CREATE TABLE guild_members (
 );
 
 CREATE TABLE this_friends (
-    friend_1 UUID,
-    friend_2 UUID,
+    friend_1 UUID CHECK(friend_1<>friend_2),
+    friend_2 UUID CHECK(friend_2<>friend_1),
     invite_status INTEGER DEFAULT 0 CHECK(invite_status >= 0 AND invite_status <= 1), -- 0 - invited; 1 - accepted
     request_sender UUID CHECK(friend_1=request_sender OR friend_2=request_sender),
-    message_channel UUID NOT NULL,
+    message_channel UUID,
     PRIMARY KEY (friend_1, friend_2),
     FOREIGN KEY (friend_1) REFERENCES this_user(id) ON DELETE CASCADE,
     FOREIGN KEY (friend_2) REFERENCES this_user(id) ON DELETE CASCADE,
     FOREIGN KEY (request_sender) REFERENCES this_user(id) ON DELETE CASCADE,
-    FOREIGN KEY (message_channel) REFERENCES text_channel(id) ON DELETE CASCADE,
-    UNIQUE (friend_1, friend_2)
+    FOREIGN KEY (message_channel) REFERENCES text_channel(id) ON DELETE CASCADE
+    -- UNIQUE (friend_1, friend_2)
     -- CONSTRAINT U_Friendship UNIQUE (LEAST(friend_1, friend_2), GREATEST(friend_1, friend_2))
 );
+
+CREATE VIEW public_user_VIEW AS
+SELECT id, username, userstatus, theme_color, user_description
+FROM this_user;
 
