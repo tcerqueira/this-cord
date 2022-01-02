@@ -1,5 +1,7 @@
 <?php
 namespace controllers;
+
+use gateways\TextChannelGateway;
 use gateways\UserGateway;
 use stdClass;
 
@@ -93,7 +95,7 @@ class UserController
 
     public function requestFriend($user_id, $friend_id)
     {
-        $result = $this->userGateway->insertFriends($user_id, $friend_id, $user_id);
+        $result = $this->userGateway->insertFriend($user_id, $friend_id, $user_id);
         if(!$result)
         {
             $response = internalServerErrorResponse('Problem sendind friend request');
@@ -103,9 +105,56 @@ class UserController
         return $response;
     }
 
-    public function addFriend($user_1, $user_2)
+    public function addFriend($user_id, $friend_id)
     {
+        $result = $this->userGateway->findFriend($user_id, $friend_id);
+        $result = pg_fetch_assoc($result);
+        // var_dump($result);
+        if(!$result)
+        {
+            $response = notFoundResponse();
+            return $response;
+        }
+        if(intval($result['invite_status']) == 1)
+        {
+            $response = conflictResponse('Already friends.');
+            return $response;
+        }
+        if($result['request_sender'] == $user_id)
+        {
+            $response = forbiddenResponse();
+            return $response;
+        }
+        
+        $channelGateway = new TextChannelGateway($this->db);
+        $error = false;
+        pg_query($this->db, 'BEGIN');
+        $result_channel = $channelGateway->insert([
+            '00000000-0000-0000-0000-000000000000',
+            '__direct_message',
+            true
+        ]);
+        $result_channel = pg_fetch_assoc($result_channel);
+        if(!$result_channel) {
+            $error = true;
+            // pg_query()
+        }
+        $result = $this->userGateway->updateFriend($user_id, $friend_id, [
+            'invite_status' => 1,
+            'message_channel' => $result_channel['id']
+        ]);
+        if(!$result) $error = true;
+        pg_query($this->db, 'COMMIT');
 
+        if($error)
+        {
+            $response = internalServerErrorResponse('Problem accepting friend request.');
+            return $response;
+        }
+        $result = $this->userGateway->findFriend($user_id, $friend_id);
+        $result = pg_fetch_assoc($result);
+        $response = okResponse($result);
+        return $response;
     }
 
     public function removeFriend($user_1, $user_2)

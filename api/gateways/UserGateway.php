@@ -92,11 +92,20 @@ class UserGateway
         return $result;
     }
 
-    public function insertFriends($friend1, $friend2, $requester)
+    public function insertFriend($friend1, $friend2, $requester)
     {
         $query = "INSERT INTO this_friends (friend_1, friend_2, request_sender)
                 VALUES (LEAST($1, $2)::uuid, GREATEST($1, $2)::uuid, $3);";
         $result = pg_query_params($this->db, $query, [$friend1, $friend2, $requester]);
+        return $result;
+    }
+
+    public function updateFriend($friend1, $friend2, $input)
+    {
+        $query = "UPDATE this_friends
+                SET invite_status=$3, message_channel=$4
+                WHERE friend_1=LEAST($1, $2)::uuid AND friend_2=GREATEST($1, $2)::uuid;";
+        $result = pg_query_params($this->db, $query, array_merge([$friend1, $friend2], $input));
         return $result;
     }
 }
