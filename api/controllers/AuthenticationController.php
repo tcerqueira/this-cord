@@ -27,7 +27,7 @@ class AuthenticationController
 
     public function signIn($username, $password)
     {
-        $result = $this->userGateway->find('00000000-0000-0000-0000-000000000000', $username);
+        $result = $this->userGateway->findByUsername($username);
         $result = pg_fetch_assoc($result);
         $id = $result['id'];
         if(empty($id))
