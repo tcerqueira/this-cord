@@ -117,5 +117,12 @@ class UserGateway
         $result = pg_query_params($this->db, $query, array_merge([$friend1, $friend2], $input));
         return $result;
     }
+
+    public function deleteFriend($friend1, $friend2)
+    {
+        $query = "DELETE FROM this_friends WHERE friend_1=LEAST($1, $2)::uuid AND friend_2=GREATEST($1, $2)::uuid;";
+        $result = pg_query_params($this->db, $query, [$friend1, $friend2]);
+        return $result;
+    }
 }
 ?>

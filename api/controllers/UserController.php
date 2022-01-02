@@ -98,7 +98,7 @@ class UserController
         $result = $this->userGateway->insertFriend($user_id, $friend_id, $user_id);
         if(!$result)
         {
-            $response = internalServerErrorResponse('Problem sendind friend request');
+            $response = internalServerErrorResponse('Problem sending friend request.');
             return $response;
         }
         $response = okResponse(['success' => true]);
@@ -109,7 +109,6 @@ class UserController
     {
         $result = $this->userGateway->findFriend($user_id, $friend_id);
         $result = pg_fetch_assoc($result);
-        // var_dump($result);
         if(!$result)
         {
             $response = notFoundResponse();
@@ -157,9 +156,32 @@ class UserController
         return $response;
     }
 
-    public function removeFriend($user_1, $user_2)
+    public function removeFriend($user_id, $friend_id)
     {
-        
+        $result = $this->userGateway->findFriend($user_id, $friend_id);
+        $result = pg_fetch_assoc($result);
+        if(!$result)
+        {
+            $response = notFoundResponse();
+            return $response;
+        }
+        $error = false;
+        pg_query($this->db, 'BEGIN');
+        if(intval($result['invite_status']) == 1)
+        {
+            $channelGateway = new TextChannelGateway($this->db);
+            $result = $channelGateway->delete($result['message_channel']);
+            if(!$result) $error = true;
+        }
+        $result = $this->userGateway->deleteFriend($user_id, $friend_id);
+        if(!$result) $error = true;
+        pg_query($this->db, 'COMMIT');
+
+        if($error)
+            $response = internalServerErrorResponse('Problem removing friend.');
+        else
+            $response = okResponse(['success' => true]);
+        return $response;
     }
 }
 ?>
