@@ -11,20 +11,20 @@ class UserGateway
 
     public function findAll()
     {
-        $result = pg_exec($this->db, "SELECT id, username, userstatus, theme_color, user_description FROM this_user;");
+        $result = pg_exec($this->db, "SELECT * FROM public_user_VIEW;");
         return $result;
     }
 
     public function find($id)
     {
-        $query = "SELECT id, username, userstatus, theme_color, user_description FROM this_user WHERE id=$1;";
+        $query = "SELECT * FROM \"this-cord\".\"public_user_VIEW\" WHERE id=$1;";
         $result = pg_query_params($this->db, $query, [$id]);
         return $result;
     }
 
     public function findByUsername($username)
     {
-        $query = "SELECT id, username, userstatus, theme_color, user_description FROM this_user WHERE username LIKE $1 LIMIT 50;";
+        $query = "SELECT * FROM \"this-cord\".\"public_user_VIEW\" WHERE username LIKE $1 LIMIT 50;";
         $result = pg_query_params($this->db, $query, ['%'.$username.'%']);
         return $result;
     }
@@ -54,6 +54,42 @@ class UserGateway
     {
         $query = "SELECT pass FROM this_user WHERE id=$1;";
         $result = pg_query_params($this->db, $query, [$id]);
+        return $result;
+    }
+
+    public function findFriend($user_id, $friend_id)
+    {
+        $query = "SELECT public_user_VIEW.*, invite_status, request_sender, message_channel
+                FROM this_friends
+                JOIN \"this-cord\".\"public_user_VIEW\" AS public_user_VIEW
+                ON public_user_VIEW.id=$2
+                WHERE friend_1=LEAST($1, $2)::uuid AND friend_2=GREATEST($1, $2)::uuid;";
+        $result = pg_query_params($this->db, $query, [$user_id, $friend_id]);
+        return $result;
+    }
+
+    public function findAllFriends($user_id)
+    {
+        $query = "SELECT public_user_VIEW.*, invite_status, request_sender, message_channel
+                FROM this_friends
+                JOIN \"this-cord\".\"public_user_VIEW\" AS public_user_VIEW
+                ON friend_2=public_user_VIEW.id
+                WHERE friend_1=$1
+                UNION ALL
+                SELECT public_user_VIEW.*, invite_status, request_sender, message_channel
+                FROM this_friends
+                JOIN \"this-cord\".\"public_user_VIEW\" AS public_user_VIEW
+                ON friend_1=public_user_VIEW.id
+                WHERE friend_2=$1;";
+        $result = pg_query_params($this->db, $query, [$user_id]);
+        return $result;
+    }
+
+    public function insertFriends($friend1, $friend2, $requester)
+    {
+        $query = "INSERT INTO this_friends (friend_1, friend_2, request_sender)
+                VALUES (LEAST($1, $2)::uuid, GREATEST($1, $2)::uuid, $3);";
+        $result = pg_query_params($this->db, $query, [$friend1, $friend2, $requester]);
         return $result;
     }
 }

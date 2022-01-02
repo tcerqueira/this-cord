@@ -48,11 +48,7 @@ class UserController
         return $response;
     }
 
-    public function getFriendsList($id)
-    {
-
-    }
-
+    
     public function updateUser($id, $input)
     {
         $result = $this->userGateway->update($id, [
@@ -69,7 +65,7 @@ class UserController
         $response = okResponse(['success' => true]);
         return $response;
     }
-
+    
     public function deleteUser($id)
     {        
         $result = $this->userGateway->delete($id);
@@ -80,6 +76,40 @@ class UserController
         }
         $response = okResponse(['success' => true]);
         return $response;
+    }
+    
+    public function getFriends($id)
+    {
+        $result = $this->userGateway->findAllFriends($id);
+        if(!$result)
+        {
+            $response = internalServerErrorResponse('Problem retrieving friends list.');
+            return $response;
+        }
+        $result = pg_fetch_all($result);
+        $response = okResponse($result ? $result : []);
+        return $response;
+    }
+
+    public function requestFriend($user_id, $friend_id)
+    {
+        $result = $this->userGateway->insertFriends($user_id, $friend_id, $user_id);
+        if(!$result)
+        {
+            $response = internalServerErrorResponse('Problem sendind friend request');
+            return $response;
+        }
+
+    }
+
+    public function addFriend($user_1, $user_2)
+    {
+
+    }
+
+    public function removeFriend($user_1, $user_2)
+    {
+        
     }
 }
 ?>
