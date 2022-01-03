@@ -104,6 +104,10 @@ function renderMessageAuthor(messageItem, message)
 
     const authorAvatar = document.createElement('div');
     authorAvatar.classList.add('author-avatar');
+    authorAvatar.classList.add('icon-size-small');
+    authorAvatar.classList.add('icon-card');
+    // TODO: theme color
+    authorAvatar.style = '--icon-bg-color: ' + '#7289da' + ';';
     authorAvatar.innerText = message.author;
     h3.append(authorAvatar);
 

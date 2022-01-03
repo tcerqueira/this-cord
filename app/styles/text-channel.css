@@ -175,13 +175,9 @@
 }
 
 .author-avatar {
-    --avatar-size: calc(var(--card-size) - 0.5rem);
-
+    /* --side-size: calc(var(--card-size) - 0.5rem); */
     position: absolute;
     top: 0;
-    left: calc(var(--avatar-size) * -1.5);
-    height: var(--avatar-size);
-    width: var(--avatar-size);
-    background-color: var(--color-primary);
-    border-radius: calc(var(--avatar-size) / 2);
+    left: calc(var(--side-size) * -1.5);
+    /* background-color: var(--color-primary); */
 }

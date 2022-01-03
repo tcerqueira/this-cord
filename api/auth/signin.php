@@ -28,7 +28,6 @@ $password = $input['password'];
 $controller = new AuthenticationController($dbConnection);
 $id = $controller->signIn($username, $password);
 
-$response = okResponse();
 if(!$id)
 {
     $response = unauthorizedResponse('Login failed. Check your credentials.');
@@ -37,6 +36,7 @@ else
 {
     setAuthenticated(true);
     $_SESSION['id'] = $id;
+    $response = okResponse(['id' => $id]);
 }
 
 sendResponse($response);

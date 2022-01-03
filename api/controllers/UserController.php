@@ -17,8 +17,7 @@ class UserController
     {
         $result = $this->userGateway->findAll();
         $result = pg_fetch_all($result);
-        $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        $response['body'] = json_encode($result);
+        $response = okResponse($result);
         return $response;
     }
 
@@ -26,8 +25,7 @@ class UserController
     {
         $result = $this->userGateway->find($id);
         $result = pg_fetch_assoc($result);
-        $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        $response['body'] = json_encode($result);
+        $response = okResponse($result);
         return $response;
     }
 
@@ -35,8 +33,7 @@ class UserController
     {
         $result = $this->userGateway->find(0, $username);
         $result = pg_fetch_assoc($result);
-        $response['status_code_header'] = 'HTTP/1.1 200 OK';
-        $response['body'] = json_encode($result);
+        $response = okResponse($result);
         return $response;
     }
 
