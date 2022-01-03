@@ -31,7 +31,8 @@ class UserGateway
 
     public function findByUsername($username)
     {
-        $query = "SELECT * FROM \"this-cord\".\"public_user_VIEW\" WHERE username=$1;";
+        // $query = "SELECT * FROM \"this-cord\".\"public_user_VIEW\" WHERE username=$1;";
+        $query = "SELECT * FROM public_user_VIEW WHERE username=$1;";
         $result = pg_query_params($this->db, $query, [$username]);
         return $result;
     }
@@ -75,7 +76,7 @@ class UserGateway
     {
         $query = "SELECT public_user_VIEW.*, invite_status, request_sender, message_channel
                 FROM this_friends
-                JOIN \"this-cord\".\"public_user_VIEW\" AS public_user_VIEW
+                JOIN public_user_VIEW AS public_user_VIEW
                 ON public_user_VIEW.id=$2
                 WHERE friend_1=LEAST($1, $2)::uuid AND friend_2=GREATEST($1, $2)::uuid;";
         $result = pg_query_params($this->db, $query, [$user_id, $friend_id]);
@@ -86,13 +87,13 @@ class UserGateway
     {
         $query = "SELECT public_user_VIEW.*, invite_status, request_sender, message_channel
                 FROM this_friends
-                JOIN \"this-cord\".\"public_user_VIEW\" AS public_user_VIEW
+                JOIN public_user_VIEW AS public_user_VIEW
                 ON friend_2=public_user_VIEW.id
                 WHERE friend_1=$1
                 UNION ALL
                 SELECT public_user_VIEW.*, invite_status, request_sender, message_channel
                 FROM this_friends
-                JOIN \"this-cord\".\"public_user_VIEW\" AS public_user_VIEW
+                JOIN public_user_VIEW AS public_user_VIEW
                 ON friend_1=public_user_VIEW.id
                 WHERE friend_2=$1;";
         $result = pg_query_params($this->db, $query, [$user_id]);
