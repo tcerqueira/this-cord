@@ -17,14 +17,14 @@ class UserGateway
 
     public function find($id)
     {
-        $query = "SELECT * FROM \"this-cord\".\"public_user_VIEW\" WHERE id=$1;";
+        $query = "SELECT * FROM public_user_VIEW WHERE id=$1;";
         $result = pg_query_params($this->db, $query, [$id]);
         return $result;
     }
 
     public function searchByUsername($username)
     {
-        $query = "SELECT * FROM \"this-cord\".\"public_user_VIEW\" WHERE username LIKE $1 LIMIT 50;";
+        $query = "SELECT * FROM public_user_VIEW WHERE username LIKE $1 LIMIT 50;";
         $result = pg_query_params($this->db, $query, ['%'.$username.'%']);
         return $result;
     }
