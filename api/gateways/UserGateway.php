@@ -22,6 +22,13 @@ class UserGateway
         return $result;
     }
 
+    public function findProfile($id)
+    {
+        $query = "SELECT * FROM this_user WHERE id=$1;";
+        $result = pg_query_params($this->db, $query, [$id]);
+        return $result;
+    }
+
     public function searchByUsername($username)
     {
         $query = "SELECT * FROM public_user_VIEW WHERE username LIKE $1 LIMIT 50;";
@@ -69,6 +76,13 @@ class UserGateway
     {
         $query = "SELECT pass FROM this_user WHERE id=$1;";
         $result = pg_query_params($this->db, $query, [$id]);
+        return $result;
+    }
+
+    public function updatePassword($id, $password)
+    {
+        $query = "UPDATE this_user SET pass=$2 WHERE id=$1;";
+        $result = pg_query_params($this->db, $query, [$id, $password]);
         return $result;
     }
 

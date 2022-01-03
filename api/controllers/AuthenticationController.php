@@ -37,7 +37,7 @@ class AuthenticationController
         pg_query($this->db, 'COMMIT');
 
         if($error)
-            $response = internalServerErrorResponse();
+            $response = internalServerErrorResponse('Problem signing up.');
         else
             $response = okResponse(['id' => $id]);
         return $response;
@@ -54,7 +54,7 @@ class AuthenticationController
         $result = $this->userGateway->getPassword($id);
         $result = pg_fetch_assoc($result);
         $hashed_password = $result['pass'];
-        if(!password_verify($password, $hashed_password))
+        if(!$this->verifyPassword($password, $hashed_password))
             return false;
         
         $result = $this->userGateway->updateStatus($result_user['id'], 1);
@@ -70,5 +70,42 @@ class AuthenticationController
         return $response;
     }
 
+    public function changePassword($id, $old_password, $new_password)
+    {
+        $result_user = $this->userGateway->findProfile($id);
+        $result_user = pg_fetch_assoc($result_user);
+        if(!$result_user)
+        {
+            $response = internalServerErrorResponse('Problem changing password.');
+            return $response;
+        }
+        if(!$this->verifyPassword($old_password, $result_user['pass']))
+        {
+            $response = forbiddenResponse();
+            return $response;
+        }
+        $hashed_password = $this->hashPassword($new_password);
+        $result = $this->userGateway->updatePassword($id, $hashed_password);
+        if(!$result)
+        {
+            $response = internalServerErrorResponse('Problem changing password.');
+            return $response;
+        }
+        $response = okResponse(['success' => true]);
+        return $response;
+    }
+
+    public function hashPassword($password)
+    {
+        $options = [
+            'cost' => 11
+        ];
+        return password_hash($password, PASSWORD_BCRYPT, $options);
+    }
+
+    public function verifyPassword($password, $hashed_password)
+    {
+        return password_verify($password, $hashed_password);
+    }
 }
 ?>
