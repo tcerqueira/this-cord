@@ -55,3 +55,69 @@ function signUp(username, email, password)
         xhr.send(JSON.stringify(form));
     });
 }
+
+function fetchProfile(id)
+{
+    return new Promise((resolve, reject) => {
+    
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', apiRoot+'/r/user/?id='+id, true);
+    
+        xhr.onload = () => {
+            switch(xhr.status)
+            {
+                case 200:
+                    resolve(JSON.parse(xhr.response));
+                    break;
+                default:
+                    // TODO: handle more gracefully errors
+                    reject(JSON.parse(xhr.response));
+            }
+        };
+        xhr.send();
+    });
+}
+
+function deleteUser(id)
+{
+    return new Promise((resolve, reject) => {
+    
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', apiRoot+'/r/user/delete.php/?id='+id, true);
+    
+        xhr.onload = () => {
+            switch(xhr.status)
+            {
+                case 200:
+                    resolve(JSON.parse(xhr.response));
+                    break;
+                default:
+                    // TODO: handle more gracefully errors
+                    reject(JSON.parse(xhr.response));
+            }
+        };
+        xhr.send();
+    });
+}
+
+// function updateUser(id, input)
+// {
+//     return new Promise((resolve, reject) => {
+    
+//         let xhr = new XMLHttpRequest();
+//         xhr.open('POST', apiRoot+'/r/user/upade.php/?id='+id, true);
+    
+//         xhr.onload = () => {
+//             switch(xhr.status)
+//             {
+//                 case 200:
+//                     resolve(JSON.parse(xhr.response));
+//                     break;
+//                 default:
+//                     // TODO: handle more gracefully errors
+//                     reject(JSON.parse(xhr.response));
+//             }
+//         };
+//         xhr.send();
+//     });
+// }

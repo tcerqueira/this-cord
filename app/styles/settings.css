@@ -84,7 +84,7 @@ hr {
     height: fit-content;
 }
 
-#my-account-container div {
+.userProfileItem {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -99,12 +99,22 @@ hr {
     margin-top: 1rem;
 }
 
+#change-password {
+    display: none;
+    flex-direction: column;
+    align-items: none;
+    width: fit-content;
+    margin-bottom: 1rem;
+}
+
+#user-profile {
+    margin-top: 2rem;
+}
 #user-profile-container {
     background-color: var(--color-light-grey);
     border-radius: 7px;
     align-items: center;
     justify-content: center;
-    margin-top: 2rem;
     padding: 3rem;
 }
 

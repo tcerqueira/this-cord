@@ -1,6 +1,6 @@
 <?php
 require 'scripts/StartSession.php';
-require 'scripts/AuthenticationCheck.php';
+require 'scripts/NotAuthenticatedCheck.php';
 require 'scripts/SendHeaders.php';
 ?>
 
@@ -10,7 +10,6 @@ require 'scripts/SendHeaders.php';
     <?php include "../components/head.php" ?>
     <link rel="stylesheet" href="../styles/settings.css">
     <script src="../javascript/user-settings.js" defer></script>
-    <script src="../javascript/color-picker.js" defer></script>
 </head>
 <body>
     <div class="settings-container global-container">
@@ -21,42 +20,55 @@ require 'scripts/SendHeaders.php';
             <div class="esc">
                 <a href="#"> <img src="../public/esc.svg" alt="esc"></a>
             </div>
-            <div id="my-account">
+            <section id="my-account">
                 <h2>My Account</h2>
                 <div id="my-account-container">
-                    <div>
-                        <section >
+                    <div class="userProfileItem">
+                        <div>
                             <p><b>Username:</b></p>
-                            <span id="myaccount-username"></span>
-                        </section>
-                        <button > Edit</button>
+                            <input type="text" id="myaccount-username">
+                            <!-- <span id="myaccount-username"></span> -->
+                        </div>
+                        <button type="button" id ="editUserButton"> Edit</button>
                     </div>
-                    <hr>
-                    <div>
-                        <section>
+                    <div class="userProfileItem">
+                        <div>
                             <p><b>Email:</b></p>
-                            <span id=myaccount-email></span>
-                        </section>
-                        <button> Edit </button>
+                            <input type="text" id="myaccount-email">
+                            <!-- <span id=myaccount-email></span> -->
+                        </div>
+                        <button type="button" id= "editEmailButton"> Edit </button>
                     </div>
-                    <hr>
-                    <div>
-                        <section>
+                    <div class="userProfileItem">
+                        <div>
                             <p> <b>Phone Number:</b></p>
-                            <span id=myaccount-phoneNumber></span>
-                        </section>
-                        <button id="phoneNumberButton"></button>
+                            <input type="text" id="myaccount-phoneNumber">
+                            <!-- <span id=myaccount-phoneNumber></span> -->
+                        </div>
+                        <button type="button" id="phoneNumberButton"></button>
                     </div>
-                    <hr>
-                    <div>
+                    <div class="userProfileItem">
                         <p><b>Password</b></p>
-                        <button> Change Password</button>
+                        <button type="submit" id="changePasswordButton"> Change Password</button>
                     </div>
+                    <div id="change-password">
+                        <p><b>Old Password:</b></p>
+                        <input type="text" id="oldPassword">
+
+                        <p><b>New Password:</b></p>
+                        <input type="text" id="newPassword">
+                        
+                        <p><b>Confirm new Password:</b></p>
+                        <input type="text" id="confNewPassword">
+                    </div>
+                    <button type="submit" id="submitChangesButton">Save Changes</button>
                 </div>
                 <button id="delete-account"> Delete Account</button>
-            </div>
+            </section>
+            
 
-            <div id="user-profile">
+
+            <section id="user-profile">
                 <h2>User Profile</h2>
                 <div id="user-profile-container">
                     <div class="color-user">
@@ -81,7 +93,7 @@ require 'scripts/SendHeaders.php';
                         </form>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
         
 
