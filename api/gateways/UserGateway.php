@@ -50,6 +50,13 @@ class UserGateway
         return $result;
     }
 
+    public function updateStatus($id, $status)
+    {  
+        $query = "UPDATE this_user SET userstatus=$2 WHERE id=$1;";
+        $result = pg_query_params($this->db, $query, [$id, $status]);
+        return $result;
+    } 
+
     public function delete($id)
     {
         $query = "DELETE FROM this_user WHERE id=$1;";

@@ -45,9 +45,9 @@ class AuthenticationController
 
     public function signIn($username, $password)
     {
-        $result = $this->userGateway->findByUsername($username);
-        $result = pg_fetch_assoc($result);
-        $id = $result['id'];
+        $result_user = $this->userGateway->findByUsername($username);
+        $result_user = pg_fetch_assoc($result_user);
+        $id = $result_user['id'];
         if(empty($id))
             return false;
         
@@ -56,12 +56,16 @@ class AuthenticationController
         $hashed_password = $result['pass'];
         if(!password_verify($password, $hashed_password))
             return false;
-
+        
+        $result = $this->userGateway->updateStatus($result_user['id'], 1);
+        if(!$result)
+            return false;
         return $id;
     }
 
     public function signOut($id)
     {
+        $result = $this->userGateway->updateStatus($id, 0);
         $response = okResponse(['success' => true]);
         return $response;
     }
