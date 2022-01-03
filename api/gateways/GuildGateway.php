@@ -56,14 +56,14 @@ class GuildGateway
         return $result;
     }
 
-    public function findAllOfMember($member_id)
+    public function findAllOfMember($member_id, $invite_status)
     {
         $query = "SELECT guild.id, guildname, initials, theme_color ".
                  "FROM guild_members ".
                  "JOIN guild ".
                  "ON guild.id=guild_id ".
-                 "WHERE member_id=$1 AND invite_status=1;";
-        $result = pg_query_params($this->db, $query, [$member_id]);
+                 "WHERE member_id=$1 AND invite_status=$2;";
+        $result = pg_query_params($this->db, $query, [$member_id, $invite_status]);
         return $result;
     }
 
