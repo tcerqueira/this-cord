@@ -343,7 +343,8 @@ class GuildController
         $userGateway = new UserGateway($this->db);
         $result = $userGateway->getPassword($user_id);
         $result = pg_fetch_assoc($result);
-        return password_verify($password, $result['pass']);
+        // return password_verify($password, $result['pass']);
+        return (new AuthenticationController($this->db))->verifyPassword($password, $result['pass']);
     }
 }
 ?>
