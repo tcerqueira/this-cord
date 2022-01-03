@@ -26,7 +26,7 @@ require 'scripts/SendHeaders.php';
                     <div class="userProfileItem">
                         <div>
                             <p><b>Username:</b></p>
-                            <input type="text" id="myaccount-username">
+                            <input class="text-input-container" type="text" id="myaccount-username">
                             <!-- <span id="myaccount-username"></span> -->
                         </div>
                         <button type="button" id ="editUserButton"> Edit</button>
@@ -34,7 +34,7 @@ require 'scripts/SendHeaders.php';
                     <div class="userProfileItem">
                         <div>
                             <p><b>Email:</b></p>
-                            <input type="text" id="myaccount-email">
+                            <input class = "text-input-container" type="text" id="myaccount-email">
                             <!-- <span id=myaccount-email></span> -->
                         </div>
                         <button type="button" id= "editEmailButton"> Edit </button>
@@ -42,7 +42,7 @@ require 'scripts/SendHeaders.php';
                     <div class="userProfileItem">
                         <div>
                             <p> <b>Phone Number:</b></p>
-                            <input type="text" id="myaccount-phoneNumber">
+                            <input class="text-input-container" type="text" id="myaccount-phoneNumber">
                             <!-- <span id=myaccount-phoneNumber></span> -->
                         </div>
                         <button type="button" id="phoneNumberButton"></button>
@@ -53,13 +53,13 @@ require 'scripts/SendHeaders.php';
                     </div>
                     <div id="change-password">
                         <p><b>Old Password:</b></p>
-                        <input type="text" id="oldPassword">
+                        <input class="text-input-container" type="text" id="oldPassword">
 
                         <p><b>New Password:</b></p>
-                        <input type="text" id="newPassword">
+                        <input class="text-input-container" type="text" id="newPassword">
                         
                         <p><b>Confirm new Password:</b></p>
-                        <input type="text" id="confNewPassword">
+                        <input class="text-input-container" type="text" id="confNewPassword">
                     </div>
                     <button type="submit" id="submitChangesButton">Save Changes</button>
                 </div>
