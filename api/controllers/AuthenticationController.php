@@ -3,6 +3,7 @@ namespace controllers;
 
 use gateways\GuildGateway;
 use gateways\UserGateway;
+use stdClass;
 
 class AuthenticationController
 {
@@ -67,6 +68,19 @@ class AuthenticationController
     {
         $result = $this->userGateway->updateStatus($id, 0);
         $response = okResponse(['success' => true]);
+        return $response;
+    }
+
+    public function getProfile($id)
+    {
+        $result = $this->userGateway->findProfile($id);
+        if(!$result)
+        {
+            $response = internalServerErrorResponse('Problem retrieving user.');
+            return $response;
+        }
+        $result = pg_fetch_assoc($result);
+        $response = okResponse($result ? $result : new stdClass());
         return $response;
     }
 
