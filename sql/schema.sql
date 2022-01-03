@@ -3,7 +3,7 @@ CREATE TABLE this_user (
     username VARCHAR(64) NOT NULL,
     pass CHAR(60) NOT NULL,
     email VARCHAR(320) UNIQUE NOT NULL,
-    userstatus INTEGER,
+    userstatus SMALLINT NOT NULL DEFAULT 0,
     theme_color CHAR(7) DEFAULT '#7289da',
     user_description TEXT DEFAULT '',
     PRIMARY KEY (id)
@@ -38,15 +38,15 @@ CREATE TABLE channel_message (
     content TEXT NOT NULL,
     -- attachment_id (???)
     PRIMARY KEY (id),
-    FOREIGN KEY (channel_id) REFERENCES text_channel(id) ON DELETE CASCADE,
+    FOREIGN KEY (channel_id) REFERENCES text_channel(id) ON DELETE CASCADE
 );
 
 CREATE TABLE guild_members (
     guild_id UUID,
     member_id UUID,
-    invite_status INTEGER DEFAULT 0 CHECK(invite_status >= 0 AND invite_status <= 1), -- 0 - invited; 1 - accepted
+    invite_status SMALLINT NOT NULL DEFAULT 0 CHECK(invite_status IN (0,1)), -- 0 - invited; 1 - accepted
     invite_sender UUID,
-    guild_role INTEGER CHECK(guild_role >= 0 AND guild_role <= 2),
+    guild_role SMALLINT NOT NULL CHECK(guild_role IN (0,2)),
     PRIMARY KEY (guild_id, member_id),
     FOREIGN KEY (guild_id) REFERENCES guild(id) ON DELETE CASCADE,
     FOREIGN KEY (member_id) REFERENCES this_user(id) ON DELETE CASCADE
@@ -55,7 +55,7 @@ CREATE TABLE guild_members (
 CREATE TABLE this_friends (
     friend_1 UUID CHECK(friend_1<>friend_2),
     friend_2 UUID CHECK(friend_2<>friend_1),
-    invite_status INTEGER DEFAULT 0 CHECK(invite_status >= 0 AND invite_status <= 1), -- 0 - invited; 1 - accepted
+    invite_status SMALLINT NOT NULL DEFAULT 0 CHECK(invite_status IN (0,1)), -- 0 - invited; 1 - accepted
     request_sender UUID CHECK(friend_1=request_sender OR friend_2=request_sender),
     message_channel UUID,
     PRIMARY KEY (friend_1, friend_2),
@@ -66,6 +66,8 @@ CREATE TABLE this_friends (
     -- UNIQUE (friend_1, friend_2)
     -- CONSTRAINT U_Friendship UNIQUE (LEAST(friend_1, friend_2), GREATEST(friend_1, friend_2))
 );
+
+CREATE UNIQUE INDEX unique_friend_pairs ON this_friends(least(friend_1,friend_2), greatest(friend_1,friend_2));
 
 CREATE VIEW public_user_VIEW AS
 SELECT id, username, userstatus, theme_color, user_description
