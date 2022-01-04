@@ -3,7 +3,7 @@ require "../bootstrap.php";
 use controllers\AuthenticationController;
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
-if($requestMethod != 'POST')
+if($requestMethod != 'GET')
 {
     sendResponse(methodNotAllowedResponse());
     exit();
@@ -11,13 +11,12 @@ if($requestMethod != 'POST')
 
 if(!isAuthenticated())
 {
-    sendResponse(unauthorizedResponse('Not logged in.'));
+    sendResponse(unauthorizedResponse());
     exit();
 }
 
 $controller = new AuthenticationController($dbConnection);
-$response = $controller->signOut(getId());
-setAuthenticated(false);
+$response = $controller->getProfile(getId());
 
 sendResponse($response);
 ?>

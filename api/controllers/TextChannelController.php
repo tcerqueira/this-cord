@@ -1,6 +1,7 @@
 <?php
 namespace controllers;
 use gateways\TextChannelGateway;
+use stdClass;
 
 class TextChannelController
 {
@@ -36,7 +37,7 @@ class TextChannelController
         }
         $result = pg_fetch_assoc($result);
         // $result['is_direct_message'] = $result['is_direct_message'] == 't';
-        $response = okResponse($result);
+        $response = okResponse($result ? $result : new stdClass());
         return $response;
     }
 

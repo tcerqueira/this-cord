@@ -1,6 +1,7 @@
 <?php
 namespace controllers;
 use gateways\MessageGateway;
+use stdClass;
 
 class MessageController
 {
@@ -22,7 +23,7 @@ class MessageController
             return $response;
         }
         $result = pg_fetch_assoc($result);
-        $response = okResponse($result);
+        $response = okResponse($result ? $result : new stdClass());
         return $response;
     }
 

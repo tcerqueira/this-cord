@@ -1,5 +1,7 @@
 <?php
 require_once '../../bootstrap.php';
+
+use controllers\AuthorizationController;
 use controllers\UserController;
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
@@ -22,9 +24,15 @@ if(!isset($input['password']))
     exit();
 }
 
+$authorization = new AuthorizationController($dbConnection);
+if(!$authorization->validatePassword(getId(), $input['password']))
+{
+    $response = forbiddenResponse();
+    return $response;
+}
+
 $controller = new UserController($dbConnection);
-$response = $controller->deleteUser($_SESSION['id'], $input['password']);
+$response = $controller->deleteUser(getId());
 setAuthenticated(false);
 
 sendResponse($response);
-?>

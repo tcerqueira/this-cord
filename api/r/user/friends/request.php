@@ -1,5 +1,5 @@
 <?php
-require_once '../../bootstrap.php';
+require_once '../../../bootstrap.php';
 use controllers\UserController;
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
@@ -16,17 +16,14 @@ if(!isAuthenticated())
 }
 
 $input = (array) json_decode(file_get_contents('php://input'), TRUE);
-if(!isset($input['username']) ||
-    !isset($input['email']) ||
-    !isset($input['theme_color']) ||
-    !isset($input['user_description']))
+if(!isset($input['friend_id']))
 {
     sendResponse(unprocessableEntityResponse());
     exit();
 }
 
 $controller = new UserController($dbConnection);
-$response = $controller->updateUser(getId(), $input);
+$response = $controller->requestFriend(getId(), $input['friend_id']);
 
 sendResponse($response);
 ?>
