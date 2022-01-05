@@ -9,6 +9,7 @@ require 'scripts/SendHeaders.php';
 <head>
     <?php include "../components/head.php" ?>
     <link rel="stylesheet" href="../styles/register.css">
+    <script src="../javascript/register.js" defer></script>
 </head>
 <body>
 
