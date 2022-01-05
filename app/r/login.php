@@ -29,7 +29,7 @@ require 'scripts/SendHeaders.php';
                         <input type="password" name="password" id="password-input">
                     </div>
                     <a href="register.php?message=Too bad. Create another one.">Forgot your password?</a>
-                    <input type="submit" value="Login">
+                    <input id="login-button" class="button bg-green" type="submit" value="Login">
                 </form>
                 <div id="login-error-message" class="error-message one-liner">
                     <?php if(isset($_GET['message'])) echo $_GET['message']; ?>

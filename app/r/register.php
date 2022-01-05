@@ -36,7 +36,7 @@ require 'scripts/SendHeaders.php';
                     <div class="text-input-container">
                         <input type="password" name="conf-password" id="conf-password-input">
                     </div>
-                    <div class="button"><input type="submit" value="Register"></div>
+                    <input id="register-button" class="button bg-green" type="submit" value="Register">
                 </form>
                 <div id="register-error-message" class="error-message one-liner">
                     <?php if(isset($_GET['message'])) echo $_GET['message']; ?>

@@ -32,3 +32,9 @@ main {
 .login-side {
     flex-grow: 1;
 }
+
+#login-button {
+    font-size: 1.2rem;
+    /* width: 60%; */
+    align-self: center;
+}
