@@ -3,13 +3,14 @@ async function login()
     try {
         const username = document.getElementById('username-input').value;
         const password = document.getElementById('password-input').value;
-        response = await signIn(username, password);
+        response = await api.signIn({username, password});
         window.location.replace("home.php");
-        console.log(response);
     }
     catch(err)
     {
         console.log(err);
+        const errorMessage = document.getElementById('login-error-message');
+        errorMessage.innerText = err.error;
         document.getElementById('password-input').value = '';
     }
 };

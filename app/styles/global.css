@@ -59,7 +59,7 @@ hr {
 }
 
 label {
-    color: var(--color-light-grey);
+    color: var(--font-color);
 }
 
 input, textarea {
@@ -67,7 +67,9 @@ input, textarea {
     width: 100%;
 }
 
-input[type=text] {
+input[type=text],
+input[type=password],
+input[type=email] {
     background-color: transparent;
     border: none;
     color: inherit;
@@ -75,7 +77,9 @@ input[type=text] {
     font-weight: inherit;
 }
 
-input[type=text]:focus {
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=email]:focus {
     outline: none;
 }
 
@@ -174,6 +178,12 @@ input[type=text]:focus {
     filter: blur(3px); */
 }
 
+.error-message {
+    color: var(--color-red);
+    font-weight: bold;
+    word-wrap: break-word;
+}
+
 /************************************* CSS utility classes *************************************/
 /***********************************************************************************************/
 .flex-center {
@@ -195,11 +205,22 @@ input[type=text]:focus {
     position: absolute;
 }
 
+.one-liner {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.rounded-container {
+    padding: 1em;
+    border-radius: var(--border-radius-size, 10px);
+}
+
 .text-input-container {
     background-color: var(--color-light-grey);
     border-radius: 10px;
     padding: 0.7rem 1rem;
-    font-size: 1.2rem;
+    /* font-size: 1.2rem; */
 }
 
 .icon-size-big {
