@@ -37,6 +37,9 @@ require 'scripts/SendHeaders.php';
                     </div>
                     <div class="button"><input type="submit" value="Register"></div>
                 </form>
+                <div id="register-error-message" class="error-message one-liner">
+                    <?php if(isset($_GET['message'])) echo $_GET['message']; ?>
+                </div>
                 <a href="login.php">Already have an account?</a>
             </div>
         </div>

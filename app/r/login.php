@@ -28,10 +28,12 @@ require 'scripts/SendHeaders.php';
                     <div class="text-input-container">
                         <input type="password" name="password" id="password-input">
                     </div>
-                    <a href="#">Forgot your password?</a>
+                    <a href="register.php?message=Too bad. Create another one.">Forgot your password?</a>
                     <input type="submit" value="Login">
                 </form>
-                <div id="login-error-message" class="error-message one-liner"></div>
+                <div id="login-error-message" class="error-message one-liner">
+                    <?php if(isset($_GET['message'])) echo $_GET['message']; ?>
+                </div>
                 <span>Need an account? <a href="register.php">Register</a></span>
             </div>
             <div class="login-side">
