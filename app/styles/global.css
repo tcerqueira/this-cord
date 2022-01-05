@@ -59,6 +59,8 @@ hr {
 }
 
 label {
+    display: block;
+    margin: .5em .6em;
     color: var(--font-color);
 }
 

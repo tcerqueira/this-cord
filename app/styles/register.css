@@ -2,7 +2,10 @@ main {
     padding-top: 25vh;
     height: 100vh;
 
-    background-color: var(--color-light-grey);
+    background-color: #7289DA;
+    background-image: url("../public/bullseye-gradient.svg");
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 .register-container {
@@ -11,7 +14,4 @@ main {
     margin: 0 auto;
 
     background-color: var(--color-dark-grey);
-}
-
-.register-inputs {
 }

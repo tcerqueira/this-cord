@@ -32,7 +32,7 @@ require 'scripts/SendHeaders.php';
                     <input type="submit" value="Login">
                 </form>
                 <div id="login-error-message" class="error-message one-liner"></div>
-                <span>Need an account? <a href="#">Register</a></span>
+                <span>Need an account? <a href="register.php">Register</a></span>
             </div>
             <div class="login-side">
                 Some cute message.
