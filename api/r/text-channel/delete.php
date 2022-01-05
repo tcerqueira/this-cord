@@ -2,7 +2,7 @@
 require_once '../../bootstrap.php';
 
 use controllers\AuthorizationController;
-use controllers\UserController;
+use controllers\TextChannelController;
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 if($requestMethod != 'POST')
@@ -17,22 +17,23 @@ if(!isAuthenticated())
     exit();
 }
 
-$input = (array) json_decode(file_get_contents('php://input'), TRUE);
-if(!isset($input['password']))
+$input = (Array) json_decode(file_get_contents('php://input'), TRUE);
+if(!isset($input['channel_id']))
 {
     sendResponse(unprocessableEntityResponse());
     exit();
 }
 
 $authorization = new AuthorizationController($dbConnection);
-if(!$authorization->validatePassword(getId(), $input['password']))
+$membership = $authorization->membershipByChannel($input['channel_id'], getId());
+if(!$membership['is_member'] || $membership['role'] < 1)
 {
-    $response = forbiddenResponse();
-    return $response;
+    sendResponse(forbiddenResponse());
+    exit();
 }
 
-$controller = new UserController($dbConnection);
-$response = $controller->deleteUser(getId());
-setAuthenticated(false);
+$controller = new TextChannelController($dbConnection);
+$response = $controller->deleteTextChannel($input['channel_id']);
 
 sendResponse($response);
+?>

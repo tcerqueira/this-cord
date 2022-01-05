@@ -1,3 +1,7 @@
+-- ADMIN
+INSERT INTO guild (id, guildname, initials, admin_id) VALUES ('00000000-0000-0000-0000-000000000000', '__direct_messages', '_DM', '00000000-0000-0000-0000-000000000000');
+-- -----
+
 INSERT INTO this_user (username, pass, email) VALUES ('lou', 'lou', 'lou@mail.com');
 INSERT INTO this_user (username, pass, email) VALUES ('pa99', 'pa99', 'pa99@mail.com');
 

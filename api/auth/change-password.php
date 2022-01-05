@@ -1,6 +1,6 @@
 <?php
-require "../../bootstrap.php";
-use controllers\GuildController;
+require "../bootstrap.php";
+use controllers\AuthenticationController;
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 if($requestMethod != 'POST')
@@ -16,15 +16,14 @@ if(!isAuthenticated())
 }
 
 $input = (Array) json_decode(file_get_contents('php://input'), TRUE);
-if(!isset($input['guild_id']) ||
-    !isset($input['answer']))
+if(!isset($input['old_password']) || !isset($input['new_password']))
 {
     sendResponse(unprocessableEntityResponse());
     exit();
 }
 
-$controller = new GuildController($dbConnection);
-$response = $controller->answerInvite($input['guild_id'], getId(), $input['answer']);
+$controller = new AuthenticationController($dbConnection);
+$response = $controller->changePassword(getId(), $input['old_password'], $input['new_password']);
 
 sendResponse($response);
 ?>
