@@ -1,24 +1,24 @@
 const messagesList = document.getElementById('messages-list');
 
 const messages = [
-    { id: '19', author: 'lou', content: "Hellommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm", sentAt: '25/12/2021 at 18h30m', reply: { author: 'maninho', content: 'Hello oh maninho'}},
-    { id: '18', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '17', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '16', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '15', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '14', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '13', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '12', author: 'tansi', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '11', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '10', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '8', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '7', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '6', author: 'burro', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '5', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '4', author: 'lou', content: "replied", sentAt: '25/12/2021 at 18h30m', reply: { author: 'maninho', content: 'Hello oh maninhommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm'} },
-    { id: '3', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '2', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '1', author: 'lou', content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null }
+    { id: '19', author: {id: '1', username: 'lou'}, content: "Hellommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm", sentAt: '25/12/2021 at 18h30m', reply: { author: {id: '4', username: 'rezi'}, content: 'Hello oh maninho'}},
+    { id: '18', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '17', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '16', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '15', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '14', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '13', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '12', author: {id: '2', username: 'titi'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '11', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '10', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '8', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '7', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '6', author: {id: '3', username: 'pa99'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '5', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '4', author: {id: '1', username: 'lou'}, content: "replied", sentAt: '25/12/2021 at 18h30m', reply: { author: {id: '4', username: 'rezi'}, content: 'Hello oh maninhommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm'} },
+    { id: '3', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '2', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+    { id: '1', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null }
 ];
 
 let lastMessage = undefined;
@@ -31,7 +31,7 @@ messages.forEach(message => {
         renderMessageAuthor(messageItem, message);
         renderReply(messageItem, message.reply);
     }
-    else if(lastMessage && lastMessage.author != message.author)
+    else if(lastMessage && lastMessage.author.id !== message.author.id)
     {
         renderMessageAuthor(lastMessageItem, lastMessage);
     }
@@ -67,7 +67,7 @@ function renderMessage(message)
     listItem.id = 'message_' + message.id;
     listItem.classList.add('message');
     // add logic to check if its replying to active user
-    if(message.author === 'burro')
+    if(message.author.username === 'burro')
         listItem.classList.add('message-replying-to-me');
 
     listItem.innerText = message.content;
@@ -108,12 +108,12 @@ function renderMessageAuthor(messageItem, message)
     authorAvatar.classList.add('icon-card');
     // TODO: theme color
     authorAvatar.style = '--icon-bg-color: ' + '#7289da' + ';';
-    authorAvatar.innerText = message.author;
+    authorAvatar.innerText = message.author.username;
     h3.append(authorAvatar);
 
     const authorSpan = document.createElement('span');
     const dateSpan = document.createElement('span');
-    const usernameSpan = createUsernameRef(message.author, '#00ff00');
+    const usernameSpan = createUsernameRef(message.author.id, message.author.username, '#00ff00');
     dateSpan.classList.add('message-date');
     dateSpan.innerText = message.sentAt;
     authorSpan.append(usernameSpan);
@@ -129,7 +129,7 @@ function renderReply(messageItem, reply)
     div.classList.add('reply-preview');
     div.innerText = ': ' + reply.content;
 
-    const span = createUsernameRef('@' + reply.author, '#ff0000');
+    const span = createUsernameRef(reply.author.id, '@' + reply.author.username, '#ff0000');
     div.insertBefore(span, div.childNodes[0]);
 
     messageItem.insertBefore(div, messageItem.childNodes[0]);
@@ -140,7 +140,7 @@ function renderReplying(replyTo)
     const replyContainer = document.getElementById('reply-container');
     const channelContainer = document.querySelector('.text-channel-container');
     document.getElementById('replyingToUsername')?.remove();
-    const replyingTo = createUsernameRef(replyTo, "#0000ff");
+    const replyingTo = createUsernameRef(replyTo.id, replyTo.username, "#0000ff");
     replyingTo.id = 'replyingToUsername';
     document.querySelector('#reply-container > span').append(replyingTo);
     
@@ -160,10 +160,11 @@ function removeReplying()
     replyContainer.style.display = '';
 }
 
-function createUsernameRef(username, theme)
+function createUsernameRef(id, username, theme)
 {
     const usernameSpan = document.createElement('span');
     usernameSpan.classList.add('username');
+    usernameSpan.dataset.userId = id;
     usernameSpan.style = '--user-theme: ' + theme + ';';
     usernameSpan.innerText = username;
 
