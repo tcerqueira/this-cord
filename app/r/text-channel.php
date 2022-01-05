@@ -10,9 +10,10 @@ require 'scripts/SendHeaders.php';
     <?php include "../components/head.php" ?>
     <link rel="stylesheet" href="../styles/text-channel.css">
     <script src="../javascript/text-channel.js" defer></script>
+    <script src="../javascript/guild.js" defer></script>
 </head>
 <body>
-
+    <?php include '../components/modals.php'; ?>
     <div class="default-container global-container">
         <?php include '../components/nav-primary.php'; ?>
         <?php include '../components/nav-secondary.php'; ?>
