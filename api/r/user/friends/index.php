@@ -1,9 +1,9 @@
 <?php
-require_once '../../bootstrap.php';
+require_once '../../../bootstrap.php';
 use controllers\UserController;
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
-if($requestMethod != 'POST')
+if($requestMethod != 'GET')
 {
     sendResponse(methodNotAllowedResponse());
     exit();
@@ -15,18 +15,23 @@ if(!isAuthenticated())
     exit();
 }
 
-$input = (array) json_decode(file_get_contents('php://input'), TRUE);
-if(!isset($input['username']) ||
-    !isset($input['email']) ||
-    !isset($input['theme_color']) ||
-    !isset($input['user_description']))
+if(count($_GET) > 1)
 {
     sendResponse(unprocessableEntityResponse());
     exit();
 }
 
 $controller = new UserController($dbConnection);
-$response = $controller->updateUser(getId(), $input);
+if(count($_GET) == 0) {
+    $response = $controller->getFriends(getId());
+}
+else if(isset($_GET['id'])) {
+    // TODO ??????
+    $response = $controller->getFriends(getId());
+}
+else {
+    $response = unprocessableEntityResponse();
+}
 
 sendResponse($response);
 ?>

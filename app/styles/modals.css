@@ -1,0 +1,81 @@
+.modal-pane {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    justify-content: center;
+    align-items: center;
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100vw; /* Full width */
+    height: 100vh; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-container {
+    /* z-index: 999; */
+    border-radius: var(--border-radius-size);
+    background-color: var(--color-black);
+    overflow: hidden;
+}
+
+/* ###################################################### USER ######################################################## */
+/* #################################################################################################################### */
+.user-modal {
+    display: none;
+    margin: 5px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.user-modal > header {
+    height: 10rem;
+}
+
+.user-modal > main {
+    padding: 1rem;
+}
+
+.theme-user-panel {
+    background-color: var(--user-bg-panel, var(--color-primary));
+    min-height: 50%;
+}
+
+.username-container {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    height: 50%;
+    padding: 1.5rem 3rem;
+}
+
+.username-container > span {
+    font-size: 1.3rem;
+    color: var(--color-primary);
+}
+
+.username-container > span::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -1rem;
+    left: 1rem;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+
+    border: 2px solid var(--color-light-grey);
+    background-color: var(--bg-color, var(--color-dark-grey));
+}
+
+/* ##################################################### GUILD ######################################################## */
+/* #################################################################################################################### */
+.create-guild-modal {
+    display: none;
+}
+
+/* ##################################################### CHANNEL ###################################################### */
+/* #################################################################################################################### */
+.create-textchannel-modal {
+    display: none;
+}
