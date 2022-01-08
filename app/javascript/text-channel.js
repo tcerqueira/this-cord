@@ -125,14 +125,18 @@ function renderMessageAuthor(messageItem, message)
 
 function renderReply(messageItem, reply)
 {
+    const anchor = document.createElement('a');
+    // anchor.href = '#message_' + message.id;
+    anchor.href = '#';
     const div = document.createElement('div');
+    anchor.append(div);
     div.classList.add('reply-preview');
     div.innerText = ': ' + reply.content;
 
     const span = createUsernameRef(reply.author.id, '@' + reply.author.username, '#ff0000');
     div.insertBefore(span, div.childNodes[0]);
 
-    messageItem.insertBefore(div, messageItem.childNodes[0]);
+    messageItem.insertBefore(anchor, messageItem.childNodes[0]);
 }
 
 function renderReplying(replyTo)

@@ -25,8 +25,10 @@ require 'scripts/SendHeaders.php';
                 <!-- Empty element to reference to go back to bottom messages -->
                 <div id="back-to-bottom"></div>
                 <ol id="messages-list">
-                    <!-- <li id="message-2" class="message">
-                        <div class="reply-preview"><span class="username">@tanso</span>: hello bro</div>
+                    <!-- <li id="message_2" class="message">
+                        <a href="#message_123">
+                            <div class="reply-preview"><span class="username">@tanso</span>: hello bro</div>
+                        </a>
                         <h3 class="message-author">
                             <div class="author-avatar">
                                 lou
