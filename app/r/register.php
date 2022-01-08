@@ -26,7 +26,7 @@ require 'scripts/SendHeaders.php';
                     </div>
                     <label for="username-input">Username</label>
                     <div class="text-input-container">
-                        <input type="email" name="username" id="username-input">
+                        <input type="text" name="username" id="username-input">
                     </div>
                     <label for="password-input">Password</label>
                     <div class="text-input-container">

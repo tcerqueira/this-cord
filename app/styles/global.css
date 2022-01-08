@@ -269,6 +269,10 @@ input.button:active {
     /* font-size: 1.2rem; */
 }
 
+.invalid-input {
+    border: 1px solid var(--color-red);
+}
+
 .icon-size-big {
     --side-size: calc(var(--card-size) + 1rem);
 }
