@@ -79,3 +79,18 @@
 .create-textchannel-modal {
     display: none;
 }
+
+/* ################################################## CONFIRMATION #################################################### */
+/* #################################################################################################################### */
+
+.confirmation-modal {
+    display: none;
+
+    max-width: 500px;
+    min-height: 400px;
+}
+
+.confirm-btn-container {
+    display: flex;
+
+}

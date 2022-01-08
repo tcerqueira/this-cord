@@ -5,14 +5,6 @@ window.onclick = evt => {
         closeModal();
 }
 
-// openModal('user-modal');
-// renderUserModal({
-//     username: 'lou',
-//     theme_color: '#f00',
-//     description: 'sou um tansinnho',
-//     user_note: localStorage.getItem('note_1')
-// })
-
 document.getElementById('direct-message-input').addEventListener('keypress', evt => {
     const code = evt.keyCode || evt.which;
     if(code === 13)
@@ -26,6 +18,8 @@ document.getElementById('direct-message-input').addEventListener('keypress', evt
         }
     }
 })
+
+document.getElementById('cancel-btn-modal').addEventListener('click', closeModal);
 
 function renderUserModal(user)
 {
@@ -60,6 +54,17 @@ function renderUserModal(user)
     else {
         friendBtn.innerText = 'Add';
     }
+}
+
+function renderConfirmationModal(message, callbackFn)
+{
+    document.getElementById('confirmation-message').innerText = message;
+    // remove all event listeners
+    const oldButton = document.getElementById("confirm-btn-modal");
+    const newButton = oldButton.cloneNode(true);
+    oldButton.parentNode.replaceChild(newButton, oldButton);
+
+    newButton.addEventListener('click', callbackFn);
 }
 
 function openModal(elemId)
