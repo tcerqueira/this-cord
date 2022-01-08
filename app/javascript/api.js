@@ -254,8 +254,6 @@ class API
 
 const api = new API('../../api');
 
-api.signOut().then();
-
 // (async function test()
 // {
 //     try {
