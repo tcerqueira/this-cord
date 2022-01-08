@@ -1,5 +1,9 @@
 async function login()
 {
+    document.querySelectorAll('.login-container .text-input-container').forEach(input => {
+        input.classList.remove('invalid-input');
+    })
+
     try {
         const username = document.getElementById('username-input').value;
         const password = document.getElementById('password-input').value;
@@ -10,9 +14,11 @@ async function login()
     catch(err)
     {
         console.log(err);
-        const errorMessage = document.getElementById('login-error-message');
-        errorMessage.innerText = err.error;
+        document.getElementById('login-error-message').innerText = err.error;
         document.getElementById('password-input').value = '';
+        document.querySelectorAll('.login-container .text-input-container').forEach(input => {
+            input.classList.add('invalid-input');
+        })
     }
     finally
     {
