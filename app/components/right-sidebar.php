@@ -16,7 +16,7 @@
     <ul id="onlineUl">
         
     </ul>
-    <h2>Offline</h2>
+    <h2 style="color: var(--color-light-grey);">Offline</h2>
     <ul id="offlineUl">
         <!-- <li class="member-container offline">
             <div class="icon-card icon-size-medium">
@@ -24,5 +24,9 @@
             </div>
             <span>username</span>
         </li> -->
+    </ul>
+    <h2>Invited</h2>
+    <ul id="invitedUl">
+        
     </ul>
 </aside>

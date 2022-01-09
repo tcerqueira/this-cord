@@ -57,6 +57,7 @@ function renderMembersList(members) {
     const modsUl = document.getElementById('modsUl');
     const onlineUl = document.getElementById('onlineUl');
     const offlineUl = document.getElementById('offlineUl');
+    const invitedUl = document.getElementById('invitedUl');
 
     ownerUl.append(createMemberItem(admin));
 
@@ -71,6 +72,10 @@ function renderMembersList(members) {
     offline.forEach(off => {
         offlineUl.append(createMemberItem(off));
     })
+
+    invited.forEach(inv => {
+        invitedUl.append(createMemberItem(inv));
+    })
 }
 
 function createMemberItem(member) {
@@ -78,7 +83,7 @@ function createMemberItem(member) {
     const div = document.createElement('div');
     const span = document.createElement('span');
 
-    li.classList.add('member-container');
+    li.className = 'member-container rounded-container';
     div.className = 'icon-card icon-size-medium';
     div.style = '--icon-bg-color: ' + member.theme_color + ';';
     span.innerText = member.username;

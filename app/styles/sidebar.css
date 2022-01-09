@@ -14,7 +14,7 @@
 }
 
 .member-container:hover {
-    background-color: var(--color-light-grey);
+    background-color: var(--color-medium-grey-2);
 }
 
 .right-sidebar > h2 {
