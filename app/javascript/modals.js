@@ -5,14 +5,6 @@ window.onclick = evt => {
         closeModal();
 }
 
-// openModal('user-modal');
-// renderUserModal({
-//     username: 'lou',
-//     theme_color: '#f00',
-//     description: 'sou um tansinnho',
-//     user_note: localStorage.getItem('note_1')
-// })
-
 document.getElementById('direct-message-input').addEventListener('keypress', evt => {
     const code = evt.keyCode || evt.which;
     if(code === 13)
@@ -27,18 +19,19 @@ document.getElementById('direct-message-input').addEventListener('keypress', evt
     }
 })
 
+document.getElementById('cancel-btn-modal').addEventListener('click', closeModal);
+
 function renderUserModal(user)
 {
     const {
         id,
         username,
         theme_color,
-        description,
+        user_description,
         userstatus,
         is_friend
     } = user;
     // = fetchUser
-    console.log(is_friend);
     const user_note = localStorage.getItem(`note_${id}`);
 
     const usernameSpan = document.getElementById('username-user-modal');
@@ -50,7 +43,7 @@ function renderUserModal(user)
     usernameSpan.innerText = username;
     usernameSpan.style = userstatus === '1' ? '--bg-color: var(--color-green);' : '--bg-color: var(--color-dark-grey);';
     themeDiv.style = `--user-bg-panel: ${theme_color};`;
-    aboutP.innerText = description;
+    aboutP.innerText = user_description;
     noteP.innerText = user_note;
     if(is_friend)
     {
@@ -60,6 +53,17 @@ function renderUserModal(user)
     else {
         friendBtn.innerText = 'Add';
     }
+}
+
+function renderConfirmationModal(message, callbackFn)
+{
+    document.getElementById('confirmation-message').innerText = message;
+    // remove all event listeners
+    const oldButton = document.getElementById("confirm-btn-modal");
+    const newButton = oldButton.cloneNode(true);
+    oldButton.parentNode.replaceChild(newButton, oldButton);
+
+    newButton.addEventListener('click', callbackFn);
 }
 
 function openModal(elemId)

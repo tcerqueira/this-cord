@@ -62,7 +62,9 @@ hr {
 }
 
 label {
-    color: var(--color-light-grey);
+    display: block;
+    margin: .5em .6em;
+    color: var(--font-color);
 }
 
 input, textarea {
@@ -71,7 +73,9 @@ input, textarea {
     resize: none;
 }
 
-input[type=text] {
+input[type=text],
+input[type=password],
+input[type=email] {
     background-color: transparent;
     border: none;
     color: inherit;
@@ -79,7 +83,9 @@ input[type=text] {
     font-weight: inherit;
 }
 
-input[type=text]:focus {
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=email]:focus {
     outline: none;
 }
 
@@ -181,27 +187,21 @@ input[type=text]:focus {
     filter: blur(3px);
 } */
 
-.text-input-container {
-    border-radius: 10px;
-    padding: 0.7rem 1rem;
-}
-
 .user-text-input {
     border: 1px solid var(--color-light-grey);
 }
 
-.user-text-input:focus-within {
-    border: 1px solid var(--color-primary);
-}
-
-button.button {
+button.button,
+input.button {
     padding: 0.2em 1em;
     color: var(--color-light);
     border: none;
     border-radius: 3px;
+    cursor: pointer;
 }
 
-button.button:hover {
+button.button:hover,
+input.button:hover {
     --brightness: 90%;
     -webkit-filter: brightness(var(--brightness));
     -moz-filter: brightness(var(--brightness));
@@ -210,13 +210,20 @@ button.button:hover {
     filter: brightness(var(--brightness));
 }
 
-button.button:active {
+button.button:active,
+input.button:active {
     --brightness: 70%;
     -webkit-filter: brightness(var(--brightness));
     -moz-filter: brightness(var(--brightness));
     -ms-filter: brightness(var(--brightness));
     -o-filter: brightness(var(--brightness));
     filter: brightness(var(--brightness));
+}
+
+.error-message {
+    color: var(--color-red);
+    font-weight: bold;
+    word-wrap: break-word;
 }
 
 /************************************* CSS utility classes *************************************/
@@ -238,6 +245,32 @@ button.button:active {
 
 .tooltip {
     position: absolute;
+}
+
+.one-liner {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.rounded-container {
+    padding: 1em;
+    border-radius: var(--border-radius-size, 10px);
+}
+
+.text-input-container {
+    background-color: var(--color-light-grey);
+    border-radius: 10px;
+    padding: 0.7rem 1rem;
+    /* font-size: 1.2rem; */
+}
+
+.text-input-container:focus-within {
+    border: 1px solid var(--color-primary);
+}
+
+.invalid-input {
+    border: 1px solid var(--color-red);
 }
 
 .icon-size-big {

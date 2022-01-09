@@ -24,4 +24,19 @@
     <div id="create-textchannel-modal" class="modal-container create-textchannel-modal">
 
     </div>
+    <div id="guild-invite-modal" class="modal-container guild-invite-modal">
+
+    </div>
+    <div id="confirmation-modal" class="modal-container confirmation-modal">
+        <header>
+            <h1>Confirmation</h1>
+        </header>
+        <main>
+            <p id="confirmation-message"></p>
+            <div class="confirm-btn-container">
+                <button id="confirm-btn-modal" class="button bg-green">Confirm</button>
+                <button id="cancel-btn-modal" class="button bg-light-grey">Cancel</button>
+            </div>
+        </main>
+    </div>
 </div>

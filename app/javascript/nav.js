@@ -1,23 +1,30 @@
-const serversContainer = document.getElementById('guilds-container');
+renderNav();
 
-const userServers = [
-    { id: 1, name: 'server 1', initials: 'S1', theme_color: '#f00'},
-    { id: 2, name: 'server 2', initials: 'S2', theme_color: '#0f0'},
-    { id: 3, name: 'server 3', initials: 'S3', theme_color: '#00f'}
-];
+async function renderNav() {
+    try {
+        const myGuilds = await api.fetchMyGuilds();
+        
+        const serversContainer = document.getElementById('guilds-container');
+        myGuilds.forEach((server) => {
+            const serverCard = renderServerCard(server);
+            serversContainer.append(serverCard);
+        });
+    }
+    catch(err) {
+        console.log(err);
+    }
+}
 
-userServers.forEach((server) => {
-    const serverCard = renderServerCard(server);
-    serversContainer.append(serverCard);
-});
+function renderServerCard(server) {
+    const anchor = document.createElement('a');
+    anchor.href = server.channels.length ? 'text-channel.php?id=' + server.channels[0] : 'guild-home.php';
 
-function renderServerCard(server)
-{
     const serverCard = document.createElement('div');
+    anchor.append(serverCard);
     serverCard.className = "icon-size-medium icon-card side-card";
-    serverCard.dataset.tooltip = server.name;
+    serverCard.dataset.tooltip = server.guildname;
     serverCard.innerText = server.initials;
     serverCard.style = '--icon-bg-color: ' + server.theme_color + ';';
 
-    return serverCard;
+    return anchor;
 }

@@ -47,6 +47,10 @@
     background-color: var(--color-medium-grey-1);
 }
 
+.message > a {
+    color: inherit;
+}
+
 .reply-preview {
     opacity: 0.7;
     font-size: 0.9rem;

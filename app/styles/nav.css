@@ -22,12 +22,13 @@
                 background-color 100ms ease-in-out;
 
     /* background-color: var(--color-medium-grey-1); */
-    color: white;
+    color: var(--color-light);
+    cursor: pointer;
 }
 
 .side-card:hover {
     border-radius: 40%;
-    background-color: var(--color-primary);
+    /* background-color: var(--color-primary); */
 }
 
 .server-nav{
