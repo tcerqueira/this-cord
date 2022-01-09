@@ -24,6 +24,9 @@
     <div id="create-textchannel-modal" class="modal-container create-textchannel-modal">
 
     </div>
+    <div id="guild-invite-modal" class="modal-container guild-invite-modal">
+
+    </div>
     <div id="confirmation-modal" class="modal-container confirmation-modal">
         <header>
             <h1>Confirmation</h1>

@@ -1,4 +1,19 @@
 const messagesList = document.getElementById('messages-list');
+const currentTextChannelId = document.getElementById('currentChannelId').dataset.channelId;
+
+let currentTextChannel;
+async function getCurrentChannel() {
+    if(currentTextChannel)
+        return currentTextChannel;
+    try {
+        currentTextChannel = await api.fetchTextChannel({id: currentTextChannelId});
+    }
+    catch (err) {
+        console.log(err)
+        return null;
+    }
+    return currentTextChannel;
+}
 
 const messages = [
     { id: '19', author: {id: '1', username: 'lou'}, content: "Hellommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm", sentAt: '25/12/2021 at 18h30m', reply: { author: {id: '4', username: 'rezi'}, content: 'Hello oh maninho'}},
@@ -125,14 +140,18 @@ function renderMessageAuthor(messageItem, message)
 
 function renderReply(messageItem, reply)
 {
+    const anchor = document.createElement('a');
+    // anchor.href = '#message_' + message.id;
+    anchor.href = '#';
     const div = document.createElement('div');
+    anchor.append(div);
     div.classList.add('reply-preview');
     div.innerText = ': ' + reply.content;
 
     const span = createUsernameRef(reply.author.id, '@' + reply.author.username, '#ff0000');
     div.insertBefore(span, div.childNodes[0]);
 
-    messageItem.insertBefore(div, messageItem.childNodes[0]);
+    messageItem.insertBefore(anchor, messageItem.childNodes[0]);
 }
 
 function renderReplying(replyTo)

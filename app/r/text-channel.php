@@ -9,10 +9,13 @@ require 'scripts/SendHeaders.php';
 <head>
     <?php include "../components/head.php" ?>
     <link rel="stylesheet" href="../styles/text-channel.css">
+    <link rel="stylesheet" href="../styles/sidebar.css">
     <script src="../javascript/text-channel.js" defer></script>
     <script src="../javascript/guild.js" defer></script>
 </head>
 <body>
+    <?php require 'scripts/UserId.php' ?>
+    <div id="currentChannelId" data-channel-id="<?php echo $_GET['id'];?>"></div>
     <?php include '../components/modals.php'; ?>
     <div class="default-container global-container">
         <?php include '../components/nav-primary.php'; ?>
@@ -24,8 +27,10 @@ require 'scripts/SendHeaders.php';
                 <!-- Empty element to reference to go back to bottom messages -->
                 <div id="back-to-bottom"></div>
                 <ol id="messages-list">
-                    <!-- <li id="message-2" class="message">
-                        <div class="reply-preview"><span class="username">@tanso</span>: hello bro</div>
+                    <!-- <li id="message_2" class="message">
+                        <a href="#message_123">
+                            <div class="reply-preview"><span class="username">@tanso</span>: hello bro</div>
+                        </a>
                         <h3 class="message-author">
                             <div class="author-avatar">
                                 lou

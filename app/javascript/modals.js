@@ -27,12 +27,11 @@ function renderUserModal(user)
         id,
         username,
         theme_color,
-        description,
+        user_description,
         userstatus,
         is_friend
     } = user;
     // = fetchUser
-    console.log(is_friend);
     const user_note = localStorage.getItem(`note_${id}`);
 
     const usernameSpan = document.getElementById('username-user-modal');
@@ -44,7 +43,7 @@ function renderUserModal(user)
     usernameSpan.innerText = username;
     usernameSpan.style = userstatus === '1' ? '--bg-color: var(--color-green);' : '--bg-color: var(--color-dark-grey);';
     themeDiv.style = `--user-bg-panel: ${theme_color};`;
-    aboutP.innerText = description;
+    aboutP.innerText = user_description;
     noteP.innerText = user_note;
     if(is_friend)
     {
