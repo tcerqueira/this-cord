@@ -41,12 +41,12 @@ function renderMembers(members) {
             res.mods.push(member);
             return res;
         }
-        if(member.userstatus === '1') {
-            res.online.push(member);
-            return res;
-        }
         if(member.invite_status === '0') {
             res.invited.push(member);
+            return res;
+        }
+        if(member.userstatus === '1') {
+            res.online.push(member);
             return res;
         }
         res.offline.push(member);
