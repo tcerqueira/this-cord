@@ -7,10 +7,13 @@ require 'scripts/SendHeaders.php';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include "../components/head.php" ?>
+    <?php include "../components/head.php"; ?>
+
 </head>
 <body>
-
+    <?php require 'scripts/UserId.php'; ?>
+    <?php include '../components/modals.php'; ?>
+    
     <div class="default-container global-container">
         <?php include '../components/nav-primary.php'; ?>
         <?php include '../components/nav-secondary.php'; ?>
