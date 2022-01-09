@@ -84,6 +84,7 @@ function createMemberItem(member) {
     const span = document.createElement('span');
 
     li.className = 'member-container rounded-container';
+    if(member.userstatus === '0') li.classList.add('offline');
     div.className = 'icon-card icon-size-medium';
     div.style = '--icon-bg-color: ' + member.theme_color + ';';
     span.innerText = member.username;
