@@ -24,7 +24,8 @@ class UserGateway
 
     public function findProfile($id)
     {
-        $query = "SELECT * FROM this_user WHERE id=$1;";
+        // $query = "SELECT * FROM this_user WHERE id=$1;";
+        $query = "UPDATE this_user SET userstatus=1 WHERE id=$1 RETURNING *;";
         $result = pg_query_params($this->db, $query, [$id]);
         return $result;
     }
