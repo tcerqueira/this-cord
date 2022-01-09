@@ -58,11 +58,12 @@ class GuildGateway
 
     public function findAllOfMember($member_id, $invite_status)
     {
-        $query = "SELECT guild.id, guildname, initials, theme_color ".
-                 "FROM guild_members ".
-                 "JOIN guild ".
-                 "ON guild.id=guild_id ".
-                 "WHERE member_id=$1 AND invite_status=$2;";
+        $query = "SELECT guild.id, guildname, initials, theme_color, array_to_json(COALESCE(array_agg(text_channel.id), '{}'::UUID[])) channels
+                FROM guild_members
+                JOIN guild ON guild.id=guild_id
+                LEFT JOIN text_channel USING (guild_id)
+                WHERE member_id=$1 AND invite_status=$2 AND guild_id<>'00000000-0000-0000-0000-000000000000'
+                GROUP BY guild.id;";
         $result = pg_query_params($this->db, $query, [$member_id, $invite_status]);
         return $result;
     }
