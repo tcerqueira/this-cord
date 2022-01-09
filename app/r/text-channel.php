@@ -15,6 +15,7 @@ require 'scripts/SendHeaders.php';
 </head>
 <body>
     <?php require 'scripts/UserId.php' ?>
+    <div id="channelId" data-channel-id="<?php echo $_GET['id'];?>"></div>
     <?php include '../components/modals.php'; ?>
     <div class="default-container global-container">
         <?php include '../components/nav-primary.php'; ?>

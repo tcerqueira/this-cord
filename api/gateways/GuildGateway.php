@@ -36,7 +36,7 @@ class GuildGateway
         //           JOIN this_user AS inviter
         //           ON inviter.id=invite_sender
         //           WHERE guild_id=$1;";
-        $query = "SELECT DISTINCT member_id, member.username, member.userstatus, member.theme_color, guild_role,invite_status, invite_sender
+        $query = "SELECT DISTINCT member_id, member.username, member.userstatus, member.theme_color, guild_role,invite_status, invite_sender, user_description
                   FROM guild_members
                   JOIN this_user AS member
                   ON member.id=member_id

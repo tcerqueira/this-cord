@@ -17,10 +17,22 @@ document.querySelectorAll('.username').forEach(username => {
     })
 })
 
+
 renderMembers(members);
 
-function renderMembers(members) {
-    const { admin, mods, online, offline } = members.reduce((res, member) => {
+async function renderMembers() {
+    try {
+        const channel = await getCurrentChannel({currentTextChannelId});
+        const members = await api.fetchGuildMembers({ id: channel.guild_id });
+        renderMembersList(members);
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+function renderMembersList(members) {
+    const { admin, mods, online, offline, invited} = members.reduce((res, member) => {
         if(member.guild_role === '2') {
             res.admin = member;
             return res;
@@ -33,9 +45,13 @@ function renderMembers(members) {
             res.online.push(member);
             return res;
         }
+        if(member.invite_status === '0') {
+            res.invited.push(member);
+            return res;
+        }
         res.offline.push(member);
         return res;
-    }, { admin: undefined, mods: [], online: [], offline: [] });
+    }, { admin: undefined, mods: [], online: [], offline: [], invited: []});
 
     const ownerUl = document.getElementById('ownerUl');
     const modsUl = document.getElementById('modsUl');
@@ -71,7 +87,8 @@ function createMemberItem(member) {
     li.append(div, span);
     li.addEventListener('click', async () => {
         try {
-            const user = await api.fetchUser({ id: member.id });
+            console.log(member);
+            const user = await api.fetchUser({ id: member.member_id });
             openModal('user-modal');
             renderUserModal(user);
         }

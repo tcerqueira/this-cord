@@ -1,4 +1,19 @@
 const messagesList = document.getElementById('messages-list');
+const currentTextChannelId = document.getElementById('channelId').dataset.channelId;
+
+let currentTextChannel;
+async function getCurrentChannel() {
+    if(currentTextChannel)
+        return currentTextChannel;
+    try {
+        currentTextChannel = await api.fetchTextChannel({id: currentTextChannelId});
+    }
+    catch (err) {
+        console.log(err)
+        return null;
+    }
+    return currentTextChannel;
+}
 
 const messages = [
     { id: '19', author: {id: '1', username: 'lou'}, content: "Hellommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm", sentAt: '25/12/2021 at 18h30m', reply: { author: {id: '4', username: 'rezi'}, content: 'Hello oh maninho'}},
