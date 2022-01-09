@@ -1,5 +1,5 @@
 const messagesList = document.getElementById('messages-list');
-const currentTextChannelId = document.getElementById('channelId').dataset.channelId;
+const currentTextChannelId = document.getElementById('currentChannelId').dataset.channelId;
 
 let currentTextChannel;
 async function getCurrentChannel() {
