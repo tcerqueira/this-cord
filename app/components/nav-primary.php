@@ -1,6 +1,6 @@
 <nav class="primary-nav">
     <a href="home.php">
-        <div class="icon-size-medium icon-card side-card current-server" data-tooltip="Home">
+        <div class="icon-size-medium icon-card side-card" data-tooltip="Home">
             <div><span>Home</span></div>
             <!-- <span class="tooltip">Home</span> -->
         </div>

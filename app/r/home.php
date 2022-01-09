@@ -8,7 +8,7 @@ require 'scripts/SendHeaders.php';
 <html lang="en">
 <head>
     <?php include "../components/head.php"; ?>
-    <link rel="stylesheet" href="../styles/home.css">;
+    <link rel="stylesheet" href="../styles/home.css">
     <script src="../javascript/home.js" defer></script>
 </head>
 <body>

@@ -115,10 +115,34 @@
     content: '';
     position: absolute;
     display: block;
+    top: 28%;
+    left: -28%;
+    height: 1.5rem;
+    width: 0.5rem;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.side-card:hover::before {
+    content: '';
+    position: absolute;
+    display: block;
     top: 45%;
     left: -28%;
     height: 0.5rem;
     width: 0.5rem;
-    border-radius: 50%;
+    border-radius: 5px;
     background-color: white;
+    animation: ball-to-bar .3s linear forwards;
+}
+
+@keyframes ball-to-bar {
+    from {
+        top: 45%;
+        height: 0.5rem;
+    }
+    to {
+        top: 28%;
+        height: 1.5rem;
+    }
 }
