@@ -58,7 +58,7 @@ class GuildGateway
 
     public function findAllOfMember($member_id, $invite_status)
     {
-        $query = "SELECT guild.id, guildname, initials, theme_color, array_to_json(COALESCE(array_agg(text_channel.id), '{}'::UUID[])) channels
+        $query = "SELECT guild.id, guildname, initials, theme_color, array_to_json(array_agg(text_channel.id)) channels
                 FROM guild_members
                 JOIN guild ON guild.id=guild_id
                 LEFT JOIN text_channel USING (guild_id)
