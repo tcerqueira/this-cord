@@ -1,3 +1,3 @@
 <header class="page-header shadow">
-    Channel name
+    Home
 </header>

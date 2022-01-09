@@ -133,14 +133,14 @@ input[type=email]:focus {
     background-color: green;
 }
 
-.server-header {
+.nav-header {
     grid-area: server-header;
     background-color: var(--color-medium-grey-1);
     border-top-left-radius: 10px;
     /* z-index: 1; */
 }
 
-.channel-header {
+.page-header {
     grid-area: channel-header;
     background-color: var(--color-medium-grey-2);
     z-index: 1;

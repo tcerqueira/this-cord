@@ -15,7 +15,7 @@
 //     }
 // }
 
-function renderNav(myGuilds)
+function renderNav(myGuilds, currentId)
 {
     const serversContainer = document.getElementById('guilds-container');
     myGuilds.forEach((server) => {

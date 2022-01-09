@@ -10,7 +10,7 @@ async function render()
         ]);
         const members = await api.fetchGuildMembers({ id: channel.guild_id });
 
-        renderNav(myGuilds);
+        renderNav(myGuilds, channel.guild_id);
         renderMembers(members);
         renderChat(messages);
     } catch (err) {

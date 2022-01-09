@@ -111,7 +111,7 @@
     z-index: 999;
 } */
 
-[data-server-selected]::before {
+.current-server::before {
     content: '';
     position: absolute;
     display: block;

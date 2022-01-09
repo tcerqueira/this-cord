@@ -1,3 +1,3 @@
-<header class="server-header shadow">
+<header class="nav-header shadow">
     Server name
 </header>
