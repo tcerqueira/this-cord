@@ -18,20 +18,20 @@ document.querySelectorAll('.username').forEach(username => {
 })
 
 
-renderMembers(members);
+// renderMembers(members);
 
-async function renderMembers() {
-    try {
-        const channel = await getCurrentChannel({currentTextChannelId});
-        const members = await api.fetchGuildMembers({ id: channel.guild_id });
-        renderMembersList(members);
-    }
-    catch (err) {
-        console.log(err);
-    }
-}
+// async function renderMembers() {
+//     try {
+//         const channel = await getCurrentChannel({currentTextChannelId});
+//         const members = await api.fetchGuildMembers({ id: channel.guild_id });
+//         renderMembersList(members);
+//     }
+//     catch (err) {
+//         console.log(err);
+//     }
+// }
 
-function renderMembersList(members) {
+function renderMembers(members) {
     const { admin, mods, online, offline, invited} = members.reduce((res, member) => {
         if(member.guild_role === '2') {
             res.admin = member;

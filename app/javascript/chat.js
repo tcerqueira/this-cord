@@ -1,20 +1,3 @@
-const messagesList = document.getElementById('messages-list');
-const currentTextChannelId = document.getElementById('currentChannelId').dataset.channelId;
-
-let currentTextChannel;
-async function getCurrentChannel() {
-    if(currentTextChannel)
-        return currentTextChannel;
-    try {
-        currentTextChannel = await api.fetchTextChannel({id: currentTextChannelId});
-    }
-    catch (err) {
-        console.log(err)
-        return null;
-    }
-    return currentTextChannel;
-}
-
 const messages = [
     { id: '19', author: {id: '1', username: 'lou'}, content: "Hellommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm", sentAt: '25/12/2021 at 18h30m', reply: { author: {id: '4', username: 'rezi'}, content: 'Hello oh maninho'}},
     { id: '18', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
@@ -36,42 +19,47 @@ const messages = [
     { id: '1', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null }
 ];
 
-let lastMessage = undefined;
-let lastMessageItem = undefined;
-messages.forEach(message => {
-    const messageItem = renderMessage(message);
+renderChat();
 
-    if(message.reply !== null)
-    {
-        renderMessageAuthor(messageItem, message);
-        renderReply(messageItem, message.reply);
-    }
-    else if(lastMessage && lastMessage.author.id !== message.author.id)
-    {
+async function renderChat()
+{
+    let lastMessage = undefined;
+    let lastMessageItem = undefined;
+    messages.forEach(message => {
+        const messageItem = renderMessage(message);
+
+        if(message.reply !== null)
+        {
+            renderMessageAuthor(messageItem, message);
+            renderReply(messageItem, message.reply);
+        }
+        else if(lastMessage && lastMessage.author.id !== message.author.id)
+        {
+            renderMessageAuthor(lastMessageItem, lastMessage);
+        }
+        
+        lastMessage = message;
+        lastMessageItem = messageItem;
+    });
+
+    if(messages.length !==0)
         renderMessageAuthor(lastMessageItem, lastMessage);
-    }
-    
-    lastMessage = message;
-    lastMessageItem = messageItem;
-});
-
-if(messages.length !==0)
-    renderMessageAuthor(lastMessageItem, lastMessage);
 
 
-let replyTo = null;
-const replyIcons = document.querySelectorAll('.reply-message-icon');
-replyIcons.forEach(icon => {
-    icon.addEventListener('click', () => {
-        const replyingMessage = messages.find(m => m.id === icon.id.split('_')[1]);
-        renderReplying(replyingMessage.author);
+    let replyTo = null;
+    const replyIcons = document.querySelectorAll('.reply-message-icon');
+    replyIcons.forEach(icon => {
+        icon.addEventListener('click', () => {
+            const replyingMessage = messages.find(m => m.id === icon.id.split('_')[1]);
+            renderReplying(replyingMessage.author);
+        })
+    });
+
+    const cancelReplyingIcon = document.getElementById('cancel-reply-icon');
+    cancelReplyingIcon.addEventListener('click', evt => {
+        removeReplying();
     })
-});
-
-const cancelReplyingIcon = document.getElementById('cancel-reply-icon');
-cancelReplyingIcon.addEventListener('click', evt => {
-    removeReplying();
-})
+}
 
 // ############################################################### FUNCTIONS #####################################################################
 // ###############################################################################################################################################
@@ -79,6 +67,7 @@ cancelReplyingIcon.addEventListener('click', evt => {
 function renderMessage(message)
 {
     const listItem = document.createElement('li');
+    const messagesList = document.getElementById('messages-list');
     listItem.id = 'message_' + message.id;
     listItem.classList.add('message');
     // add logic to check if its replying to active user
