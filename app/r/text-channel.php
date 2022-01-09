@@ -9,6 +9,7 @@ require 'scripts/SendHeaders.php';
 <head>
     <?php include "../components/head.php" ?>
     <link rel="stylesheet" href="../styles/text-channel.css">
+    <link rel="stylesheet" href="../styles/sidebar.css">
     <script src="../javascript/text-channel.js" defer></script>
     <script src="../javascript/guild.js" defer></script>
 </head>

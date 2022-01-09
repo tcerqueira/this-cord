@@ -1,0 +1,50 @@
+.right-sidebar {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0.5rem;
+    
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.member-container {
+    display: flex;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+.member-container:hover {
+    background-color: var(--color-light-grey);
+}
+
+.right-sidebar > h2 {
+    margin-left: 1em;
+    align-self: flex-start;
+    width: fit-content;
+    position: relative;
+    font-size: 1rem;
+}
+
+.right-sidebar > h2::after {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: .7em -999% auto 120%;
+    height: 1px;
+    background-color: var(--color-light-grey);
+}
+
+.member-container > span {
+    align-self: center;
+    margin-left: 1rem;
+    font-size: 1rem;
+    color: var(--sidebar-username-color, var(--color-primary));
+}
+
+.offline {
+    opacity: 0.6;
+}
+
+.offline:hover {
+    opacity: 1;
+}
