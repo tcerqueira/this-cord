@@ -26,42 +26,49 @@ require 'scripts/SendHeaders.php';
                     <div class="userProfileItem">
                         <div>
                             <p><b>Username:</b></p>
-                            <input class="text-input-container" type="text" id="myaccount-username">
+                            <input class="user-text-input" type="text" id="myaccount-username">
                             <!-- <span id="myaccount-username"></span> -->
                         </div>
-                        <button type="button" id ="editUserButton"> Edit</button>
+                        <button class="button" type="button" id ="editUserButton"> Edit</button>
                     </div>
                     <div class="userProfileItem">
                         <div>
                             <p><b>Email:</b></p>
-                            <input class = "text-input-container" type="text" id="myaccount-email">
+                            <input class = "user-text-input" type="text" id="myaccount-email">
                             <!-- <span id=myaccount-email></span> -->
                         </div>
-                        <button type="button" id= "editEmailButton"> Edit </button>
+                        <button class="button" type="button" id= "editEmailButton"> Edit </button>
                     </div>
                     <div class="userProfileItem">
                         <div>
                             <p> <b>Phone Number:</b></p>
-                            <input class="text-input-container" type="text" id="myaccount-phoneNumber">
+                            <input class="user-text-input" type="text" id="myaccount-phoneNumber">
                             <!-- <span id=myaccount-phoneNumber></span> -->
                         </div>
-                        <button type="button" id="phoneNumberButton"></button>
+                        <button class="button" type="button" id="phoneNumberButton"></button>
                     </div>
+                    <button class="button" type="submit" id="submitChangesButtonUser">Save Changes</button>
+                    <hr>
                     <div class="userProfileItem">
                         <p><b>Password</b></p>
-                        <button type="submit" id="changePasswordButton"> Change Password</button>
+                        <button class="button" type="submit" id="changePasswordButton"> Change Password</button>
                     </div>
+                    <hr>
+                    
                     <div id="change-password">
                         <p><b>Old Password:</b></p>
-                        <input class="text-input-container" type="text" id="oldPassword">
+                        <input class="user-password-input" type="password" id="oldPassword">
 
                         <p><b>New Password:</b></p>
-                        <input class="text-input-container" type="text" id="newPassword">
+                        <input class="user-password-input" type="password" id="newPassword">
+                        <span id="passwordValidation"></span>
                         
                         <p><b>Confirm new Password:</b></p>
-                        <input class="text-input-container" type="text" id="confNewPassword">
+                        <input class=" user-password-input" type="password" id="confNewPassword">
+                        <span id="password-match"></span>
+                        <hr>
+                        <button class="button" type="submit" id="submitNewPassword">Password</button>
                     </div>
-                    <button type="submit" id="submitChangesButton">Save Changes</button>
                 </div>
                 <button id="delete-account"> Delete Account</button>
             </section>
@@ -88,10 +95,11 @@ require 'scripts/SendHeaders.php';
                     </div>
                     <hr>
                     <div class="userprofile-aboutme">
-                        <form action="">
+                        <form>
                             <textarea name="about-me" id="about-me" cols="30" rows="10"> Write a brief description about you</textarea>
                         </form>
                     </div>
+                    <button class= "button" id="submitChangesButtonUser"> Save Changes</button>
                 </div>
             </section>
         </div>

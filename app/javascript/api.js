@@ -157,6 +157,51 @@ class API
         });
     }
 
+    updateUser({username, email, themeColor, userDescription})
+    {        
+         return new Promise((resolve, reject) => {
+            const body = {username, email, theme_color: themeColor, user_description: userDescription}
+            
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/user/update.php', true);
+            
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
+
+    deleteUser({password})
+    {
+        return new Promise((resolve, reject) => {
+            const body = {password};
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/user/delete.php/?id='+id, true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
     // #################################################### GUILD ########################################################
     // ###################################################################################################################
 
