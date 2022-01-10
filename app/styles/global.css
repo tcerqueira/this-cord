@@ -130,7 +130,7 @@ input[type=email]:focus {
 }
 
 .main-container {
-    background-color: green;
+    background-color: var(--color-medium-grey-2);
 }
 
 .nav-header {

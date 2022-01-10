@@ -59,6 +59,7 @@
     align-self: center;
     margin-left: 1rem;
     font-size: 1rem;
+    font-weight: bold;
     color: var(--sidebar-username-color, var(--color-primary));
 }
 
