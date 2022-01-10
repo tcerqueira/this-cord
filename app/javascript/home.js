@@ -10,3 +10,7 @@ async function render()
         console.log(err);
     }
 }
+
+function renderUsersList(users, options) {
+    
+}
