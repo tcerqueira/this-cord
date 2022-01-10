@@ -137,6 +137,11 @@ input[type=email]:focus {
     grid-area: server-header;
     background-color: var(--color-medium-grey-1);
     border-top-left-radius: 10px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
     /* z-index: 1; */
 }
 
