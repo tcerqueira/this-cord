@@ -21,7 +21,7 @@ require 'scripts/SendHeaders.php';
         <?php include '../components/server-header.php'; ?>
         <?php include '../components/home-topbar.php'; ?>
         <main class="main-container home-container">
-            <h2>Online</h2>
+            <h3>Online</h3>
             <ul class="users-list">
                 <li class="user-item">
                     <div class="icon-card icon-size-small">

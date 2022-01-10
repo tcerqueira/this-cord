@@ -2,7 +2,7 @@
     padding: 1.5rem 0;
 }
 
-.home-container > h2 {
+.home-container > h3 {
     margin-left: 2rem;
     font-size: 1.1rem;
 }
@@ -81,6 +81,9 @@
     color: var(--color-light);
 }
 
+/* ##################################################### NAV ####################################################### */
+/* ################################################################################################################# */
+
 .nav-header:hover {
     background-color: var(--color-medium-grey-2);
 }
@@ -95,4 +98,33 @@
     margin-left: .3rem;
 
     cursor: pointer;
+}
+
+/* ################################################### TOPBAR ###################################################### */
+/* ################################################################################################################# */
+
+.home-topbar-container {
+    display: flex;
+    justify-content: space-between;
+
+    overflow-x: auto;
+    /* overflow-y: hidden; */
+}
+
+.topbar-search {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 20%;
+    transition: width 250ms ease-out;
+}
+
+.topbar-search:focus-within {
+    width: 30%;
+}
+
+.topbar-search img {
+    width: 1em;
+    height: 1em;
 }

@@ -148,6 +148,8 @@ input[type=email]:focus {
 .page-header {
     grid-area: channel-header;
     background-color: var(--color-medium-grey-2);
+
+    padding: 1rem;
     z-index: 1;
 }
 
@@ -259,10 +261,21 @@ input.button:active {
     border-radius: var(--border-radius-size, 10px);
 }
 
+.search-input-container {
+    background-color: var(--color-black);
+    border-radius: 5px;
+    padding: 0.2rem 1rem;
+}
+
+.search-input-container:focus-within {
+    border: var(--font-color);
+}
+
 .text-input-container {
     background-color: var(--color-light-grey);
     border-radius: 10px;
     padding: 0.7rem 1rem;
+    border: 1px solid var(--color-light-grey);
     /* font-size: 1.2rem; */
 }
 
