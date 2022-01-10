@@ -27,7 +27,7 @@
 }
 
 .user-item:hover + .user-item {
-    border: none;
+    border-color: transparent;
 }
 
 .user-item:hover .user-item-options div {
@@ -118,6 +118,30 @@
 
     overflow-x: auto;
     /* overflow-y: hidden; */
+}
+
+.tabs-container {
+    display: flex;
+    align-items: center;
+}
+
+.topbar-tab {
+    font-size: 1rem;
+    margin: 0 1em;
+    color: var(--font-color);
+    background-color: transparent;
+}
+
+.topbar-tab:hover {
+    background-color: rgba(255,255,255, 0.1);
+}
+
+.selected-tab {
+    background-color: rgba(255,255,255, 0.1);
+}
+
+.vertical-bar {
+    height: 1.5em;
 }
 
 .topbar-search {

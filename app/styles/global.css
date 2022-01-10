@@ -197,7 +197,7 @@ input[type=email]:focus {
 button.button,
 input.button {
     padding: 0.2em 1em;
-    color: var(--color-light);
+    color: var(--font-color);
     border: none;
     border-radius: 3px;
     cursor: pointer;
@@ -281,6 +281,12 @@ input.button:active {
 
 .text-input-container:focus-within {
     border: 1px solid var(--color-primary);
+}
+
+.vertical-bar {
+    height: 1em;
+    width: 1px;
+    background-color: var(--font-color);
 }
 
 .invalid-input {
