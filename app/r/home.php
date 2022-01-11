@@ -37,6 +37,15 @@ require 'scripts/SendHeaders.php';
                                 <img src="../public/message-svgrepo-com.svg" alt="mensage-icon">
                             </div>
                         </a>
+                        <div class="bg-green" data-tooltip="Request friend">
+                            <img src="../public/add-plus-svgrepo-com.svg" alt="add-icon">
+                        </div>
+                        <div class="bg-blue" data-tooltip="Request sent">
+                            <img src="../public/mail-sent-svgrepo-com.svg" alt="sent-icon">
+                        </div>
+                        <div class="bg-red" data-tooltip="Remove friend">
+                            <img src="../public/remove-user-svgrepo-com.svg" alt="remove-icon">
+                        </div>
                         <!-- <div data-tooltip="Options">
                             <img src="../public/options-vertical-svgrepo-com.svg" alt="options-icon">
                         </div> -->

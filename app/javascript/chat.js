@@ -71,7 +71,7 @@ function renderMessage(message)
     listItem.id = 'message_' + message.id;
     listItem.classList.add('message');
     // add logic to check if its replying to active user
-    if(message.author.username === 'burro')
+    if(message.author.username === 'pa99')
         listItem.classList.add('message-replying-to-me');
 
     listItem.innerText = message.content;
