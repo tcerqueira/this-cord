@@ -10,46 +10,56 @@ async function render()
         ]);
 
         renderNav(myGuilds);
-        renderUsersList(friends.filter(f => f.invite_status === '1' && f.userstatus === '1'));
-        console.log(friends);
 
-        let currentTab = 'online';
+        let [ onlineList, allList, pendingList ] = [
+            friends.filter(f => f.invite_status === '1' && f.userstatus === '1'),
+            friends.filter(f => f.invite_status === '1'),
+            friends.filter(f => f.invite_status === '0')
+        ];
+        // console.log(friends);
+
+        let currentTab = window.location.hash?.slice(1) || 'online';
+        switchTab('online', currentTab);
+        switch(currentTab) {
+            case 'online':
+                renderUsersList(onlineList); break;
+            case 'all':
+                renderUsersList(allList); break;
+            case 'pending':
+                renderUsersList(pendingList); break;
+        }
+
         document.getElementById('onlineTabBtn').addEventListener('click', (evt) => {
             if(currentTab === 'online')
                 return;
-            document.getElementById(currentTab+'TabBtn').classList.remove('selected-tab');
+            switchTab(currentTab, 'online');
             currentTab = 'online';
-            document.getElementById(currentTab+'TabBtn').classList.add('selected-tab');
 
-            renderUsersList(friends.filter(f => f.invite_status === '1' && f.userstatus === '1'));
+            renderUsersList(onlineList);
         });
         
         document.getElementById('allTabBtn').addEventListener('click', () => {
             if(currentTab === 'all')
                 return;
-            document.getElementById(currentTab+'TabBtn').classList.remove('selected-tab');
+            switchTab(currentTab, 'all');
             currentTab = 'all';
-            document.getElementById(currentTab+'TabBtn').classList.add('selected-tab');
 
-            renderUsersList(friends.filter(f => f.invite_status === '1'));
+            renderUsersList(allList);
         });
         
         document.getElementById('pendingTabBtn').addEventListener('click', () => {
             if(currentTab === 'pending')
                 return;
-            document.getElementById(currentTab+'TabBtn').classList.remove('selected-tab');
+            switchTab(currentTab, 'pending');
             currentTab = 'pending';
-            document.getElementById(currentTab+'TabBtn').classList.add('selected-tab');
 
-            renderUsersList(friends.filter(f => f.invite_status === '0'));
+            renderUsersList(pendingList);
         });
     }
     catch (err) {
         console.log(err);
     }
 }
-
-
 
 function renderUsersList(usersList) {
     const list = document.getElementById('usersList');
@@ -67,7 +77,28 @@ function renderUsersList(usersList) {
             renderUserModal(user);
         });
 
-        
+        getAddIcon(item).addEventListener('click', (evt) => {
+            evt.stopPropagation();
+        });
+
+        getMessageIcon(item).addEventListener('click', (evt) => {
+            evt.stopPropagation();
+        });
+
+        getRemoveIcon(item).addEventListener('click', (evt) => {
+            evt.stopPropagation();
+        });
+
+        getSentIcon(item).addEventListener('click', (evt) => {
+            evt.stopPropagation();
+        });
+
+        getAcceptIcon(item).addEventListener('click', (evt) => {
+            evt.stopPropagation();
+        });
+        getDeclineIcon(item).addEventListener('click', (evt) => {
+            evt.stopPropagation();
+        });
 
     });
 }
@@ -83,22 +114,46 @@ function createUserItem(user) {
 
     switch(user.invite_status) {
         case undefined:
-            userItem.querySelector('img[alt=add-icon]').parentNode.style = '';
+            getAddIcon(userItem).style = '';
             break;
         case '1':
-            userItem.querySelector('img[alt=message-icon]').parentNode.parentNode.style = '';
-            userItem.querySelector('img[alt=remove-icon]').parentNode.style = '';
+            getMessageIcon(userItem).style = '';
+            getRemoveIcon(userItem).style = '';
             break;
         case '0':
             if(user.request_sender === currentProfileId)
-                userItem.querySelector('img[alt=sent-icon]').parentNode.style = '';
+                getSentIcon(userItem).style = '';
             else {
-                userItem.querySelector('img[alt=accept-icon]').parentNode.style = '';
-                userItem.querySelector('img[alt=decline-icon]').parentNode.style = '';
+                getAcceptIcon(userItem).style = '';
+                getDeclineIcon(userItem).style = '';
             }
             break;
     }
 
     return userItem;
+}
 
+function switchTab(oldTab, newTab) {
+    document.getElementById(oldTab+'TabBtn').classList.remove('selected-tab');
+    document.getElementById(newTab+'TabBtn').classList.add('selected-tab');
+    document.querySelector('.home-container > h3').innerText = newTab.charAt(0).toUpperCase() + newTab.slice(1);
+}
+
+function getAddIcon(userItem) {
+    return userItem.querySelector('img[alt=add-icon]').parentNode;
+}
+function getMessageIcon(userItem) {
+    return userItem.querySelector('img[alt=message-icon]').parentNode.parentNode;
+}
+function getRemoveIcon(userItem) {
+    return userItem.querySelector('img[alt=remove-icon]').parentNode;
+}
+function getSentIcon(userItem) {
+    return userItem.querySelector('img[alt=sent-icon]').parentNode;
+}
+function getAcceptIcon(userItem) {
+    return userItem.querySelector('img[alt=accept-icon]').parentNode;
+}
+function getDeclineIcon(userItem) {
+    return userItem.querySelector('img[alt=decline-icon]').parentNode;
 }
