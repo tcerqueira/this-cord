@@ -61,6 +61,14 @@ function renderUsersList(usersList) {
             return;
         const item = createUserItem(user);
         list.append(item);
+
+        item.addEventListener('click', () => {
+            openModal('user-modal');
+            renderUserModal(user);
+        });
+
+        
+
     });
 }
 
