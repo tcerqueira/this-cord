@@ -31,14 +31,6 @@
     /* background-color: var(--color-primary); */
 }
 
-.server-nav{
-    display: grid;
-    grid-template-rows: auto 4rem;
-    grid-template-areas: 
-        "server-overview"
-        "user";
-}
-
 .user img {
     height: 2rem;
     border-radius: 40px;

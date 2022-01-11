@@ -10,6 +10,7 @@ require 'scripts/SendHeaders.php';
     <?php include "../components/head.php"; ?>
     <link rel="stylesheet" href="../styles/home.css">
     <link rel="stylesheet" href="../styles/guild-invites.css">
+    <link rel="stylesheet" href="../styles/dm-nav.css">
     <script src="../javascript/home.js" defer></script>
 </head>
 <body>
@@ -18,7 +19,7 @@ require 'scripts/SendHeaders.php';
 
     <div class="default-container global-container">
         <?php include '../components/nav-primary.php'; ?>
-        <?php include '../components/nav-friends.php'; ?>
+        <?php include '../components/nav-dm.php'; ?>
         <?php include '../components/server-header.php'; ?>
         <?php include '../components/home-topbar.php'; ?>
         <main class="main-container home-container">

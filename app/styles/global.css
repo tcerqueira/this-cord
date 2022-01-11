@@ -134,6 +134,15 @@ input[type=email]:focus {
     background-color: var(--color-medium-grey-2);
 }
 
+.server-nav{
+    display: grid;
+    grid-template-rows: auto 4rem;
+    grid-template-areas: 
+        "server-overview"
+        "user";
+    overflow: hidden;
+}
+
 .nav-header {
     grid-area: server-header;
     background-color: var(--color-medium-grey-1);
