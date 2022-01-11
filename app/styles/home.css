@@ -64,6 +64,10 @@
     filter: brightness(125%);
 }
 
+.user-item-options div:active {
+    background-color: var(--color-light-grey);
+}
+
 .user-item-options img {
     width: 1rem;
     height: 1rem;

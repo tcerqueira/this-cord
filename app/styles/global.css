@@ -181,6 +181,12 @@ input[type=email]:focus {
 
 .right-sidebar {
     grid-area: right-sidebar;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0.5rem;
+    
+    overflow-y: auto;
+    overflow-x: hidden;
     background-color: var(--color-medium-grey-1);
 }
 

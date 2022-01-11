@@ -9,6 +9,7 @@ require 'scripts/SendHeaders.php';
 <head>
     <?php include "../components/head.php"; ?>
     <link rel="stylesheet" href="../styles/home.css">
+    <link rel="stylesheet" href="../styles/guild-invites.css">
     <script src="../javascript/home.js" defer></script>
 </head>
 <body>
@@ -49,21 +50,6 @@ require 'scripts/SendHeaders.php';
                         <!-- <div data-tooltip="Options">
                             <img src="../public/options-vertical-svgrepo-com.svg" alt="options-icon">
                         </div> -->
-                    </div>
-                </li>
-                <li class="user-item">
-                    <div class="icon-card icon-size-small">
-
-                    </div>
-                    <div class="user-item-info">
-                        <span class="user-item-options">Username</span>
-                        <span>Status</span>
-                    </div>
-                    <div class="user-item-options">
-                        <a href="#">
-                            <div><img src="../public/message-svgrepo-com.svg" alt="mensage-icon"></div>
-                        </a>
-                        <div><img src="../public/options-vertical-svgrepo-com.svg" alt="options-icon"></div>
                     </div>
                 </li>
                 <li class="user-item">
