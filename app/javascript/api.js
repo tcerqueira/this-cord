@@ -157,6 +157,106 @@ class API
         });
     }
 
+    fetchFriends()
+    {
+        return new Promise((resolve, reject) => {
+        
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', this.apiRoot+'/r/user/friends', true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send();
+        });
+    }
+
+    requestFriend({ id })
+    {
+        return new Promise((resolve, reject) => {
+        
+            const body = {
+                friend_id: id
+            }
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/user/friends/request.php', true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
+
+    removeFriend({ id })
+    {
+        return new Promise((resolve, reject) => {
+        
+            const body = {
+                friend_id: id
+            }
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/user/friends/remove.php', true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
+
+    acceptFriendRequest({ id })
+    {
+        return new Promise((resolve, reject) => {
+        
+            const body = {
+                friend_id: id
+            }
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/user/friends/accept.php', true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
+
     // #################################################### GUILD ########################################################
     // ###################################################################################################################
 
@@ -188,6 +288,28 @@ class API
 
             let xhr = new XMLHttpRequest();
             xhr.open('GET', this.apiRoot+'/r/guild/members/?id='+id, true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send();
+        });
+    }
+
+    fetchGuildInvites()
+    {
+        return new Promise((resolve, reject) => {
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', this.apiRoot+'/r/guild/invite/list.php', true);
         
             xhr.onload = () => {
                 switch(xhr.status)

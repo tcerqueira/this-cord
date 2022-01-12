@@ -31,14 +31,6 @@
     /* background-color: var(--color-primary); */
 }
 
-.server-nav{
-    display: grid;
-    grid-template-rows: auto 4rem;
-    grid-template-areas: 
-        "server-overview"
-        "user";
-}
-
 .user img {
     height: 2rem;
     border-radius: 40px;
@@ -111,7 +103,19 @@
     z-index: 999;
 } */
 
-[data-server-selected]::before {
+.current-server::before {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 28%;
+    left: -28%;
+    height: 1.5rem;
+    width: 0.5rem;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.side-card:hover::before {
     content: '';
     position: absolute;
     display: block;
@@ -119,6 +123,18 @@
     left: -28%;
     height: 0.5rem;
     width: 0.5rem;
-    border-radius: 50%;
+    border-radius: 5px;
     background-color: white;
+    animation: ball-to-bar .3s linear forwards;
+}
+
+@keyframes ball-to-bar {
+    from {
+        top: 45%;
+        height: 0.5rem;
+    }
+    to {
+        top: 28%;
+        height: 1.5rem;
+    }
 }

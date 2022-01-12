@@ -47,6 +47,10 @@
     background-color: var(--color-medium-grey-1);
 }
 
+.message:target {
+    animation: highlight-message 1s ease-in forwards;
+}
+
 .message > a {
     color: inherit;
 }
@@ -185,4 +189,13 @@
     top: 0;
     left: calc(var(--side-size) * -1.5);
     /* background-color: var(--color-primary); */
+}
+
+@keyframes highlight-message {
+    from {
+        background-color: var(--color-yellow);
+    }
+    to {
+        background-color: transparent;
+    }
 }

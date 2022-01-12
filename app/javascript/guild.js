@@ -18,20 +18,20 @@ document.querySelectorAll('.username').forEach(username => {
 })
 
 
-renderMembers(members);
+// renderMembers(members);
 
-async function renderMembers() {
-    try {
-        const channel = await getCurrentChannel({currentTextChannelId});
-        const members = await api.fetchGuildMembers({ id: channel.guild_id });
-        renderMembersList(members);
-    }
-    catch (err) {
-        console.log(err);
-    }
-}
+// async function renderMembers() {
+//     try {
+//         const channel = await getCurrentChannel({currentTextChannelId});
+//         const members = await api.fetchGuildMembers({ id: channel.guild_id });
+//         renderMembersList(members);
+//     }
+//     catch (err) {
+//         console.log(err);
+//     }
+// }
 
-function renderMembersList(members) {
+function renderMembers(members) {
     const { admin, mods, online, offline, invited} = members.reduce((res, member) => {
         if(member.guild_role === '2') {
             res.admin = member;
@@ -41,12 +41,12 @@ function renderMembersList(members) {
             res.mods.push(member);
             return res;
         }
-        if(member.userstatus === '1') {
-            res.online.push(member);
-            return res;
-        }
         if(member.invite_status === '0') {
             res.invited.push(member);
+            return res;
+        }
+        if(member.userstatus === '1') {
+            res.online.push(member);
             return res;
         }
         res.offline.push(member);
