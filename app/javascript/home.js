@@ -96,7 +96,37 @@ function renderUsersList(usersList) {
             evt.stopPropagation();
         });
 
-        getRemoveIcon(item).addEventListener('click', async (evt) => {
+        getRemoveIcon(item).addEventListener('click', (evt) => {
+            evt.stopPropagation();
+            openModal('confirmation-modal');
+            renderConfirmationModal('Are you sure you want to remove friend?', async () => {
+                try {
+                    await api.removeFriend({ id: user.id });
+                    user.invite_status = undefined;
+                    friends = friends.filter(f => f.id !== user.id);
+                    const newUserItem = createUserItem(user);
+                    item.parentNode.replaceChild(newUserItem, item);
+                }
+                catch (err) {
+                    console.log(err);
+                }
+            })
+        });
+
+        getAcceptIcon(item).addEventListener('click', async (evt) => {
+            evt.stopPropagation();
+            try {
+                const newFriend = await api.acceptFriendRequest({ id: user.id });
+                friends.push(newFriend);
+                const newUserItem = createUserItem(newFriend);
+                item.parentNode.replaceChild(newUserItem, item);
+            }
+            catch (err) {
+                console.log(err);
+            }
+        });
+
+        getDeclineIcon(item).addEventListener('click', (evt) => {
             evt.stopPropagation();
             try {
                 await api.removeFriend({ id: user.id });
@@ -106,16 +136,8 @@ function renderUsersList(usersList) {
                 item.parentNode.replaceChild(newUserItem, item);
             }
             catch (err) {
-                
+                console.log(err);
             }
-        });
-
-        getAcceptIcon(item).addEventListener('click', (evt) => {
-            evt.stopPropagation();
-        });
-
-        getDeclineIcon(item).addEventListener('click', (evt) => {
-            evt.stopPropagation();
         });
 
         // cancel request icon on hover
