@@ -205,6 +205,32 @@ class API
         });
     }
 
+    removeFriend({ id })
+    {
+        return new Promise((resolve, reject) => {
+        
+            const body = {
+                friend_id: id
+            }
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/user/friends/remove.php', true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
+
     // #################################################### GUILD ########################################################
     // ###################################################################################################################
 

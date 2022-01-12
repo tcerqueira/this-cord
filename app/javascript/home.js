@@ -96,13 +96,18 @@ function renderUsersList(usersList) {
             evt.stopPropagation();
         });
 
-        getRemoveIcon(item).addEventListener('click', (evt) => {
+        getRemoveIcon(item).addEventListener('click', async (evt) => {
             evt.stopPropagation();
-
-        });
-
-        getSentIcon(item).addEventListener('click', (evt) => {
-            evt.stopPropagation();
+            try {
+                await api.removeFriend({ id: user.id });
+                user.invite_status = undefined;
+                friends = friends.filter(f => f.id !== user.id);
+                const newUserItem = createUserItem(user);
+                item.parentNode.replaceChild(newUserItem, item);
+            }
+            catch (err) {
+                
+            }
         });
 
         getAcceptIcon(item).addEventListener('click', (evt) => {
