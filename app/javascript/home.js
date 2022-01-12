@@ -3,7 +3,7 @@ render();
 async function render()
 {
     try {
-        const [ myGuilds, friends, guildInvites ] = await Promise.all([
+        let [ myGuilds, friends, guildInvites ] = await Promise.all([
             api.fetchMyGuilds(),
             api.fetchFriends(),
             api.fetchGuildInvites()
@@ -80,10 +80,15 @@ function renderUsersList(usersList) {
         getAddIcon(item).addEventListener('click', async (evt) => {
             evt.stopPropagation();
             try {
-                
+                await api.requestFriend({ id: user.id });
+                user.invite_status = '0';
+                user.request_sender = currentProfileId;
+                friends.push(user);
+                const newUserItem = createUserItem(user);
+                item.parentNode.replaceChild(newUserItem, item);
             }
             catch (err) {
-                
+                console.log(err);
             }
         });
 
@@ -93,6 +98,7 @@ function renderUsersList(usersList) {
 
         getRemoveIcon(item).addEventListener('click', (evt) => {
             evt.stopPropagation();
+
         });
 
         getSentIcon(item).addEventListener('click', (evt) => {
@@ -128,7 +134,7 @@ function createUserItem(user) {
     userItem.style = '';
     userItem.removeAttribute('id');
 
-    userItem.querySelector('.icon-card').style = "--icon-bg-color: " + user.theme_color + ';';
+    userItem.querySelector('.icon-card').style = `--icon-bg-color: ${user.theme_color};`;
     userItem.querySelector('.user-item-username').innerText = user.username;
     userItem.querySelector('.user-item-username + span').innerText = user.userstatus === '1' ? 'Online' : 'Offline';
 
@@ -137,6 +143,7 @@ function createUserItem(user) {
             getAddIcon(userItem).style = '';
             break;
         case '1':
+            getMessageIcon(userItem).href = `direct-message.php?id=${user.message_channel}`;
             getMessageIcon(userItem).style = '';
             getRemoveIcon(userItem).style = '';
             break;
