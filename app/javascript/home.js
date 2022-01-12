@@ -77,8 +77,14 @@ function renderUsersList(usersList) {
             renderUserModal(user);
         });
 
-        getAddIcon(item).addEventListener('click', (evt) => {
+        getAddIcon(item).addEventListener('click', async (evt) => {
             evt.stopPropagation();
+            try {
+                
+            }
+            catch (err) {
+                
+            }
         });
 
         getMessageIcon(item).addEventListener('click', (evt) => {
@@ -96,8 +102,22 @@ function renderUsersList(usersList) {
         getAcceptIcon(item).addEventListener('click', (evt) => {
             evt.stopPropagation();
         });
+
         getDeclineIcon(item).addEventListener('click', (evt) => {
             evt.stopPropagation();
+        });
+
+        // cancel request icon on hover
+        getSentIcon(item).addEventListener('mouseover', (evt) => {
+            evt.stopPropagation();
+            getSentIcon(item).querySelector('img[alt=sent-icon]').style = 'display: none;'
+            getSentIcon(item).querySelector('img[alt=cancel-sent-icon]').style = 'display: inline-block;'
+        });
+
+        getSentIcon(item).addEventListener('mouseout', (evt) => {
+            evt.stopPropagation();
+            getSentIcon(item).querySelector('img[alt=sent-icon]').style = 'display: inline-block;'
+            getSentIcon(item).querySelector('img[alt=cancel-sent-icon]').style = 'display: none;'
         });
 
     });

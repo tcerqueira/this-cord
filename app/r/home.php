@@ -46,8 +46,9 @@ require 'scripts/SendHeaders.php';
                     <div class="bg-green" data-tooltip="Request friend" style="display: none;">
                         <img src="../public/add-plus-svgrepo-com.svg" alt="add-icon">
                     </div>
-                    <div class="bg-blue" data-tooltip="Request sent" style="display: none;">
+                    <div class="bg-blue" data-tooltip="Cancel request" style="display: none;">
                         <img src="../public/mail-sent-svgrepo-com.svg" alt="sent-icon">
+                        <img style="display: none;" src="../public/cancel-nofill-svgrepo-com.svg" alt="cancel-sent-icon">
                     </div>
                     <div class="bg-red" data-tooltip="Remove friend" style="display: none;">
                         <img src="../public/remove-user-svgrepo-com.svg" alt="remove-icon">
