@@ -256,7 +256,7 @@ function switchTab(oldTab, newTab) {
     document.getElementById(oldTab+'TabBtn').classList.remove('selected-tab');
     document.getElementById(newTab+'TabBtn').classList.add('selected-tab');
     document.querySelector('.home-container > h3').innerText = newTab.charAt(0).toUpperCase() + newTab.slice(1);
-    // window.history.pushState({friends, newTab}, document.title, `#${newTab}`);
+    window.history.replaceState({}, document.title, `#${newTab}`);
 }
 
 function getAddIcon(userItem) {
