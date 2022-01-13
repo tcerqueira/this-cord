@@ -85,9 +85,13 @@ function getPendingList(friendsList) {
 }
 
 function renderDmNav(friendsList) {
-    const uList = document.getElementById('dmList');
+    const list = document.getElementById('dmList');
+    while (list.firstChild) {
+        list.removeChild(list.firstChild);
+    }
+
     friendsList.forEach(friend => {
-        uList.append(createDmItem(friend));
+        list.append(createDmItem(friend));
     })
 }
 
@@ -177,6 +181,7 @@ function createUserItem(user) {
                 friends = friends.filter(f => f.id !== user.id);
                 const newUserItem = createUserItem(user);
                 userItem.parentNode.replaceChild(newUserItem, userItem);
+                renderDmNav(getAllList(friends));
             }
             catch (err) {
                 console.log(err);
@@ -198,6 +203,7 @@ function createUserItem(user) {
             });
             const newUserItem = createUserItem(newFriend);
             userItem.parentNode.replaceChild(newUserItem, userItem);
+            renderDmNav(getAllList(friends));
         }
         catch (err) {
             console.log(err);
