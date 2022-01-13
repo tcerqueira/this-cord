@@ -2,7 +2,7 @@
         <a id="dmItemTemplate" href="#" style="display: none;" data-dm-channel-id="">
             <li class="dm-item">
                 <div class="icon-card icon-size-xsmall"></div>
-                <span>username</span>
+                <span class="one-liner">username</span>
             </li>
         </a>
     <ul id="dmList" class="dm-list">

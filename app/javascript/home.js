@@ -13,6 +13,7 @@ async function render()
 
         renderNav(myGuilds);
         renderDmNav(getAllList(friends));
+        renderGuildInvites(guildInvites);
 
         let currentTab = window.location.hash?.slice(1) || 'online';
         switchTab('online', currentTab);
@@ -49,6 +50,7 @@ async function render()
                 const searchQuery = document.getElementById('topbar-search-input').value;
                 if(!searchQuery)
                     return;
+                document.querySelector('.home-container > h3').innerText = 'Search';
                 const searchResult = await api.searchUser({ username: searchQuery });
                 const searchList = searchResult.map(u => {
                     const friend = friends.find(f => f.id === u.id);
@@ -59,7 +61,6 @@ async function render()
                     u.message_channel = friend.message_channel;
                     return u;
                 });
-                document.querySelector('.home-container > h3').innerText = 'Search';
                 renderUsersList(searchList);
             }
             catch (err) {
@@ -82,6 +83,28 @@ function getAllList(friendsList) {
 
 function getPendingList(friendsList) {
     return friendsList.filter(f => f.invite_status === '0');
+}
+
+function renderGuildInvites(guilds) {
+    const list = document.getElementById('inviteList');
+    while (list.firstChild) {
+        list.removeChild(list.firstChild);
+    }
+
+    guilds.forEach(guild => {
+        list.append(createGuildInviteItem(guild));
+    })
+}
+
+function createGuildInviteItem(guild) {
+    const inviteItem = document.getElementById('inviteItemTemplate').cloneNode(true);
+    inviteItem.style = '';
+    inviteItem.removeAttribute('id');
+
+    inviteItem.querySelector('.icon-card').style = `--icon-bg-color: ${guild.theme_color};`;
+    inviteItem.querySelector('span').innerText = guild.guildname;
+
+    return inviteItem;
 }
 
 function renderDmNav(friendsList) {
