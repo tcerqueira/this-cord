@@ -8,8 +8,6 @@ require 'scripts/SendHeaders.php';
 <html lang="en">
 
 <head>
-    <?php include "../components/head.php" ?>
-    <script src="../javascript/secondary-nav.js" defer></script>
     <?php include "../components/head.php"; ?>
     <link rel="stylesheet" href="../styles/home.css">
     <link rel="stylesheet" href="../styles/guild-invites.css">

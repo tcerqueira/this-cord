@@ -12,6 +12,7 @@ require 'scripts/SendHeaders.php';
     <link rel="stylesheet" href="../styles/sidebar.css">
     <script src="../javascript/chat.js" defer></script>
     <script src="../javascript/guild.js" defer></script>
+    <script src="../javascript/channels-nav.js" defer></script>
     <script src="../javascript/text-channel.js" defer></script>
 </head>
 <body>
