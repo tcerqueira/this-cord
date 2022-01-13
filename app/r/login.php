@@ -19,7 +19,7 @@ require 'scripts/SendHeaders.php';
                 <div class="flex-center flex-column">
                     <h2>Welcome back!</h2>
                 </div>
-                <form id="login-form" class="flex-column" method="post"action="">
+                <form id="login-form" class="flex-column" method="post" action="">
                     <label for="username-input">Username</label>
                     <div class="text-input-container">
                         <input type="text" name="username" id="username-input">

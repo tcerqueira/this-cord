@@ -12,6 +12,8 @@ async function render()
         friends.push(...friendsList);
 
         renderNav(myGuilds);
+        renderDmNav(getAllList(friends));
+        renderGuildInvites(guildInvites);
 
         let currentTab = window.location.hash?.slice(1) || 'online';
         switchTab('online', currentTab);
@@ -25,30 +27,45 @@ async function render()
         }
 
         document.getElementById('onlineTabBtn').addEventListener('click', () => {
-            if(currentTab === 'online')
-                return;
             switchTab(currentTab, 'online');
             currentTab = 'online';
-
             renderUsersList(getOnlineList(friends));
         });
         
         document.getElementById('allTabBtn').addEventListener('click', () => {
-            if(currentTab === 'all')
-                return;
             switchTab(currentTab, 'all');
             currentTab = 'all';
-
             renderUsersList(getAllList(friends));
         });
         
         document.getElementById('pendingTabBtn').addEventListener('click', () => {
-            if(currentTab === 'pending')
-                return;
             switchTab(currentTab, 'pending');
             currentTab = 'pending';
-
             renderUsersList(getPendingList(friends));
+        });
+
+        document.getElementById('searchTopbarForm').addEventListener('submit', async (evt) => {
+            evt.preventDefault();
+            try {
+                const searchQuery = document.getElementById('topbar-search-input').value;
+                if(!searchQuery)
+                    return;
+                document.querySelector('.home-container > h3').innerText = 'Search';
+                const searchResult = await api.searchUser({ username: searchQuery });
+                const searchList = searchResult.map(u => {
+                    const friend = friends.find(f => f.id === u.id);
+                    if(!friend)
+                        return u;
+                    u.invite_status = friend.invite_status;
+                    u.request_sender = friend.request_sender;
+                    u.message_channel = friend.message_channel;
+                    return u;
+                });
+                renderUsersList(searchList);
+            }
+            catch (err) {
+                console.log(err);
+            }
         });
     }
     catch (err) {
@@ -142,6 +159,7 @@ function createUserItem(user) {
                 friends = friends.filter(f => f.id !== user.id);
                 const newUserItem = createUserItem(user);
                 userItem.parentNode.replaceChild(newUserItem, userItem);
+                renderDmNav(getAllList(friends));
             }
             catch (err) {
                 console.log(err);
@@ -163,6 +181,7 @@ function createUserItem(user) {
             });
             const newUserItem = createUserItem(newFriend);
             userItem.parentNode.replaceChild(newUserItem, userItem);
+            renderDmNav(getAllList(friends));
         }
         catch (err) {
             console.log(err);
@@ -215,6 +234,7 @@ function switchTab(oldTab, newTab) {
     document.getElementById(oldTab+'TabBtn').classList.remove('selected-tab');
     document.getElementById(newTab+'TabBtn').classList.add('selected-tab');
     document.querySelector('.home-container > h3').innerText = newTab.charAt(0).toUpperCase() + newTab.slice(1);
+    window.history.replaceState({}, document.title, `#${newTab}`);
 }
 
 function getAddIcon(userItem) {

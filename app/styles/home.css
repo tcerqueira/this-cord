@@ -30,7 +30,7 @@
     border-color: transparent;
 }
 
-.user-item:hover .user-item-options div {
+.user-item:hover .home-options-icon {
     background-color: var(--color-dark-grey);
 }
 
@@ -45,35 +45,51 @@
     gap: .5em;
 }
 
-.user-item-options div {
+.home-icon-size-1 {
+    --home-options-size: 1.5rem;
+}
+
+.home-icon-size-2 {
+    --home-options-size: 2rem;
+}
+
+.home-icon-size-1 img {
+    --home-img-size: calc(var(--home-options-size) / 2);
+    height: var(--home-img-size);
+    width: var(--home-img-size);
+}
+
+.home-icon-size-2 img {
+    --home-img-size: calc(var(--home-options-size) / 2);
+    height: var(--home-img-size);
+    width: var(--home-img-size);
+}
+
+.home-options-icon {
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
 
-    padding: 1.2rem;
-    width: 2rem;
-    height: 2rem;
+    padding: calc(var(--home-options-size) / 10);
+    width: var(--home-options-size);
+    height: var(--home-options-size);
     border-radius: 50%;
     background-color: var(--color-medium-grey-1);
 
     cursor: pointer;
 }
 
-.user-item-options div:hover {
+.home-options-icon:hover {
     filter: brightness(125%);
 }
 
-.user-item-options div:active {
-    background-color: var(--color-light-grey);
-}
-
-.user-item-options img {
+/* .user-item-options img {
     width: 1rem;
     height: 1rem;
-}
+} */
 
-.user-item-options div:hover::before {
+.home-options-icon[data-tooltip]:hover::before {
     content: attr(data-tooltip);
     position: absolute;
     inset: -120% -50% auto auto;
@@ -90,8 +106,44 @@
     color: var(--color-light);
 }
 
-/* ##################################################### NAV ####################################################### */
+/* ############################################### GUILD INVITES ################################################### */
 /* ################################################################################################################# */
+
+.right-sidebar > h2{
+    text-align: center;
+}
+
+.invite-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    margin-bottom: 3px;
+    cursor: pointer;
+}
+
+.invite-container .icon-card {
+    flex-shrink: 0;
+}
+
+.invite-container:hover {
+    /* background-color: var(--color-medium-grey-2); */
+    background-color: rgba(255,255,255, 0.015);
+}
+
+.invite-container > span {
+    margin-left: 1rem;
+}
+
+.answer-container {
+    display: flex;
+    align-self: flex-start;
+    flex-shrink: 0;
+}
+
+.answer-container div {
+    margin-right: 3px;
+}
 
 
 
@@ -146,4 +198,5 @@
 .topbar-search img {
     width: 1em;
     height: 1em;
+    /* border-radius: 50%; */
 }
