@@ -10,8 +10,9 @@ require 'scripts/SendHeaders.php';
 <head>
     <?php include "../components/head.php"; ?>
     <link rel="stylesheet" href="../styles/home.css">
-    <!-- <link rel="stylesheet" href="../styles/guild-invites.css"> -->
     <link rel="stylesheet" href="../styles/dm-nav.css">
+    <script src="../javascript/dm-nav.js" defer></script>
+    <script src="../javascript/invite-sidebar.js" defer></script>
     <script src="../javascript/home.js" defer></script>
 </head>
 
