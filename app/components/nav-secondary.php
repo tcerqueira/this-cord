@@ -45,4 +45,5 @@
         <span>user name</span>
         <a href="#"><img src="../public/settings.svg" alt=""></a>
     </div>
+    <?php include 'user-bar.php'; ?>
 </nav>

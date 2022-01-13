@@ -6,6 +6,7 @@
 
 :root {
     /* color scheme */
+    --color-black:          #18191c;
     --color-dark-grey:      #202225;
     --color-medium-grey-1:  #2f3136;
     --color-medium-grey-2:  #36393f;
@@ -13,12 +14,15 @@
     --color-light:          #ffffff;
     --color-primary:        #7289da;
     --color-red:            #ed4245;
+    --color-green:          #3ba55d;
     --color-yellow:         #faa81a;
     --color-dark-yellow:    #715b34;
     --color-dark-yellow-2:  #49443c;
     --font-color:           #dee0fc;
     /* fixed sizes */
     --card-size: 3.5rem;
+    --border-radius-size: 10px;
+    font-family: 'Poppins', sans-serif;
 }
 
 html {
@@ -59,7 +63,9 @@ hr {
 }
 
 label {
-    color: var(--color-light-grey);
+    display: block;
+    margin: .5em .6em;
+    color: var(--font-color);
 }
 
 input, textarea {
@@ -67,7 +73,9 @@ input, textarea {
     width: 100%;
 }
 
-input[type=text] {
+input[type=text],
+input[type=password],
+input[type=email] {
     background-color: transparent;
     border: none;
     color: inherit;
@@ -75,7 +83,9 @@ input[type=text] {
     font-weight: inherit;
 }
 
-input[type=text]:focus {
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=email]:focus {
     outline: none;
 }
 
@@ -121,24 +131,71 @@ input[type=text]:focus {
 }
 
 .main-container {
-    background-color: green;
+    background-color: var(--color-medium-grey-2);
 }
 
-.server-header {
+.server-nav{
+    display: grid;
+    grid-template-rows: auto 4rem;
+    grid-template-areas: 
+        "server-overview"
+        "user";
+    overflow: hidden;
+}
+
+.nav-header {
     grid-area: server-header;
     background-color: var(--color-medium-grey-1);
     border-top-left-radius: 10px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
     /* z-index: 1; */
 }
 
-.channel-header {
+.nav-header:hover {
+    background-color: var(--color-medium-grey-2);
+}
+
+.nav-header > h1 {
+    font-size: 1.3rem;
+}
+
+.server-options-container {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.nav-header img {
+    width: 1rem;
+    height: 1rem;
+    margin-left: .3rem;
+
+    cursor: pointer;
+}
+
+.nav-header img:hover {
+    filter: brightness(125%);
+}
+
+.page-header {
     grid-area: channel-header;
     background-color: var(--color-medium-grey-2);
+
+    padding: 1rem;
     z-index: 1;
 }
 
 .right-sidebar {
     grid-area: right-sidebar;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0.5rem;
+    
+    overflow-y: auto;
+    overflow-x: hidden;
     background-color: var(--color-medium-grey-1);
 }
 
@@ -165,13 +222,52 @@ input[type=text]:focus {
     -o-transition: .3s -o-filter linear;
     transition: .3s filter linear, .3s -webkit-filter linear;
 }
-
+/* 
 .icon-card:hover {
-    /* -webkit-filter: blur(3px);
+    -webkit-filter: blur(3px);
     -moz-filter: blur(3px);
     -ms-filter: blur(3px);
     -o-filter: blur(3px);
-    filter: blur(3px); */
+    filter: blur(3px);
+} */
+
+.user-text-input {
+    border: 1px solid var(--color-light-grey);
+}
+
+button.button,
+input.button {
+    padding: 0.2em 1em;
+    color: var(--font-color);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button.button:hover,
+input.button:hover {
+    --brightness: 90%;
+    -webkit-filter: brightness(var(--brightness));
+    -moz-filter: brightness(var(--brightness));
+    -ms-filter: brightness(var(--brightness));
+    -o-filter: brightness(var(--brightness));
+    filter: brightness(var(--brightness));
+}
+
+button.button:active,
+input.button:active {
+    --brightness: 70%;
+    -webkit-filter: brightness(var(--brightness));
+    -moz-filter: brightness(var(--brightness));
+    -ms-filter: brightness(var(--brightness));
+    -o-filter: brightness(var(--brightness));
+    filter: brightness(var(--brightness));
+}
+
+.error-message {
+    color: var(--color-red);
+    font-weight: bold;
+    word-wrap: break-word;
 }
 
 /************************************* CSS utility classes *************************************/
@@ -195,11 +291,47 @@ input[type=text]:focus {
     position: absolute;
 }
 
+.one-liner {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.rounded-container {
+    padding: 1em;
+    border-radius: var(--border-radius-size, 10px);
+}
+
+.search-input-container {
+    background-color: var(--color-black);
+    border-radius: 5px;
+    padding: 0.2rem 1rem;
+}
+
+.search-input-container:focus-within {
+    border: var(--font-color);
+}
+
 .text-input-container {
     background-color: var(--color-light-grey);
     border-radius: 10px;
     padding: 0.7rem 1rem;
-    font-size: 1.2rem;
+    border: 1px solid var(--color-light-grey);
+    /* font-size: 1.2rem; */
+}
+
+.text-input-container:focus-within {
+    border: 1px solid var(--color-primary);
+}
+
+.vertical-bar {
+    height: 1em;
+    width: 1px;
+    background-color: var(--font-color);
+}
+
+.invalid-input {
+    border: 1px solid var(--color-red);
 }
 
 .icon-text-size {
@@ -217,4 +349,20 @@ input[type=text]:focus {
 
 .icon-size-small {
     --side-size: calc(var(--card-size) - 0.5rem);
+}
+
+.bg-green {
+    background-color: var(--color-green) !important;
+}
+
+.bg-red {
+    background-color: var(--color-red) !important;
+}
+
+.bg-blue {
+    background-color: var(--color-primary) !important;
+}
+
+.bg-light-grey {
+    background-color: var(--color-light-grey) !important;
 }

@@ -35,14 +35,22 @@ class GuildController
 
     public function getGuildsByUser($user_id)
     {
-        $result = $this->guildGateway->findAllOfMember($user_id);
+        $result = $this->guildGateway->findAllOfMember($user_id, 1);
         if(!$result)
         {
             $response = internalServerErrorResponse('Problem finding guilds of member.');
             return $response;
         }
-        $result = pg_fetch_all($result);
-        $response = okResponse($result ? $result : []);
+
+        $result_arr = [];
+        while($row = pg_fetch_assoc($result)) {
+            if($row['channels'] == "[null]")
+                $row['channels'] = [];
+            else
+                $row['channels'] = json_decode($row['channels']);
+            array_push($result_arr, $row);
+        }
+        $response = okResponse($result_arr);
         return $response;
     }
 
@@ -175,6 +183,19 @@ class GuildController
             return $response;
         }
         $response = okResponse(['success' => true]);
+        return $response;
+    }
+
+    public function listInvites($user_id)
+    {
+        $result = $this->guildGateway->findAllOfMember($user_id, 0);
+        if(!$result)
+        {
+            $response = internalServerErrorResponse('Problem finding invites for guilds.');
+            return $response;
+        }
+        $result = pg_fetch_all($result);
+        $response = okResponse($result ? $result : []);
         return $response;
     }
 
@@ -330,7 +351,8 @@ class GuildController
         $userGateway = new UserGateway($this->db);
         $result = $userGateway->getPassword($user_id);
         $result = pg_fetch_assoc($result);
-        return password_verify($password, $result['pass']);
+        // return password_verify($password, $result['pass']);
+        return (new AuthenticationController($this->db))->verifyPassword($password, $result['pass']);
     }
 }
 ?>

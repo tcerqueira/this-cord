@@ -47,6 +47,14 @@
     background-color: var(--color-medium-grey-1);
 }
 
+.message:target {
+    animation: highlight-message 1s ease-in forwards;
+}
+
+.message > a {
+    color: inherit;
+}
+
 .reply-preview {
     opacity: 0.7;
     font-size: 0.9rem;
@@ -133,7 +141,8 @@
 }
 
 .message-box {
-    
+    background-color: var(--color-light-grey);
+    font-size: 1.2rem;
 }
 
 .reply-container {
@@ -180,4 +189,13 @@
     top: 0;
     left: calc(var(--side-size) * -1.5);
     /* background-color: var(--color-primary); */
+}
+
+@keyframes highlight-message {
+    from {
+        background-color: var(--color-yellow);
+    }
+    to {
+        background-color: transparent;
+    }
 }

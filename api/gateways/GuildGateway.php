@@ -36,7 +36,7 @@ class GuildGateway
         //           JOIN this_user AS inviter
         //           ON inviter.id=invite_sender
         //           WHERE guild_id=$1;";
-        $query = "SELECT DISTINCT member_id, member.username, member.userstatus, member.theme_color, guild_role,invite_status, invite_sender
+        $query = "SELECT DISTINCT member_id, member.username, member.userstatus, member.theme_color, guild_role,invite_status, invite_sender, user_description
                   FROM guild_members
                   JOIN this_user AS member
                   ON member.id=member_id
@@ -56,14 +56,15 @@ class GuildGateway
         return $result;
     }
 
-    public function findAllOfMember($member_id)
+    public function findAllOfMember($member_id, $invite_status)
     {
-        $query = "SELECT guild.id, guildname, initials, theme_color ".
-                 "FROM guild_members ".
-                 "JOIN guild ".
-                 "ON guild.id=guild_id ".
-                 "WHERE member_id=$1 AND invite_status=1;";
-        $result = pg_query_params($this->db, $query, [$member_id]);
+        $query = "SELECT guild.id, guildname, initials, theme_color, array_to_json(array_agg(text_channel.id)) channels
+                FROM guild_members
+                JOIN guild ON guild.id=guild_id
+                LEFT JOIN text_channel USING (guild_id)
+                WHERE member_id=$1 AND invite_status=$2 AND guild_id<>'00000000-0000-0000-0000-000000000000'
+                GROUP BY guild.id;";
+        $result = pg_query_params($this->db, $query, [$member_id, $invite_status]);
         return $result;
     }
 
