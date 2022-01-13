@@ -1,34 +1,24 @@
-// const userInfo ={
-//     id: 1, 
-//     username: 'ze', 
-//     email: 'ze@mail.com', 
-//     phoneNumber: '88888',
-//     color : '#0000fd'
-// };
-const usernameInput = document.getElementById('myaccount-username');
-const emailInput = document.getElementById('myaccount-email');
-const phoneNumberInput = document.getElementById('myaccount-phoneNumber');
+//id para o delete password
+//update de coisas separadas
 const changePasswordDiv = document.getElementById('change-password');
 changePasswordDiv.style.display == "none";
-const oldPasswordObj = document.getElementById('oldPassword');
-const newPasswordObj = document.getElementById('newPassword');
-const confNewPasswordObj = document.getElementById('confNewPassword');
-const passwordValidation = document.getElementById('passwordValidation');
 const passwordMatch = document.getElementById('password-match');
 var colorPicker;
 let defaultColorUser;
+// let defaultColorUser = '#ffffff';
+let themeColor;
+
 
 
 //################### Check Password Fields #######################
-confNewPasswordObj.onkeyup = checkPasswords =>{
+document.getElementById('confNewPassword').onkeyup = checkPasswords =>{
     const newPassword = document.getElementById('newPassword').value;
     const confNewPassword = document.getElementById('confNewPassword').value;
-    
+
     if (confNewPassword === newPassword)
     {
         passwordMatch.innerText = 'Password match';
         passwordMatch.style.fontSize = "0.9rem";
-        console.log('fff');
     }
     else
     {
@@ -36,8 +26,13 @@ confNewPasswordObj.onkeyup = checkPasswords =>{
         passwordMatch.style.fontSize = "0.9rem";
     }
 }
-newPasswordObj.onkeyup = validateSize =>{
+
+
+document.getElementById('newPassword').onkeyup = validateSize =>{
     const newPassword = document.getElementById('newPassword').value;
+    const passwordValidation = document.getElementById('passwordValidation');
+
+
     switch (true)
     {
         case (newPassword.length <= 4):
@@ -58,47 +53,87 @@ newPasswordObj.onkeyup = validateSize =>{
 
 }
 
-window.addEventListener("load", startup, false);
-window.addEventListener("load", defaultColor, false);
+
 
 getProfile().then(userInfo => {
-    getUserInfo(userInfo)
+    getUserInfo(userInfo);
+    startupColor();
+    defaultColor();
     });
 
-// console.log('userinfo'+userInfo());
-
-// getUserInfo(userInfo);
 
 //######################## Button clicks ##############################
 document.getElementById("editUserButton").onclick = usernameDisable =>{
-    usernameInput.disabled = false;
+    if(document.getElementById('myaccount-username').disabled == false)
+    {
+        document.getElementById('myaccount-username').disabled = true;
+        document.getElementById('text-input-container-color-username').style.background = "transparent";
+        document.getElementById('text-input-container-color-username').style.border = "transparent";
+    }
+    else
+    {
+        document.getElementById('myaccount-username').disabled = false;
+        document.getElementById('text-input-container-color-username').style.background = "#202225";
+        document.getElementById('text-input-container-color-username').style.border = "1px solid #202225";
+    }
+    
 }
+
 document.getElementById("editEmailButton").onclick = emailDisable =>{
-    emailInput.disabled = false;
+    if(document.getElementById('myaccount-email').disabled == false)
+    {
+        document.getElementById('myaccount-email').disabled = true;
+        document.getElementById('text-input-container-color-email').style.background = "transparent";
+        document.getElementById('text-input-container-color-email').style.border = "transparent";
+    }
+    else
+    {
+        document.getElementById('myaccount-email').disabled = false;
+        document.getElementById('text-input-container-color-email').style.background = "#202225";
+        document.getElementById('text-input-container-color-email').style.border = "1px solid #202225";
+    }
+    
 }
-document.getElementById("phoneNumberButton").onclick = phoneDisabe =>{
-    phoneNumberInput.disabled = false;
-}
+// document.getElementById("phoneNumberButton").onclick = phoneDisable =>{
+//     phoneNumberInput.disabled = false;
+// }
 document.getElementById("changePasswordButton").onclick = passwordButtonClick;
 
 document.getElementById("delete-account").onclick = confirmDelete;
 
 document.getElementById('submitChangesButtonAccount').onclick = confirmUpdateAccount;
 
+document.getElementById('submitChangesButtonUser').onclick = confirmUpdateUser;
+
 document.getElementById('submitNewPassword').onclick = submitPassword;
 
 function submitPassword()
 {
-    const newPasswor = document.getElementById('newPassword').value;
-    const confNewPasswor = document.getElementById('confNewPassword').value;
-    console.log('gdjdhf')
-    if (confNewPasswor === newPasswor)
+    const newPasswordValue = document.getElementById('newPassword').value;
+    const confNewPasswordValue = document.getElementById('confNewPassword').value;
+    const oldPasswordValue = document.getElementById('oldPassword').value;
+    
+    document.querySelectorAll('.user-password-input').forEach(input=>{
+        input.classList.remove('invalid-input');
+    });
+
+    if ((confNewPasswordValue === newPasswordValue) && newPasswordValue != null)
     {
         confirmUpdatePassword();
+        console.log('dddd');
+        document.querySelectorAll('.new-user-password-input').forEach(input=>{
+            input.classList.remove('invalid-input');
+
+        });
     }
     else
     {
-        confNewPasswordObj.innerText = '';
+        document.getElementById('confNewPassword').value = '';
+        console.log('erro');
+        document.querySelectorAll('.new-user-password-input').forEach(input=>{
+            input.classList.add('invalid-input');
+
+        });
     }
 }
 
@@ -106,9 +141,19 @@ function submitPassword()
 
 function getUserInfo(userInfo)
 {
-    document.getElementById('about-me').value = userInfo.userDescription;
-    defaultColorUser = userInfo.theme_color;
-    console.log(defaultColorUser);
+    const usernameInput = document.getElementById('myaccount-username');
+    const emailInput = document.getElementById('myaccount-email');
+    
+    if (userInfo.userDescription == undefined)
+    { 
+        document.getElementById('about-me').value = '';
+    }
+    else
+    {
+        document.getElementById('about-me').value = userInfo.userDescription;
+    }
+    themeColor = userInfo.theme_color;
+    console.log('color user'+ defaultColorUser);
     const userProfileInput = document.getElementById('userprofile-username');
     userProfileInput.innerText = userInfo.username;
     
@@ -118,17 +163,17 @@ function getUserInfo(userInfo)
     emailInput.value = userInfo.email;
     emailInput.disabled = true;
     
-    const phoneNumberButton = document.getElementById('phoneNumberButton');
+    // const phoneNumberButton = document.getElementById('phoneNumberButton');
     
-    if(userInfo.phoneNumber == null){
-        phoneNumberButton.innerText = 'Add';
-        phoneNumberInput.disabled = true;
-    }
-    else{
-        phoneNumberButton.innerText = 'Edit';
-        phoneNumberInput.value = userInfo.phoneNumber;
-        phoneNumberInput.disabled = true;
-    }
+    // if(userInfo.phoneNumber == null){
+    //     phoneNumberButton.innerText = 'Add';
+    //     phoneNumberInput.disabled = true;
+    // }
+    // else{
+    //     phoneNumberButton.innerText = 'Edit';
+    //     phoneNumberInput.value = userInfo.phoneNumber;
+    //     phoneNumberInput.disabled = true;
+    // }
 
 }
 
@@ -152,7 +197,6 @@ async function getProfile()
 {
     try {
         response = await api.fetchProfile();
-        console.log(response);
         return response;
     }
     catch(err)
@@ -162,30 +206,93 @@ async function getProfile()
 }
 
 
-async function confirmDelete()
+function confirmDelete()
 {
-    if(confirm('Do you realy want to delete all your data?')==true)
-    {
+    document.getElementById('confirm-password-delete-container').style.display = 'flex';
+    const password = document.getElementById('confirm-password-delete').value;
+    document.getElementById('confirm-delete').onclick = () =>{
+        
+        openModal('confirmation-modal');  
+        renderConfirmationModal('Do you want to remove permanentely your account?', async () =>{
+            try {
+                response = await api.deleteUser({password});
+                console.log(response);
+                document.getElementById('confirm-password-delete-container').style.display = 'none';
+                closeModal();
+                return response;
+            }
+            catch(err)
+            {
+                console.log(err);
+                closeModal();
+                document.getElementById('confirm-password-delete').value = ' ';
+            }
+            
+        });
+    }  
+}
+
+
+function confirmUpdateAccount()
+{
+    openModal('confirmation-modal');
+    renderConfirmationModal('Do you want to submit changes?', async () =>{
         try {
-            response = await api.deleteUser('');
+            document.getElementById('submitChangesButtonAccount').disabled = true;
+            const username = document.getElementById('myaccount-username').value;
+            const email = document.getElementById('myaccount-email').value;
+            const userDescription = document.getElementById('about-me').value;
+            response = await api.updateUser({username, email, themeColor, userDescription});
+            closeModal();
             console.log(response);
+
             return response;
+            
         }
         catch(err)
         {
             console.log(err);
         }
-    }  
+        document.getElementById('submitChangesButtonAccount').disabled = false;
+        closeModal();
+    } );  
 }
 
-
-async function confirmUpdateAccount()
+function confirmUpdatePassword()
 {
-    if(confirm('Do you want to update your data?')==true)
-    {
+    openModal('confirmation-modal');
+    renderConfirmationModal('Do you want to submit new password?', async () =>{
+        try {
+            const oldPassword = document.getElementById('oldPassword').value;
+            const newPassword = document.getElementById('confNewPassword').value;
+            response = await api.changePassword({oldPassword, newPassword});
+            document.getElementById('oldPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confNewPassword').value = '';
+            closeModal();
+            return response;
+            
+        }
+        catch(err)
+        {
+            console.log(err);
+            document.getElementById('oldPassword').value = '';
+            document.querySelectorAll('.user-password-input').forEach(input=>{
+                input.classList.add('invalid-input');
+            });
+            closeModal();
+        }
+    });  
+}
+
+function confirmUpdateUser()
+{
+    openModal('confirmation-modal');
+    renderConfirmationModal('Do you want to submit changes?', async () =>{
         try {
             const username = document.getElementById('myaccount-username').value;
             const email = document.getElementById('myaccount-email').value;
+            const userDescription = document.getElementById('about-me').value;
             response = await api.updateUser({username, email, themeColor, userDescription});
             console.log(response)
             return response;
@@ -195,36 +302,18 @@ async function confirmUpdateAccount()
         {
             console.log(err);
         }
-    }  
-}
-
-async function confirmUpdatePassword()
-{
-    if(confirm('Do you want to update your password?')==true)
-    {
-        try {
-            const oldPassword = document.getElementById('oldPassword').value;
-            const newPassword = document.getElementById('confNewPassword').value;
-            response = await api.changePassword({oldPassword, newPassword});
-            console.log(response)
-            return response;
-            
-        }
-        catch(err)
-        {
-            console.log(err);
-        }
-    }  
+        closeModal();
+    });  
 }
 
 // ################################# Functions colorPicker ####################################
-function startup() 
+function startupColor() 
 {
   colorPicker = document.querySelector("#user-color");
-  colorPicker.value = '#000000';
-  console.log(defaultColorUser);
+  console.log('default picker'+defaultColorUser);
+  colorPicker.value = themeColor;
   colorPicker.addEventListener("input", updateFirst, false);
-  colorPicker.addEventListener("change", updateAll, false);
+  colorPicker.addEventListener("change", updateFirst, false);
   colorPicker.select();
   }
 
@@ -233,8 +322,8 @@ function defaultColor(event)
   var userColor = document.querySelector("#user-bar-color");
   var userColorIcon = document.querySelector("#user-icon");
   if (userColor) {
-    userColor.style.backgroundColor = '#000000';
-    userColorIcon.style.backgroundColor = '#000000';
+    userColor.style.backgroundColor = themeColor;
+    userColorIcon.style.backgroundColor = themeColor;
   }
 }
 
@@ -247,13 +336,8 @@ function updateFirst(event)
   {
     userColor.style.backgroundColor = event.target.value;
     userColorIcon.style.backgroundColor = event.target.value;
+    themeColor = event.target.value;
   }
 }
 
-function updateAll(event)
-{
-  var userColor = document.querySelector("#user-bar-color");
-  var userColorIcon = document.querySelector("#user-icon");
-  userColor.style.backgroundColor = event.target.value;
-  userColorIcon.style.backgroundColor = event.target.value;
-}
+

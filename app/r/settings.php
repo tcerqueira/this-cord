@@ -12,6 +12,7 @@ require 'scripts/SendHeaders.php';
     <script src="../javascript/user-settings.js" defer></script>
 </head>
 <body>
+    <?php include "../components/modals.php"; ?>
     <div class="settings-container global-container">
         <?php include "../components/nav-settings.php" ?>
         
@@ -22,33 +23,38 @@ require 'scripts/SendHeaders.php';
             </div>
             <section id="my-account">
                 <h2>My Account</h2>
+               
                 <div id="my-account-container">
                     <div class="userProfileItem">
                         <div>
                             <p><b>Username:</b></p>
-                            <input class="user-text-input" type="text" id="myaccount-username">
+                            <div id= "text-input-container-color-username" class="text-input-container text-input-container-color"><input class="user-text-input" type="text" id="myaccount-username"></div>
                             <!-- <span id="myaccount-username"></span> -->
                         </div>
                         <button class="button" type="button" id ="editUserButton"> Edit</button>
                     </div>
+                    
                     <div class="userProfileItem">
                         <div>
                             <p><b>Email:</b></p>
-                            <input class = "user-text-input" type="text" id="myaccount-email">
+                            <div id= "text-input-container-color-email" class="text-input-container text-input-container-color" ><input class = "user-text-input" type="text" id="myaccount-email"></div>
                             <!-- <span id=myaccount-email></span> -->
                         </div>
                         <button class="button" type="button" id= "editEmailButton"> Edit </button>
                     </div>
-                    <div class="userProfileItem">
+                    
+                    <!-- <div class="userProfileItem">
                         <div>
                             <p> <b>Phone Number:</b></p>
-                            <input class="user-text-input" type="text" id="myaccount-phoneNumber">
-                            <!-- <span id=myaccount-phoneNumber></span> -->
+                            <div class="text-input-container text-input-container-color"><input class="user-text-input" type="text" id="myaccount-phoneNumber"></div>
+                            
                         </div>
                         <button class="button" type="button" id="phoneNumberButton"></button>
-                    </div>
-                    <button class="button" type="submit" id="submitChangesButtonUser">Save Changes</button>
+                    </div> -->
                     <hr>
+                    <button class="button" type="submit" id="submitChangesButtonAccount">Save Changes</button>
+                    <hr>
+                    
                     <div class="userProfileItem">
                         <p><b>Password</b></p>
                         <button class="button" type="submit" id="changePasswordButton"> Change Password</button>
@@ -57,20 +63,26 @@ require 'scripts/SendHeaders.php';
                     
                     <div id="change-password">
                         <p><b>Old Password:</b></p>
-                        <input class="user-password-input" type="password" id="oldPassword">
+                        <div class="user-password-input"><input type="password" id="oldPassword"></div>
 
                         <p><b>New Password:</b></p>
-                        <input class="user-password-input" type="password" id="newPassword">
+                        <div class="new-user-password-input"><input type="password" id="newPassword"></div>
                         <span id="passwordValidation"></span>
                         
                         <p><b>Confirm new Password:</b></p>
-                        <input class=" user-password-input" type="password" id="confNewPassword">
+                        <div class="new-user-password-input" ><input type="password" id="confNewPassword"></div>
                         <span id="password-match"></span>
                         <hr>
-                        <button class="button" type="submit" id="submitNewPassword">Password</button>
+                        <button class="button" type="submit" id="submitNewPassword">Confirm</button>
                     </div>
+                
                 </div>
-                <button id="delete-account"> Delete Account</button>
+                <button class="button"  id="delete-account"> Delete Account</button>
+                <div id="confirm-password-delete-container">
+                    <p>Confirm your password</p>
+                    <div class = "text-input-container"><input type="password" id ="confirm-password-delete"></div>
+                    <button class="button button-color" id = "confirm-delete" type="button"> Confirm </button>
+                </div>
             </section>
             
 
@@ -96,7 +108,7 @@ require 'scripts/SendHeaders.php';
                     <hr>
                     <div class="userprofile-aboutme">
                         <form>
-                            <textarea name="about-me" id="about-me" cols="30" rows="10"> Write a brief description about you</textarea>
+                            <textarea name="about-me" id="about-me" cols="30" rows="10" placeholder="Write a brief description about you"> </textarea>
                         </form>
                     </div>
                     <button class= "button" id="submitChangesButtonUser"> Save Changes</button>

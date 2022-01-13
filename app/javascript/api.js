@@ -109,7 +109,7 @@ class API
     {
         return new Promise((resolve, reject) => {
         
-            body = {
+            const body = {
                 old_password: oldPassword,
                 new_password: newPassword
             }
@@ -160,7 +160,7 @@ class API
     updateUser({username, email, themeColor, userDescription})
     {        
          return new Promise((resolve, reject) => {
-            const body = {username, email, theme_color: themeColor, user_description: userDescription}
+            const body = {username, email, theme_color: themeColor, user_description: userDescription};
             
             let xhr = new XMLHttpRequest();
             xhr.open('POST', this.apiRoot+'/r/user/update.php', true);
