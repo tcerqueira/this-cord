@@ -6,7 +6,7 @@
         <div class="vertical-bar"></div>
         <h2><button id="pendingTabBtn" class="button topbar-tab">Pending</button></h2>
     </div>
-    <form id="searchTopbarForm" class="search-input-container topbar-search">
+    <form id="searchTopbarForm" class="search-input-container topbar-search" autocomplete="off">
         <input type="text" id="topbar-search-input" placeholder="Search">
         <img src="../public/search-svgrepo-com.svg" alt="search-icon">
     </form>
