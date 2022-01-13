@@ -68,8 +68,6 @@ function openConfirmationModal(message, callbackFn)
     newButton.addEventListener('click', callbackFn);
 }
 
-openConfirmationModal('Are you sure you want to delete this user?', _ => console.log('sheeesh'));
-
 function openModal(elemId)
 {
     modalPane.style.display = 'flex';
