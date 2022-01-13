@@ -18,6 +18,9 @@
 function renderNav(myGuilds, currentId)
 {
     const serversContainer = document.getElementById('guilds-container');
+    while(serversContainer.firstChild) {
+        serversContainer.removeChild(serversContainer.firstChild);
+    }
     let isHome = true;
     myGuilds.forEach((server) => {
         const isCurrent = server.id === currentId;

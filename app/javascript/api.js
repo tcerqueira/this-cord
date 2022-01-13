@@ -304,7 +304,7 @@ class API
         });
     }
 
-    fetchGuildMembers({id})
+    fetchGuildMembers({ id })
     {
         return new Promise((resolve, reject) => {
 
@@ -361,6 +361,60 @@ class API
 
             let xhr = new XMLHttpRequest();
             xhr.open('POST', this.apiRoot+'/r/guild/create.php', true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
+
+    acceptGuildInvite({ id })
+    {
+        return new Promise((resolve, reject) => {
+
+            const body = {
+                guild_id: id,
+                answer: true
+            }
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/guild/invite/answer.php', true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
+
+    declineGuildInvite({ id })
+    {
+        return new Promise((resolve, reject) => {
+
+            const body = {
+                guild_id: id,
+                answer: false
+            }
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/guild/invite/answer.php', true);
         
             xhr.onload = () => {
                 switch(xhr.status)
