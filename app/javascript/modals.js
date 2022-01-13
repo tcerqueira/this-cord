@@ -21,8 +21,9 @@ document.getElementById('direct-message-input').addEventListener('keypress', evt
 
 document.getElementById('cancel-btn-modal').addEventListener('click', closeModal);
 
-function renderUserModal(user)
+function openUserModal(user)
 {
+    openModal('user-modal');
     const {
         id,
         username,
@@ -55,8 +56,9 @@ function renderUserModal(user)
     }
 }
 
-function renderConfirmationModal(message, callbackFn)
+function openConfirmationModal(message, callbackFn)
 {
+    openModal('confirmation-modal');
     document.getElementById('confirmation-message').innerText = message;
     // remove all event listeners
     const oldButton = document.getElementById("confirm-btn-modal");

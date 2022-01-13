@@ -103,8 +103,7 @@ function createUserItem(user) {
     userItem.style = '';
     userItem.removeAttribute('id');
     userItem.addEventListener('click', () => {
-        openModal('user-modal');
-        renderUserModal(user);
+        openUserModal(user);
     });
 
     userItem.querySelector('.icon-card').style = `--icon-bg-color: ${user.theme_color};`;
@@ -151,7 +150,6 @@ function createUserItem(user) {
 
     getRemoveIcon(userItem).addEventListener('click', (evt) => {
         evt.stopPropagation();
-        openModal('confirmation-modal');
         renderConfirmationModal('Are you sure you want to remove friend?', async () => {
             try {
                 await api.removeFriend({ id: user.id });
