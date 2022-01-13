@@ -12,8 +12,7 @@ document.querySelectorAll('.username').forEach(username => {
     username.addEventListener('click', () => {
         // const user = fetchUser(username.dataset.userId);
         const modalUser = { id:'1', username:'lou', theme_color:'#00a', description:'sou eu, o lou', userstatus: '1', is_friend:false};
-        openModal('user-modal');
-        renderUserModal(modalUser);
+        openUserModal(modalUser);
     })
 })
 
@@ -92,8 +91,7 @@ function createMemberItem(member) {
 
     li.append(div, span);
     li.addEventListener('click', () => {
-        openModal('user-modal');
-        renderUserModal({
+        openUserModal({
             id: member.member_id,
             ...member
         });

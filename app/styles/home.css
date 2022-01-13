@@ -92,7 +92,7 @@
 .home-options-icon[data-tooltip]:hover::before {
     content: attr(data-tooltip);
     position: absolute;
-    inset: -120% -50% auto auto;
+    inset: -150% -50% auto auto;
     white-space: nowrap;
     padding: .6em .8em;
     border-radius: 5px;
