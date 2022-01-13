@@ -1,11 +1,12 @@
 <nav class="secondary-nav server-nav">
-    <ul class="dm-list">
-        <a href="#">
+        <a id="dmItemTemplate" href="#" style="display: none;" data-dm-channel-id="">
             <li class="dm-item">
-                <div class="icon-card icon-size-small"></div>
+                <div class="icon-card icon-size-xsmall"></div>
                 <span>username</span>
             </li>
         </a>
+    <ul id="dmList" class="dm-list">
+        
     </ul>
     
     <?php include 'user-bar.php'; ?>

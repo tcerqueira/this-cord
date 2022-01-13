@@ -12,6 +12,7 @@ async function render()
         friends.push(...friendsList);
 
         renderNav(myGuilds);
+        renderDmNav(getAllList(friends));
 
         let currentTab = window.location.hash?.slice(1) || 'online';
         switchTab('online', currentTab);
@@ -81,6 +82,25 @@ function getAllList(friendsList) {
 
 function getPendingList(friendsList) {
     return friendsList.filter(f => f.invite_status === '0');
+}
+
+function renderDmNav(friendsList) {
+    const uList = document.getElementById('dmList');
+    friendsList.forEach(friend => {
+        uList.append(createDmItem(friend));
+    })
+}
+
+function createDmItem(friend) {
+    const dmItem = document.getElementById('dmItemTemplate').cloneNode(true);
+    dmItem.style = '';
+    dmItem.removeAttribute('id');
+
+    dmItem.querySelector('div').style = `--icon-bg-color: ${friend.theme_color};`;
+    dmItem.querySelector('span').innerText = friend.username;
+    dmItem.href = `direct-messages?id=${friend.message_channel}`;
+
+    return dmItem;
 }
 
 function renderUsersList(usersList, friendsList) {
