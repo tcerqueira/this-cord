@@ -85,12 +85,22 @@
 
 .confirmation-modal {
     display: none;
+    padding: 1.5rem;
+    max-width: 350px;
+}
 
-    max-width: 500px;
-    min-height: 400px;
+#confirmation-message {
+    text-align: center;
+    font-size: 1.2rem;
 }
 
 .confirm-btn-container {
     display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
 
+.confirm-btn-container > button {
+    flex-grow: 1;
+    font-size: 1.2rem;
 }
