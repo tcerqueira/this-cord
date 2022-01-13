@@ -22,7 +22,7 @@ require 'scripts/SendHeaders.php';
     <div class="default-container global-container">
         <?php include '../components/nav-primary.php'; ?>
         <?php include '../components/nav-dm.php'; ?>
-        <?php include '../components/server-header.php'; ?>
+        <?php include '../components/dm-header.php'; ?>
         <?php include '../components/home-topbar.php'; ?>
         <main class="main-container home-container">
             <h3>Online</h3>
