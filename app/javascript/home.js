@@ -129,8 +129,9 @@ function createUserItem(user) {
             break;
     }
     // event handlers
-    getAddIcon(userItem).addEventListener('click', async (evt) => {
+    getAddIcon(userItem).addEventListener('click', async function addHandler(evt) {
         evt.stopPropagation();
+        this.removeEventListener('click', addHandler);
         try {
             await api.requestFriend({ id: user.id });
             user.invite_status = '0';
@@ -142,6 +143,9 @@ function createUserItem(user) {
         catch (err) {
             console.log(err);
         }
+        finally {
+            this.addEventListener('click', addHandler);
+        }
     });
 
     getMessageIcon(userItem).addEventListener('click', (evt) => {
@@ -150,8 +154,9 @@ function createUserItem(user) {
 
     getRemoveIcon(userItem).addEventListener('click', (evt) => {
         evt.stopPropagation();
-        renderConfirmationModal('Are you sure you want to remove friend?', async () => {
+        openConfirmationModal('Are you sure you want to remove friend?', async evt => {
             try {
+                evt.target.disabled = true;
                 await api.removeFriend({ id: user.id });
                 user.invite_status = undefined;
                 friends = friends.filter(f => f.id !== user.id);
@@ -164,12 +169,14 @@ function createUserItem(user) {
             }
             finally {
                 closeModal();
+                evt.target.disabled = false;
             }
         })
     });
 
-    getAcceptIcon(userItem).addEventListener('click', async (evt) => {
+    getAcceptIcon(userItem).addEventListener('click', async function acceptHandler(evt) {
         evt.stopPropagation();
+        this.removeEventListener('click', acceptHandler);
         try {
             const newFriend = await api.acceptFriendRequest({ id: user.id });
             friends = friends.map(f => {
@@ -184,10 +191,14 @@ function createUserItem(user) {
         catch (err) {
             console.log(err);
         }
+        finally {
+            this.addEventListener('click', acceptHandler);
+        }
     });
 
-    getDeclineIcon(userItem).addEventListener('click', async (evt) => {
+    getDeclineIcon(userItem).addEventListener('click', async function declineHandler(evt) {
         evt.stopPropagation();
+        this.removeEventListener('click', declineHandler);
         try {
             await api.removeFriend({ id: user.id });
             user.invite_status = undefined;
@@ -197,10 +208,14 @@ function createUserItem(user) {
         catch (err) {
             console.log(err);
         }
+        finally {
+            this.addEventListener('click', declineHandler);
+        }
     });
     // handler for cancelling request
-    getSentIcon(userItem).addEventListener('click', async (evt) => {
+    getSentIcon(userItem).addEventListener('click', async function cancelHandler(evt) {
         evt.stopPropagation();
+        this.removeEventListener('click', cancelHandler);
         try {
             await api.removeFriend({ id: user.id });
             user.invite_status = undefined;
@@ -210,6 +225,9 @@ function createUserItem(user) {
         }
         catch (err) {
             console.log(err);
+        }
+        finally {
+            this.addEventListener('click', cancelHandler);
         }
     });
     // cancel request icon on hover

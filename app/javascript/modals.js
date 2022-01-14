@@ -60,15 +60,10 @@ function openConfirmationModal(message, callbackFn)
 {
     openModal('confirmation-modal');
     document.getElementById('confirmation-message').innerText = message;
-    // remove all event listeners
-    const oldButton = document.getElementById("confirm-btn-modal");
-    const newButton = oldButton.cloneNode(true);
-    oldButton.parentNode.replaceChild(newButton, oldButton);
-    
-    newButton.addEventListener('click', callbackFn);
-}
 
-// openGuildInviteModal('fd26e47f-e404-237e-7f36-9053b13138f3');
+    const button = document.getElementById("confirm-btn-modal");
+    button.onclick = callbackFn;
+}
 
 function openGuildInviteModal(guildId)
 {
