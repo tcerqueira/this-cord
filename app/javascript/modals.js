@@ -56,6 +56,44 @@ function openUserModal(user)
     }
 }
 
+function openCreateGuildModal()
+{
+    openModal('create-guild-modal');
+    const themePicker = document.getElementById('guildThemePicker');
+}
+
+document.getElementById('guildThemePicker').addEventListener('input', evt => {
+    document.getElementById('createGuildBanner').style = `--guild-bg-color: ${evt.target.value};`;
+});
+
+document.getElementById('createGuildForm').onsubmit = async evt => {
+    evt.preventDefault();
+    try {
+        let form = {
+            guildname: document.getElementById('guildnameInput').value,
+            initials: document.getElementById('initialsInput').value,
+            openInviteKey: document.getElementById('inviteKeyInput').value ? document.getElementById('inviteKeyInput').value: null,
+            themeColor: document.getElementById('guildThemePicker').value
+        }
+        const guildId = await api.createGuild(form);
+        const guild = await api.fetchGuild({ id: guildId });
+        addServerCard(guild);
+    }
+    catch (err) {
+        console.log(err);
+        document.getElementById('createGuildMessage').innerText = err.error;
+    }
+    finally {
+        closeModal();
+    }
+};
+
+document.getElementById('createGuildSubmitBtn').onclick = () => {
+    document.getElementById('createGuildForm').requestSubmit();
+}
+
+openCreateGuildModal();
+
 function openConfirmationModal(message, callbackFn)
 {
     openModal('confirmation-modal');
@@ -68,7 +106,7 @@ function openConfirmationModal(message, callbackFn)
 function openGuildInviteModal(guildId)
 {
     openModal('guild-invite-modal');
-    document.getElementById('searchGuildInviteForm').addEventListener('submit', async evt => {
+    document.getElementById('searchGuildInviteForm').onsubmit =  async evt => {
         evt.preventDefault();
         try {
             const searchQuery = document.getElementById('inviteModalInput').value;
@@ -79,9 +117,9 @@ function openGuildInviteModal(guildId)
         catch (err) {
             console.log(err);
         }
-    })
+    };
     
-    document.getElementById('inviteModalBtn').addEventListener('click', async evt => {
+    document.getElementById('inviteModalBtn').onclick = async evt => {
         try {
             evt.target.disabled = true;
             const toInviteItems = document.getElementById('toInviteList').children;
@@ -100,7 +138,7 @@ function openGuildInviteModal(guildId)
             closeModal();
             evt.target.disabled = false;
         }
-    });
+    };
 }
 
 function renderModalSearchResults(results)

@@ -282,6 +282,28 @@ class API
     // #################################################### GUILD ########################################################
     // ###################################################################################################################
 
+    fetchGuild({ id })
+    {
+        return new Promise((resolve, reject) => {
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', this.apiRoot+'/r/guild/?id='+id, true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send();
+        });
+    }
+
     fetchMyGuilds()
     {
         return new Promise((resolve, reject) => {

@@ -33,6 +33,11 @@ function renderNav(myGuilds, currentId)
         document.querySelector('.icon-card[data-tooltip=Home]').classList.add('current-server');
 }
 
+function addServerCard(server)
+{
+    document.getElementById('guilds-container').append(renderServerCard(server, false));
+}
+
 function renderServerCard(server, isCurrent) {
     const anchor = document.createElement('a');
     anchor.href = server.channels.length ? 'text-channel.php?id=' + server.channels[0] : 'guild-home.php';

@@ -19,7 +19,41 @@
         </main>
     </div>
     <div id="create-guild-modal" class="modal-container create-guild-modal">
-
+        <header class="top-header-modal">
+            <div id="createGuildBanner" class="background-banner"></div>
+            <h1>Create your guild</h1>
+        </header>
+        <main class="create-guild-main">
+            <img id="guildImagePreview" src="" alt="guild-img-preview">
+            <form id="guildImageForm">
+                <!-- <label for="guild-img-input">Image</label> -->
+                <input type="file" name="guild_img" id="guild-img-input">
+            </form>
+            <form id="createGuildForm" autocomplete="off">
+                <div class="naming-container">
+                    <div class="guildname-container">
+                        <label for="guildnameInput">Guild name</label>
+                        <div class="text-input-container">
+                            <input type="text" name="guildname" id="guildnameInput" placeholder="Ex: gamers forever">
+                        </div>
+                    </div>
+                    <div class="initials-container">
+                        <label for="initialsInput">Initials</label>
+                        <div class="text-input-container">
+                            <input type="text" name="initials" id="initialsInput" placeholder="Ex: GFV">
+                        </div>
+                    </div>
+                </div>
+                <label for="inviteKeyInput">Open invite key (optional)</label>
+                <div class="text-input-container">
+                    <input type="text" name="open_invite_key" id="inviteKeyInput" placeholder="Ex: every1_welcome">
+                </div>
+                <label for="guildThemePicker">Pick a theme color</label>
+                <input type="color" name="theme_color" id="guildThemePicker" value="#7289da">
+            </form>
+            <div id="createGuildMessage" class="error-message"></div>
+            <button id="createGuildSubmitBtn" class="button bg-blue">Create</button>
+        </main>
     </div>
     <div id="create-textchannel-modal" class="modal-container create-textchannel-modal">
 
