@@ -88,6 +88,7 @@ function openGuildInviteModal(guildId)
     
     document.getElementById('inviteModalBtn').addEventListener('click', async evt => {
         try {
+            evt.target.disabled = true;
             const toInviteItems = document.getElementById('toInviteList').children;
             const idList = [...toInviteItems].map(item => item.dataset.id);
             const responses = await Promise.all(idList.map(id => {
@@ -102,6 +103,7 @@ function openGuildInviteModal(guildId)
         }
         finally {
             closeModal();
+            evt.target.disabled = false;
         }
     });
 }
