@@ -64,7 +64,7 @@ function openConfirmationModal(message, callbackFn)
     const oldButton = document.getElementById("confirm-btn-modal");
     const newButton = oldButton.cloneNode(true);
     oldButton.parentNode.replaceChild(newButton, oldButton);
-
+    
     newButton.addEventListener('click', callbackFn);
 }
 
@@ -72,6 +72,80 @@ function openGuildInviteModal()
 {
     openModal('guild-invite-modal');
 }
+
+document.getElementById('searchGuildInviteForm').addEventListener('submit', async evt => {
+    evt.preventDefault();
+    try {
+        const searchQuery = document.getElementById('inviteModalInput').value;
+        const searchResults = await api.searchUser({ username: searchQuery });
+        const usersList = searchResults.filter(u => u.id !== currentProfileId);
+        renderModalSearchResults(usersList);
+    }
+    catch (err) {
+        console.log(err);
+    }
+})
+
+function renderModalSearchResults(results)
+{
+    const list = document.getElementById('searchModalList');
+    while(list.firstChild) {
+        list.removeChild(list.firstChild);
+    }
+    results.forEach(user => {
+        list.append(createModalSearchItem(user));
+    })
+}
+
+function addToInviteList(toInvite)
+{
+    const list = document.getElementById('toInviteList');
+
+    const findUser = [...list.children].find(u => u.dataset.id === toInvite.id);
+    if(findUser)
+        return;
+    list.append(createModalToInviteItem(toInvite));
+}
+
+function createModalSearchItem(user)
+{
+    const searchItem = document.getElementById('searchItemTemplate').cloneNode(true);
+    searchItem.style = '';
+    searchItem.removeAttribute('id');
+
+    searchItem.querySelector('.icon-card').style = `--icon-bg-color: ${user.theme_color};`;
+    const usernameSpan = searchItem.querySelector(':scope > span');
+    usernameSpan.innerText = user.username;
+    usernameSpan.style = `--user-theme-color: ${user.theme_color};`;
+    const idSpan = document.getElementById('shortIdSpan').cloneNode(true);
+    idSpan.innerText = ` #${user.id.slice(0,6)}`;
+    idSpan.removeAttribute('id');
+    searchItem.querySelector(':scope > span').append(idSpan);
+
+    searchItem.querySelector('.invite-to-guild-icon').addEventListener('click', () => {
+        searchItem.parentNode.removeChild(searchItem);
+        addToInviteList(user);
+    });
+
+    return searchItem;
+}
+
+function createModalToInviteItem(user)
+{
+    const inviteItem = document.getElementById('toInviteItemTemplate').cloneNode(true);
+    inviteItem.style = '';
+    inviteItem.removeAttribute('id');
+
+    inviteItem.querySelector('span').innerText = user.username;
+    inviteItem.querySelector('img').addEventListener('click', () => {
+        inviteItem.parentNode.removeChild(inviteItem);
+    });
+    inviteItem.style = `--user-theme-color: ${user.theme_color};`;
+    inviteItem.dataset.id = user.id;
+
+    return inviteItem;
+}
+
 
 openGuildInviteModal();
 

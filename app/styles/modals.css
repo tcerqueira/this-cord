@@ -102,7 +102,7 @@
     display: none;
     width: 90%;
     max-width: 500px;
-    min-height: 350px;
+    min-height: 300px;
     padding: 1.5rem;
 
     transition: height .3s ease-in-out;
@@ -167,6 +167,7 @@
 #searchModalList {
     padding: 1rem;
     max-height: 50vh;
+    min-height: 10vh;
     overflow: auto;
 }
 
@@ -212,9 +213,19 @@
     cursor: pointer;
 }
 
+.invite-to-guild-icon {
+    filter: brightness(125%);
+}
+
 .invite-to-guild-icon img {
     width: 1em;
     height: 1em;
+}
+
+#inviteModalBtn {
+   margin-top: 1rem;
+   width: 6rem;
+   font-size: 1.3rem;
 }
 
 /* ################################################## CONFIRMATION #################################################### */
