@@ -17,6 +17,22 @@
     border-radius: var(--border-radius-size);
     background-color: var(--color-black);
     overflow: hidden;
+    transform: scale(0);
+    opacity: 0;
+    animation: scale-in .4s cubic-bezier(0.42, 0, 0.57, 1.6) forwards;
+}
+
+@keyframes scale-in {
+    0% {
+        transform: scale(0);
+    }
+    30% {
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 /* ###################################################### USER ######################################################## */
@@ -78,6 +94,127 @@
 /* #################################################################################################################### */
 .create-textchannel-modal {
     display: none;
+}
+
+/* ################################################## GUILD INVITE #################################################### */
+/* #################################################################################################################### */
+.guild-invite-modal {
+    display: none;
+    width: 90%;
+    max-width: 500px;
+    min-height: 350px;
+    padding: 1.5rem;
+
+    transition: height .3s ease-in-out;
+}
+
+.guild-invite-modal h1 {
+    margin-bottom: 1rem;
+}
+
+#toInviteList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8em;
+    margin-bottom: 1rem;
+}
+
+.to-invite-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1em;
+    padding: 0 .4em;
+    font-size: .75rem;
+
+    border-radius: 1em;
+    border: 2px solid var(--user-theme-color, #7289da);
+    color: var(--user-theme-color, #7289da);
+}
+
+.to-invite-item img {
+    width: 0.8em;
+    height: 0.8em;
+    cursor: pointer;
+}
+
+.to-invite-item img:hover {
+    filter: brightness(150%);
+}
+
+.modal-search {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 95%;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    border: 1px solid var(--color-medium-grey-2);
+    background-color: var(--color-light-grey);
+}
+
+.modal-search:focus-within {
+    border: 1px solid var(--color-primary);
+}
+
+.modal-search img {
+    width: 1em;
+    height: 1em;
+    /* border-radius: 50%; */
+}
+
+#searchModalList {
+    padding: 1rem;
+    max-height: 50vh;
+    overflow: auto;
+}
+
+.search-modal-item {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1em;
+    width: 90%;
+    margin: 0 auto;
+    padding: 1em;
+}
+
+.search-modal-item:hover {
+    background-color: rgba(0,0,0,0.15);
+}
+
+.search-modal-item .icon-card {
+    flex-shrink: 0;
+}
+
+.search-modal-item > span {
+    /* align-self: flex-end; */
+    white-space: break-spaces;
+    flex-grow: 1;
+    color: var(--user-theme-color, var(--color-primary));
+}
+
+.search-modal-item > span > span {
+    color: var(--font-color);
+    font-size: .8em;
+    opacity: .5;
+}
+
+.invite-to-guild-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.invite-to-guild-icon img {
+    width: 1em;
+    height: 1em;
 }
 
 /* ################################################## CONFIRMATION #################################################### */

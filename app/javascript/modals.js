@@ -68,6 +68,13 @@ function openConfirmationModal(message, callbackFn)
     newButton.addEventListener('click', callbackFn);
 }
 
+function openGuildInviteModal()
+{
+    openModal('guild-invite-modal');
+}
+
+openGuildInviteModal();
+
 function openModal(elemId)
 {
     modalPane.style.display = 'flex';

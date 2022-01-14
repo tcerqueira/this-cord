@@ -25,7 +25,139 @@
 
     </div>
     <div id="guild-invite-modal" class="modal-container guild-invite-modal">
-
+        <h1>Invite list</h1>
+        <ul id="toInviteList">
+            <li class="to-invite-item">
+                <span>username</span>
+                <img src="../public/cancel-nofill-svgrepo-com.svg" alt="remove-invite-icon">
+            </li>
+            <li class="to-invite-item">
+                <span>username</span>
+                <img src="../public/cancel-nofill-svgrepo-com.svg" alt="remove-invite-icon">
+            </li>
+            <li class="to-invite-item">
+                <span>username</span>
+                <img src="../public/cancel-nofill-svgrepo-com.svg" alt="remove-invite-icon">
+            </li>
+            <li class="to-invite-item">
+                <span>username</span>
+                <img src="../public/cancel-nofill-svgrepo-com.svg" alt="remove-invite-icon">
+            </li>
+            <li class="to-invite-item">
+                <span>username</span>
+                <img src="../public/cancel-nofill-svgrepo-com.svg" alt="remove-invite-icon">
+            </li>
+        </ul>
+        <header>
+            <form id="searchGuildInviteForm" class="search-input-container modal-search" autocomplete="off">
+                <input type="text" id="inviteModalInput" placeholder="Search">
+                <img src="../public/search-svgrepo-com.svg" alt="search-icon">
+            </form>
+        </header>
+        <hr>
+        <main>
+            <ul id="searchModalList">
+                <li class="search-modal-item rounded-container">
+                    <div class="icon-card icon-size-xsmall"></div>
+                    <span>username<span> #123456</span></span>
+                    <div class="invite-to-guild-icon bg-green">
+                        <img src="../public/add-plus-svgrepo-com.svg" alt="add-to-invite-list-icon">
+                    </div>
+                </li>
+                <li class="search-modal-item rounded-container one-liner">
+                    <div class="icon-card icon-size-xsmall"></div>
+                    <span>username<span> #123456</span></span>
+                    <div class="invite-to-guild-icon bg-green">
+                        <img src="../public/add-plus-svgrepo-com.svg" alt="add-to-invite-list-icon">
+                    </div>
+                </li>
+                <li class="search-modal-item rounded-container">
+                    <div class="icon-card icon-size-xsmall"></div>
+                    <span>username<span> #123456</span></span>
+                    <div class="invite-to-guild-icon bg-green">
+                        <img src="../public/add-plus-svgrepo-com.svg" alt="add-to-invite-list-icon">
+                    </div>
+                </li>
+                <li class="search-modal-item rounded-container one-liner">
+                    <div class="icon-card icon-size-xsmall"></div>
+                    <span>username<span> #123456</span></span>
+                    <div class="invite-to-guild-icon bg-green">
+                        <img src="../public/add-plus-svgrepo-com.svg" alt="add-to-invite-list-icon">
+                    </div>
+                </li>
+                <li class="search-modal-item rounded-container">
+                    <div class="icon-card icon-size-xsmall"></div>
+                    <span>username<span> #123456</span></span>
+                    <div class="invite-to-guild-icon bg-green">
+                        <img src="../public/add-plus-svgrepo-com.svg" alt="add-to-invite-list-icon">
+                    </div>
+                </li>
+                <li class="search-modal-item rounded-container one-liner">
+                    <div class="icon-card icon-size-xsmall"></div>
+                    <span>username<span> #123456</span></span>
+                    <div class="invite-to-guild-icon bg-green">
+                        <img src="../public/add-plus-svgrepo-com.svg" alt="add-to-invite-list-icon">
+                    </div>
+                </li>
+                <li class="search-modal-item rounded-container">
+                    <div class="icon-card icon-size-xsmall"></div>
+                    <span>username<span> #123456</span></span>
+                    <div class="invite-to-guild-icon bg-green">
+                        <img src="../public/add-plus-svgrepo-com.svg" alt="add-to-invite-list-icon">
+                    </div>
+                </li>
+                <li class="search-modal-item rounded-container one-liner">
+                    <div class="icon-card icon-size-xsmall"></div>
+                    <span>username<span> #123456</span></span>
+                    <div class="invite-to-guild-icon bg-green">
+                        <img src="../public/add-plus-svgrepo-com.svg" alt="add-to-invite-list-icon">
+                    </div>
+                </li>
+                <li class="search-modal-item rounded-container">
+                    <div class="icon-card icon-size-xsmall"></div>
+                    <span>username<span> #123456</span></span>
+                    <div class="invite-to-guild-icon bg-green">
+                        <img src="../public/add-plus-svgrepo-com.svg" alt="add-to-invite-list-icon">
+                    </div>
+                </li>
+                <li class="search-modal-item rounded-container one-liner">
+                    <div class="icon-card icon-size-xsmall"></div>
+                    <span>username<span> #123456</span></span>
+                    <div class="invite-to-guild-icon bg-green">
+                        <img src="../public/add-plus-svgrepo-com.svg" alt="add-to-invite-list-icon">
+                    </div>
+                </li>
+                <li class="search-modal-item rounded-container">
+                    <div class="icon-card icon-size-xsmall"></div>
+                    <span>username<span> #123456</span></span>
+                    <div class="invite-to-guild-icon bg-green">
+                        <img src="../public/add-plus-svgrepo-com.svg" alt="add-to-invite-list-icon">
+                    </div>
+                </li>
+                <li class="search-modal-item rounded-container one-liner">
+                    <div class="icon-card icon-size-xsmall"></div>
+                    <span>username<span> #123456</span></span>
+                    <div class="invite-to-guild-icon bg-green">
+                        <img src="../public/add-plus-svgrepo-com.svg" alt="add-to-invite-list-icon">
+                    </div>
+                </li>
+                <li class="search-modal-item rounded-container">
+                    <div class="icon-card icon-size-xsmall"></div>
+                    <span>username<span> #123456</span></span>
+                    <div class="invite-to-guild-icon bg-green">
+                        <img src="../public/add-plus-svgrepo-com.svg" alt="add-to-invite-list-icon">
+                    </div>
+                </li>
+                <li class="search-modal-item rounded-container one-liner">
+                    <div class="icon-card icon-size-xsmall"></div>
+                    <span>username<span> #123456</span></span>
+                    <div class="invite-to-guild-icon bg-green">
+                        <img src="../public/add-plus-svgrepo-com.svg" alt="add-to-invite-list-icon">
+                    </div>
+                </li>
+                
+            </ul>
+        </main>
     </div>
     <div id="confirmation-modal" class="modal-container confirmation-modal">
         <header>
