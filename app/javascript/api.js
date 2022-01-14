@@ -186,7 +186,7 @@ class API
             const body = {password};
 
             let xhr = new XMLHttpRequest();
-            xhr.open('POST', this.apiRoot+'/r/user/delete.php/?id='+id, true);
+            xhr.open('POST', this.apiRoot+'/r/user/delete.php', true);
         
             xhr.onload = () => {
                 switch(xhr.status)

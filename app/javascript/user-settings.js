@@ -196,7 +196,7 @@ function passwordButtonClick()
 async function getProfile()
 {
     try {
-        response = await api.fetchProfile();
+        const response = await api.fetchProfile();
         return response;
     }
     catch(err)
@@ -209,25 +209,28 @@ async function getProfile()
 function confirmDelete()
 {
     document.getElementById('confirm-password-delete-container').style.display = 'flex';
-    const password = document.getElementById('confirm-password-delete').value;
+    
+    
     document.getElementById('confirm-delete').onclick = () =>{
-        
+        const password = document.getElementById('confirm-password-delete').value;
+        console.log(password);
         openModal('confirmation-modal');  
         renderConfirmationModal('Do you want to remove permanentely your account?', async () =>{
             try {
-                response = await api.deleteUser({password});
+                console.log(password);
+                const response = await api.deleteUser({password});
                 console.log(response);
                 document.getElementById('confirm-password-delete-container').style.display = 'none';
-                closeModal();
-                return response;
             }
             catch(err)
             {
                 console.log(err);
-                closeModal();
-                document.getElementById('confirm-password-delete').value = ' ';
+                document.getElementById('confirm-password-delete').value = '';
             }
-            
+            finally
+            {
+                closeModal();
+            }
         });
     }  
 }
@@ -242,8 +245,11 @@ function confirmUpdateAccount()
             const username = document.getElementById('myaccount-username').value;
             const email = document.getElementById('myaccount-email').value;
             const userDescription = document.getElementById('about-me').value;
-            response = await api.updateUser({username, email, themeColor, userDescription});
-            closeModal();
+            if( !userDescription)
+            {
+                const userDescription = undefined;
+            }
+            const response = await api.updateUser({username, email, themeColor, userDescription});
             console.log(response);
 
             return response;
@@ -253,8 +259,12 @@ function confirmUpdateAccount()
         {
             console.log(err);
         }
-        document.getElementById('submitChangesButtonAccount').disabled = false;
-        closeModal();
+        finally
+        {
+            closeModal();
+            document.getElementById('submitChangesButtonAccount').disabled = false;
+        }
+        
     } );  
 }
 
@@ -269,7 +279,7 @@ function confirmUpdatePassword()
             document.getElementById('oldPassword').value = '';
             document.getElementById('newPassword').value = '';
             document.getElementById('confNewPassword').value = '';
-            closeModal();
+            
             return response;
             
         }
@@ -280,6 +290,9 @@ function confirmUpdatePassword()
             document.querySelectorAll('.user-password-input').forEach(input=>{
                 input.classList.add('invalid-input');
             });
+        }
+        finally
+        {
             closeModal();
         }
     });  
@@ -293,6 +306,12 @@ function confirmUpdateUser()
             const username = document.getElementById('myaccount-username').value;
             const email = document.getElementById('myaccount-email').value;
             const userDescription = document.getElementById('about-me').value;
+            if( !userDescription)
+            {
+                const userDescription = undefined;
+            }
+    
+            
             response = await api.updateUser({username, email, themeColor, userDescription});
             console.log(response)
             return response;
