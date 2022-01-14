@@ -68,23 +68,43 @@ function openConfirmationModal(message, callbackFn)
     newButton.addEventListener('click', callbackFn);
 }
 
-function openGuildInviteModal()
+// openGuildInviteModal('fd26e47f-e404-237e-7f36-9053b13138f3');
+
+function openGuildInviteModal(guildId)
 {
     openModal('guild-invite-modal');
+    document.getElementById('searchGuildInviteForm').addEventListener('submit', async evt => {
+        evt.preventDefault();
+        try {
+            const searchQuery = document.getElementById('inviteModalInput').value;
+            const searchResults = await api.searchUser({ username: searchQuery });
+            const usersList = searchResults.filter(u => u.id !== currentProfileId);
+            renderModalSearchResults(usersList);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    })
+    
+    document.getElementById('inviteModalBtn').addEventListener('click', async evt => {
+        try {
+            const toInviteItems = document.getElementById('toInviteList').children;
+            const idList = [...toInviteItems].map(item => item.dataset.id);
+            const responses = await Promise.all(idList.map(id => {
+                return api.inviteToGuild({
+                    guildId,
+                    userId: id
+                });
+            }));
+        }
+        catch (err) {
+            console.log(err);
+        }
+        finally {
+            closeModal();
+        }
+    });
 }
-
-document.getElementById('searchGuildInviteForm').addEventListener('submit', async evt => {
-    evt.preventDefault();
-    try {
-        const searchQuery = document.getElementById('inviteModalInput').value;
-        const searchResults = await api.searchUser({ username: searchQuery });
-        const usersList = searchResults.filter(u => u.id !== currentProfileId);
-        renderModalSearchResults(usersList);
-    }
-    catch (err) {
-        console.log(err);
-    }
-})
 
 function renderModalSearchResults(results)
 {
@@ -145,9 +165,6 @@ function createModalToInviteItem(user)
 
     return inviteItem;
 }
-
-
-openGuildInviteModal();
 
 function openModal(elemId)
 {
