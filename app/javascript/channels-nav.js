@@ -1,37 +1,20 @@
-// const textChannelList = document.getElementById('text-channels-list');
-// const voiceChannelList = document.getElementById('voice-channels-list');
-
-const allTextChannels = [
-    {id: 1, name: 'jardim-de-convivio-da-feup'},
-    {id: 2, name: 'spam'}
-];
-
-const allVoiceChannels = [
-    {id: 1, name: 'robot'},
-    {id: 2, name: 'business'}
-];
-
-
-
-// allVoiceChannels.forEach(voiceChannel => {
-//     const voiceChannelItem = renderVoiceChannel(voiceChannel);
-//     voiceChannelList.append(voiceChannelItem);
-// });
-
-renderTextChannels(allTextChannels);
-
-function renderTextChannels(textChannels)
+function renderTextChannels(textChannels, currentTextChannelId)
 {
     const textChannelList = document.getElementById('text-channels-list');
     textChannels.forEach(textChannel => {
         const textChannelItem = createTextChannelItem(textChannel);
         textChannelList.append(textChannelItem);
     });
+    document.getElementById('textChannel_' + currentTextChannelId).classList.add('selected-channel');
 }
 
 function createTextChannelItem(textChannel)
 {
+    const anchorListItem =document.createElement('a');
+    anchorListItem.href= `text-channel.php?id=${textChannel.id}`;
+    
     const listItem = document.createElement('li');
+    anchorListItem.append(listItem);
     listItem.id = 'textChannel_' + textChannel.id;
     listItem.classList.add('text-channel');
     const div = document.createElement('div');
@@ -43,38 +26,39 @@ function createTextChannelItem(textChannel)
     textIcon.src = "../public/text-channel.svg";
     textIcon.alt = "text-channel";
 
-    const listItemAnchor = document.createElement('a');
-    listItemAnchor.href = '#';
-    div.append(listItemAnchor);
+    // const listItemAnchor = document.createElement('a');
+    // listItemAnchor.href = `text-channel.php?id=${textChannel.id}`;
+    // div.append(listItemAnchor);
+    div.className = 'one-liner';
     listSpan = document.createElement('span');
-    listSpan.innerText = textChannel.name;
-    listItemAnchor.append(listSpan);
+    listSpan.innerText = textChannel.channelname;
+    div.append(listSpan);
     
-    const div1 = document.createElement('div');
-    div1.classList.add('text-channel-icons');
-    listItem.append(div1);
+    // const div1 = document.createElement('div');
+    // div1.classList.add('text-channel-icons');
+    // listItem.append(div1);
 
-    const anchorAddIcon = document.createElement('a');
-    anchorAddIcon.href = '#';
-    div1.append(anchorAddIcon);
+    // const anchorAddIcon = document.createElement('a');
+    // anchorAddIcon.href = '#';
+    // div1.append(anchorAddIcon);
     
-    const addIcon = document.createElement('img');
-    anchorAddIcon.append(addIcon);
-    addIcon.classList.add('icon-text-size');
-    addIcon.src = "../public/add_user.svg";
-    addIcon.alt = "add_user";
+    // const addIcon = document.createElement('img');
+    // anchorAddIcon.append(addIcon);
+    // addIcon.classList.add('icon-text-size');
+    // addIcon.src = "../public/add_user.svg";
+    // addIcon.alt = "add_user";
     
-    const anchorsettingsIcon = document.createElement('a');
-    anchorsettingsIcon.href = '#';
-    div1.append(anchorsettingsIcon);
+    // const anchorsettingsIcon = document.createElement('a');
+    // anchorsettingsIcon.href = '#';
+    // div.append(anchorsettingsIcon);
     
     const settingsIcon = document.createElement('img');
-    anchorsettingsIcon.append(settingsIcon);
-    settingsIcon.classList.add('icon-text-size');
+    listItem.append(settingsIcon);
+    settingsIcon.className = 'text-channel-icons icon-text-size';
     settingsIcon.src = "../public/settings.svg";
     settingsIcon.alt = "settings";
 
-    return listItem;
+    return anchorListItem;
 }
 
 // function renderVoiceChannel(voiceChannel)
