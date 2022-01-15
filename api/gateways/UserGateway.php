@@ -94,7 +94,7 @@ class UserGateway
                 FROM public_user_VIEW
                 LEFT JOIN this_friends
                 ON friend_1=LEAST($1, $2)::uuid AND friend_2=GREATEST($1, $2)::uuid
-                WHERE id=$2;";
+                WHERE id=$2::uuid;";
         $result = pg_query_params($this->db, $query, [$user_id, $friend_id]);
         return $result;
     }
