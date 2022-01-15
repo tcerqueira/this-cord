@@ -28,9 +28,8 @@ function openUserModal(user)
         theme_color,
         user_description,
         userstatus,
-        friend_status
+        message_channel
     } = user;
-    // = fetchUser
     const user_note = localStorage.getItem(`note_${id}`);
 
     const usernameSpan = document.getElementById('username-user-modal');
@@ -48,16 +47,19 @@ function openUserModal(user)
 
 function renderUserFriendButton(user) {
     const friendBtn = document.getElementById('add-remove-friend-btn');
-    if(user.friend_status === 'is_friend')
-    {
+    if(user.id === currentProfileId) {
+        friendBtn.style.visibility = 'hidden';
+        return;
+    }
+
+    if(user.invite_status === '0' && user.request_sender != currentProfileId) {
         friendBtn.style.visibility = 'visible';
-        friendBtn.innerText = 'Remove';
-        friendBtn.style.backgroundColor = 'var(--color-red)';
+        friendBtn.innerText = 'Accept request';
         friendBtn.onclick = async () => {
             friendBtn.disabled = true;
             try {
-                await api.removeFriend({ id: user.id });
-                user.friend_status = 'not_friend';
+                await api.acceptFriendRequest({ id: user.id });
+                user.invite_status = '1';
                 renderUserFriendButton(user);
             }
             catch (err) {
@@ -68,34 +70,15 @@ function renderUserFriendButton(user) {
             }
         }
     }
-    else if(user.friend_status === 'not_friend'){
+    else if(user.invite_status === null) {
         friendBtn.style.visibility = 'visible';
         friendBtn.innerText = 'Add';
-        friendBtn.style.backgroundColor = 'var(--color-green)';
         friendBtn.onclick = async () => {
             friendBtn.disabled = true;
             try {
                 await api.requestFriend({ id: user.id });
-                user.friend_status = 'requested_friend';
-                renderUserFriendButton(user);
-            }
-            catch (err) {
-                console.log(err);
-            }
-            finally {
-                friendBtn.disabled = false;
-            }
-        }
-    }
-    else if(user.friend_status === 'requested_friend'){
-        friendBtn.style.visibility = 'visible';
-        friendBtn.innerText = 'Sent';
-        friendBtn.style.backgroundColor = 'var(--color-primary)';
-        friendBtn.onclick = async () => {
-            friendBtn.disabled = true;
-            try {
-                await api.removeFriend({ id: user.id });
-                user.friend_status = 'not_friend';
+                user.invite_status = '0';
+                user.request_sender = currentProfileId;
                 renderUserFriendButton(user);
             }
             catch (err) {

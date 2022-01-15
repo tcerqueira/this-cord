@@ -76,12 +76,14 @@ function createMemberItem(member) {
     span.style = '--sidebar-username-color: ' + member.theme_color + ';';
 
     li.append(div, span);
-    li.addEventListener('click', () => {
-        openUserModal({
-            id: member.member_id,
-            ...member
-        });
-        
+    li.addEventListener('click', async () => {
+        try {
+            const friend = await api.fetchFriend({ id: member.member_id });
+            openUserModal(friend);
+        }
+        catch (err) {
+            console.log(err);
+        }        
     })
     return li;
 }
