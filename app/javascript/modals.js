@@ -19,8 +19,6 @@ document.getElementById('direct-message-input').addEventListener('keypress', evt
     }
 })
 
-document.getElementById('cancel-btn-modal').addEventListener('click', closeModal);
-
 function openUserModal(user)
 {
     openModal('user-modal');
@@ -30,7 +28,7 @@ function openUserModal(user)
         theme_color,
         user_description,
         userstatus,
-        is_friend
+        friend_status
     } = user;
     // = fetchUser
     const user_note = localStorage.getItem(`note_${id}`);
@@ -39,20 +37,77 @@ function openUserModal(user)
     const themeDiv = document.getElementById('theme-user-modal');
     const aboutP = document.getElementById('about-user-modal');
     const noteP = document.getElementById('note-user-modal');
-    const friendBtn = document.getElementById('add-remove-friend-btn');
 
     usernameSpan.innerText = username;
     usernameSpan.style = userstatus === '1' ? '--bg-color: var(--color-green);' : '--bg-color: var(--color-dark-grey);';
     themeDiv.style = `--user-bg-panel: ${theme_color};`;
     aboutP.innerText = user_description;
     noteP.innerText = user_note;
-    if(is_friend)
+    renderUserFriendButton(user);
+}
+
+function renderUserFriendButton(user) {
+    const friendBtn = document.getElementById('add-remove-friend-btn');
+    if(user.friend_status === 'is_friend')
     {
+        friendBtn.style.visibility = 'visible';
         friendBtn.innerText = 'Remove';
-        // https://stackoverflow.com/questions/9251837/how-to-remove-all-listeners-in-an-element
+        friendBtn.style.backgroundColor = 'var(--color-red)';
+        friendBtn.onclick = async () => {
+            friendBtn.disabled = true;
+            try {
+                await api.removeFriend({ id: user.id });
+                user.friend_status = 'not_friend';
+                renderUserFriendButton(user);
+            }
+            catch (err) {
+                console.log(err);
+            }
+            finally {
+                friendBtn.disabled = false;
+            }
+        }
+    }
+    else if(user.friend_status === 'not_friend'){
+        friendBtn.style.visibility = 'visible';
+        friendBtn.innerText = 'Add';
+        friendBtn.style.backgroundColor = 'var(--color-green)';
+        friendBtn.onclick = async () => {
+            friendBtn.disabled = true;
+            try {
+                await api.requestFriend({ id: user.id });
+                user.friend_status = 'requested_friend';
+                renderUserFriendButton(user);
+            }
+            catch (err) {
+                console.log(err);
+            }
+            finally {
+                friendBtn.disabled = false;
+            }
+        }
+    }
+    else if(user.friend_status === 'requested_friend'){
+        friendBtn.style.visibility = 'visible';
+        friendBtn.innerText = 'Sent';
+        friendBtn.style.backgroundColor = 'var(--color-primary)';
+        friendBtn.onclick = async () => {
+            friendBtn.disabled = true;
+            try {
+                await api.removeFriend({ id: user.id });
+                user.friend_status = 'not_friend';
+                renderUserFriendButton(user);
+            }
+            catch (err) {
+                console.log(err);
+            }
+            finally {
+                friendBtn.disabled = false;
+            }
+        }
     }
     else {
-        friendBtn.innerText = 'Add';
+        friendBtn.style.visibility = 'hidden';
     }
 }
 
@@ -101,6 +156,8 @@ function openConfirmationModal(message, callbackFn)
     const button = document.getElementById("confirm-btn-modal");
     button.onclick = callbackFn;
 }
+
+document.getElementById('cancel-btn-modal').onclick = closeModal;
 
 function openGuildInviteModal(guildId)
 {
