@@ -25,11 +25,26 @@ class GuildController
             return $response;
         }
         $result = $this->guildGateway->find($id);
-        $result = pg_fetch_assoc($result);
         if(!$result)
-            $response = notFoundResponse();
-        else
-            $response = okResponse($result);
+        {
+            $response = internalServerErrorResponse('Problem finding guild.');
+            return $response;
+        }
+        $result = pg_fetch_assoc($result);
+        $result_arr = [
+            'id' => $result['guild_id'],
+            'guildname' => $result['guildname'],
+            'initials' => $result['initials'],
+            'channels' => $result['channels'] == "[null]" ? [] : json_decode($result['channels']),
+            'admin' => [
+                'id' => $result['id'],
+                'username' => $result['username'],
+                'theme_color' => $result['theme_color'],
+                'userstatus' => $result['userstatus'],
+                'user_description' => $result['user_description']
+            ]
+        ];
+        $response = okResponse($result_arr);
         return $response;
     }
 
