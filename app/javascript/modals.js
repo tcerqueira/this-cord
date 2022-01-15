@@ -59,7 +59,6 @@ function openUserModal(user)
 function openCreateGuildModal()
 {
     openModal('create-guild-modal');
-    const themePicker = document.getElementById('guildThemePicker');
 }
 
 document.getElementById('guildThemePicker').addEventListener('input', evt => {
@@ -75,7 +74,7 @@ document.getElementById('createGuildForm').onsubmit = async evt => {
             openInviteKey: document.getElementById('inviteKeyInput').value ? document.getElementById('inviteKeyInput').value: null,
             themeColor: document.getElementById('guildThemePicker').value
         }
-        const guildId = await api.createGuild(form);
+        const { id: guildId } = await api.createGuild(form);
         const guild = await api.fetchGuild({ id: guildId });
         addServerCard(guild);
     }
@@ -91,8 +90,6 @@ document.getElementById('createGuildForm').onsubmit = async evt => {
 document.getElementById('createGuildSubmitBtn').onclick = () => {
     document.getElementById('createGuildForm').requestSubmit();
 }
-
-openCreateGuildModal();
 
 function openConfirmationModal(message, callbackFn)
 {
