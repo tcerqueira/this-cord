@@ -11,7 +11,7 @@ class GuildGateway
 
     public function find($id)
     {
-        $query = "SELECT guild.id AS guild_id,guildname,initials, public_user.*, array_to_json(array_agg(text_channel.id)) channels
+        $query = "SELECT guild.id AS guild_id,guildname,initials, guild.theme_color AS guild_theme_color, public_user.*, array_to_json(array_agg(text_channel.id)) channels
                 FROM guild
                 JOIN public_user_VIEW AS public_user ON admin_id=public_user.id
                 LEFT JOIN text_channel ON guild.id=guild_id

@@ -35,6 +35,7 @@ class GuildController
             'id' => $result['guild_id'],
             'guildname' => $result['guildname'],
             'initials' => $result['initials'],
+            'theme_color' => $result['guild_theme_color'],
             'channels' => $result['channels'] == "[null]" ? [] : json_decode($result['channels']),
             'admin' => [
                 'id' => $result['id'],
