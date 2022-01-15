@@ -87,8 +87,10 @@ document.getElementById('createGuildForm').onsubmit = async evt => {
     }
 };
 
-document.getElementById('createGuildSubmitBtn').onclick = () => {
+document.getElementById('createGuildSubmitBtn').onclick = evt => {
+    evt.target.disabled = true;
     document.getElementById('createGuildForm').requestSubmit();
+    evt.target.disabled = false;
 }
 
 function openConfirmationModal(message, callbackFn)
