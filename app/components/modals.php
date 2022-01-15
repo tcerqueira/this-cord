@@ -56,7 +56,18 @@
         </main>
     </div>
     <div id="create-textchannel-modal" class="modal-container create-textchannel-modal">
-
+        <header>
+            <h1>Create Text Channel</h1>
+        </header>
+        <main>
+            <form id="createChannelForm">
+                <label for="channelNameInput">Channel name</label>
+                <div class="text-input-container">
+                    <input type="text" name="channelname" id="channelNameInput" placeholder="Channel name">
+                </div>
+                <input class="button bg-blue" type="submit" value="Create">
+            </form>
+        </main>
     </div>
     <div id="guild-invite-modal" class="modal-container guild-invite-modal">
         <h1>Invite list</h1>

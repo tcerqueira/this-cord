@@ -131,6 +131,11 @@ document.getElementById('createGuildSubmitBtn').onclick = evt => {
     evt.target.disabled = false;
 }
 
+openCreateChannelModal({ id: 'fd26e47f-e404-237e-7f36-9053b13138f3' });
+function openCreateChannelModal(guild) {
+    openModal('create-textchannel-modal');
+}
+
 function openConfirmationModal(message, callbackFn)
 {
     openModal('confirmation-modal');
