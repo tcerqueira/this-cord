@@ -143,8 +143,11 @@ function openCreateChannelModal(guild) {
                 guildId: guild.id,
                 channelName
             });
-            const navGuild = [...document.getElementById('guilds-container')?.children].find(g => g.children[0].dataset.id === guild.id);
-            navGuild?.href = `text-channel.php?id=${channelId}`;
+            const guildsContainer = document.getElementById('guilds-container');
+            if(guildsContainer) {
+                const navGuild = [...guildsContainer.children].find(g => g.children[0].dataset.id === guild.id);
+                navGuild.href = `text-channel.php?id=${channelId}`;
+            }
             closeModal();
         }
         catch (err) {
