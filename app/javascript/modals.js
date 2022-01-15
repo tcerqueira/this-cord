@@ -131,9 +131,26 @@ document.getElementById('createGuildSubmitBtn').onclick = evt => {
     evt.target.disabled = false;
 }
 
-openCreateChannelModal({ id: 'fd26e47f-e404-237e-7f36-9053b13138f3' });
 function openCreateChannelModal(guild) {
     openModal('create-textchannel-modal');
+    document.getElementById('createChannelForm').onsubmit = async evt => {
+        evt.preventDefault();
+        try {
+            const channelName = document.getElementById('channelNameInput').value;
+            if(!channelName)
+                return;
+            const { id: channelId } = await api.createTextChannel({
+                guildId: guild.id,
+                channelName
+            });
+            const navGuild = [...document.getElementById('guilds-container')?.children].find(g => g.children[0].dataset.id === guild.id);
+            navGuild?.href = `text-channel.php?id=${channelId}`;
+            closeModal();
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
 }
 
 function openConfirmationModal(message, callbackFn)

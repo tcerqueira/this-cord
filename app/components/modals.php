@@ -60,7 +60,7 @@
             <h1>Create Text Channel</h1>
         </header>
         <main>
-            <form id="createChannelForm">
+            <form id="createChannelForm" autocomplete="off">
                 <label for="channelNameInput">Channel name</label>
                 <div class="text-input-container">
                     <input type="text" name="channelname" id="channelNameInput" placeholder="Channel name">

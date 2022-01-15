@@ -549,13 +549,13 @@ class API
         });
     }
 
-    createTextChannel({guildId, textChannelName})
+    createTextChannel({ guildId, channelName })
     {
         return new Promise((resolve, reject) => {
             
             const body = {
                 guild_id: guildId,
-                channel_name: textChannelName
+                channelname: channelName
             }
 
             let xhr = new XMLHttpRequest();
