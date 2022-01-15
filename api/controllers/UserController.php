@@ -93,6 +93,19 @@ class UserController
         return $response;
     }
 
+    public function getFriend($id, $friend_id)
+    {
+        $result = $this->userGateway->findFriend($id, $friend_id);
+        if(!$result)
+        {
+            $response = internalServerErrorResponse('Problem retrieving friend.');
+            return $response;
+        }
+        $result = pg_fetch_assoc($result);
+        $response = okResponse($result ? $result : new stdClass());
+        return $response;
+    }
+
     public function requestFriend($user_id, $friend_id)
     {
         $result = $this->userGateway->insertFriend($user_id, $friend_id, $user_id);

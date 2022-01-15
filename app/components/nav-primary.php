@@ -9,7 +9,7 @@
     <div id="guilds-container" class="guilds-container">
 
     </div>
-    <div class="icon-size-medium icon-card side-card" data-tooltip="Create Server">
+    <div id="createGuildNavIcon" class="icon-size-medium icon-card side-card" data-tooltip="Create Server">
         +
     </div>
 </nav>

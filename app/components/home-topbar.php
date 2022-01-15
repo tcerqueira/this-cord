@@ -1,6 +1,6 @@
 <header class="page-header home-topbar-container shadow">
     <div class="tabs-container">
-        <h2><button id="onlineTabBtn" class="button topbar-tab selected-tab">Online</button></h2>
+        <h2><button id="onlineTabBtn" class="button topbar-tab">Online</button></h2>
         <div class="vertical-bar"></div>
         <h2><button id="allTabBtn" class="button topbar-tab">All</button></h2>
         <div class="vertical-bar"></div>
