@@ -131,7 +131,7 @@ document.getElementById('createGuildSubmitBtn').onclick = evt => {
     evt.target.disabled = false;
 }
 
-function openCreateChannelModal(guild) {
+function openCreateChannelModal(guildId) {
     openModal('create-textchannel-modal');
     document.getElementById('createChannelForm').onsubmit = async evt => {
         evt.preventDefault();
@@ -140,12 +140,12 @@ function openCreateChannelModal(guild) {
             if(!channelName)
                 return;
             const { id: channelId } = await api.createTextChannel({
-                guildId: guild.id,
+                guildId,
                 channelName
             });
             const guildsContainer = document.getElementById('guilds-container');
             if(guildsContainer) {
-                const navGuild = [...guildsContainer.children].find(g => g.children[0].dataset.id === guild.id);
+                const navGuild = [...guildsContainer.children].find(g => g.children[0].dataset.id === guildId);
                 navGuild.href = `text-channel.php?id=${channelId}`;
             }
             closeModal();

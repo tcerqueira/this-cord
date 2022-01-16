@@ -19,3 +19,7 @@ async function render()
         console.log(err);
     }
 }
+
+document.querySelector('.guild-home-container div').addEventListener('click', () => {
+    openCreateChannelModal(currentGuildlId);
+});
