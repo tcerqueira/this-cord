@@ -5,20 +5,6 @@ window.onclick = evt => {
         closeModal();
 }
 
-document.getElementById('direct-message-input').addEventListener('keypress', evt => {
-    const code = evt.keyCode || evt.which;
-    if(code === 13)
-    {
-        if(evt.target.value !== '')
-        {
-            console.log(evt.target.value);
-            evt.target.value = '';
-            // send message
-            closeModal();
-        }
-    }
-})
-
 function openUserModal(user)
 {
     openModal('user-modal');
@@ -93,6 +79,20 @@ function renderUserFriendButton(user) {
         friendBtn.style.visibility = 'hidden';
     }
 }
+
+document.getElementById('direct-message-input').addEventListener('keypress', evt => {
+    const code = evt.keyCode || evt.which;
+    if(code === 13)
+    {
+        if(evt.target.value !== '')
+        {
+            console.log(evt.target.value);
+            evt.target.value = '';
+            // send message
+            closeModal();
+        }
+    }
+})
 
 function openCreateGuildModal()
 {

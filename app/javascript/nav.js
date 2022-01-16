@@ -44,7 +44,7 @@ function addServerCard(server)
 
 function renderServerCard(server, isCurrent) {
     const anchor = document.createElement('a');
-    anchor.href = server.channels.length ? 'text-channel.php?id=' + server.channels[0] : 'guild-home.php';
+    anchor.href = server.channels.length ? `text-channel.php?id=${server.channels[0]}` : `guild-home.php?id=${server.id}`;
 
     const serverCard = document.createElement('div');
     anchor.append(serverCard);
