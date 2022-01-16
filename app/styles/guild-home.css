@@ -1,0 +1,35 @@
+.guild-home-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+}
+
+.guild-home-container h2 {
+    font-size: 3rem;
+}
+
+.guild-home-container div {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    min-width: 5rem;
+    max-width: 20rem;
+    border-radius: 50%;
+    cursor: pointer;
+}
+  
+.guild-home-container div::after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
+.guild-home-container img {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+}
