@@ -149,6 +149,7 @@ function openCreateChannelModal(guildId) {
                 navGuild.href = `text-channel.php?id=${channelId}`;
             }
             closeModal();
+            window.location.replace(`text-channel.php?id=${channelId}`);
         }
         catch (err) {
             console.log(err);
