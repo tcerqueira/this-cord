@@ -5,20 +5,6 @@ window.onclick = evt => {
         closeModal();
 }
 
-document.getElementById('direct-message-input').addEventListener('keypress', evt => {
-    const code = evt.keyCode || evt.which;
-    if(code === 13)
-    {
-        if(evt.target.value !== '')
-        {
-            console.log(evt.target.value);
-            evt.target.value = '';
-            // send message
-            closeModal();
-        }
-    }
-})
-
 function openUserModal(user)
 {
     openModal('user-modal');
@@ -94,6 +80,20 @@ function renderUserFriendButton(user) {
     }
 }
 
+document.getElementById('direct-message-input').addEventListener('keypress', evt => {
+    const code = evt.keyCode || evt.which;
+    if(code === 13)
+    {
+        if(evt.target.value !== '')
+        {
+            console.log(evt.target.value);
+            evt.target.value = '';
+            // send message
+            closeModal();
+        }
+    }
+})
+
 function openCreateGuildModal()
 {
     openModal('create-guild-modal');
@@ -129,6 +129,32 @@ document.getElementById('createGuildSubmitBtn').onclick = evt => {
     evt.target.disabled = true;
     document.getElementById('createGuildForm').requestSubmit();
     evt.target.disabled = false;
+}
+
+function openCreateChannelModal(guildId) {
+    openModal('create-textchannel-modal');
+    document.getElementById('createChannelForm').onsubmit = async evt => {
+        evt.preventDefault();
+        try {
+            const channelName = document.getElementById('channelNameInput').value;
+            if(!channelName)
+                return;
+            const { id: channelId } = await api.createTextChannel({
+                guildId,
+                channelName
+            });
+            const guildsContainer = document.getElementById('guilds-container');
+            if(guildsContainer) {
+                const navGuild = [...guildsContainer.children].find(g => g.children[0].dataset.id === guildId);
+                navGuild.href = `text-channel.php?id=${channelId}`;
+            }
+            closeModal();
+            window.location.replace(`text-channel.php?id=${channelId}`);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
 }
 
 function openConfirmationModal(message, callbackFn)

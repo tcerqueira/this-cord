@@ -10,10 +10,10 @@
     height: 100vh; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    /* transition: background-color .4s ease-in; */
 }
 
 .modal-container {
-    /* z-index: 999; */
     border-radius: var(--border-radius-size);
     background-color: var(--color-black);
     overflow: hidden;
@@ -159,6 +159,26 @@
 /* #################################################################################################################### */
 .create-textchannel-modal {
     display: none;
+    width: 90%;
+    max-width: 500px;
+    min-height: 220px;
+    padding: 1.5rem;
+}
+
+.create-textchannel-modal header {
+    text-align: center;
+}
+
+.create-textchannel-modal main form {
+    display: flex;
+    flex-direction: column;
+}
+
+.create-textchannel-modal input[type=submit] {
+    align-self: flex-end;
+    margin-top: 1.25rem;
+    font-size: 1.5rem;
+    max-width: 30%;
 }
 
 /* ################################################## GUILD INVITE #################################################### */
