@@ -51,7 +51,7 @@ function renderChat(messages)
     replyIcons.forEach(icon => {
         icon.addEventListener('click', () => {
             const replyingMessage = messages.find(m => m.id === icon.id.split('_')[1]);
-            renderReplying(replyingMessage.author);
+            renderReplying(replyingMessage);
         })
     });
 
@@ -59,6 +59,31 @@ function renderChat(messages)
     cancelReplyingIcon.addEventListener('click', evt => {
         removeReplying();
     })
+}
+
+function renderSendMessage(channelId)
+{
+    document.getElementById('sendMessageForm').onsubmit = async evt => {
+        evt.preventDefault();
+        try {
+            const content = document.getElementById('message-input').value;
+            if(!content)
+                return;
+            const replyTo = document.getElementById('reply-container').dataset.replyId;
+            const message = {
+                channelId,
+                replyTo: replyTo ? replyTo : null,
+                content
+            }
+            
+            const messageRet = await api.sendMessage(message);
+            document.getElementById('message-input').value = '';
+            removeReplying();
+        }
+        catch (err) {
+            console.log(err);
+        }
+    };
 }
 
 // ############################################################### FUNCTIONS #####################################################################
@@ -147,8 +172,9 @@ function renderReplying(replyTo)
 {
     const replyContainer = document.getElementById('reply-container');
     const channelContainer = document.querySelector('.text-channel-container');
+    replyContainer.dataset.replyId = replyTo.id;
     document.getElementById('replyingToUsername')?.remove();
-    const replyingTo = createUsernameRef(replyTo.id, replyTo.username, "#0000ff");
+    const replyingTo = createUsernameRef(replyTo.author.id, replyTo.author.username, "#0000ff");
     replyingTo.id = 'replyingToUsername';
     document.querySelector('#reply-container > span').append(replyingTo);
     
@@ -163,6 +189,7 @@ function removeReplying()
 {
     const replyContainer = document.getElementById('reply-container');
     const channelContainer = document.querySelector('.text-channel-container');
+    delete replyContainer.dataset.replyId;
     document.getElementById('replyingToUsername').remove();
     channelContainer.classList.toggle('text-channel-container-replying');
     replyContainer.style.display = '';

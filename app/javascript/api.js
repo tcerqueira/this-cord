@@ -579,13 +579,12 @@ class API
     // ################################################### MESSAGE #######################################################
     // ###################################################################################################################
 
-    sendMessage({channelId, authorId, replyTo, content})
+    sendMessage({channelId, replyTo, content})
     {
         return new Promise((resolve, reject) => {
             
             const body = {
                 channel_id: channelId,
-                author_id: authorId,
                 reply_to: replyTo,
                 content
             }

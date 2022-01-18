@@ -25,7 +25,7 @@
     </ol>
 </div>
 <div id="reply-container" class="reply-container">
-    <span>Replying to <span id="replyingToUsername" class=username></span></span>
+    <span>Replying to <span id="replyingToUsername" class="username"></span></span>
     <img id="cancel-reply-icon" src="../public/cancel-svgrepo-com.svg" alt="cancel-icon">
 </div>
 <form id="sendMessageForm" class="input-container" autocomplete="off">
