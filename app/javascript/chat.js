@@ -1,23 +1,23 @@
-const messages = [
-    { id: '19', author: {id: '1', username: 'lou'}, content: "Hellommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm", sentAt: '25/12/2021 at 18h30m', reply: { author: {id: '4', username: 'rezi'}, content: 'Hello oh maninho'}},
-    { id: '18', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '17', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '16', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '15', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '14', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '13', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '12', author: {id: '2', username: 'titi'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '11', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '10', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '8', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '7', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '6', author: {id: '3', username: 'pa99'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '5', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '4', author: {id: '1', username: 'lou'}, content: "replied", sentAt: '25/12/2021 at 18h30m', reply: { author: {id: '4', username: 'rezi'}, content: 'Hello oh maninhommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm'} },
-    { id: '3', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '2', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '1', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null }
-];
+// const messages = [
+//     { id: '19', author: {id: '1', username: 'lou'}, content: "Hellommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm", sentAt: '25/12/2021 at 18h30m', reply: { author: {id: '4', username: 'rezi'}, content: 'Hello oh maninho'}},
+//     { id: '18', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+//     { id: '17', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+//     { id: '16', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+//     { id: '15', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+//     { id: '14', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+//     { id: '13', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+//     { id: '12', author: {id: '2', username: 'titi'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+//     { id: '11', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+//     { id: '10', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+//     { id: '8', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+//     { id: '7', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+//     { id: '6', author: {id: '3', username: 'pa99'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+//     { id: '5', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+//     { id: '4', author: {id: '1', username: 'lou'}, content: "replied", sentAt: '25/12/2021 at 18h30m', reply: { author: {id: '4', username: 'rezi'}, content: 'Hello oh maninhommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm'} },
+//     { id: '3', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+//     { id: '2', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
+//     { id: '1', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null }
+// ];
 
 // renderChat(messages);
 
@@ -96,7 +96,7 @@ function renderMessage(message)
     listItem.id = 'message_' + message.id;
     listItem.classList.add('message');
     // add logic to check if its replying to active user
-    if(message.author.username === 'pa99')
+    if(message.reply?.author.id === currentProfileId)
         listItem.classList.add('message-replying-to-me');
 
     listItem.innerText = message.content;

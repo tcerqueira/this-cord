@@ -35,8 +35,38 @@ class MessageController
             $response = internalServerErrorResponse('Problem retrieving messages of channel.');
             return $response;
         }
-        $result = pg_fetch_all($result);
-        $response = okResponse($result ? $result : []);
+        $result_arr = [];
+        while($row = pg_fetch_assoc($result)) {
+            $reply_res = null;
+            if($row['reply_to'] != null) {
+                $reply_aux = $this->messageGateway->find($row['reply_to']);
+                $reply_aux = pg_fetch_assoc($reply_aux);
+                if(!$reply_res) {
+                    $reply_res = null;
+                }
+                $reply_res = array_merge($reply_aux, [
+                    'author' => [
+                        'id' => $reply_aux['author_id'],
+                        'username' => $reply_aux['username'],
+                        'theme_color' => $reply_aux['theme_color']
+                    ]
+                ]);
+            }
+            $res = [
+                'id' => $row['id'],
+                'channel_id' => $row['channel_id'],
+                'sent_at' => $row['sent_at'],
+                'content' => $row['content'],
+                'author' => [
+                    'id' => $row['author_id'],
+                    'username' => $row['username'],
+                    'theme_color' => $row['theme_color']
+                ],
+                'reply' => $reply_res
+            ];
+            array_push($result_arr, $res);
+        }
+        $response = okResponse($result_arr);
         return $response;
     }
 

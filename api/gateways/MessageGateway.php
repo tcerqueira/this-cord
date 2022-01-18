@@ -11,14 +11,23 @@ class MessageGateway
 
     public function find($id)
     {
-        $query = "SELECT * FROM channel_message WHERE id=$1;";
+        $query = "SELECT channel_message.*,
+                    public_user_VIEW.username, public_user_VIEW.theme_color
+                FROM channel_message
+                JOIN public_user_VIEW ON author_id=public_user_VIEW.id
+                WHERE channel_message.id=$1;";
         $result = pg_query_params($this->db, $query, [$id]);
         return $result;
     }
 
     public function findAllOfChannel($channel_id)
     {
-        $query = "SELECT * FROM channel_message WHERE channel_id=$1;";
+        $query = "SELECT channel_message.*,
+                    public_user_VIEW.username, public_user_VIEW.theme_color
+                FROM channel_message
+                JOIN public_user_VIEW ON author_id=public_user_VIEW.id
+                WHERE channel_message.channel_id=$1
+                ORDER BY channel_message.sent_at DESC;";
         $result = pg_query_params($this->db, $query, [$channel_id]);
         return $result;
     }
@@ -59,4 +68,3 @@ class MessageGateway
         return $result;
     }
 }
-?>
