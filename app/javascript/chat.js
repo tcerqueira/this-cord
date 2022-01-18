@@ -19,9 +19,9 @@ const messages = [
     { id: '1', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null }
 ];
 
-renderChat();
+// renderChat(messages);
 
-async function renderChat()
+function renderChat(messages)
 {
     let lastMessage = undefined;
     let lastMessageItem = undefined;

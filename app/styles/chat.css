@@ -180,7 +180,23 @@
 } */
 
 #message-input {
-    width: 80%;
+    width: 95%;
+}
+
+#sendMessageForm button {
+    align-self: center;
+    text-align: center;
+    border: none;
+    border-radius: 3px;
+    background-color: transparent;
+}
+
+#sendMessageForm button:hover {
+    background-color: rgba(0,0,0,.1);
+}
+
+#sendMessageForm button svg {
+    fill: var(--font-color);
 }
 
 .author-avatar {
