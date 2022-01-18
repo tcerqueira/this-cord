@@ -40,11 +40,11 @@ class MessageController
         return $response;
     }
 
-    public function createMessage($channel_id, $input)
+    public function createMessage($channel_id, $author_id, $input)
     {
         $result = $this->messageGateway->insert([
             'channel_id' => $channel_id,
-            'author_id' => $input['author_id'],
+            'author_id' => $author_id,
             'reply_to' => $input['reply_to'],
             'content' => $input['content']
         ]);

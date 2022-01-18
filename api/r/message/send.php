@@ -19,7 +19,6 @@ if(!isAuthenticated())
 
 $input = (Array) json_decode(file_get_contents('php://input'), TRUE);
 if(!isset($input['channel_id']) ||
-    !isset($input['author_id']) ||
     !array_key_exists('reply_to', $input) ||
     !isset($input['content']))
 {
@@ -36,7 +35,7 @@ if(!$membership['is_member'] || $membership['invite_status'] != 1)
 }
 
 $controller = new MessageController($dbConnection);
-$response = $controller->createMessage($input['channel_id'], $input);
+$response = $controller->createMessage($input['channel_id'], getId(), $input);
 
 sendResponse($response);
 ?>
