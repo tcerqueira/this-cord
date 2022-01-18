@@ -122,7 +122,7 @@ class UserController
     {
         $result = $this->userGateway->findFriend($user_id, $friend_id);
         $result = pg_fetch_assoc($result);
-        if(!$result)
+        if(!$result || $result['invite_status'] == null)
         {
             $response = notFoundResponse();
             return $response;
@@ -173,7 +173,7 @@ class UserController
     {
         $result = $this->userGateway->findFriend($user_id, $friend_id);
         $result = pg_fetch_assoc($result);
-        if(!$result)
+        if(!$result || $result['invite_status'] == null)
         {
             $response = notFoundResponse();
             return $response;
