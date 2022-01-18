@@ -7,12 +7,16 @@ const members = [
 ];
 
 document.querySelectorAll('.username').forEach(username => {
-    const user = members.find(member => member.id === username.dataset.userId);
+    // const user = members.find(member => member.id === username.dataset.userId);
     
-    username.addEventListener('click', () => {
-        // const user = fetchUser(username.dataset.userId);
-        const modalUser = { id:'1', username:'lou', theme_color:'#00a', description:'sou eu, o lou', userstatus: '1', is_friend:false};
-        openUserModal(modalUser);
+    username.addEventListener('click', async () => {
+        try {
+            const user = api.fetchUser({ id: username.dataset.userId });
+            openUserModal(user);
+        }
+        catch (err) {
+            console.log(err);
+        }
     })
 })
 

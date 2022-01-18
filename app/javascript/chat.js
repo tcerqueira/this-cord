@@ -136,15 +136,15 @@ function renderMessageAuthor(messageItem, message)
     authorAvatar.classList.add('icon-size-small');
     authorAvatar.classList.add('icon-card');
     // TODO: theme color
-    authorAvatar.style = '--icon-bg-color: ' + '#7289da' + ';';
+    authorAvatar.style = `--icon-bg-color: ${message.author.theme_color};`;
     authorAvatar.innerText = message.author.username;
     h3.append(authorAvatar);
 
     const authorSpan = document.createElement('span');
     const dateSpan = document.createElement('span');
-    const usernameSpan = createUsernameRef(message.author.id, message.author.username, '#00ff00');
+    const usernameSpan = createUsernameRef(message.author.id, message.author.username, message.author.theme_color);
     dateSpan.classList.add('message-date');
-    dateSpan.innerText = message.sentAt;
+    dateSpan.innerText = (new Date(message.sent_at)).toLocaleString('pt-PT');
     authorSpan.append(usernameSpan);
     authorSpan.append(dateSpan);
     h3.append(authorSpan);
@@ -155,14 +155,13 @@ function renderMessageAuthor(messageItem, message)
 function renderReply(messageItem, reply)
 {
     const anchor = document.createElement('a');
-    // anchor.href = '#message_' + message.id;
-    anchor.href = '#';
+    anchor.href = '#message_' + reply.id;
     const div = document.createElement('div');
     anchor.append(div);
     div.classList.add('reply-preview');
     div.innerText = ': ' + reply.content;
 
-    const span = createUsernameRef(reply.author.id, '@' + reply.author.username, '#ff0000');
+    const span = createUsernameRef(reply.author.id, '@' + reply.author.username, reply.author.theme_color);
     div.insertBefore(span, div.childNodes[0]);
 
     messageItem.insertBefore(anchor, messageItem.childNodes[0]);
