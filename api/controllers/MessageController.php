@@ -54,7 +54,7 @@ class MessageController
             return $response;
         }
         $result = pg_fetch_assoc($result);
-        $response = okResponse(['id' => $result['id']]);
+        $response = okResponse($result);
         return $response;
     }
 
