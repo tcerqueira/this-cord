@@ -48,7 +48,7 @@
 }
 
 .message:target {
-    animation: highlight-message 1s ease-in forwards;
+    animation: highlight-message 1s ease-in;
 }
 
 .message > a {
