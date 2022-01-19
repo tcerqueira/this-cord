@@ -1,8 +1,11 @@
-function renderChat(messages, lastMessage = undefined) {
-    let lastMsg = lastMessage;
+var g_lastMessage = undefined;
+function renderChat(messages) {
+    let lastMsg = g_lastMessage;
     let lastMsgItem = undefined;
+    const messagesList = document.getElementById('messages-list');
     messages.forEach(message => {
         const messageItem = renderMessage(message);
+        messagesList.insertBefore(messageItem, messagesList.firstChild);
 
         if (message.reply !== null) {
             renderMessageAuthor(messageItem, message);
@@ -16,16 +19,10 @@ function renderChat(messages, lastMessage = undefined) {
         lastMsgItem = messageItem;
     });
 
-    if(lastMessage === undefined)
+    if(g_lastMessage === undefined)
         renderMessageAuthor(document.querySelector('#messages-list > li:last-child'), messages[messages.length-1]);
+    g_lastMessage = messages[0];
 }
-
-document.querySelectorAll('.reply-message-icon').forEach(icon => {
-    icon.addEventListener('click', () => {
-        const replyingMessage = messages.find(m => m.id === icon.id.split('_')[1]);
-        renderReplying(replyingMessage);
-    })
-});
 
 document.getElementById('cancel-reply-icon').addEventListener('click', evt => {
     removeReplying();
@@ -49,7 +46,7 @@ function renderSendMessage(channelId) {
             const messageRet = await api.sendMessage(message);
             document.getElementById('message-input').value = '';
             removeReplying();
-            // renderChat(messageRet, )
+            renderChat([messageRet]);
         }
         catch (err) {
             console.log(err);
@@ -63,18 +60,16 @@ function renderSendMessage(channelId) {
 // ############################################################### FUNCTIONS #####################################################################
 // ###############################################################################################################################################
 
-function addMessages(messages) {
-    messages
-}
-
 function renderMessage(message) {
     const listItem = document.createElement('li');
-    const messagesList = document.getElementById('messages-list');
     listItem.id = 'message_' + message.id;
     listItem.dataset.sentAt = (new Date(message.sent_at)).toLocaleString(navigator.language, {
         hour: '2-digit',
         minute:'2-digit'
     });
+    listItem.dataset.authorId = message.author.id;
+    listItem.dataset.authorUsername = message.author.username;
+    listItem.dataset.authorThemeColor = message.author.theme_color;
     listItem.classList.add('message');
     // add logic to check if its replying to active user
     if (message.reply?.author.id === currentProfileId)
@@ -82,7 +77,6 @@ function renderMessage(message) {
 
     listItem.innerText = message.content;
     renderMessageOptions(listItem, true);
-    messagesList.append(listItem);
 
     return listItem;
 }
@@ -95,6 +89,17 @@ function renderMessageOptions(listItem, deletable) {
     replyIcon.id = 'reply_' + listItem.id.split('_')[1];
     replyIcon.src = "../public/reply-svgrepo-com.svg";
     replyIcon.alt = 'reply-icon';
+    replyIcon.addEventListener('click', () => {
+        const replyingMessage = {
+            id: listItem.id.split('_')[1],
+            author: {
+                id: listItem.dataset.authorId,
+                username: listItem.dataset.authorUsername,
+                theme_color: listItem.dataset.authorThemeColor,
+            }
+        }
+        renderReplying(replyingMessage);
+    });
     div.append(replyIcon);
     if (deletable) {
         const removeIcon = document.createElement('img');
@@ -150,12 +155,12 @@ function renderReplying(replyTo) {
     const channelContainer = document.querySelector('.text-channel-container');
     replyContainer.dataset.replyId = replyTo.id;
     document.getElementById('replyingToUsername')?.remove();
-    const replyingTo = createUsernameRef(replyTo.author.id, replyTo.author.username, "#0000ff");
+    const replyingTo = createUsernameRef(replyTo.author.id, replyTo.author.username, replyTo.author.theme_color);
     replyingTo.id = 'replyingToUsername';
     document.querySelector('#reply-container > span').append(replyingTo);
 
     if (replyContainer.style.display !== 'flex') {
-        channelContainer.classList.toggle('text-channel-container-replying');
+        channelContainer.classList.add('text-channel-container-replying');
         replyContainer.style.display = 'flex';
     }
 }
