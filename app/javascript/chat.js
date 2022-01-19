@@ -1,26 +1,3 @@
-// const messages = [
-//     { id: '19', author: {id: '1', username: 'lou'}, content: "Hellommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm", sentAt: '25/12/2021 at 18h30m', reply: { author: {id: '4', username: 'rezi'}, content: 'Hello oh maninho'}},
-//     { id: '18', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-//     { id: '17', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-//     { id: '16', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-//     { id: '15', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-//     { id: '14', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-//     { id: '13', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-//     { id: '12', author: {id: '2', username: 'titi'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-//     { id: '11', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-//     { id: '10', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-//     { id: '8', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-//     { id: '7', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-//     { id: '6', author: {id: '3', username: 'pa99'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-//     { id: '5', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-//     { id: '4', author: {id: '1', username: 'lou'}, content: "replied", sentAt: '25/12/2021 at 18h30m', reply: { author: {id: '4', username: 'rezi'}, content: 'Hello oh maninhommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm'} },
-//     { id: '3', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-//     { id: '2', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-//     { id: '1', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null }
-// ];
-
-// renderChat(messages);
-
 function renderChat(messages)
 {
     let lastMessage = undefined;
@@ -45,8 +22,6 @@ function renderChat(messages)
     if(messages.length !==0)
         renderMessageAuthor(lastMessageItem, lastMessage);
 
-
-    let replyTo = null;
     const replyIcons = document.querySelectorAll('.reply-message-icon');
     replyIcons.forEach(icon => {
         icon.addEventListener('click', () => {
@@ -65,6 +40,7 @@ function renderSendMessage(channelId)
 {
     document.getElementById('sendMessageForm').onsubmit = async evt => {
         evt.preventDefault();
+        document.getElementById('sendMessageButton').disabled = true;
         try {
             const content = document.getElementById('message-input').value;
             if(!content)
@@ -83,11 +59,18 @@ function renderSendMessage(channelId)
         catch (err) {
             console.log(err);
         }
+        finally {
+            document.getElementById('sendMessageButton').disabled = false;
+        }
     };
 }
 
 // ############################################################### FUNCTIONS #####################################################################
 // ###############################################################################################################################################
+
+function addMessages(messages) {
+    messages
+}
 
 function renderMessage(message)
 {
@@ -190,8 +173,8 @@ function removeReplying()
     const replyContainer = document.getElementById('reply-container');
     const channelContainer = document.querySelector('.text-channel-container');
     delete replyContainer.dataset.replyId;
-    document.getElementById('replyingToUsername').remove();
-    channelContainer.classList.toggle('text-channel-container-replying');
+    document.getElementById('replyingToUsername')?.remove();
+    channelContainer.classList.remove('text-channel-container-replying');
     replyContainer.style.display = '';
 }
 
