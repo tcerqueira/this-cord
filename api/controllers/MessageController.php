@@ -27,9 +27,11 @@ class MessageController
         return $response;
     }
 
-    public function getAllFromChannel($channel_id, $params = [])
+    public function getFromChannel($channel_id, $params = [])
     {
-        $result = $this->messageGateway->findAllOfChannel($channel_id);
+        $since = $params['since'] ? $params['since'] : date('Y-m-d H:i:se', 0);
+        $until = $params['until'] ? $params['until'] : date('Y-m-d H:i:se');
+        $result = $this->messageGateway->findInChannel($channel_id, $since, $until);
         if(!$result)
         {
             $response = internalServerErrorResponse('Problem retrieving messages of channel.');
