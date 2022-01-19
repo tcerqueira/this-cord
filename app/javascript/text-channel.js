@@ -3,6 +3,8 @@ const currentTextChannelId = document.getElementById('currentChannelId').dataset
 render();
 async function render() {
     try {
+        let yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
         const [myGuilds, channel, messages] = await Promise.all([
             api.fetchMyGuilds(),
             api.fetchTextChannel({ id: currentTextChannelId }),

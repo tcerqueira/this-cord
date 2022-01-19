@@ -579,12 +579,12 @@ class API
     // ################################################### MESSAGE #######################################################
     // ###################################################################################################################
 
-    fetchMessages({ channelId })
+    fetchMessages({ channelId, since, until })
     {
         return new Promise((resolve, reject) => {
 
             let xhr = new XMLHttpRequest();
-            xhr.open('GET', this.apiRoot+'/r/message/?channel_id='+channelId, true);
+            xhr.open('GET', this.apiRoot+`/r/message/?channel_id=${channelId}&since=${since?since:''}&until=${until?until:''}`, true);
         
             xhr.onload = () => {
                 switch(xhr.status)

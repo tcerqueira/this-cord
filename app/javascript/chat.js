@@ -1,4 +1,5 @@
 var g_lastMessage = undefined;
+var g_renderingChat = false;
 function renderChat(messages) {
     let lastMsg = g_lastMessage;
     let lastMsgItem = undefined;
@@ -32,8 +33,8 @@ function renderSendMessage(channelId) {
     document.getElementById('sendMessageForm').onsubmit = async evt => {
         evt.preventDefault();
         document.getElementById('sendMessageButton').disabled = true;
+        const content = document.getElementById('message-input').value;
         try {
-            const content = document.getElementById('message-input').value;
             if (!content)
                 return;
             const replyTo = document.getElementById('reply-container').dataset.replyId;
@@ -42,14 +43,23 @@ function renderSendMessage(channelId) {
                 replyTo: replyTo ? replyTo : null,
                 content
             }
+            while(g_renderingChat)
+                await new Promise(r => setTimeout(r, 50));
+            g_renderingChat = true;
+            document.getElementById('message-input').value = '';
 
             const messageRet = await api.sendMessage(message);
-            document.getElementById('message-input').value = '';
+            const newMessages = await api.fetchMessages({
+                channelId: currentTextChannelId,
+                since: g_lastMessage ? g_lastMessage.sent_at.replace('+','-') : ''
+            });
             removeReplying();
-            renderChat([messageRet]);
+            renderChat(newMessages);
+            g_renderingChat = false;
         }
         catch (err) {
             console.log(err);
+            document.getElementById('message-input').value = content;
         }
         finally {
             document.getElementById('sendMessageButton').disabled = false;
@@ -63,6 +73,7 @@ function renderSendMessage(channelId) {
 function renderMessage(message) {
     const listItem = document.createElement('li');
     listItem.id = 'message_' + message.id;
+    // listItem.dataset.date = message.sent_at.replace('+', '-');
     listItem.dataset.sentAt = (new Date(message.sent_at)).toLocaleString(navigator.language, {
         hour: '2-digit',
         minute:'2-digit'
@@ -111,6 +122,8 @@ function renderMessageOptions(listItem, deletable) {
 }
 
 function renderMessageAuthor(messageItem, message) {
+    if(!messageItem)
+        return;
     const h3 = document.createElement('h3');
     h3.classList.add('message-author');
     messageItem.classList.add('has-avatar');
