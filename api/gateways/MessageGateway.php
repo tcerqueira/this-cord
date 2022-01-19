@@ -49,7 +49,7 @@ class MessageGateway
     {
         $query = "INSERT INTO channel_message (channel_id, author_id, reply_to, content)
                 VALUES ($1, $2, $3, $4)
-                RETURNING *;";
+                RETURNING id;";
         $result = pg_query_params($this->db, $query, $input);
         return $result;
     }

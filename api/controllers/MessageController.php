@@ -37,33 +37,7 @@ class MessageController
         }
         $result_arr = [];
         while($row = pg_fetch_assoc($result)) {
-            $reply_res = null;
-            if($row['reply_to'] != null) {
-                $reply_aux = $this->messageGateway->find($row['reply_to']);
-                $reply_aux = pg_fetch_assoc($reply_aux);
-                if(!$reply_res) {
-                    $reply_res = null;
-                }
-                $reply_res = array_merge($reply_aux, [
-                    'author' => [
-                        'id' => $reply_aux['author_id'],
-                        'username' => $reply_aux['username'],
-                        'theme_color' => $reply_aux['theme_color']
-                    ]
-                ]);
-            }
-            $res = [
-                'id' => $row['id'],
-                'channel_id' => $row['channel_id'],
-                'sent_at' => $row['sent_at'],
-                'content' => $row['content'],
-                'author' => [
-                    'id' => $row['author_id'],
-                    'username' => $row['username'],
-                    'theme_color' => $row['theme_color']
-                ],
-                'reply' => $reply_res
-            ];
+            $res = $this->messageObjectFromResult($row);
             array_push($result_arr, $res);
         }
         $response = okResponse($result_arr);
@@ -84,6 +58,9 @@ class MessageController
             return $response;
         }
         $result = pg_fetch_assoc($result);
+        $result = $this->messageGateway->find($result['id']);
+        $result = pg_fetch_assoc($result);
+        $result = $this->messageObjectFromResult($result);
         $response = okResponse($result);
         return $response;
     }
@@ -113,5 +90,36 @@ class MessageController
         $response = okResponse(['success' => true]);
         return $response;
     }
+
+    private function messageObjectFromResult($result)
+    {
+        $reply_res = null;
+        if($result['reply_to'] != null) {
+            $reply_aux = $this->messageGateway->find($result['reply_to']);
+            $reply_aux = pg_fetch_assoc($reply_aux);
+            if(!$reply_res) {
+                $reply_res = null;
+            }
+            $reply_res = array_merge($reply_aux, [
+                'author' => [
+                    'id' => $reply_aux['author_id'],
+                    'username' => $reply_aux['username'],
+                    'theme_color' => $reply_aux['theme_color']
+                ]
+            ]);
+        }
+        $res = [
+            'id' => $result['id'],
+            'channel_id' => $result['channel_id'],
+            'sent_at' => $result['sent_at'],
+            'content' => $result['content'],
+            'author' => [
+                'id' => $result['author_id'],
+                'username' => $result['username'],
+                'theme_color' => $result['theme_color']
+            ],
+            'reply' => $reply_res
+        ];
+        return $res;
+    }
 }
-?>
