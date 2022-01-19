@@ -49,7 +49,7 @@ function renderSendMessage(channelId) {
             const messageRet = await api.sendMessage(message);
             document.getElementById('message-input').value = '';
             removeReplying();
-            
+            // renderChat(messageRet, )
         }
         catch (err) {
             console.log(err);
@@ -71,7 +71,10 @@ function renderMessage(message) {
     const listItem = document.createElement('li');
     const messagesList = document.getElementById('messages-list');
     listItem.id = 'message_' + message.id;
-    listItem.dataset.sentAt = message.sent_at;
+    listItem.dataset.sentAt = (new Date(message.sent_at)).toLocaleString(navigator.language, {
+        hour: '2-digit',
+        minute:'2-digit'
+    });
     listItem.classList.add('message');
     // add logic to check if its replying to active user
     if (message.reply?.author.id === currentProfileId)
@@ -105,6 +108,7 @@ function renderMessageOptions(listItem, deletable) {
 function renderMessageAuthor(messageItem, message) {
     const h3 = document.createElement('h3');
     h3.classList.add('message-author');
+    messageItem.classList.add('has-avatar');
 
     const authorAvatar = document.createElement('div');
     authorAvatar.classList.add('author-avatar');
@@ -119,7 +123,7 @@ function renderMessageAuthor(messageItem, message) {
     const dateSpan = document.createElement('span');
     const usernameSpan = createUsernameRef(message.author.id, message.author.username, message.author.theme_color);
     dateSpan.classList.add('message-date');
-    dateSpan.innerText = (new Date(message.sent_at)).toLocaleString('pt-PT');
+    dateSpan.innerText = (new Date(message.sent_at)).toLocaleString(navigator.language);
     authorSpan.append(usernameSpan);
     authorSpan.append(dateSpan);
     h3.append(authorSpan);
