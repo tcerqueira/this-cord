@@ -18,6 +18,9 @@
 function renderNav(myGuilds, currentId)
 {
     const serversContainer = document.getElementById('guilds-container');
+    while(serversContainer.firstChild) {
+        serversContainer.removeChild(serversContainer.firstChild);
+    }
     let isHome = true;
     myGuilds.forEach((server) => {
         const isCurrent = server.id === currentId;
@@ -30,9 +33,18 @@ function renderNav(myGuilds, currentId)
         document.querySelector('.icon-card[data-tooltip=Home]').classList.add('current-server');
 }
 
+document.getElementById('createGuildNavIcon').onclick = () => {
+    openCreateGuildModal();
+};
+
+function addServerCard(server)
+{
+    document.getElementById('guilds-container').append(renderServerCard(server, false));
+}
+
 function renderServerCard(server, isCurrent) {
     const anchor = document.createElement('a');
-    anchor.href = server.channels.length ? 'text-channel.php?id=' + server.channels[0] : 'guild-home.php';
+    anchor.href = server.channels.length ? `text-channel.php?id=${server.channels[0]}` : `guild-home.php?id=${server.id}`;
 
     const serverCard = document.createElement('div');
     anchor.append(serverCard);
@@ -40,6 +52,7 @@ function renderServerCard(server, isCurrent) {
     if(isCurrent)
         serverCard.classList.add('current-server');
     serverCard.dataset.tooltip = server.guildname;
+    serverCard.dataset.id = server.id;
     serverCard.innerText = server.initials;
     serverCard.style = '--icon-bg-color: ' + server.theme_color + ';';
 

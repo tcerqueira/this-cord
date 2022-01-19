@@ -1,4 +1,4 @@
-const guild = { id: '123', guildname: 'tyty', initials: 'ty', admin_id: '543', theme_color: '#0f0' };
+// const guild = { id: '123', guildname: 'tyty', initials: 'ty', admin_id: '543', theme_color: '#0f0' };
 const members = [
     { id: 'c3b8d6a5-ba84-9040-08ab-9dc3a7949c3d', username: 'titi', userstatus: '1', theme_color: '#f00', guild_role:'2', invite_status:'1', invite_sender:'2'},
     { id: '1', username: 'lou', userstatus: '0', theme_color: '#a00', guild_role:'0', invite_status:'1', invite_sender:'2'},
@@ -12,24 +12,9 @@ document.querySelectorAll('.username').forEach(username => {
     username.addEventListener('click', () => {
         // const user = fetchUser(username.dataset.userId);
         const modalUser = { id:'1', username:'lou', theme_color:'#00a', description:'sou eu, o lou', userstatus: '1', is_friend:false};
-        openModal('user-modal');
-        renderUserModal(modalUser);
+        openUserModal(modalUser);
     })
 })
-
-
-// renderMembers(members);
-
-// async function renderMembers() {
-//     try {
-//         const channel = await getCurrentChannel({currentTextChannelId});
-//         const members = await api.fetchGuildMembers({ id: channel.guild_id });
-//         renderMembersList(members);
-//     }
-//     catch (err) {
-//         console.log(err);
-//     }
-// }
 
 function renderMembers(members) {
     const { admin, mods, online, offline, invited} = members.reduce((res, member) => {
@@ -91,13 +76,14 @@ function createMemberItem(member) {
     span.style = '--sidebar-username-color: ' + member.theme_color + ';';
 
     li.append(div, span);
-    li.addEventListener('click', () => {
-        openModal('user-modal');
-        renderUserModal({
-            id: member.member_id,
-            ...member
-        });
-        
+    li.addEventListener('click', async () => {
+        try {
+            const friend = await api.fetchFriend({ id: member.member_id });
+            openUserModal(friend);
+        }
+        catch (err) {
+            console.log(err);
+        }        
     })
     return li;
 }

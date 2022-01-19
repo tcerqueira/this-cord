@@ -351,6 +351,10 @@ input.button:active {
     --side-size: calc(var(--card-size) - 0.5rem);
 }
 
+.icon-size-xsmall {
+    --side-size: calc(var(--card-size) - 1rem);
+}
+
 .bg-green {
     background-color: var(--color-green) !important;
 }

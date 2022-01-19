@@ -32,7 +32,8 @@ class UserGateway
 
     public function searchByUsername($username)
     {
-        $query = "SELECT * FROM public_user_VIEW WHERE username LIKE $1 LIMIT 50;";
+        $query = "SELECT * FROM public_user_VIEW WHERE username LIKE $1 AND id<>'00000000-0000-0000-0000-000000000000'
+                LIMIT 50;";
         $result = pg_query_params($this->db, $query, ['%'.$username.'%']);
         return $result;
     }
@@ -90,10 +91,10 @@ class UserGateway
     public function findFriend($user_id, $friend_id)
     {
         $query = "SELECT public_user_VIEW.*, invite_status, request_sender, message_channel
-                FROM this_friends
-                JOIN public_user_VIEW AS public_user_VIEW
-                ON public_user_VIEW.id=$2
-                WHERE friend_1=LEAST($1, $2)::uuid AND friend_2=GREATEST($1, $2)::uuid;";
+                FROM public_user_VIEW
+                LEFT JOIN this_friends
+                ON friend_1=LEAST($1, $2)::uuid AND friend_2=GREATEST($1, $2)::uuid
+                WHERE id=$2::uuid;";
         $result = pg_query_params($this->db, $query, [$user_id, $friend_id]);
         return $result;
     }

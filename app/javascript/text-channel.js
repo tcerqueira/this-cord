@@ -18,6 +18,10 @@ async function render()
         renderMembers(members);
         renderChat(messages);
         renderTextChannels(textChannels, currentTextChannelId);
+
+        document.getElementById('inviteToGuildIcon').addEventListener('click', () => {
+            openGuildInviteModal(channel.guild_id);
+        })
     } catch (err) {
         console.log(err);
     }
