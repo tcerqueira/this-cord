@@ -101,3 +101,4 @@ function createTextChannelItem(textChannel)
 //     return listItem;
 // }
 
+// Butão das definiçoes precisa de um stop propagation
