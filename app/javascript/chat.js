@@ -33,7 +33,7 @@ function renderChat(messages)
             renderMessageAuthor(messageItem, message);
             renderReply(messageItem, message.reply);
         }
-        else if(lastMessage && lastMessage.author.id !== message.author.id)
+        if(lastMessage && lastMessage.author.id !== message.author.id)
         {
             renderMessageAuthor(lastMessageItem, lastMessage);
         }
@@ -94,6 +94,7 @@ function renderMessage(message)
     const listItem = document.createElement('li');
     const messagesList = document.getElementById('messages-list');
     listItem.id = 'message_' + message.id;
+    listItem.dataset.sentAt = message.sent_at;
     listItem.classList.add('message');
     // add logic to check if its replying to active user
     if(message.reply?.author.id === currentProfileId)
