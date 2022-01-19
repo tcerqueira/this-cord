@@ -8,11 +8,16 @@ async function render()
             api.fetchMyGuilds(),
             api.fetchTextChannel({ id: currentTextChannelId })
         ]);
-        const members = await api.fetchGuildMembers({ id: channel.guild_id });
+        
+        const [ members, textChannels ] = await Promise.all([
+            api.fetchGuildMembers({ id: channel.guild_id }),
+            api.fetchAllChannels({guildId : channel.guild_id})
+        ]);
 
         renderNav(myGuilds, channel.guild_id);
         renderMembers(members);
         renderChat(messages);
+        renderTextChannels(textChannels, currentTextChannelId);
 
         document.getElementById('inviteToGuildIcon').addEventListener('click', () => {
             openGuildInviteModal(channel.guild_id);
@@ -21,3 +26,4 @@ async function render()
         console.log(err);
     }
 }
+

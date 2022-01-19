@@ -31,32 +31,78 @@
     /* background-color: var(--color-primary); */
 }
 
-.user img {
-    height: 2rem;
-    border-radius: 40px;
-}
-
 .server-overview {
     display: flex;
     grid-area: server-overview;
     flex-direction: column;
     padding: 0.5rem;
+    overflow: hidden;
 }
 
 .server-overview a {
     color: inherit;
+    width: fit-content;
+    height: fit-content;
 }
 
-.text-channel{  
+.server-overview ul {
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+}
+
+.text-channel { 
+    --font-height: 1rem;
+    --padding-height: 0.5rem; 
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding-left: 1rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
     padding-right: 0.5rem;
+    height: fit-content;
+    /* height: calc(var(--font-height) + (2 * var(--padding-height)));    */
 }
 
-.title{
+.text-channel div {
+    max-width: 75%;
+    display: flex;
+    align-items: center;
+}
+
+.text-channel>div img {
+    margin-right: 0.5rem;
+    width: 1.3em;
+    height: 1.3em;
+}
+
+
+.text-channel-icons {
+    display: none;
+    cursor: pointer;
+    
+}
+
+.text-channel-icons:hover {
+    filter: brightness(150%);
+}
+
+.text-channel:hover .text-channel-icons {
+    display: flex;
+
+}
+
+.text-channel:hover {
+    background-color: var(--color-dark-grey);
+    border-radius: 10px;
+}
+
+.selected-channel {
+    color: var(--color-light);
+    font-size: 1.1em;
+}
+
+.title {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -64,18 +110,19 @@
     padding-bottom: 0;
 }
 
-.text-channel:hover{
-    background-color: var(--color-dark-grey);
-    border-radius: 7px;
-}
-
 .user{
     grid-area: user;
     background-color: var(--color-dark-grey);
     display: flex;
     align-items: center;
-    padding: 2%;
+    padding: 1.5rem;
     justify-content: space-between;
+    border-radius: 5px;
+}
+
+.user img {
+    height: 1.5rem;
+    border-radius: 40px;
 }
 
 .side-card:hover::after {

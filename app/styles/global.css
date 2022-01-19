@@ -334,6 +334,11 @@ input.button:active {
     border: 1px solid var(--color-red);
 }
 
+.icon-text-size {
+    height: 1.1rem;
+    width: 1.1rem;
+}
+
 .icon-size-big {
     --side-size: calc(var(--card-size) + 1rem);
 }
