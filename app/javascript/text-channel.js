@@ -8,7 +8,6 @@ async function render() {
             api.fetchTextChannel({ id: currentTextChannelId }),
             api.fetchMessages({ channelId: currentTextChannelId })
         ]);
-        console.log(messages);
         
         const [ members, textChannels ] = await Promise.all([
             api.fetchGuildMembers({ id: channel.guild_id }),
@@ -23,7 +22,8 @@ async function render() {
 
         document.getElementById('inviteToGuildIcon').addEventListener('click', () => {
             openGuildInviteModal(channel.guild_id);
-        })
+        });
+
     } catch (err) {
         console.log(err);
     }

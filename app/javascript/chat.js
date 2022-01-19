@@ -203,5 +203,15 @@ function createUsernameRef(id, username, theme)
     usernameSpan.style = '--user-theme: ' + theme + ';';
     usernameSpan.innerText = username;
 
+    usernameSpan.addEventListener('click', async () => {
+        try {
+            const user = await api.fetchUser({ id });
+            openUserModal(user);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    });
+
     return usernameSpan;
 }
