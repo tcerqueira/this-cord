@@ -110,6 +110,10 @@
     padding-bottom: 0;
 }
 
+.title > img {
+    cursor: pointer;
+}
+
 .user{
     grid-area: user;
     background-color: var(--color-dark-grey);

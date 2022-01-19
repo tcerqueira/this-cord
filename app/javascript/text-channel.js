@@ -25,6 +25,9 @@ async function render() {
         });
 
         document.querySelector('.page-header').innerText = `# ${channel.channelname}`;
+        document.querySelector('.title > img').addEventListener('click', () => {
+            openCreateChannelModal(channel.guild_id);
+        });
 
     } catch (err) {
         console.log(err);
