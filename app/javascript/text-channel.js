@@ -24,6 +24,8 @@ async function render() {
             openGuildInviteModal(channel.guild_id);
         });
 
+        document.querySelector('.page-header').innerText = `# ${channel.channelname}`;
+
     } catch (err) {
         console.log(err);
     }
