@@ -204,6 +204,10 @@
     background-color: transparent;
 }
 
+#sendMessageForm .sending {
+    animation: bouncing-left-right .4s cubic-bezier(0.42, 0, 0.57, 1.6) infinite;
+}
+
 #sendMessageForm button:hover {
     background-color: rgba(0,0,0,.1);
 }
@@ -226,5 +230,17 @@
     }
     to {
         background-color: transparent;
+    }
+}
+
+@keyframes bouncing-left-right {
+    0% {
+        transform: translateX(-25%);
+    }
+    50% {
+        transform: translateX(25%);
+    }
+    100% {
+        transform: translateX(-25%);
     }
 }

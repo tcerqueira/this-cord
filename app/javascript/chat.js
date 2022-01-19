@@ -1,5 +1,4 @@
 var g_lastMessage = undefined;
-var g_renderingChat = false;
 function renderChat(messages) {
     let lastMsg = g_lastMessage;
     let lastMsgItem = undefined;
@@ -43,19 +42,18 @@ function renderSendMessage(channelId) {
                 replyTo: replyTo ? replyTo : null,
                 content
             }
-            while(g_renderingChat)
-                await new Promise(r => setTimeout(r, 50));
-            g_renderingChat = true;
             document.getElementById('message-input').value = '';
+            document.getElementById('sendMessageButton').classList.add('sending');
+            const since = document.querySelector('#messages-list > li:first-child')?.dataset.date;
 
             const messageRet = await api.sendMessage(message);
             const newMessages = await api.fetchMessages({
                 channelId: currentTextChannelId,
-                since: g_lastMessage ? g_lastMessage.sent_at.replace('+','-') : ''
+                since: since ? since : ''
             });
             removeReplying();
             renderChat(newMessages);
-            g_renderingChat = false;
+            document.getElementById('sendMessageButton').classList.remove('sending');
         }
         catch (err) {
             console.log(err);
@@ -73,7 +71,7 @@ function renderSendMessage(channelId) {
 function renderMessage(message) {
     const listItem = document.createElement('li');
     listItem.id = 'message_' + message.id;
-    // listItem.dataset.date = message.sent_at.replace('+', '-');
+    listItem.dataset.date = message.sent_at.replace('+', '-');
     listItem.dataset.sentAt = (new Date(message.sent_at)).toLocaleString(navigator.language, {
         hour: '2-digit',
         minute:'2-digit'
@@ -122,7 +120,7 @@ function renderMessageOptions(listItem, deletable) {
 }
 
 function renderMessageAuthor(messageItem, message) {
-    if(!messageItem)
+    if(!messageItem || messageItem.querySelector('h3'))
         return;
     const h3 = document.createElement('h3');
     h3.classList.add('message-author');
