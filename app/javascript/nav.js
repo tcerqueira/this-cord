@@ -15,7 +15,7 @@
 //     }
 // }
 
-function renderNav(myGuilds, currentId)
+function renderNav(myGuilds, currentId = null)
 {
     const serversContainer = document.getElementById('guilds-container');
     while(serversContainer.firstChild) {
