@@ -30,7 +30,7 @@ class MessageController
     public function getFromChannel($channel_id, $params = [])
     {
         $since = $params['since'] ? $params['since'] : date('Y-m-d H:i:se', 0);
-        $until = $params['until'] ? $params['until'] : date('Y-m-d H:i:se');
+        $until = $params['until'] ? $params['until'] : null;
         $result = $this->messageGateway->findInChannel($channel_id, $since, $until);
         if(!$result)
         {

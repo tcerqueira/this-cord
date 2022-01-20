@@ -1,3 +1,29 @@
+var fetchMessages_mtx = false;
+async function fetchMessagesPeriodically() {
+    try {
+        while(fetchMessages_mtx)
+            await new Promise(r => setTimeout(r, 50));
+        fetchMessages_mtx = true;
+        
+        const since = document.querySelector('#messages-list > li:first-child')?.dataset.date;
+        const newMessages = await api.fetchMessages({
+            channelId: currentTextChannelId,
+            since: since ? since : null
+        });
+        renderChat(newMessages);
+        // schedule the next request *only* when the current one is complete:
+        setTimeout(fetchMessagesPeriodically, 1000);
+    }
+    catch (err) {
+        console.log(err);
+        // schedule the next request *only* when the current one is complete:
+        setTimeout(fetchMessagesPeriodically, 3000);
+    }
+    finally {
+        fetchMessages_mtx = false;
+    }
+}
+
 var g_lastMessage = undefined;
 function renderChat(messages) {
     let lastMsg = g_lastMessage;
@@ -26,7 +52,7 @@ function renderChat(messages) {
 
 document.getElementById('cancel-reply-icon').addEventListener('click', evt => {
     removeReplying();
-})
+});
 
 function renderSendMessage(channelId) {
     document.getElementById('sendMessageForm').onsubmit = async evt => {
@@ -44,15 +70,19 @@ function renderSendMessage(channelId) {
             }
             document.getElementById('message-input').value = '';
             document.getElementById('sendMessageButton').classList.add('sending');
+
+            while(fetchMessages_mtx)
+                await new Promise(r => setTimeout(r, 50));
+            fetchMessages_mtx = true;
             const since = document.querySelector('#messages-list > li:first-child')?.dataset.date;
 
             const messageRet = await api.sendMessage(message);
-            const newMessages = await api.fetchMessages({
-                channelId: currentTextChannelId,
-                since: since ? since : ''
-            });
+            // const newMessages = await api.fetchMessages({
+            //     channelId: currentTextChannelId,
+            //     since: since ? since : null
+            // });
             removeReplying();
-            renderChat(newMessages);
+            // renderChat(newMessages);
             document.getElementById('sendMessageButton').classList.remove('sending');
         }
         catch (err) {
@@ -61,6 +91,7 @@ function renderSendMessage(channelId) {
         }
         finally {
             document.getElementById('sendMessageButton').disabled = false;
+            fetchMessages_mtx = false;
         }
     };
 }

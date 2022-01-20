@@ -31,6 +31,9 @@ async function render() {
             openCreateChannelModal(channel.guild_id);
         });
 
+        // schedule the first invocation:
+        setTimeout(fetchMessagesPeriodically, 1000);
+
     } catch (err) {
         console.log(err);
     }
