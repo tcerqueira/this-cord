@@ -579,13 +579,34 @@ class API
     // ################################################### MESSAGE #######################################################
     // ###################################################################################################################
 
-    sendMessage({channelId, authorId, replyTo, content})
+    fetchMessages({ channelId, since, until })
+    {
+        return new Promise((resolve, reject) => {
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', this.apiRoot+`/r/message/?channel_id=${channelId}&since=${since?since:''}&until=${until?until:''}`, true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send();
+        });
+    }
+
+    sendMessage({channelId, replyTo, content})
     {
         return new Promise((resolve, reject) => {
             
             const body = {
                 channel_id: channelId,
-                author_id: authorId,
                 reply_to: replyTo,
                 content
             }

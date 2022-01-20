@@ -68,6 +68,7 @@ CREATE TABLE this_friends (
 );
 
 CREATE UNIQUE INDEX unique_friend_pairs ON this_friends(least(friend_1,friend_2), greatest(friend_1,friend_2));
+CREATE INDEX ordered_channel_messages_index ON channel_message(channel_id, sent_at);
 
 CREATE VIEW public_user_VIEW AS
 SELECT id, username, userstatus, theme_color, user_description

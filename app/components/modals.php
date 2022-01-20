@@ -13,9 +13,9 @@
             <p id="about-user-modal"></p>
             <h3>Note</h3>
             <p id="note-user-modal"></p>
-            <div class="text-input-container user-text-input">
+            <form id="sendMessageModalForm" class="text-input-container user-text-input">
                 <input type="text" id="direct-message-input" placeholder="Message directly">
-            </div>
+            </form>
         </main>
     </div>
     <div id="create-guild-modal" class="modal-container create-guild-modal">

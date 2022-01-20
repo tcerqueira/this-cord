@@ -1,12 +1,12 @@
 const currentTextChannelId = document.getElementById('currentChannelId').dataset.channelId;
 
 render();
-async function render()
-{
+async function render() {
     try {
-        const [ myGuilds, channel ] = await Promise.all([
+        const [myGuilds, channel, messages] = await Promise.all([
             api.fetchMyGuilds(),
-            api.fetchTextChannel({ id: currentTextChannelId })
+            api.fetchTextChannel({ id: currentTextChannelId }),
+            api.fetchMessages({ channelId: currentTextChannelId })
         ]);
         
         const [ members, textChannels ] = await Promise.all([
@@ -16,14 +16,23 @@ async function render()
 
         renderNav(myGuilds, channel.guild_id);
         renderMembers(members);
+        renderSendMessage(currentTextChannelId);
         renderChat(messages);
         renderTextChannels(textChannels, currentTextChannelId);
 
         document.getElementById('inviteToGuildIcon').addEventListener('click', () => {
             openGuildInviteModal(channel.guild_id);
-        })
+        });
+
+        document.querySelector('.page-header').innerText = `# ${channel.channelname}`;
+        document.querySelector('.title > img').addEventListener('click', () => {
+            openCreateChannelModal(channel.guild_id);
+        });
+
+        // schedule the first invocation:
+        setTimeout(fetchMessagesPeriodically, 1000);
+
     } catch (err) {
         console.log(err);
     }
 }
-

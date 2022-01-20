@@ -1,88 +1,127 @@
-const messages = [
-    { id: '19', author: {id: '1', username: 'lou'}, content: "Hellommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm", sentAt: '25/12/2021 at 18h30m', reply: { author: {id: '4', username: 'rezi'}, content: 'Hello oh maninho'}},
-    { id: '18', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '17', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '16', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '15', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '14', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '13', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '12', author: {id: '2', username: 'titi'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '11', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '10', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '8', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '7', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '6', author: {id: '3', username: 'pa99'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '5', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '4', author: {id: '1', username: 'lou'}, content: "replied", sentAt: '25/12/2021 at 18h30m', reply: { author: {id: '4', username: 'rezi'}, content: 'Hello oh maninhommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm'} },
-    { id: '3', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '2', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null },
-    { id: '1', author: {id: '1', username: 'lou'}, content: "Hello", sentAt: '25/12/2021 at 18h30m', reply: null }
-];
+var fetchMessages_mtx = false;
+async function fetchMessagesPeriodically() {
+    try {
+        while(fetchMessages_mtx)
+            await new Promise(r => setTimeout(r, 50));
+        fetchMessages_mtx = true;
+        
+        const since = document.querySelector('#messages-list > li:first-child')?.dataset.date;
+        const newMessages = await api.fetchMessages({
+            channelId: currentTextChannelId,
+            since: since ? since : null
+        });
+        renderChat(newMessages);
+        // schedule the next request *only* when the current one is complete:
+        setTimeout(fetchMessagesPeriodically, 1000);
+    }
+    catch (err) {
+        console.log(err);
+        // schedule the next request *only* when the current one is complete:
+        setTimeout(fetchMessagesPeriodically, 3000);
+    }
+    finally {
+        fetchMessages_mtx = false;
+    }
+}
 
-renderChat();
-
-async function renderChat()
-{
-    let lastMessage = undefined;
-    let lastMessageItem = undefined;
+var g_lastMessage = undefined;
+function renderChat(messages) {
+    let lastMsg = g_lastMessage;
+    let lastMsgItem = undefined;
+    const messagesList = document.getElementById('messages-list');
     messages.forEach(message => {
         const messageItem = renderMessage(message);
+        messagesList.insertBefore(messageItem, messagesList.firstChild);
 
-        if(message.reply !== null)
-        {
+        if (message.reply !== null) {
             renderMessageAuthor(messageItem, message);
             renderReply(messageItem, message.reply);
         }
-        else if(lastMessage && lastMessage.author.id !== message.author.id)
-        {
-            renderMessageAuthor(lastMessageItem, lastMessage);
+        if (lastMsg && lastMsg.author.id !== message.author.id) {
+            renderMessageAuthor(lastMsgItem, lastMsg);
         }
-        
-        lastMessage = message;
-        lastMessageItem = messageItem;
+
+        lastMsg = message;
+        lastMsgItem = messageItem;
     });
 
-    if(messages.length !==0)
-        renderMessageAuthor(lastMessageItem, lastMessage);
+    if(g_lastMessage === undefined)
+        renderMessageAuthor(document.querySelector('#messages-list > li:last-child'), messages[messages.length-1]);
+    g_lastMessage = messages[0];
+}
 
+document.getElementById('cancel-reply-icon').addEventListener('click', evt => {
+    removeReplying();
+});
 
-    let replyTo = null;
-    const replyIcons = document.querySelectorAll('.reply-message-icon');
-    replyIcons.forEach(icon => {
-        icon.addEventListener('click', () => {
-            const replyingMessage = messages.find(m => m.id === icon.id.split('_')[1]);
-            renderReplying(replyingMessage.author);
-        })
-    });
+function renderSendMessage(channelId) {
+    document.getElementById('sendMessageForm').onsubmit = async evt => {
+        evt.preventDefault();
+        document.getElementById('sendMessageButton').disabled = true;
+        const content = document.getElementById('message-input').value;
+        try {
+            if (!content)
+                return;
+            const replyTo = document.getElementById('reply-container').dataset.replyId;
+            const message = {
+                channelId,
+                replyTo: replyTo ? replyTo : null,
+                content
+            }
+            document.getElementById('message-input').value = '';
+            document.getElementById('sendMessageButton').classList.add('sending');
 
-    const cancelReplyingIcon = document.getElementById('cancel-reply-icon');
-    cancelReplyingIcon.addEventListener('click', evt => {
-        removeReplying();
-    })
+            while(fetchMessages_mtx)
+                await new Promise(r => setTimeout(r, 50));
+            fetchMessages_mtx = true;
+            const since = document.querySelector('#messages-list > li:first-child')?.dataset.date;
+
+            const messageRet = await api.sendMessage(message);
+            // const newMessages = await api.fetchMessages({
+            //     channelId: currentTextChannelId,
+            //     since: since ? since : null
+            // });
+            removeReplying();
+            // renderChat(newMessages);
+            document.getElementById('sendMessageButton').classList.remove('sending');
+        }
+        catch (err) {
+            console.log(err);
+            document.getElementById('message-input').value = content;
+        }
+        finally {
+            document.getElementById('sendMessageButton').disabled = false;
+            fetchMessages_mtx = false;
+        }
+    };
 }
 
 // ############################################################### FUNCTIONS #####################################################################
 // ###############################################################################################################################################
 
-function renderMessage(message)
-{
+function renderMessage(message) {
     const listItem = document.createElement('li');
-    const messagesList = document.getElementById('messages-list');
     listItem.id = 'message_' + message.id;
+    listItem.dataset.date = message.sent_at.replace('+', '-');
+    listItem.dataset.sentAt = (new Date(message.sent_at)).toLocaleString(navigator.language, {
+        hour: '2-digit',
+        minute:'2-digit'
+    });
+    listItem.dataset.authorId = message.author.id;
+    listItem.dataset.authorUsername = message.author.username;
+    listItem.dataset.authorThemeColor = message.author.theme_color;
     listItem.classList.add('message');
     // add logic to check if its replying to active user
-    if(message.author.username === 'pa99')
+    if (message.reply?.author.id === currentProfileId)
         listItem.classList.add('message-replying-to-me');
 
     listItem.innerText = message.content;
     renderMessageOptions(listItem, true);
-    messagesList.append(listItem);
 
     return listItem;
 }
 
-function renderMessageOptions(listItem, deletable)
-{
+function renderMessageOptions(listItem, deletable) {
     const div = document.createElement('div');
     div.classList.add('message-options');
     const replyIcon = document.createElement('img');
@@ -90,9 +129,19 @@ function renderMessageOptions(listItem, deletable)
     replyIcon.id = 'reply_' + listItem.id.split('_')[1];
     replyIcon.src = "../public/reply-svgrepo-com.svg";
     replyIcon.alt = 'reply-icon';
+    replyIcon.addEventListener('click', () => {
+        const replyingMessage = {
+            id: listItem.id.split('_')[1],
+            author: {
+                id: listItem.dataset.authorId,
+                username: listItem.dataset.authorUsername,
+                theme_color: listItem.dataset.authorThemeColor,
+            }
+        }
+        renderReplying(replyingMessage);
+    });
     div.append(replyIcon);
-    if(deletable)
-    {
+    if (deletable) {
         const removeIcon = document.createElement('img');
         removeIcon.src = "../public/trash-svgrepo-com.svg";
         removeIcon.alt = 'remove-icon';
@@ -101,25 +150,27 @@ function renderMessageOptions(listItem, deletable)
     listItem.append(div);
 }
 
-function renderMessageAuthor(messageItem, message)
-{
+function renderMessageAuthor(messageItem, message) {
+    if(!messageItem || messageItem.querySelector('h3'))
+        return;
     const h3 = document.createElement('h3');
     h3.classList.add('message-author');
+    messageItem.classList.add('has-avatar');
 
     const authorAvatar = document.createElement('div');
     authorAvatar.classList.add('author-avatar');
     authorAvatar.classList.add('icon-size-small');
     authorAvatar.classList.add('icon-card');
     // TODO: theme color
-    authorAvatar.style = '--icon-bg-color: ' + '#7289da' + ';';
+    authorAvatar.style = `--icon-bg-color: ${message.author.theme_color};`;
     authorAvatar.innerText = message.author.username;
     h3.append(authorAvatar);
 
     const authorSpan = document.createElement('span');
     const dateSpan = document.createElement('span');
-    const usernameSpan = createUsernameRef(message.author.id, message.author.username, '#00ff00');
+    const usernameSpan = createUsernameRef(message.author.id, message.author.username, message.author.theme_color);
     dateSpan.classList.add('message-date');
-    dateSpan.innerText = message.sentAt;
+    dateSpan.innerText = (new Date(message.sent_at)).toLocaleString(navigator.language);
     authorSpan.append(usernameSpan);
     authorSpan.append(dateSpan);
     h3.append(authorSpan);
@@ -127,54 +178,60 @@ function renderMessageAuthor(messageItem, message)
     messageItem.insertBefore(h3, messageItem.childNodes[0]);
 }
 
-function renderReply(messageItem, reply)
-{
+function renderReply(messageItem, reply) {
     const anchor = document.createElement('a');
-    // anchor.href = '#message_' + message.id;
-    anchor.href = '#';
+    anchor.href = '#message_' + reply.id;
     const div = document.createElement('div');
     anchor.append(div);
     div.classList.add('reply-preview');
     div.innerText = ': ' + reply.content;
 
-    const span = createUsernameRef(reply.author.id, '@' + reply.author.username, '#ff0000');
+    const span = createUsernameRef(reply.author.id, '@' + reply.author.username, reply.author.theme_color);
     div.insertBefore(span, div.childNodes[0]);
 
     messageItem.insertBefore(anchor, messageItem.childNodes[0]);
 }
 
-function renderReplying(replyTo)
-{
+function renderReplying(replyTo) {
     const replyContainer = document.getElementById('reply-container');
     const channelContainer = document.querySelector('.text-channel-container');
+    replyContainer.dataset.replyId = replyTo.id;
     document.getElementById('replyingToUsername')?.remove();
-    const replyingTo = createUsernameRef(replyTo.id, replyTo.username, "#0000ff");
+    const replyingTo = createUsernameRef(replyTo.author.id, replyTo.author.username, replyTo.author.theme_color);
     replyingTo.id = 'replyingToUsername';
     document.querySelector('#reply-container > span').append(replyingTo);
-    
-    if(replyContainer.style.display !== 'flex')
-    {
-        channelContainer.classList.toggle('text-channel-container-replying');
+
+    if (replyContainer.style.display !== 'flex') {
+        channelContainer.classList.add('text-channel-container-replying');
         replyContainer.style.display = 'flex';
     }
 }
 
-function removeReplying()
-{
+function removeReplying() {
     const replyContainer = document.getElementById('reply-container');
     const channelContainer = document.querySelector('.text-channel-container');
-    document.getElementById('replyingToUsername').remove();
-    channelContainer.classList.toggle('text-channel-container-replying');
+    delete replyContainer.dataset.replyId;
+    document.getElementById('replyingToUsername')?.remove();
+    channelContainer.classList.remove('text-channel-container-replying');
     replyContainer.style.display = '';
 }
 
-function createUsernameRef(id, username, theme)
-{
+function createUsernameRef(id, username, theme) {
     const usernameSpan = document.createElement('span');
     usernameSpan.classList.add('username');
     usernameSpan.dataset.userId = id;
     usernameSpan.style = '--user-theme: ' + theme + ';';
     usernameSpan.innerText = username;
+
+    usernameSpan.addEventListener('click', async () => {
+        try {
+            const user = await api.fetchFriend({ id });
+            openUserModal(user);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    });
 
     return usernameSpan;
 }
