@@ -29,6 +29,30 @@ function openUserModal(user)
     aboutP.innerText = user_description;
     noteP.innerText = user_note;
     renderUserFriendButton(user);
+    
+    if(!message_channel)
+        document.getElementById('sendMessageModalForm').style.display = 'none';
+    else
+        document.getElementById('sendMessageModalForm').style.display = 'block';
+
+    document.getElementById('sendMessageModalForm').onsubmit = async evt => {
+        evt.preventDefault();
+        const content = document.getElementById('direct-message-input').value;
+        if(!content)
+            return;
+        try {
+            closeModal();
+            await api.sendMessage({
+                channelId: message_channel,
+                replyTo: null,
+                content
+            });
+            window.location.href = `direct-message.php?id=${message_channel}`;
+        }
+        catch (err) {
+            console.log(err);
+        }
+    };
 }
 
 function renderUserFriendButton(user) {
@@ -79,20 +103,6 @@ function renderUserFriendButton(user) {
         friendBtn.style.visibility = 'hidden';
     }
 }
-
-document.getElementById('direct-message-input').addEventListener('keypress', evt => {
-    const code = evt.keyCode || evt.which;
-    if(code === 13)
-    {
-        if(evt.target.value !== '')
-        {
-            console.log(evt.target.value);
-            evt.target.value = '';
-            // send message
-            closeModal();
-        }
-    }
-})
 
 function openCreateGuildModal()
 {

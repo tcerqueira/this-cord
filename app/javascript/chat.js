@@ -225,7 +225,7 @@ function createUsernameRef(id, username, theme) {
 
     usernameSpan.addEventListener('click', async () => {
         try {
-            const user = await api.fetchUser({ id });
+            const user = await api.fetchFriend({ id });
             openUserModal(user);
         }
         catch (err) {
