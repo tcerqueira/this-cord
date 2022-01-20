@@ -1,20 +1,3 @@
-// renderNav();
-
-// async function renderNav() {
-//     try {
-//         const myGuilds = await api.fetchMyGuilds();
-        
-//         const serversContainer = document.getElementById('guilds-container');
-//         myGuilds.forEach((server) => {
-//             const serverCard = renderServerCard(server);
-//             serversContainer.append(serverCard);
-//         });
-//     }
-//     catch(err) {
-//         console.log(err);
-//     }
-// }
-
 function renderNav(myGuilds, currentId = null)
 {
     const serversContainer = document.getElementById('guilds-container');
