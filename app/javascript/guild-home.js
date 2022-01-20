@@ -13,8 +13,13 @@ async function render()
         renderMembers(members);
 
         document.getElementById('inviteToGuildIcon').addEventListener('click', () => {
-            openGuildInviteModal(channel.guild_id);
-        })
+            openGuildInviteModal(currentGuildlId);
+        });
+
+        document.querySelector('.page-header').innerText = `Welcome to guild`;
+        document.querySelector('.title > img').addEventListener('click', () => {
+            openCreateChannelModal(currentGuildlId);
+        });
     } catch (err) {
         console.log(err);
     }
