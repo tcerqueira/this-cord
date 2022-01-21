@@ -120,7 +120,7 @@ function renderMessage(message) {
     const contentArr = parseMessageContent(message.content);
     p.append(...contentArr);
     listItem.append(p);
-    renderMessageOptions(listItem, true);
+    renderMessageOptions(listItem, message.author.id === currentProfileId);
 
     return listItem;
 }
@@ -143,6 +143,7 @@ function renderMessageOptions(listItem, deletable) {
             }
         }
         renderReplying(replyingMessage);
+        document.getElementById('message-input').focus();
     });
     div.append(replyIcon);
     if (deletable) {
@@ -150,6 +151,9 @@ function renderMessageOptions(listItem, deletable) {
         removeIcon.src = "../public/trash-svgrepo-com.svg";
         removeIcon.alt = 'remove-icon';
         div.append(removeIcon);
+        removeIcon.addEventListener('click', () => {
+
+        });
     }
     listItem.append(div);
 }
@@ -216,6 +220,7 @@ function removeReplying() {
     document.getElementById('replyingToUsername')?.remove();
     channelContainer.classList.remove('text-channel-container-replying');
     replyContainer.style.display = '';
+    document.getElementById('message-input').focus();
 }
 
 function parseMessageContent(content) {
