@@ -279,6 +279,21 @@ class GuildController
         return $response;
     }
 
+    public function generateOpenInvite($id)
+    {
+        $result = $this->guildGateway->findExact($id);
+        if(!$result) {
+            $response = internalServerErrorResponse('Problem retrieving open invite.');
+            return $response;
+        }
+        $result = pg_fetch_assoc($result);
+        $response = okResponse([
+            'guild_id' => $result['id'],
+            'open_invite_key' => $result['open_invite_key']
+        ]);
+        return $response;
+    }
+
     public function kickMember($id, $member_id, $requester_id)
     {
         $membership = $this->authorization->membershipByGuild($id, $requester_id);
