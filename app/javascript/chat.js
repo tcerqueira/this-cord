@@ -152,7 +152,23 @@ function renderMessageOptions(listItem, deletable) {
         removeIcon.alt = 'remove-icon';
         div.append(removeIcon);
         removeIcon.addEventListener('click', () => {
-
+            openConfirmationModal('Do you want to delete the message?', async evt => {
+                evt.target.disabled = true;
+                try {
+                    await api.deleteMessage({ messageId: listItem.id.split('_')[1] })
+                    document.getElementById('messages-list').removeChild(listItem);
+                    if(listItem.querySelector('h3')) {
+                        window.location.reload();
+                    }
+                }
+                catch (err) {
+                    console.log(err);
+                }
+                finally {
+                    evt.target.disabled = false;
+                    closeModal();
+                }
+            });
         });
     }
     listItem.append(div);
