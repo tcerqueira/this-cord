@@ -9,7 +9,7 @@ main {
 }
 
 .invite-to-guild-container {
-    display: flex;
+    display: none;
     justify-content: center;
     flex-wrap: wrap;
     width: 100%;
@@ -19,6 +19,10 @@ main {
     min-height: 200px;
 
     background-color: var(--color-dark-grey);
+}
+
+.invite-to-guild-container a:hover {
+    text-decoration: underline;
 }
 
 .display-success svg {
