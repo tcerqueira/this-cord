@@ -74,3 +74,14 @@ CREATE VIEW public_user_VIEW AS
 SELECT id, username, userstatus, theme_color, user_description
 FROM this_user;
 
+CREATE OR REPLACE FUNCTION update_reply() RETURNS TRIGGER AS $$
+    BEGIN
+        UPDATE channel_message SET reply_to=NULL WHERE reply_to=OLD.id;
+        RETURN NULL;
+    END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER on_delete_message
+AFTER DELETE ON channel_message 
+FOR EACH ROW
+EXECUTE PROCEDURE update_reply();
