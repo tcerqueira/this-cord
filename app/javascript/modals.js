@@ -178,7 +178,7 @@ function openConfirmationModal(message, callbackFn)
 
 document.getElementById('cancel-btn-modal').onclick = closeModal;
 
-function openGuildInviteModal(guildId)
+async function openGuildInviteModal(guildId)
 {
     openModal('guild-invite-modal');
     document.getElementById('searchGuildInviteForm').onsubmit =  async evt => {
@@ -215,18 +215,27 @@ function openGuildInviteModal(guildId)
         }
     };
 
-    document.getElementById('copyInviteButton').onclick = async () => {
-        try {
-            const { open_invite_key: inviteKey } = await api.generateOpenInvite({ guildId });
-            
-            const index = window.location.href.search('/r/');
-            const subUrl = window.location.href.slice(0, index);
-            await navigator.clipboard.writeText(`${subUrl}/r/invite-to-guild.php?guild_id=${guildId}&open_invite_key=${inviteKey}`);
+    try {
+        const { open_invite_key: inviteKey } = await api.generateOpenInvite({ guildId });
+        if(inviteKey === null) {
+            document.getElementById('copyInviteButton').style.display = 'none';
+            return;
         }
-        catch (err) {
-            console.log(err);
-        }
-    };
+        document.getElementById('copyInviteButton').style.display = 'block';
+        document.getElementById('copyInviteButton').onclick = async () => {
+            try {            
+                const index = window.location.href.search('/r/');
+                const subUrl = window.location.href.slice(0, index);
+                await navigator.clipboard.writeText(`${subUrl}/r/invite-to-guild.php?guild_id=${guildId}&open_invite_key=${inviteKey}`);
+            }
+            catch (err) {
+                console.log(err);
+            }
+        };
+    }
+    catch (err) {
+        console.log(err);
+    }
 }
 
 function renderModalSearchResults(results)
