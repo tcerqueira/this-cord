@@ -214,6 +214,19 @@ function openGuildInviteModal(guildId)
             evt.target.disabled = false;
         }
     };
+
+    document.getElementById('copyInviteButton').onclick = async () => {
+        try {
+            const { open_invite_key: inviteKey } = await api.generateOpenInvite({ guildId });
+            
+            const index = window.location.href.search('/r/');
+            const subUrl = window.location.href.slice(0, index);
+            await navigator.clipboard.writeText(`${subUrl}/r/invite-to-guild.php?guild_id=${guildId}&open_invite_key=${inviteKey}`);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    };
 }
 
 function renderModalSearchResults(results)

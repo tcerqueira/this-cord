@@ -70,7 +70,7 @@
         </main>
     </div>
     <div id="guild-invite-modal" class="modal-container guild-invite-modal">
-        <h1>Invite list</h1>
+        <h1>Invite list <button id="copyInviteButton" class="button">Copy invite link</button></h1>
 
         <ul id="toInviteList">
 
