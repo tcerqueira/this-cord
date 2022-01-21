@@ -154,6 +154,8 @@
 }
 
 .message-box {
+    display: flex;
+    justify-content: space-between;
     background-color: var(--color-light-grey);
     font-size: 1.2rem;
 }
