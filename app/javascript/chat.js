@@ -116,7 +116,10 @@ function renderMessage(message) {
     if (message.reply?.author.id === currentProfileId)
         listItem.classList.add('message-replying-to-me');
 
-    listItem.innerText = message.content;
+    const p = document.createElement('p');
+    const contentArr = parseMessageContent(message.content);
+    p.append(...contentArr);
+    listItem.append(p);
     renderMessageOptions(listItem, true);
 
     return listItem;
@@ -213,6 +216,26 @@ function removeReplying() {
     document.getElementById('replyingToUsername')?.remove();
     channelContainer.classList.remove('text-channel-container-replying');
     replyContainer.style.display = '';
+}
+
+function parseMessageContent(content) {
+    let parsedContent = [];
+    const urlRegEx = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+    const urlMatches = [...content.matchAll(urlRegEx)];
+
+    let lastIndex = 0;
+    urlMatches.forEach(match => {
+        if(match.length) {
+            const text = content.slice(lastIndex, match.index);
+            const urlRef = document.createElement('a')
+            urlRef.href = match[0];
+            urlRef.innerText = match[0];
+            parsedContent.push(text, urlRef);
+            lastIndex = match.index + match[0].length;
+        }
+    });
+    parsedContent.push(content.slice(lastIndex));
+    return parsedContent;
 }
 
 function createUsernameRef(id, username, theme) {
