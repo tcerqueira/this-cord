@@ -38,7 +38,7 @@ function renderChat(messages) {
             renderReply(messageItem, message.reply);
         }
         if (lastMsg && lastMsg.author.id !== message.author.id) {
-            renderMessageAuthor(lastMsgItem, lastMsg);
+            renderMessageAuthor(messageItem, message);
         }
 
         lastMsg = message;
@@ -46,8 +46,9 @@ function renderChat(messages) {
     });
 
     if(g_lastMessage === undefined)
-        renderMessageAuthor(document.querySelector('#messages-list > li:last-child'), messages[messages.length-1]);
-    g_lastMessage = messages[0];
+        renderMessageAuthor(document.querySelector('#messages-list > li:last-child'), messages[0]);
+    if(messages.length)
+        g_lastMessage = messages[0];
 }
 
 document.getElementById('cancel-reply-icon').addEventListener('click', evt => {
@@ -161,9 +162,7 @@ function renderMessageAuthor(messageItem, message) {
     authorAvatar.classList.add('author-avatar');
     authorAvatar.classList.add('icon-size-small');
     authorAvatar.classList.add('icon-card');
-    // TODO: theme color
     authorAvatar.style = `--icon-bg-color: ${message.author.theme_color};`;
-    authorAvatar.innerText = message.author.username;
     h3.append(authorAvatar);
 
     const authorSpan = document.createElement('span');
