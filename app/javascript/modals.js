@@ -178,7 +178,7 @@ function openConfirmationModal(message, callbackFn)
 
 document.getElementById('cancel-btn-modal').onclick = closeModal;
 
-function openGuildInviteModal(guildId)
+async function openGuildInviteModal(guildId)
 {
     openModal('guild-invite-modal');
     document.getElementById('searchGuildInviteForm').onsubmit =  async evt => {
@@ -214,6 +214,28 @@ function openGuildInviteModal(guildId)
             evt.target.disabled = false;
         }
     };
+
+    try {
+        const { open_invite_key: inviteKey } = await api.generateOpenInvite({ guildId });
+        if(inviteKey === null) {
+            document.getElementById('copyInviteButton').style.display = 'none';
+            return;
+        }
+        document.getElementById('copyInviteButton').style.display = 'block';
+        document.getElementById('copyInviteButton').onclick = async () => {
+            try {            
+                const index = window.location.href.search('/r/');
+                const subUrl = window.location.href.slice(0, index);
+                await navigator.clipboard.writeText(`${subUrl}/r/invite-to-guild.php?guild_id=${guildId}&open_invite_key=${inviteKey}`);
+            }
+            catch (err) {
+                console.log(err);
+            }
+        };
+    }
+    catch (err) {
+        console.log(err);
+    }
 }
 
 function renderModalSearchResults(results)
