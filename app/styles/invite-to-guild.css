@@ -10,21 +10,31 @@ main {
 
 .invite-to-guild-container {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     width: 100%;
     margin: 0 auto;
-    max-width: 700px;
+    padding: 1rem;
+    max-width: 750px;
     min-height: 200px;
 
     background-color: var(--color-dark-grey);
 }
 
-.invite-to-guild-container svg {
+.display-success svg {
     height: 100%;
     max-width: 250px;
     width: 100%;
     /* min-width: 80vw; */
     fill: var(--color-green);
+}
+
+.display-failure svg {
+    height: 100%;
+    max-width: 250px;
+    width: 100%;
+    /* min-width: 80vw; */
+    fill: var(--color-red);
 }
 
 .invite-message {
