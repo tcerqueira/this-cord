@@ -1,8 +1,12 @@
 .primary-nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: var(--color-dark-grey);
     grid-area: primary-nav;
-    /* overflow-y: auto;
+    /* overflow-y: hidden;
     overflow-x: visible; */
+    /* overflow: hidden; */
 }
 
 .secondary-nav {
@@ -10,41 +14,38 @@
     grid-area: secondary-nav;
 }
 
+.primary-nav > div:first-child {
+    width: 5rem;
+    /* overflow-y: hidden; */
+    /* overflow-x: visible; */
+    /* overflow: hidden; */
+}
+
+.guilds-container {
+    /* overflow-y: auto;
+    overflow-x: hidden; */
+    /* overflow: auto; */
+}
+
 .side-card {
-    --side-size: var(--card-size);
+    /* --side-size: var(--card-size); */
     position: relative;
-    height: var(--side-size);
-    width: var(--side-size);
-    border-radius: 50%;
     margin: 15px auto;
 
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: border-radius 200ms ease-in-out,
                 background-color 100ms ease-in-out;
 
-    background-color: var(--color-medium-grey-1);
-    color: white;
+    /* background-color: var(--color-medium-grey-1); */
+    color: var(--color-light);
+    cursor: pointer;
 }
 
 .side-card:hover {
     border-radius: 40%;
-    background-color: var(--color-primary);
-}
-
-.server-nav{
-    display: grid;
-    grid-template-rows: auto 4rem;
-    grid-template-areas: 
-        "server-overview"
-        "user";
-}
-
-.user img {
-    height: 2rem;
-    border-radius: 40px;
+    /* background-color: var(--color-primary); */
 }
 
 .server-overview {
@@ -52,22 +53,73 @@
     grid-area: server-overview;
     flex-direction: column;
     padding: 0.5rem;
+    overflow: hidden;
 }
 
 .server-overview a {
     color: inherit;
+    width: fit-content;
+    height: fit-content;
 }
 
-.text-channel{  
+.server-overview ul {
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+}
+
+.text-channel { 
+    --font-height: 1rem;
+    --padding-height: 0.5rem; 
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding-left: 1rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
     padding-right: 0.5rem;
+    height: fit-content;
+    /* height: calc(var(--font-height) + (2 * var(--padding-height)));    */
 }
 
-.title{
+.text-channel div {
+    max-width: 75%;
+    display: flex;
+    align-items: center;
+}
+
+.text-channel>div img {
+    margin-right: 0.5rem;
+    width: 1.3em;
+    height: 1.3em;
+}
+
+
+.text-channel-icons {
+    display: none;
+    cursor: pointer;
+    
+}
+
+.text-channel-icons:hover {
+    filter: brightness(150%);
+}
+
+.text-channel:hover .text-channel-icons {
+    display: flex;
+
+}
+
+.text-channel:hover {
+    background-color: var(--color-dark-grey);
+    border-radius: 10px;
+}
+
+.selected-channel {
+    color: var(--color-light);
+    font-size: 1.1em;
+}
+
+.title {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -75,9 +127,8 @@
     padding-bottom: 0;
 }
 
-.text-channel:hover{
-    background-color: var(--color-dark-grey);
-    border-radius: 7px;
+.title > img {
+    cursor: pointer;
 }
 
 .user{
@@ -85,17 +136,26 @@
     background-color: var(--color-dark-grey);
     display: flex;
     align-items: center;
-    padding: 2%;
+    padding: 1.5rem;
     justify-content: space-between;
+    border-radius: 5px;
+}
+
+.user img {
+    height: 1.5rem;
+    border-radius: 40px;
 }
 
 .side-card:hover::after {
     content: attr(data-tooltip);
     position: absolute;
-    top: 35%;
+    top: 10%;
     left: 150%;
     color: white;
     transition: all 200ms ease-in-out;
+
+    white-space: nowrap;
+    /* overflow: hidden; */
 
     padding: 0.6rem;
     background-color: black;
@@ -114,7 +174,19 @@
     z-index: 999;
 } */
 
-[data-server-selected]::before {
+.current-server::before {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 28%;
+    left: -28%;
+    height: 1.5rem;
+    width: 0.5rem;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.side-card:hover::before {
     content: '';
     position: absolute;
     display: block;
@@ -122,6 +194,51 @@
     left: -28%;
     height: 0.5rem;
     width: 0.5rem;
-    border-radius: 50%;
+    border-radius: 5px;
     background-color: white;
+    animation: ball-to-bar .3s linear forwards;
+}
+
+#homeIcon {
+    transition: background-color .3s linear;
+}
+
+#homeIcon:hover {
+    background-color: var(--color-primary);
+}
+
+#createGuildNavIcon {
+    transition: background-color .3s linear;
+}
+
+#createGuildNavIcon:hover {
+    background-color: var(--color-green);
+}
+
+#createGuildNavIcon svg {
+    fill: var(--font-color);
+}
+
+#logoutIcon {
+    flex-shrink: 0;
+    transition: background-color .3s linear;
+}
+
+#logoutIcon:hover {
+    background-color: var(--color-red);
+}
+
+#logoutIcon svg {
+    fill: var(--font-color);
+}
+
+@keyframes ball-to-bar {
+    from {
+        top: 45%;
+        height: 0.5rem;
+    }
+    to {
+        top: 28%;
+        height: 1.5rem;
+    }
 }

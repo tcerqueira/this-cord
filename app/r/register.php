@@ -7,28 +7,40 @@ require 'scripts/SendHeaders.php';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include "../components/head.php" ?>
+    <?php include "../components/head-outside.php" ?>
     <link rel="stylesheet" href="../styles/register.css">
+    <script src="../javascript/register.js" defer></script>
 </head>
 <body>
 
     <main>
-        <div class="register-container">
+        <div class="register-container rounded-container">
             <div class="flex-column register-inputs">
                 <div class="flex-center flex-column">
                     <h2>Create an account</h2>
                 </div>
-                <form class="flex-column" id="register-form" action="">
+                <form class="flex-column" id="register-form" method="post" action="">
                     <label for="email-input">Email</label>
-                    <input type="email" name="email" id="email-input">
+                    <div class="text-input-container">
+                        <input type="email" name="email" id="email-input">
+                    </div>
                     <label for="username-input">Username</label>
-                    <input type="email" name="username" id="username-input">
+                    <div class="text-input-container">
+                        <input type="text" name="username" id="username-input">
+                    </div>
                     <label for="password-input">Password</label>
-                    <input type="password" name="password" id="password-input">
+                    <div class="text-input-container">
+                        <input type="password" name="password" id="password-input">
+                    </div>
                     <label for="conf-password-input">Confirm password</label>
-                    <input type="password" name="conf-password" id="conf-password-input">
-                    <input type="submit" value="Register">
+                    <div class="text-input-container">
+                        <input type="password" name="conf-password" id="conf-password-input">
+                    </div>
+                    <input id="register-button" class="button bg-green" type="submit" value="Register">
                 </form>
+                <div id="register-error-message" class="error-message one-liner">
+                    <?php if(isset($_GET['message'])) echo $_GET['message']; ?>
+                </div>
                 <a href="login.php">Already have an account?</a>
             </div>
         </div>

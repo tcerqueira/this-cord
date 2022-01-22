@@ -1,5 +1,6 @@
 <?php session_start(); ?>
 <?php
+use gateways\UserGateway;
 require __DIR__ . '/vendor/autoload.php';
 require 'database_connector.php';
 require 'responses/sendResponse.php';
@@ -28,6 +29,7 @@ else {
 $timeout = 1800;
 if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > $timeout)) {
     // last request was more than 30 minutes ago
+    (new UserGateway($dbConnection))->updateStatus($_SESSION['id'], 0);
     session_unset();     // unset $_SESSION variable for the run-time 
     session_destroy();   // destroy session data in storage
 }
@@ -49,6 +51,11 @@ function isAuthenticated()
 function setAuthenticated($bool)
 {
     $_SESSION['authenticated'] = $bool;
+}
+
+function getId()
+{
+    return $_SESSION['id'];
 }
     
 ?>

@@ -1,22 +1,56 @@
-const serversContainer = document.getElementById('guilds-container');
+function renderNav(myGuilds, currentId = null)
+{
+    const serversContainer = document.getElementById('guilds-container');
+    while(serversContainer.firstChild) {
+        serversContainer.removeChild(serversContainer.firstChild);
+    }
+    let isHome = true;
+    myGuilds.forEach((server) => {
+        const isCurrent = server.id === currentId;
+        const serverCard = renderServerCard(server, isCurrent);
+        serversContainer.append(serverCard);
+        if(isCurrent)
+            isHome = false;
+    });
+    if(isHome)
+        document.querySelector('.icon-card[data-tooltip=Home]').classList.add('current-server');
+}
 
-const userServers = [
-    { id: 1, name: 'server 1', initials: 'S1'},
-    { id: 2, name: 'server 2', initials: 'S2'},
-    { id: 3, name: 'server 3', initials: 'S3'}
-];
+document.getElementById('createGuildNavIcon').onclick = () => {
+    openCreateGuildModal();
+};
 
-userServers.forEach((server) => {
-    const serverCard = createServerCard(server);
-    serversContainer.append(serverCard);
+document.getElementById('logoutIcon').addEventListener('click', async () => {
+    try {
+        await api.signOut();
+    }
+    catch (err) {
+        console.log(err);
+    }
+    finally {
+        document.cookie = "PHPSESSID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+        window.location.href = 'login.php';
+    }
 });
 
-function createServerCard(server)
+function addServerCard(server)
 {
-    const serverCard = document.createElement('div');
-    serverCard.className = "side-card";
-    serverCard.dataset.tooltip = server.name;
-    serverCard.innerText = server.initials;
+    document.getElementById('guilds-container').append(renderServerCard(server, false));
+}
 
-    return serverCard;
+function renderServerCard(server, isCurrent) {
+    const anchor = document.createElement('a');
+    anchor.href = server.channels.length ? `text-channel.php?id=${server.channels[0]}` : `guild-home.php?id=${server.id}`;
+
+    const serverCard = document.createElement('div');
+    anchor.append(serverCard);
+    serverCard.className = "icon-size-medium icon-card side-card";
+    if(isCurrent)
+        serverCard.classList.add('current-server');
+    serverCard.dataset.tooltip = server.guildname;
+    serverCard.dataset.id = server.id;
+    serverCard.innerText = server.initials;
+    serverCard.style = '--icon-bg-color: ' + server.theme_color + ';';
+
+    return anchor;
 }
