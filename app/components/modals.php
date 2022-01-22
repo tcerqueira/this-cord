@@ -11,8 +11,11 @@
         <main>
             <h3>About me</h3>
             <p id="about-user-modal"></p>
-            <h3>Note</h3>
-            <p id="note-user-modal"></p>
+            <form id="userNoteForm" autocomplete="off">
+                <label for="note-user-modal">Note</label>
+                <input id="note-user-modal" type="text" placeholder="Enter note">
+                <a id="unfocusTag" href="#" aria-hidden="true"></a>
+            </form>
             <form id="sendMessageModalForm" class="text-input-container user-text-input" autocomplete="off">
                 <input type="text" id="direct-message-input" placeholder="Message directly">
             </form>

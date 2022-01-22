@@ -16,8 +16,8 @@ function openUserModal(user)
         userstatus,
         message_channel
     } = user;
-    const user_note = localStorage.getItem(`note_${id}`);
 
+    const user_note = localStorage.getItem(`note_${currentProfileId.slice(0,6)}_${id}`);
     const usernameSpan = document.getElementById('username-user-modal');
     const themeDiv = document.getElementById('theme-user-modal');
     const aboutP = document.getElementById('about-user-modal');
@@ -27,8 +27,15 @@ function openUserModal(user)
     usernameSpan.style = userstatus === '1' ? '--bg-color: var(--color-green);' : '--bg-color: var(--color-dark-grey);';
     themeDiv.style = `--user-bg-panel: ${theme_color};`;
     aboutP.innerText = user_description;
-    noteP.innerText = user_note;
+    noteP.value = user_note;
     renderUserFriendButton(user);
+    
+    document.getElementById('userNoteForm').onsubmit = evt => {
+        evt.preventDefault();
+        const noteText = document.getElementById('note-user-modal').value;
+        localStorage.setItem(`note_${currentProfileId.slice(0,6)}_${id}`, noteText);
+        document.getElementById('unfocusTag').focus();
+    }
     
     if(!message_channel)
         document.getElementById('sendMessageModalForm').style.display = 'none';

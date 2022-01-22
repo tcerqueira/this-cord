@@ -52,6 +52,40 @@
     padding: 1rem;
 }
 
+#userNoteForm {
+    margin-bottom: 1rem;
+}
+
+#userNoteForm label {
+    margin-left: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+
+#note-user-modal {
+    border-radius: 3px;
+}
+
+#note-user-modal {
+    padding: .5em;
+}
+
+#note-user-modal {
+    border: none;
+    resize: vertical;
+    font-family: var(--font-family);
+
+    color: var(--font-color);
+    background-color: transparent;
+}
+
+#note-user-modal:focus {
+    outline: none;
+    border: none;
+    background-color: rgba(255,255,255,.1);
+}
+
 .theme-user-panel {
     background-color: var(--user-bg-panel, var(--color-primary));
     min-height: 50%;
