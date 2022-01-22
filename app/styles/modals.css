@@ -19,7 +19,7 @@
     overflow: hidden;
     transform: scale(0);
     opacity: 0;
-    animation: scale-in .4s cubic-bezier(0.42, 0, 0.57, 1.6) forwards;
+    animation: scale-in .4s var(--bounce-curve) forwards;
 }
 
 @keyframes scale-in {
@@ -211,7 +211,7 @@
     display: block;
     inset: -1em 25% auto 25%;
 
-    animation: fade-in-up .1s ease-in-out;
+    animation: fade-in-up .1s var(--bounce-curve);
 
     background-color: var(--color-medium-grey-2);
     border: 1px solid var(--color-green);

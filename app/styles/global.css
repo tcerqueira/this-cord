@@ -23,6 +23,8 @@
     --card-size: 3.5rem;
     --border-radius-size: 10px;
     font-family: 'Poppins', sans-serif;
+    /* Animation */
+    --bounce-curve: cubic-bezier(0.42, 0, 0.57, 1.6);
 }
 
 html {
@@ -269,6 +271,22 @@ input.button:active {
     color: var(--color-red);
     font-weight: bold;
     word-wrap: break-word;
+}
+
+[data-tooltip]::before,
+[data-tooltip]::after {
+    animation: scale-in .2s var(--bounce-curve);
+}
+
+@keyframes scale-in {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 /************************************* CSS utility classes *************************************/
