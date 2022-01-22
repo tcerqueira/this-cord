@@ -11,6 +11,9 @@ async function render()
 
         renderNav(myGuilds, currentGuildlId);
         renderMembers(members);
+        
+        const { guildname: currentGuildname } = myGuilds.find(g => g.id===currentGuildlId);
+        document.getElementById('guildHeader').innerText = currentGuildname;
 
         document.getElementById('inviteToGuildIcon').addEventListener('click', () => {
             openGuildInviteModal(currentGuildlId);
