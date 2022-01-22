@@ -35,7 +35,7 @@ require 'scripts/SendHeaders.php';
 
                 </div>
                 <div class="user-item-info">
-                    <span class="user-item-username">Username</span>
+                    <span class="user-item-username">Username <span class="user-item-shortid">#123456</span></span>
                     <span>Status</span>
                 </div>
                 <div class="user-item-options">

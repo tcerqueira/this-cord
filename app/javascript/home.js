@@ -108,6 +108,10 @@ function createUserItem(user) {
 
     userItem.querySelector('.icon-card').style = `--icon-bg-color: ${user.theme_color};`;
     userItem.querySelector('.user-item-username').innerText = user.username;
+    const spanShortId = document.createElement('span');
+    spanShortId.className = 'user-item-shortid';
+    spanShortId.innerText = ` #${user.id.slice(0,6)}`;
+    userItem.querySelector('.user-item-username').append(spanShortId);
     userItem.querySelector('.user-item-username + span').innerText = user.userstatus === '1' ? 'Online' : 'Offline';
 
     switch(user.invite_status) {
