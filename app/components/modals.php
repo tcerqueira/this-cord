@@ -13,7 +13,7 @@
             <p id="about-user-modal"></p>
             <h3>Note</h3>
             <p id="note-user-modal"></p>
-            <form id="sendMessageModalForm" class="text-input-container user-text-input">
+            <form id="sendMessageModalForm" class="text-input-container user-text-input" autocomplete="off">
                 <input type="text" id="direct-message-input" placeholder="Message directly">
             </form>
         </main>
@@ -51,7 +51,7 @@
                 <label for="guildThemePicker">Pick a theme color</label>
                 <input type="color" name="theme_color" id="guildThemePicker" value="#7289da">
             </form>
-            <div id="createGuildMessage" class="error-message"></div>
+            <div id="createGuildError" class="error-message one-liner"></div>
             <button id="createGuildSubmitBtn" class="button bg-blue">Create</button>
         </main>
     </div>
@@ -65,6 +65,7 @@
                 <div class="text-input-container">
                     <input type="text" name="channelname" id="channelNameInput" placeholder="Channel name">
                 </div>
+                <div id="createChannelError" class="error-message one-liner"></div>
                 <input class="button bg-blue" type="submit" value="Create">
             </form>
         </main>
@@ -100,6 +101,7 @@
                 </div>
             </li>
             <hr>
+            <div id="guildInviteError" class="error-message one-liner"></div>
             <button id="inviteModalBtn" class="button bg-green">Invite</button>
         </main>
     </div>
