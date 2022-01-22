@@ -370,3 +370,34 @@
     flex-grow: 1;
     font-size: 1.2rem;
 }
+
+/* ####################################################### ERROR ###################################################### */
+/* #################################################################################################################### */
+
+.error-modal {
+    display: none;
+    padding: 1.5rem;
+    width: 95%;
+    max-width: 350px;
+}
+
+.error-modal header {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+
+.error-modal header svg {
+    fill: var(--color-red);
+    height: 3rem;
+    width: 3rem;
+}
+
+.error-modal main {
+    text-align: center;
+}
+
+.error-modal main button {
+    background-color: transparent;
+    border: 1px solid currentColor;
+}
