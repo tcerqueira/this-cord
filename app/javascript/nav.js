@@ -20,6 +20,19 @@ document.getElementById('createGuildNavIcon').onclick = () => {
     openCreateGuildModal();
 };
 
+document.getElementById('logoutIcon').addEventListener('click', async () => {
+    try {
+        await api.signOut();
+    }
+    catch (err) {
+        console.log(err);
+    }
+    finally {
+        document.cookie = "PHPSESSID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+        window.location.href = 'login.php';
+    }
+});
+
 function addServerCard(server)
 {
     document.getElementById('guilds-container').append(renderServerCard(server, false));

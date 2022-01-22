@@ -1,13 +1,30 @@
 .primary-nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: var(--color-dark-grey);
     grid-area: primary-nav;
-    /* overflow-y: auto;
+    /* overflow-y: hidden;
     overflow-x: visible; */
+    /* overflow: hidden; */
 }
 
 .secondary-nav {
     background-color: var(--color-medium-grey-1);
     grid-area: secondary-nav;
+}
+
+.primary-nav > div:first-child {
+    width: 5rem;
+    /* overflow-y: hidden; */
+    /* overflow-x: visible; */
+    /* overflow: hidden; */
+}
+
+.guilds-container {
+    /* overflow-y: auto;
+    overflow-x: hidden; */
+    /* overflow: auto; */
 }
 
 .side-card {
@@ -132,10 +149,13 @@
 .side-card:hover::after {
     content: attr(data-tooltip);
     position: absolute;
-    top: 35%;
+    top: 10%;
     left: 150%;
     color: white;
     transition: all 200ms ease-in-out;
+
+    white-space: nowrap;
+    /* overflow: hidden; */
 
     padding: 0.6rem;
     background-color: black;
@@ -177,6 +197,39 @@
     border-radius: 5px;
     background-color: white;
     animation: ball-to-bar .3s linear forwards;
+}
+
+#homeIcon {
+    transition: background-color .3s linear;
+}
+
+#homeIcon:hover {
+    background-color: var(--color-primary);
+}
+
+#createGuildNavIcon {
+    transition: background-color .3s linear;
+}
+
+#createGuildNavIcon:hover {
+    background-color: var(--color-green);
+}
+
+#createGuildNavIcon svg {
+    fill: var(--font-color);
+}
+
+#logoutIcon {
+    flex-shrink: 0;
+    transition: background-color .3s linear;
+}
+
+#logoutIcon:hover {
+    background-color: var(--color-red);
+}
+
+#logoutIcon svg {
+    fill: var(--font-color);
 }
 
 @keyframes ball-to-bar {

@@ -678,6 +678,32 @@ class API
             xhr.send(JSON.stringify(body));
         });
     }
+
+    deleteMessage({ messageId })
+    {
+        return new Promise((resolve, reject) => {
+            
+            const body = {
+                message_id: messageId
+            }
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/message/delete.php', true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
 }
 
 const api = new API('../../api');

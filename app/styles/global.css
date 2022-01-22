@@ -124,6 +124,7 @@ input[type=email]:focus {
         "primary-nav server-header channel-header channel-header"
         "primary-nav secondary-nav main right-sidebar";
     height: 100vh;
+    overflow: hidden;
 }
 
 .settings-container {

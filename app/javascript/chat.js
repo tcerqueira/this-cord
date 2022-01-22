@@ -38,7 +38,7 @@ function renderChat(messages) {
             renderReply(messageItem, message.reply);
         }
         if (lastMsg && lastMsg.author.id !== message.author.id) {
-            renderMessageAuthor(lastMsgItem, lastMsg);
+            renderMessageAuthor(messageItem, message);
         }
 
         lastMsg = message;
@@ -46,8 +46,9 @@ function renderChat(messages) {
     });
 
     if(g_lastMessage === undefined)
-        renderMessageAuthor(document.querySelector('#messages-list > li:last-child'), messages[messages.length-1]);
-    g_lastMessage = messages[0];
+        renderMessageAuthor(document.querySelector('#messages-list > li:last-child'), messages[0]);
+    if(messages.length)
+        g_lastMessage = messages[0];
 }
 
 document.getElementById('cancel-reply-icon').addEventListener('click', evt => {
@@ -115,8 +116,11 @@ function renderMessage(message) {
     if (message.reply?.author.id === currentProfileId)
         listItem.classList.add('message-replying-to-me');
 
-    listItem.innerText = message.content;
-    renderMessageOptions(listItem, true);
+    const p = document.createElement('p');
+    const contentArr = parseMessageContent(message.content);
+    p.append(...contentArr);
+    listItem.append(p);
+    renderMessageOptions(listItem, message.author.id === currentProfileId);
 
     return listItem;
 }
@@ -139,6 +143,7 @@ function renderMessageOptions(listItem, deletable) {
             }
         }
         renderReplying(replyingMessage);
+        document.getElementById('message-input').focus();
     });
     div.append(replyIcon);
     if (deletable) {
@@ -146,6 +151,25 @@ function renderMessageOptions(listItem, deletable) {
         removeIcon.src = "../public/trash-svgrepo-com.svg";
         removeIcon.alt = 'remove-icon';
         div.append(removeIcon);
+        removeIcon.addEventListener('click', () => {
+            openConfirmationModal('Do you want to delete the message?', async evt => {
+                evt.target.disabled = true;
+                try {
+                    await api.deleteMessage({ messageId: listItem.id.split('_')[1] })
+                    document.getElementById('messages-list').removeChild(listItem);
+                    if(listItem.querySelector('h3')) {
+                        window.location.reload();
+                    }
+                }
+                catch (err) {
+                    console.log(err);
+                }
+                finally {
+                    evt.target.disabled = false;
+                    closeModal();
+                }
+            });
+        });
     }
     listItem.append(div);
 }
@@ -161,9 +185,7 @@ function renderMessageAuthor(messageItem, message) {
     authorAvatar.classList.add('author-avatar');
     authorAvatar.classList.add('icon-size-small');
     authorAvatar.classList.add('icon-card');
-    // TODO: theme color
     authorAvatar.style = `--icon-bg-color: ${message.author.theme_color};`;
-    authorAvatar.innerText = message.author.username;
     h3.append(authorAvatar);
 
     const authorSpan = document.createElement('span');
@@ -214,6 +236,27 @@ function removeReplying() {
     document.getElementById('replyingToUsername')?.remove();
     channelContainer.classList.remove('text-channel-container-replying');
     replyContainer.style.display = '';
+    document.getElementById('message-input').focus();
+}
+
+function parseMessageContent(content) {
+    let parsedContent = [];
+    const urlRegEx = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+    const urlMatches = [...content.matchAll(urlRegEx)];
+
+    let lastIndex = 0;
+    urlMatches.forEach(match => {
+        if(match.length) {
+            const text = content.slice(lastIndex, match.index);
+            const urlRef = document.createElement('a')
+            urlRef.href = match[0];
+            urlRef.innerText = match[0];
+            parsedContent.push(text, urlRef);
+            lastIndex = match.index + match[0].length;
+        }
+    });
+    parsedContent.push(content.slice(lastIndex));
+    return parsedContent;
 }
 
 function createUsernameRef(id, username, theme) {

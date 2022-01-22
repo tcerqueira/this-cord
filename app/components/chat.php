@@ -15,7 +15,7 @@
                     <span class="message-date">Agora</span>
                 </span>
             </h3>
-            Hello mockmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+            <p>Hello mockmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm</p>
             <div class="message-options">
                 <a href="#"><img src="../public/reply-svgrepo-com.svg" alt="reply-icon"></a>
                 <a href="#"><img src="../public/trash-svgrepo-com.svg" alt="remove-icon"></a>
