@@ -1,4 +1,4 @@
-<header class="page-header home-topbar-container shadow">
+<header class="page-header home-topbar-container">
     <div class="tabs-container">
         <h2><button id="onlineTabBtn" class="button topbar-tab">Online</button></h2>
         <div class="vertical-bar"></div>

@@ -159,7 +159,7 @@ input[type=email]:focus {
 }
 
 .nav-header:hover {
-    background-color: var(--color-medium-grey-2);
+    background-color: rgba(255,255,255,.05);
 }
 
 .nav-header > h1 {
@@ -188,7 +188,12 @@ input[type=email]:focus {
     background-color: var(--color-medium-grey-2);
 
     padding: 1rem;
-    z-index: 1;
+    /* z-index: 1; */
+}
+
+.nav-header, .page-header {
+    border-bottom: 2px solid var(--color-dark-grey);
+    /* box-shadow: 1px 0px 6px -2px black; */
 }
 
 .right-sidebar {

@@ -1,3 +1,3 @@
-<header class="page-header shadow">
+<header class="page-header">
     Channel name
 </header>
