@@ -121,8 +121,8 @@
             <h1>Error</h1>
         </header>
         <main>
-            <p>Error message here</p>
-            <button class="button">OK</button>
+            <p id="errorModalMessage">Error message here</p>
+            <button id="errorModalBtn" class="button">OK</button>
         </main>
     </div>
 </div>
