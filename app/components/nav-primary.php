@@ -7,7 +7,16 @@
             </div>
         </a>
         <hr/>
-        <div id="guilds-container" class="guilds-container">            
+        <div id="guilds-container" class="guilds-container">
+            <!-- <div class="icon-size-medium icon-card side-card current-server" data-tooltip="FEUP" data-id="fd26e47f-e404-237e-7f36-9053b13138f3" style="--icon-bg-color: #9c6b4b;">FE</div>
+            <div class="icon-size-medium icon-card side-card current-server" data-tooltip="FEUP" data-id="fd26e47f-e404-237e-7f36-9053b13138f3" style="--icon-bg-color: #9c6b4b;">FE</div>
+            <div class="icon-size-medium icon-card side-card current-server" data-tooltip="FEUP" data-id="fd26e47f-e404-237e-7f36-9053b13138f3" style="--icon-bg-color: #9c6b4b;">FE</div>
+            <div class="icon-size-medium icon-card side-card current-server" data-tooltip="FEUP" data-id="fd26e47f-e404-237e-7f36-9053b13138f3" style="--icon-bg-color: #9c6b4b;">FE</div>
+            <div class="icon-size-medium icon-card side-card current-server" data-tooltip="FEUP" data-id="fd26e47f-e404-237e-7f36-9053b13138f3" style="--icon-bg-color: #9c6b4b;">FE</div>
+            <div class="icon-size-medium icon-card side-card current-server" data-tooltip="FEUP" data-id="fd26e47f-e404-237e-7f36-9053b13138f3" style="--icon-bg-color: #9c6b4b;">FE</div>
+            <div class="icon-size-medium icon-card side-card current-server" data-tooltip="FEUP" data-id="fd26e47f-e404-237e-7f36-9053b13138f3" style="--icon-bg-color: #9c6b4b;">FE</div>
+            <div class="icon-size-medium icon-card side-card current-server" data-tooltip="FEUP" data-id="fd26e47f-e404-237e-7f36-9053b13138f3" style="--icon-bg-color: #9c6b4b;">FE</div> -->
+            
         </div>
         <div id="createGuildNavIcon" class="icon-size-medium icon-card side-card" data-tooltip="Create Server">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path></svg>
