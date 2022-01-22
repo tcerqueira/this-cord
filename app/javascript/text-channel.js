@@ -34,5 +34,8 @@ async function render() {
 
     } catch (err) {
         console.log(err);
+        openErrorModal(err.error, () => {
+            window.location.href = 'login.php';
+        });
     }
 }

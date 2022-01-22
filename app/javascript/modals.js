@@ -298,7 +298,6 @@ function createModalToInviteItem(user)
     return inviteItem;
 }
 
-openErrorModal('No connection to database', () => console.log('Error modal'));
 function openErrorModal(message, callbackFn)
 {
     openModal('error-modal');
