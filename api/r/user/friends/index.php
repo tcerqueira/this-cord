@@ -26,8 +26,7 @@ if(count($_GET) == 0) {
     $response = $controller->getFriends(getId());
 }
 else if(isset($_GET['id'])) {
-    // TODO ??????
-    $response = $controller->getFriends(getId());
+    $response = $controller->getFriend(getId(), $_GET['id']);
 }
 else {
     $response = unprocessableEntityResponse();

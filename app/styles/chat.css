@@ -39,16 +39,41 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    word-wrap: break-word;
+    /* word-wrap: break-word; */
     padding: 1rem 1rem 1rem calc(var(--card-size) + 2rem);
+}
+
+.message > p {
+    margin: 0;
+}
+
+.message > p > a:hover {
+    text-decoration: underline;
 }
 
 .message:hover {
     background-color: var(--color-medium-grey-1);
 }
 
+.message:target {
+    animation: highlight-message 1s ease-in;
+}
+
 .message > a {
     color: inherit;
+}
+
+.message::before {
+    content: attr(data-sent-at);
+    display: none;
+    position: absolute;
+    inset: .5rem auto auto 1em;
+    font-size: 0.675rem;
+    opacity: 0.5;
+}
+
+.message:not(.has-avatar):hover::before {
+    display: block;
 }
 
 .reply-preview {
@@ -137,6 +162,8 @@
 }
 
 .message-box {
+    display: flex;
+    justify-content: space-between;
     background-color: var(--color-light-grey);
     font-size: 1.2rem;
 }
@@ -176,7 +203,27 @@
 } */
 
 #message-input {
-    width: 80%;
+    width: 95%;
+}
+
+#sendMessageForm button {
+    align-self: center;
+    text-align: center;
+    border: none;
+    border-radius: 3px;
+    background-color: transparent;
+}
+
+#sendMessageForm .sending {
+    animation: bouncing-left-right .4s cubic-bezier(0.42, 0, 0.57, 1.6) infinite;
+}
+
+#sendMessageForm button:hover {
+    background-color: rgba(0,0,0,.1);
+}
+
+#sendMessageForm button svg {
+    fill: var(--font-color);
 }
 
 .author-avatar {
@@ -185,4 +232,25 @@
     top: 0;
     left: calc(var(--side-size) * -1.5);
     /* background-color: var(--color-primary); */
+}
+
+@keyframes highlight-message {
+    from {
+        background-color: var(--color-yellow);
+    }
+    to {
+        background-color: transparent;
+    }
+}
+
+@keyframes bouncing-left-right {
+    0% {
+        transform: translateX(-25%);
+    }
+    50% {
+        transform: translateX(25%);
+    }
+    100% {
+        transform: translateX(-25%);
+    }
 }

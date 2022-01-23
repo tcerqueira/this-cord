@@ -25,11 +25,27 @@ class GuildController
             return $response;
         }
         $result = $this->guildGateway->find($id);
-        $result = pg_fetch_assoc($result);
         if(!$result)
-            $response = notFoundResponse();
-        else
-            $response = okResponse($result);
+        {
+            $response = internalServerErrorResponse('Problem finding guild.');
+            return $response;
+        }
+        $result = pg_fetch_assoc($result);
+        $result_arr = [
+            'id' => $result['guild_id'],
+            'guildname' => $result['guildname'],
+            'initials' => $result['initials'],
+            'theme_color' => $result['guild_theme_color'],
+            'channels' => $result['channels'] == "[null]" ? [] : json_decode($result['channels']),
+            'admin' => [
+                'id' => $result['id'],
+                'username' => $result['username'],
+                'theme_color' => $result['theme_color'],
+                'userstatus' => $result['userstatus'],
+                'user_description' => $result['user_description']
+            ]
+        ];
+        $response = okResponse($result_arr);
         return $response;
     }
 
@@ -260,6 +276,21 @@ class GuildController
             return $response;
         }
         $response = okResponse(['success' => true]);
+        return $response;
+    }
+
+    public function generateOpenInvite($id)
+    {
+        $result = $this->guildGateway->findExact($id);
+        if(!$result) {
+            $response = internalServerErrorResponse('Problem retrieving open invite.');
+            return $response;
+        }
+        $result = pg_fetch_assoc($result);
+        $response = okResponse([
+            'guild_id' => $result['id'],
+            'open_invite_key' => $result['open_invite_key']
+        ]);
         return $response;
     }
 

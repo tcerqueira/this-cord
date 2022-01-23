@@ -1,0 +1,13 @@
+<header class="page-header home-topbar-container">
+    <div class="tabs-container">
+        <h2><button id="onlineTabBtn" class="button topbar-tab">Online</button></h2>
+        <div class="vertical-bar"></div>
+        <h2><button id="allTabBtn" class="button topbar-tab">All</button></h2>
+        <div class="vertical-bar"></div>
+        <h2><button id="pendingTabBtn" class="button topbar-tab">Pending</button></h2>
+    </div>
+    <form id="searchTopbarForm" class="search-input-container topbar-search" autocomplete="off">
+        <input type="text" id="topbar-search-input" placeholder="Search">
+        <img src="../public/search-svgrepo-com.svg" alt="search-icon">
+    </form>
+</header>

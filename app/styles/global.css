@@ -22,6 +22,9 @@
     /* fixed sizes */
     --card-size: 3.5rem;
     --border-radius-size: 10px;
+    font-family: 'Poppins', sans-serif;
+    /* Animation */
+    --bounce-curve: cubic-bezier(0.42, 0, 0.57, 1.6);
 }
 
 html {
@@ -124,6 +127,7 @@ input[type=email]:focus {
         "primary-nav server-header channel-header channel-header"
         "primary-nav secondary-nav main right-sidebar";
     height: 100vh;
+    overflow: hidden;
 }
 
 .settings-container {
@@ -134,24 +138,76 @@ input[type=email]:focus {
 }
 
 .main-container {
-    background-color: green;
+    background-color: var(--color-medium-grey-2);
 }
 
-.server-header {
+.server-nav{
+    display: grid;
+    grid-template-rows: auto 4rem;
+    grid-template-areas: 
+        "server-overview"
+        "user";
+    overflow: hidden;
+}
+
+.nav-header {
     grid-area: server-header;
     background-color: var(--color-medium-grey-1);
     border-top-left-radius: 10px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
     /* z-index: 1; */
 }
 
-.channel-header {
+.nav-header:hover {
+    background-color: rgba(255,255,255,.05);
+}
+
+.nav-header > h1 {
+    font-size: 1.3rem;
+}
+
+.server-options-container {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.nav-header img {
+    width: 1rem;
+    height: 1rem;
+    margin-left: .3rem;
+
+    cursor: pointer;
+}
+
+.nav-header img:hover {
+    filter: brightness(125%);
+}
+
+.page-header {
     grid-area: channel-header;
     background-color: var(--color-medium-grey-2);
-    z-index: 1;
+
+    padding: 1rem;
+    /* z-index: 1; */
+}
+
+.nav-header, .page-header {
+    border-bottom: 2px solid var(--color-dark-grey);
+    /* box-shadow: 1px 0px 6px -2px black; */
 }
 
 .right-sidebar {
     grid-area: right-sidebar;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0.5rem;
+    
+    overflow-y: auto;
+    overflow-x: hidden;
     background-color: var(--color-medium-grey-1);
 }
 
@@ -194,7 +250,7 @@ input[type=email]:focus {
 button.button,
 input.button {
     padding: 0.2em 1em;
-    color: var(--color-light);
+    color: var(--font-color);
     border: none;
     border-radius: 3px;
     cursor: pointer;
@@ -224,6 +280,22 @@ input.button:active {
     color: var(--color-red);
     font-weight: bold;
     word-wrap: break-word;
+}
+
+[data-tooltip]::before,
+[data-tooltip]::after {
+    animation: scale-in .2s var(--bounce-curve);
+}
+
+@keyframes scale-in {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 /************************************* CSS utility classes *************************************/
@@ -258,10 +330,21 @@ input.button:active {
     border-radius: var(--border-radius-size, 10px);
 }
 
+.search-input-container {
+    background-color: var(--color-black);
+    border-radius: 5px;
+    padding: 0.2rem 1rem;
+}
+
+.search-input-container:focus-within {
+    border: var(--font-color);
+}
+
 .text-input-container {
     background-color: var(--color-light-grey);
     border-radius: 10px;
     padding: 0.7rem 1rem;
+    border: 1px solid var(--color-light-grey);
     /* font-size: 1.2rem; */
 }
 
@@ -269,8 +352,19 @@ input.button:active {
     border: 1px solid var(--color-primary);
 }
 
+.vertical-bar {
+    height: 1em;
+    width: 1px;
+    background-color: var(--font-color);
+}
+
 .invalid-input {
     border: 1px solid var(--color-red);
+}
+
+.icon-text-size {
+    height: 1.1rem;
+    width: 1.1rem;
 }
 
 .icon-size-big {
@@ -285,14 +379,22 @@ input.button:active {
     --side-size: calc(var(--card-size) - 0.5rem);
 }
 
+.icon-size-xsmall {
+    --side-size: calc(var(--card-size) - 1rem);
+}
+
 .bg-green {
-    background-color: var(--color-green);
+    background-color: var(--color-green) !important;
 }
 
 .bg-red {
-    background-color: var(--color-red);
+    background-color: var(--color-red) !important;
+}
+
+.bg-blue {
+    background-color: var(--color-primary) !important;
 }
 
 .bg-light-grey {
-    background-color: var(--color-light-grey);
+    background-color: var(--color-light-grey) !important;
 }

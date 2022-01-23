@@ -1,0 +1,52 @@
+main {
+    padding-top: 25vh;
+    height: 100vh;
+
+    background-color: #7289DA;
+    background-image: url("../public/bullseye-gradient.svg");
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.invite-to-guild-container {
+    display: none;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1rem;
+    max-width: 750px;
+    min-height: 200px;
+
+    background-color: var(--color-dark-grey);
+}
+
+.invite-to-guild-container a:hover {
+    text-decoration: underline;
+}
+
+.display-success svg {
+    height: 100%;
+    max-width: 250px;
+    width: 100%;
+    /* min-width: 80vw; */
+    fill: var(--color-green);
+}
+
+.display-failure svg {
+    height: 100%;
+    max-width: 250px;
+    width: 100%;
+    /* min-width: 80vw; */
+    fill: var(--color-red);
+}
+
+.invite-message {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.invite-message a {
+    align-self: center;
+}

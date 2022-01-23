@@ -68,8 +68,20 @@ CREATE TABLE this_friends (
 );
 
 CREATE UNIQUE INDEX unique_friend_pairs ON this_friends(least(friend_1,friend_2), greatest(friend_1,friend_2));
+CREATE INDEX ordered_channel_messages_index ON channel_message(channel_id, sent_at);
 
 CREATE VIEW public_user_VIEW AS
 SELECT id, username, userstatus, theme_color, user_description
 FROM this_user;
 
+CREATE OR REPLACE FUNCTION update_reply() RETURNS TRIGGER AS $$
+    BEGIN
+        UPDATE channel_message SET reply_to=NULL WHERE reply_to=OLD.id;
+        RETURN NULL;
+    END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER on_delete_message
+AFTER DELETE ON channel_message 
+FOR EACH ROW
+EXECUTE PROCEDURE update_reply();

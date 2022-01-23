@@ -176,41 +176,16 @@ class API
                         reject(JSON.parse(xhr.response));
                 }
             };
-            xhr.send(JSON.stringify(body));
+            xhr.send();
         });
     }
-
-    deleteUser({password})
+    
+    searchUser({ username })
     {
         return new Promise((resolve, reject) => {
-            const body = {password};
-
-            let xhr = new XMLHttpRequest();
-            xhr.open('POST', this.apiRoot+'/r/user/delete.php', true);
         
-            xhr.onload = () => {
-                switch(xhr.status)
-                {
-                    case 200:
-                        resolve(JSON.parse(xhr.response));
-                        break;
-                    default:
-                        // TODO: handle more gracefully errors
-                        reject(JSON.parse(xhr.response));
-                }
-            };
-            xhr.send(JSON.stringify(body));
-        });
-    }
-    // #################################################### GUILD ########################################################
-    // ###################################################################################################################
-
-    fetchMyGuilds()
-    {
-        return new Promise((resolve, reject) => {
-
             let xhr = new XMLHttpRequest();
-            xhr.open('GET', this.apiRoot+'/r/guild/my.php', true);
+            xhr.open('GET', this.apiRoot+'/r/user/?username='+username, true);
         
             xhr.onload = () => {
                 switch(xhr.status)
@@ -226,6 +201,154 @@ class API
             xhr.send();
         });
     }
+
+    fetchFriend({ id })
+    {
+        return new Promise((resolve, reject) => {
+        
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', this.apiRoot+'/r/user/friends/?id='+id, true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send();
+        });
+    }
+
+    fetchFriends()
+    {
+        return new Promise((resolve, reject) => {
+        
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', this.apiRoot+'/r/user/friends', true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send();
+        });
+    }
+
+    requestFriend({ id })
+    {
+        return new Promise((resolve, reject) => {
+        
+            const body = {
+                friend_id: id
+            }
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/user/friends/request.php', true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
+
+    removeFriend({ id })
+    {
+        return new Promise((resolve, reject) => {
+        
+            const body = {
+                friend_id: id
+            }
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/user/friends/remove.php', true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
+
+    deleteUser({password})
+    {
+        return new Promise((resolve, reject) => {
+            const body = {password};
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/user/delete.php', true);
+            
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
+    
+    acceptFriendRequest({ id })
+    {
+        return new Promise((resolve, reject) => {
+        
+            const body = {
+                friend_id: id
+            }
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/user/friends/accept.php', true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
+
+    // #################################################### GUILD ########################################################
+    // ###################################################################################################################
 
     fetchGuild({ id })
     {
@@ -249,12 +372,79 @@ class API
         });
     }
 
-    fetchGuildMembers({id})
+    fetchMyGuilds()
+    {
+        return new Promise((resolve, reject) => {
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', this.apiRoot+'/r/guild/my.php', true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send();
+        });
+    }
+
+    fetchGuildMembers({ id })
     {
         return new Promise((resolve, reject) => {
 
             let xhr = new XMLHttpRequest();
             xhr.open('GET', this.apiRoot+'/r/guild/members/?id='+id, true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send();
+        });
+    }
+
+    fetchGuildInvites()
+    {
+        return new Promise((resolve, reject) => {
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', this.apiRoot+'/r/guild/invite/list.php', true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send();
+        });
+    }
+
+    generateOpenInvite({ guildId })
+    {
+        return new Promise((resolve, reject) => {
+
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', this.apiRoot+'/r/guild/invite/generate.php?guild_id='+guildId, true);
         
             xhr.onload = () => {
                 switch(xhr.status)
@@ -313,6 +503,33 @@ class API
 
             let xhr = new XMLHttpRequest();
             xhr.open('POST', this.apiRoot+'/r/guild/update.php', true);
+
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
+    
+    inviteToGuild({ guildId, userId })
+    {
+        return new Promise((resolve, reject) => {
+
+            const body = {
+                guild_id: guildId,
+                added_user_id: userId
+            }
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/guild/invite/', true);
         
             xhr.onload = () => {
                 switch(xhr.status)
@@ -329,17 +546,17 @@ class API
         });
     }
 
-    kickMember({guildId, memberId})
+    acceptGuildInvite({ id })
     {
         return new Promise((resolve, reject) => {
-            
+
             const body = {
-                guild_id: guildId,
-                member_id: memberId
+                guild_id: id,
+                answer: true
             }
 
             let xhr = new XMLHttpRequest();
-            xhr.open('POST', this.apiRoot+'/r/guild/members/kick.php', true);
+            xhr.open('POST', this.apiRoot+'/r/guild/invite/answer.php', true);
         
             xhr.onload = () => {
                 switch(xhr.status)
@@ -355,19 +572,18 @@ class API
             xhr.send(JSON.stringify(body));
         });
     }
-
-    changeMemberRole({guildId, memberId, guildRole})
+    
+    declineGuildInvite({ id })
     {
         return new Promise((resolve, reject) => {
-            
+
             const body = {
-                guild_id: guildId,
-                member_id: memberId,
-                guild_role: guildRole
+                guild_id: id,
+                answer: false
             }
 
             let xhr = new XMLHttpRequest();
-            xhr.open('POST', this.apiRoot+'/r/guild/members/role.php', true);
+            xhr.open('POST', this.apiRoot+'/r/guild/invite/answer.php', true);
         
             xhr.onload = () => {
                 switch(xhr.status)
@@ -396,7 +612,89 @@ class API
 
             let xhr = new XMLHttpRequest();
             xhr.open('POST', this.apiRoot+'/r/guild/transfer-admin.php', true);
+
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
+
+    joinGuild({ guildId, inviteKey })
+    {
+        return new Promise((resolve, reject) => {
+
+            const body = {
+                guild_id: guildId,
+                open_invite_key: inviteKey
+            }
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/guild/invite/open.php', true);
         
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
+
+    changeMemberRole({guildId, memberId, guildRole})
+    {
+        return new Promise((resolve, reject) => {
+            
+            const body = {
+                guild_id: guildId,
+                member_id: memberId,
+                guild_role: guildRole
+            }
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/guild/members/role.php', true);
+
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
+
+    kickMember({guildId, memberId})
+    {
+        return new Promise((resolve, reject) => {
+            
+            const body = {
+                guild_id: guildId,
+                member_id: memberId
+            }
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/guild/members/kick.php', true);
+
             xhr.onload = () => {
                 switch(xhr.status)
                 {
@@ -459,13 +757,13 @@ class API
         });
     }
 
-    createTextChannel({guildId, textChannelName})
+    createTextChannel({ guildId, channelName })
     {
         return new Promise((resolve, reject) => {
             
             const body = {
                 guild_id: guildId,
-                channel_name: textChannelName
+                channelname: channelName
             }
 
             let xhr = new XMLHttpRequest();
@@ -542,19 +840,66 @@ class API
     // ################################################### MESSAGE #######################################################
     // ###################################################################################################################
 
-    sendMessage({channelId, authorId, replyTo, content})
+    fetchMessages({ channelId, since, until })
+    {
+        return new Promise((resolve, reject) => {
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', this.apiRoot+`/r/message/?channel_id=${channelId}&since=${since?since:''}&until=${until?until:''}`, true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send();
+        });
+    }
+
+    sendMessage({channelId, replyTo, content})
     {
         return new Promise((resolve, reject) => {
             
             const body = {
                 channel_id: channelId,
-                author_id: authorId,
                 reply_to: replyTo,
                 content
             }
 
             let xhr = new XMLHttpRequest();
             xhr.open('POST', this.apiRoot+'/r/message/send.php', true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
+
+    deleteMessage({ messageId })
+    {
+        return new Promise((resolve, reject) => {
+            
+            const body = {
+                message_id: messageId
+            }
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/message/delete.php', true);
         
             xhr.onload = () => {
                 switch(xhr.status)
