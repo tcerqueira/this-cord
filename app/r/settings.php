@@ -114,6 +114,33 @@ require 'scripts/SendHeaders.php';
                     <button class= "button" id="submitChangesButtonUser"> Save Changes</button>
                 </div>
             </section>
+
+            <section>
+            <h2>Color Theme</h2>
+                <div class = "radio-section">
+                    <form action="">
+                        <div class="radio-item">
+                            
+                            
+                            <label class ="radio_label" for="this-cord-darktheme">
+                                <input type="radio" id="this-cord-darktheme" name="app-theme" class = "radio_input">
+                                <div class="radio_radio"></div>
+                                Dark theme
+                            </label>
+                        </div>
+
+                        <div class="radio-item">
+                                                 
+                            
+                            <label class ="radio_label" for="this-cord-lighttheme" >
+                                <input type="radio" id="this-cord-lighttheme" name="app-theme" class = "radio_input">
+                                <div class="radio_radio"></div>
+                                Light Theme
+                            </label>
+                        </div>
+                    </form>
+                </div>
+            </section>
         </div>
         
 

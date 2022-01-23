@@ -227,6 +227,28 @@ class API
         });
     }
 
+    fetchGuild({ id })
+    {
+        return new Promise((resolve, reject) => {
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', this.apiRoot+'/r/guild/?id='+id, true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send();
+        });
+    }
+
     fetchGuildMembers({id})
     {
         return new Promise((resolve, reject) => {
@@ -262,6 +284,118 @@ class API
 
             let xhr = new XMLHttpRequest();
             xhr.open('POST', this.apiRoot+'/r/guild/create.php', true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
+
+    updateGuild({guildname, initials, openInviteKey, themeColor})
+    {
+        return new Promise((resolve, reject) => {
+            
+            const body = {
+                guildname,
+                initials,
+                open_invite_key: openInviteKey,
+                theme_color: themeColor
+            }
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/guild/update.php', true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
+
+    kickMember({guildId, memberId})
+    {
+        return new Promise((resolve, reject) => {
+            
+            const body = {
+                guild_id: guildId,
+                member_id: memberId
+            }
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/guild/members/kick.php', true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
+
+    changeMemberRole({guildId, memberId, guildRole})
+    {
+        return new Promise((resolve, reject) => {
+            
+            const body = {
+                guild_id: guildId,
+                member_id: memberId,
+                guild_role: guildRole
+            }
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/guild/members/role.php', true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
+
+    transferAdmin({guildId, newAdmin, password})
+    {
+        return new Promise((resolve, reject) => {
+            
+            const body = {
+                guild_id: guildId,
+                new_admin: newAdmin,
+                password
+            }
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/guild/transfer-admin.php', true);
         
             xhr.onload = () => {
                 switch(xhr.status)
@@ -336,6 +470,59 @@ class API
 
             let xhr = new XMLHttpRequest();
             xhr.open('POST', this.apiRoot+'/r/text-channel/create.php', true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
+
+    deleteTextChannel({channel_id})
+    {
+        return new Promise((resolve, reject) => {
+            
+            const body = {
+                channel_id
+            }
+            
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', this.apiRoot+'/r/text-channel/delete.php', true);
+        
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
+
+    updateTextChannel({channel_id})
+    {
+        return new Promise((resolve, reject) => {
+            
+            const body = {
+                channel_id,
+                channelname
+            }
+            
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', this.apiRoot+'/r/text-channel/delete.php', true);
         
             xhr.onload = () => {
                 switch(xhr.status)
