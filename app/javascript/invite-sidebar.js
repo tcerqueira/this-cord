@@ -10,9 +10,9 @@ function renderGuildInvites(guilds) {
 }
 
 function createGuildInviteItem(guild) {
-    const inviteItem = document.getElementById('inviteItemTemplate').cloneNode(true);
-    inviteItem.style = '';
-    inviteItem.removeAttribute('id');
+    const inviteItem = document.getElementById('inviteItemTemplate').content.cloneNode(true);
+    // inviteItem.style = '';
+    // inviteItem.removeAttribute('id');
 
     inviteItem.querySelector('.icon-card').style = `--icon-bg-color: ${guild.theme_color};`;
     inviteItem.querySelector('span').innerText = guild.guildname;
