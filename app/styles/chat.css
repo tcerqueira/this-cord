@@ -45,6 +45,7 @@
 
 .message > p {
     margin: 0;
+    word-wrap: break-word;
 }
 
 .message > p > a:hover {
