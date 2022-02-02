@@ -4,13 +4,15 @@ render();
 async function render()
 {
     try {
-        const [ myGuilds, members ] = await Promise.all([
+        const [ myGuilds, members, user ] = await Promise.all([
             api.fetchMyGuilds(),
-            api.fetchGuildMembers({ id: currentGuildlId })
+            api.fetchGuildMembers({ id: currentGuildlId }),
+            api.fetchUser({ id: currentProfileId })
         ]);
 
         renderNav(myGuilds, currentGuildlId);
         renderMembers(members);
+        renderUserbar(user);
         
         const { guildname: currentGuildname } = myGuilds.find(g => g.id===currentGuildlId);
         document.getElementById('guildHeader').innerText = currentGuildname;

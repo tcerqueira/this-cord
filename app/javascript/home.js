@@ -4,16 +4,18 @@ render();
 async function render()
 {
     try {
-        let [ myGuilds, friendsList, guildInvites ] = await Promise.all([
+        let [ myGuilds, friendsList, guildInvites, user ] = await Promise.all([
             api.fetchMyGuilds(),
             api.fetchFriends(),
-            api.fetchGuildInvites()
+            api.fetchGuildInvites(),
+            api.fetchUser({ id: currentProfileId })
         ]);
         friends.push(...friendsList);
 
         renderNav(myGuilds);
         renderDmNav(getAllList(friends));
         renderGuildInvites(guildInvites);
+        renderUserbar(user);
 
         let currentTab = window.location.hash?.slice(1) || 'online';
         switchTab('online', currentTab);

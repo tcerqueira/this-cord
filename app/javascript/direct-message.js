@@ -3,11 +3,12 @@ const currentTextChannelId = document.getElementById('currentChannelId').dataset
 render();
 async function render() {
     try {
-        const [ myGuilds, messages, friendsList, guildInvites ] = await Promise.all([
+        const [ myGuilds, messages, friendsList, guildInvites, user ] = await Promise.all([
             api.fetchMyGuilds(),
             api.fetchMessages({ channelId: currentTextChannelId }),
             api.fetchFriends(),
-            api.fetchGuildInvites()
+            api.fetchGuildInvites(),
+            api.fetchUser({ id: currentProfileId })
         ]);
         
         renderNav(myGuilds);
@@ -15,6 +16,7 @@ async function render() {
         renderGuildInvites(guildInvites);
         renderSendMessage(currentTextChannelId);
         renderChat(messages);
+        renderUserbar(user);
 
         document.querySelector('.page-header').innerText = `Direct messages`;
 
