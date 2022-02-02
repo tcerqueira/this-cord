@@ -10,13 +10,11 @@ function renderDmNav(friendsList) {
 }
 
 function createDmItem(friend) {
-    const dmItem = document.getElementById('dmItemTemplate').cloneNode(true);
-    dmItem.style = '';
-    dmItem.removeAttribute('id');
+    const dmItem = document.getElementById('dmItemTemplate').content.cloneNode(true);
 
     dmItem.querySelector('div').style = `--icon-bg-color: ${friend.theme_color};`;
     dmItem.querySelector('span').innerText = friend.username;
-    dmItem.href = `direct-message.php?id=${friend.message_channel}`;
+    dmItem.querySelector('a').href = `direct-message.php?id=${friend.message_channel}`;
 
     return dmItem;
 }
