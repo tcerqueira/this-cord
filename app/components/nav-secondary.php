@@ -40,10 +40,10 @@
         </section> -->
     </div>
     
-    <div class="user shadow" >
+    <!-- <div class="user shadow" >
         <a href="#"><img src="../public/user.svg" alt="user"></a>
         <span>user name</span>
         <a href="#"><img src="../public/settings.svg" alt=""></a>
-    </div>
+    </div> -->
     <?php include 'user-bar.php'; ?>
 </nav>
