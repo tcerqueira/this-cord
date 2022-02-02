@@ -237,7 +237,7 @@
 
 @keyframes highlight-message {
     from {
-        background-color: var(--color-yellow);
+        background-color: var(--color-primary);
     }
     to {
         background-color: transparent;
