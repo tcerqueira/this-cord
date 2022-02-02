@@ -1,6 +1,6 @@
 <div class="messages-container">
     <!-- Empty element to reference to go back to bottom messages -->
-    <div id="back-to-bottom"></div>
+    <div id="bottom"></div>
     <ol id="messages-list">
         <!-- <li id="message_2" class="message">
             <a href="#message_123">

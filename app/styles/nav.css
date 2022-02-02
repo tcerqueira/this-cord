@@ -78,6 +78,7 @@
     padding-bottom: 0.6rem;
     padding-right: 0.5rem;
     height: fit-content;
+    border-radius: 10px;
     /* height: calc(var(--font-height) + (2 * var(--padding-height)));    */
 }
 
@@ -110,13 +111,14 @@
 }
 
 .text-channel:hover {
-    background-color: var(--color-dark-grey);
-    border-radius: 10px;
+    background-color: rgba(0,0,0, .1);
+
 }
 
 .selected-channel {
     color: var(--color-light);
     font-size: 1.1em;
+    background-color: rgba(255,255,255, .05);
 }
 
 .title {
