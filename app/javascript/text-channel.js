@@ -3,10 +3,11 @@ const currentTextChannelId = document.getElementById('currentChannelId').dataset
 render();
 async function render() {
     try {
-        const [myGuilds, channel, messages] = await Promise.all([
+        const [myGuilds, channel, messages, user] = await Promise.all([
             api.fetchMyGuilds(),
             api.fetchTextChannel({ id: currentTextChannelId }),
-            api.fetchMessages({ channelId: currentTextChannelId })
+            api.fetchMessages({ channelId: currentTextChannelId }),
+            api.fetchUser({ id: currentProfileId })
         ]);
         
         const [ members, textChannels ] = await Promise.all([
@@ -19,6 +20,7 @@ async function render() {
         renderSendMessage(currentTextChannelId);
         renderChat(messages);
         renderTextChannels(textChannels, currentTextChannelId);
+        renderUserbar(user);
         
         const { guildname: currentGuildname } = myGuilds.find(g => g.id===channel.guild_id);
         document.getElementById('guildHeader').innerText = currentGuildname;
