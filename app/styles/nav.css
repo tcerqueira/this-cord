@@ -139,7 +139,7 @@
     align-items: center;
     padding: 1.5rem;
 
-    border-left: 3px solid var(--user-theme-color, var(--color-primary));
+    border-left: 3px solid var(--user-theme-color, transparent);
     border-top-left-radius: 5px;
 }
 
