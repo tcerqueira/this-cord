@@ -16,6 +16,13 @@ function renderNav(myGuilds, currentId = null)
         document.querySelector('.icon-card[data-tooltip=Home]').classList.add('current-server');
 }
 
+function renderUserbar(user)
+{
+    document.getElementById('userbarUsername').innerText = user.username;
+    document.getElementById('userbarShortId').innerText = `#${user.id.slice(0,6)}`;
+    document.querySelector('.user').style = `--user-theme-color: ${user.theme_color};`;
+}
+
 document.getElementById('createGuildNavIcon').onclick = () => {
     openCreateGuildModal();
 };

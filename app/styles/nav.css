@@ -131,14 +131,29 @@
     cursor: pointer;
 }
 
-.user{
+.user {
     grid-area: user;
     background-color: var(--color-dark-grey);
     display: flex;
+    justify-content: space-between;
     align-items: center;
     padding: 1.5rem;
-    justify-content: space-between;
-    border-radius: 5px;
+
+    border-left: 3px solid var(--user-theme-color, var(--color-primary));
+    border-top-left-radius: 5px;
+}
+
+.user > div {
+    font-size: 1.1rem;
+}
+
+#userbarUsername {
+    color: var(--user-theme-color, var(--color-primary));
+}
+
+#userbarShortId {
+    font-size: .75em;
+    z-index: -1;
 }
 
 .user img {
