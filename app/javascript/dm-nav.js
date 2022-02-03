@@ -10,8 +10,8 @@ function renderDmNav(friendsList) {
 }
 
 function createDmItem(friend) {
-    const dmItem = document.getElementById('dmItemTemplate').content.cloneNode(true);
-
+    const dmItem = document.getElementById('dmItemTemplate').content.firstElementChild.cloneNode(true);
+    
     dmItem.querySelector('div').style = `--icon-bg-color: ${friend.theme_color};`;
     dmItem.querySelector('span').innerText = friend.username;
     dmItem.querySelector('a').href = `direct-message.php?id=${friend.message_channel}`;

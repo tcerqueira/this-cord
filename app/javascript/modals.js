@@ -294,18 +294,15 @@ function addToInviteList(toInvite)
 
 function createModalSearchItem(user)
 {
-    const searchItem = document.getElementById('searchItemTemplate').cloneNode(true);
-    searchItem.style = '';
-    searchItem.removeAttribute('id');
+    const searchItem = document.getElementById('searchItemTemplate').content.firstElementChild.cloneNode(true);
 
     searchItem.querySelector('.icon-card').style = `--icon-bg-color: ${user.theme_color};`;
     const usernameSpan = searchItem.querySelector(':scope > span');
     usernameSpan.innerText = user.username;
     usernameSpan.style = `--user-theme-color: ${user.theme_color};`;
-    const idSpan = document.getElementById('shortIdSpan').cloneNode(true);
+    const idSpan = document.createElement('span');
     idSpan.innerText = ` #${user.id.slice(0,6)}`;
-    idSpan.removeAttribute('id');
-    searchItem.querySelector(':scope > span').append(idSpan);
+    usernameSpan.append(idSpan);
 
     searchItem.querySelector('.invite-to-guild-icon').addEventListener('click', () => {
         searchItem.parentNode.removeChild(searchItem);
@@ -317,9 +314,7 @@ function createModalSearchItem(user)
 
 function createModalToInviteItem(user)
 {
-    const inviteItem = document.getElementById('toInviteItemTemplate').cloneNode(true);
-    inviteItem.style = '';
-    inviteItem.removeAttribute('id');
+    const inviteItem = document.getElementById('toInviteItemTemplate').content.firstElementChild.cloneNode(true);
 
     inviteItem.querySelector('span').innerText = user.username;
     inviteItem.querySelector('img').addEventListener('click', () => {

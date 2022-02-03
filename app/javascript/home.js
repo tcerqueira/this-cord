@@ -105,7 +105,7 @@ function renderUsersList(usersList, friendsList) {
 }
 
 function createUserItem(user) {
-    const userItem = document.getElementById('userItemTemplate').content.cloneNode(true);
+    const userItem = document.getElementById('userItemTemplate').content.firstElementChild.cloneNode(true);
     userItem.addEventListener('click', () => {
         openUserModal(user);
     });
