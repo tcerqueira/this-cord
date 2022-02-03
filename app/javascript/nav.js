@@ -60,7 +60,7 @@ function renderServerCard(server, isCurrent) {
     serverCard.style = '--icon-bg-color: ' + server.theme_color + ';';
 
     const img = document.createElement('img');
-    img.src = `${api.imgUrl}${server.img_name}`;
+    img.src = `${api.imgUrl}/${server.img_name}`;
     serverCard.append(img);
 
     return anchor;

@@ -711,23 +711,4 @@ class API
     }
 }
 
-const api = new API('../../api', '../../api/public/');
-
-// (async function test()
-// {
-//     try {
-//         const { id } = await api.signIn({
-//             username: 'titi',
-//             password: 'titi'
-//         });
-//         console.log(id);
-//         const user = await api.fetchUser({id});
-//         console.log(user);
-//     }
-//     catch (err) {
-//         console.log(err);
-//     }
-//     finally {
-//         await api.signOut();
-//     }
-// })();
+const api = new API('../../api', '../../api/public');

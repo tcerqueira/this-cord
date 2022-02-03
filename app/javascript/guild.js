@@ -49,6 +49,7 @@ function createMemberItem(member) {
     const li = document.createElement('li');
     const div = document.createElement('div');
     const span = document.createElement('span');
+    const img = document.createElement('img');
 
     li.className = 'member-container rounded-container';
     if(member.userstatus === '0') li.classList.add('offline');
@@ -56,6 +57,8 @@ function createMemberItem(member) {
     div.style = '--icon-bg-color: ' + member.theme_color + ';';
     span.innerText = member.username;
     span.style = '--sidebar-username-color: ' + member.theme_color + ';';
+    img.src = `${api.imgUrl}/${member.img_name}`;
+    div.append(img);
 
     li.append(div, span);
     li.addEventListener('click', async () => {

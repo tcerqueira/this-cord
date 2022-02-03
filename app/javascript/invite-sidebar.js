@@ -14,7 +14,7 @@ function createGuildInviteItem(guild) {
 
     inviteItem.querySelector('.icon-card').style = `--icon-bg-color: ${guild.theme_color};`;
     inviteItem.querySelector('span').innerText = guild.guildname;
-    inviteItem.querySelector('.icon-card img').src = `${api.imgUrl}${guild.img_name}`;
+    inviteItem.querySelector('.icon-card img').src = `${api.imgUrl}/${guild.img_name}`;
 
     // icon click handlers
     inviteItem.querySelector('img[alt=accept-guild-icon]').parentNode.addEventListener('click', async () => {

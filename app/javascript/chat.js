@@ -186,6 +186,9 @@ function renderMessageAuthor(messageItem, message) {
     authorAvatar.classList.add('icon-size-small');
     authorAvatar.classList.add('icon-card');
     authorAvatar.style = `--icon-bg-color: ${message.author.theme_color};`;
+    const img = document.createElement('img');
+    img.src = `${api.imgUrl}/${message.author.img_name}`;
+    authorAvatar.append(img);
     h3.append(authorAvatar);
 
     const authorSpan = document.createElement('span');

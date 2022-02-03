@@ -15,6 +15,7 @@ function createDmItem(friend) {
     dmItem.querySelector('div').style = `--icon-bg-color: ${friend.theme_color};`;
     dmItem.querySelector('span').innerText = friend.username;
     dmItem.querySelector('a').href = `direct-message.php?id=${friend.message_channel}`;
+    dmItem.querySelector('img').src = `${api.imgUrl}/${friend.img_name}`;
 
     return dmItem;
 }

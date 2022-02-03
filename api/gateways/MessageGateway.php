@@ -12,7 +12,7 @@ class MessageGateway
     public function find($id)
     {
         $query = "SELECT channel_message.*,
-                    public_user_VIEW.username, public_user_VIEW.theme_color
+                    public_user_VIEW.username, public_user_VIEW.theme_color, public_user_VIEW.img_name
                 FROM channel_message
                 JOIN public_user_VIEW ON author_id=public_user_VIEW.id
                 WHERE channel_message.id=$1;";
@@ -23,7 +23,7 @@ class MessageGateway
     public function findInChannel($channel_id, $since, $until)
     {
         $query = "SELECT channel_message.*,
-                    public_user_VIEW.username, public_user_VIEW.theme_color
+                    public_user_VIEW.username, public_user_VIEW.theme_color, public_user_VIEW.img_name
                 FROM channel_message
                 JOIN public_user_VIEW ON author_id=public_user_VIEW.id
                 WHERE channel_message.channel_id=$1 AND sent_at>$2 AND sent_at<COALESCE($3, now())
