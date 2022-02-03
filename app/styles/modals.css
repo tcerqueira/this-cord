@@ -157,11 +157,8 @@
     padding: 0 1.5rem 1.5rem 1.5rem;
 }
 
-.create-guild-main > img {
+.create-guild-main > .icon-card {
     align-self: center;
-    height: 5rem;
-    width: 5rem;
-    border-radius: 50%;
 }
 
 .naming-container {
