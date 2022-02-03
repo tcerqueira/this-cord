@@ -27,27 +27,6 @@
     /* overflow: auto; */
 }
 
-.side-card {
-    /* --side-size: var(--card-size); */
-    position: relative;
-    margin: 15px auto;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: border-radius 200ms ease-in-out,
-                background-color 100ms ease-in-out;
-
-    /* background-color: var(--color-medium-grey-1); */
-    color: var(--color-light);
-    cursor: pointer;
-}
-
-.side-card:hover {
-    border-radius: 40%;
-    /* background-color: var(--color-primary); */
-}
-
 .server-overview {
     display: flex;
     grid-area: server-overview;
@@ -163,6 +142,35 @@
     border-radius: 40px;
 }
 
+.side-card {
+    /* --side-size: var(--card-size); */
+    position: relative;
+    width: fit-content;
+    margin: 15px auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* background-color: var(--color-medium-grey-1); */
+    color: var(--color-light);
+}
+
+.side-card .icon-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: border-radius 200ms ease-in-out,
+                background-color 100ms ease-in-out;
+    cursor: pointer;
+}
+
+.side-card .icon-card:hover {
+    border-radius: 40%;
+    /* background-color: var(--color-primary); */
+}
+
 .side-card:hover::after {
     content: attr(data-tooltip);
     position: absolute;
@@ -204,16 +212,8 @@
     animation: ball-to-bar .3s linear forwards;
 }
 
-#homeIcon {
-    transition: background-color .3s linear;
-}
-
 #homeIcon:hover {
     background-color: var(--color-primary);
-}
-
-#createGuildNavIcon {
-    transition: background-color .3s linear;
 }
 
 #createGuildNavIcon:hover {
@@ -226,7 +226,6 @@
 
 #logoutIcon {
     flex-shrink: 0;
-    transition: background-color .3s linear;
 }
 
 #logoutIcon:hover {
