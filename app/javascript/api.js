@@ -1,8 +1,13 @@
 class API
 {
-    constructor(apiRoot)
+    constructor(apiRoot, filesRoot)
     {
         this.apiRoot = apiRoot;
+        this.filesRoot = filesRoot;
+    }
+
+    get imgUrl() {
+        return this.filesRoot;
     }
 
     // ##################################################### AUTH ########################################################
@@ -706,7 +711,7 @@ class API
     }
 }
 
-const api = new API('../../api');
+const api = new API('../../api', '../../api/public/');
 
 // (async function test()
 // {
