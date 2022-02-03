@@ -134,21 +134,18 @@ class GuildController
 
     public function updateGuildAvatar($id, $file)
     {
-        // pg_query($this->db, 'BEGIN');
         $filename = $file['name'] != '' ? 'guild_'.$id : 'guild_default.gif';
+        if($file['name'] != '') {
+            if(!move_uploaded_file($file['tmp_name'], '../../public/'.$filename)) {
+                $response = internalServerErrorResponse('Problem uploading guild avatar.');
+                return $response;
+            }
+        }
         $result = $this->guildGateway->updateAvatar($id, $filename);
         if(!$result) {
             $response = internalServerErrorResponse('Problem updating guild avatar.');
             return $response;
         }
-        if($file['name'] != '') {
-            if(!move_uploaded_file($file['tmp_name'], '../../public/'.$filename)) {
-                // pg_query($this->db, 'ROLLBACK');
-                $response = internalServerErrorResponse('Problem moving avatar file.');
-                return $response;
-            }
-        }
-        // pg_query($this->db, 'COMMIT');
         $response = okResponse(['success' => true]);
         return $response;
     }
@@ -173,6 +170,7 @@ class GuildController
             $response = internalServerErrorResponse('Problem deleting guild.');
             return $response;
         }
+        unlink('../../public/guild_'.$id);
         $response = okResponse(['success' => true]);
         return $response;
     }
