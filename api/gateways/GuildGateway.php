@@ -129,5 +129,14 @@ class GuildGateway
         $result = pg_query_params($this->db, $query, [$id, $member_id]);
         return $result;
     }
+
+    public function updateAvatar($id, $filename)
+    {
+        $query = "UPDATE guild
+                SET img_name=$2
+                WHERE id=$1;";
+        $result = pg_query_params($this->db, $query, [$id, $filename]);
+        return $result;
+    }
 }
 ?>

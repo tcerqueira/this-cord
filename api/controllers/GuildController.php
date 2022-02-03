@@ -130,6 +130,25 @@ class GuildController
         return $response;
     }
 
+    public function updateGuildAvatar($id, $file)
+    {
+        pg_query($this->db, 'BEGIN');
+        $filename = 'guild_'.substr(getId(), 0, 6).'_'.$file['name'];
+        $result = $this->guildGateway->updateAvatar($id, $filename);
+        if(!$result) {
+            $response = internalServerErrorResponse('Problem updating guild avatar.');
+            return $response;
+        }
+        if(!move_uploaded_file($file['tmp_name'], '../../public/'.$filename)) {
+            pg_query($this->db, 'ROLLBACK');
+            $response = internalServerErrorResponse('Problem moving avatar file.');
+            return $response;
+        }
+        pg_query($this->db, 'COMMIT');
+        $response = okResponse(['success' => true]);
+        return $response;
+    }
+
     public function deleteGuild($id, $user_id, $password)
     {
         $membership = $this->authorization->membershipByGuild($id, $user_id);
@@ -332,9 +351,11 @@ class GuildController
             $response = forbiddenResponse();
             return $response;
         }
+        pg_query($this->db, 'BEGIN');
         $result = $this->guildGateway->updateAdmin($id, $new_admin);
         $result = $this->guildGateway->updateMember($id, $new_admin, [1,2]); // 1:accepted invite; 2:admin role
         $result = $this->guildGateway->updateMember($id, $old_admin, [1,1]); // 1:accepted invite; 1:mod role
+        pg_query($this->db, 'COMMIT');
         $response = okResponse(['success' => true]);
         return $response;
     }

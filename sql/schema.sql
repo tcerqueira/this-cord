@@ -6,7 +6,7 @@ CREATE TABLE this_user (
     userstatus SMALLINT NOT NULL DEFAULT 0,
     theme_color CHAR(7) DEFAULT '#7289da',
     user_description TEXT DEFAULT '',
-    img_name VARCHAR(50) DEFAULT 'img_default.jpg',
+    img_name VARCHAR(64) DEFAULT 'user_default.gif',
     PRIMARY KEY (id)
 );
 
@@ -17,7 +17,7 @@ CREATE TABLE guild (
     admin_id UUID NOT NULL,
     open_invite_key VARCHAR(64) DEFAULT 'this-cord',
     theme_color CHAR(7) DEFAULT '#7289da',
-    img_name VARCHAR(50) DEFAULT 'img_default.jpg',
+    img_name VARCHAR(64) DEFAULT 'guild_default.gif',
     PRIMARY KEY (id),
     FOREIGN KEY (admin_id) REFERENCES this_user(id)
 );

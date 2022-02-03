@@ -179,18 +179,6 @@
     box-shadow: 0px 0px 10px black;
 }
 
-/* .side-card > .tooltip {
-    transform: scale(0);
-    transition: all 200ms ease;
-    top: 45%;
-    left: 0%;
-}
-
-.side-card:hover > .tooltip {
-    transform: scale(1);
-    z-index: 999;
-} */
-
 .current-server::before {
     content: '';
     position: absolute;
@@ -214,6 +202,12 @@
     border-radius: 5px;
     background-color: white;
     animation: ball-to-bar .3s linear forwards;
+}
+
+.side-card img {
+    height: var(--side-size);
+    width: var(--side-size);
+    object-fit: cover;
 }
 
 #homeIcon {
