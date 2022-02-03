@@ -5,6 +5,7 @@
         <li class="invite-container rounded-container shadow">
             <div class="one-liner">
                 <div class="icon-card icon-size-small">
+                    <img src="" alt="guild_avatar">
                 </div>
                 <span>guildname</span>
             </div>

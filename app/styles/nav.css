@@ -204,12 +204,6 @@
     animation: ball-to-bar .3s linear forwards;
 }
 
-.side-card img {
-    height: var(--side-size);
-    width: var(--side-size);
-    object-fit: cover;
-}
-
 #homeIcon {
     transition: background-color .3s linear;
 }

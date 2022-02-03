@@ -230,6 +230,12 @@ input[type=email]:focus {
     -o-transition: .3s -o-filter linear;
     transition: .3s filter linear, .3s -webkit-filter linear;
 }
+
+.icon-card img {
+    height: var(--side-size);
+    width: var(--side-size);
+    object-fit: cover;
+}
 /* 
 .icon-card:hover {
     -webkit-filter: blur(3px);
