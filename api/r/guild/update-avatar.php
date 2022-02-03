@@ -16,7 +16,7 @@ if(!isAuthenticated())
     exit();
 }
 
-if(!isset($_POST['guild_id']) || $_FILES['guild_avatar']['name'] == '')
+if(!isset($_POST['guild_id']))
 {
     sendResponse(unprocessableEntityResponse());
     exit();
@@ -31,7 +31,7 @@ if(!$mem['is_member'] || $mem['role'] < 1)
 }
 
 $controller = new GuildController($dbConnection);
-$response = $controller->updateGuildAvatar($input['guild_id'], $_FILES['guild_avatar']);
+$response = $controller->updateGuildAvatar($_POST['guild_id'], $_FILES['guild_avatar']);
 
 sendResponse($response);
 ?>

@@ -36,13 +36,15 @@ class GuildController
             'guildname' => $result['guildname'],
             'initials' => $result['initials'],
             'theme_color' => $result['guild_theme_color'],
+            'img_name' => $result['guild_img'],
             'channels' => $result['channels'] == "[null]" ? [] : json_decode($result['channels']),
             'admin' => [
                 'id' => $result['id'],
                 'username' => $result['username'],
                 'theme_color' => $result['theme_color'],
                 'userstatus' => $result['userstatus'],
-                'user_description' => $result['user_description']
+                'user_description' => $result['user_description'],
+                'img_name' => $result['img_name']
             ]
         ];
         $response = okResponse($result_arr);
@@ -132,19 +134,21 @@ class GuildController
 
     public function updateGuildAvatar($id, $file)
     {
-        pg_query($this->db, 'BEGIN');
-        $filename = 'guild_'.substr(getId(), 0, 6).'_'.$file['name'];
+        // pg_query($this->db, 'BEGIN');
+        $filename = $file['name'] != '' ? 'guild_'.$id : 'guild_default.gif';
         $result = $this->guildGateway->updateAvatar($id, $filename);
         if(!$result) {
             $response = internalServerErrorResponse('Problem updating guild avatar.');
             return $response;
         }
-        if(!move_uploaded_file($file['tmp_name'], '../../public/'.$filename)) {
-            pg_query($this->db, 'ROLLBACK');
-            $response = internalServerErrorResponse('Problem moving avatar file.');
-            return $response;
+        if($file['name'] != '') {
+            if(!move_uploaded_file($file['tmp_name'], '../../public/'.$filename)) {
+                // pg_query($this->db, 'ROLLBACK');
+                $response = internalServerErrorResponse('Problem moving avatar file.');
+                return $response;
+            }
         }
-        pg_query($this->db, 'COMMIT');
+        // pg_query($this->db, 'COMMIT');
         $response = okResponse(['success' => true]);
         return $response;
     }

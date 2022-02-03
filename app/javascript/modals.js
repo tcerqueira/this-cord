@@ -119,7 +119,13 @@ function openCreateGuildModal()
 
 document.getElementById('guildThemePicker').addEventListener('input', evt => {
     document.getElementById('createGuildBanner').style = `--guild-bg-color: ${evt.target.value};`;
+    document.getElementById('iconCardPreview').style = `--icon-bg-color: ${evt.target.value};`;
 });
+
+document.getElementById('guild-img-input').onchange = () => {
+    const avatar = document.getElementById('guild-img-input').files[0];
+    document.getElementById('guildImagePreview').src = avatar ? URL.createObjectURL(avatar) : '#';
+}
 
 document.getElementById('createGuildForm').onsubmit = async evt => {
     evt.preventDefault();
@@ -137,6 +143,10 @@ document.getElementById('createGuildForm').onsubmit = async evt => {
             themeColor: document.getElementById('guildThemePicker').value
         }
         const { id: guildId } = await api.createGuild(form);
+        await api.updateGuildAvatar({
+            guildId,
+            avatar: document.getElementById('guild-img-input').files[0]
+        });
         const guild = await api.fetchGuild({ id: guildId });
         addServerCard(guild);
         closeModal();

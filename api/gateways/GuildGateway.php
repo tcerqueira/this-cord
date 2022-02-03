@@ -11,12 +11,13 @@ class GuildGateway
 
     public function find($id)
     {
-        $query = "SELECT guild.id AS guild_id,guildname,initials, guild.theme_color AS guild_theme_color, guild.img_name, public_user.*, array_to_json(array_agg(text_channel.id)) channels
+        $query = "SELECT guild.id AS guild_id, guildname, initials, guild.theme_color AS guild_theme_color, guild.img_name AS guild_img,
+                    public_user.*, array_to_json(array_agg(text_channel.id)) channels
                 FROM guild
                 JOIN public_user_VIEW AS public_user ON admin_id=public_user.id
                 LEFT JOIN text_channel ON guild.id=guild_id
                 WHERE guild.id=$1
-                GROUP BY guild.id, public_user.id, public_user.username, public_user.userstatus, public_user.theme_color, public_user.user_description;";
+                GROUP BY guild.id, public_user.id, public_user.username, public_user.userstatus, public_user.theme_color, public_user.user_description, public_user.img_name;";
         $result = pg_query_params($this->db, $query, [$id]);
         return $result;
     }

@@ -27,9 +27,11 @@
             <h1>Create your guild</h1>
         </header>
         <main class="create-guild-main">
-            <img id="guildImagePreview" src="" alt="guild-img-preview">
+            <div id="iconCardPreview" class="icon-card icon-size-big">
+                <img id="guildImagePreview" src="" alt="guild-img-preview">
+            </div>
             <form id="guildImageForm">
-                <!-- <label for="guild-img-input">Image</label> -->
+                <label for="guild-img-input">Avatar</label>
                 <input type="file" name="guild_img" id="guild-img-input">
             </form>
             <form id="createGuildForm" autocomplete="off">
