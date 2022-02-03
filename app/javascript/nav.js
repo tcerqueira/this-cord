@@ -59,7 +59,6 @@ function renderServerCard(server, isCurrent) {
     anchor.append(serverCard);
     serverCard.className = "icon-size-medium icon-card";
     serverCard.dataset.id = server.id;
-    // serverCard.innerText = server.initials;
     serverCard.style = '--icon-bg-color: ' + server.theme_color + ';';
 
     const img = document.createElement('img');

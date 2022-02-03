@@ -4,20 +4,11 @@
             <div class="side-card" data-tooltip="Home">
                 <div id="homeIcon" class="icon-size-medium icon-card">
                     <div><span>Home</span></div>
-                    <!-- <span class="tooltip">Home</span> -->
                 </div>
             </div>
         </a>
         <hr/>
         <div id="guilds-container" class="guilds-container">
-            <!-- <div class="icon-size-medium icon-card side-card current-server" data-tooltip="FEUP" data-id="fd26e47f-e404-237e-7f36-9053b13138f3" style="--icon-bg-color: #9c6b4b;">FE</div>
-            <div class="icon-size-medium icon-card side-card current-server" data-tooltip="FEUP" data-id="fd26e47f-e404-237e-7f36-9053b13138f3" style="--icon-bg-color: #9c6b4b;">FE</div>
-            <div class="icon-size-medium icon-card side-card current-server" data-tooltip="FEUP" data-id="fd26e47f-e404-237e-7f36-9053b13138f3" style="--icon-bg-color: #9c6b4b;">FE</div>
-            <div class="icon-size-medium icon-card side-card current-server" data-tooltip="FEUP" data-id="fd26e47f-e404-237e-7f36-9053b13138f3" style="--icon-bg-color: #9c6b4b;">FE</div>
-            <div class="icon-size-medium icon-card side-card current-server" data-tooltip="FEUP" data-id="fd26e47f-e404-237e-7f36-9053b13138f3" style="--icon-bg-color: #9c6b4b;">FE</div>
-            <div class="icon-size-medium icon-card side-card current-server" data-tooltip="FEUP" data-id="fd26e47f-e404-237e-7f36-9053b13138f3" style="--icon-bg-color: #9c6b4b;">FE</div>
-            <div class="icon-size-medium icon-card side-card current-server" data-tooltip="FEUP" data-id="fd26e47f-e404-237e-7f36-9053b13138f3" style="--icon-bg-color: #9c6b4b;">FE</div>
-            <div class="icon-size-medium icon-card side-card current-server" data-tooltip="FEUP" data-id="fd26e47f-e404-237e-7f36-9053b13138f3" style="--icon-bg-color: #9c6b4b;">FE</div> -->
             
         </div>
         <div class="side-card" data-tooltip="Create Server">
