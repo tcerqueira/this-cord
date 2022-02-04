@@ -2,7 +2,9 @@
     <template id="dmItemTemplate">
         <li class="dm-item">
             <a href="#" data-dm-channel-id="">
-                <div class="icon-card icon-size-xsmall"></div>
+                <div class="icon-card icon-size-xsmall">
+                    <img src="" alt="user_avatar">
+                </div>
                 <span class="one-liner">username</span>
             </a>
         </li>

@@ -1,8 +1,13 @@
 class API
 {
-    constructor(apiRoot)
+    constructor(apiRoot, filesRoot)
     {
         this.apiRoot = apiRoot;
+        this.filesRoot = filesRoot;
+    }
+
+    get imgUrl() {
+        return this.filesRoot;
     }
 
     // ##################################################### AUTH ########################################################
@@ -552,6 +557,32 @@ class API
         });
     }
 
+    updateGuildAvatar({ guildId, avatar })
+    {
+        return new Promise((resolve, reject) => {
+
+            const body = new FormData();
+            body.append('guild_id', guildId);
+            body.append('guild_avatar', avatar)
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/guild/update-avatar.php', true);
+            
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(body);
+        });
+    }
+
     // ################################################# TEXT CHANNEL ####################################################
     // ###################################################################################################################
 
@@ -706,23 +737,4 @@ class API
     }
 }
 
-const api = new API('../../api');
-
-// (async function test()
-// {
-//     try {
-//         const { id } = await api.signIn({
-//             username: 'titi',
-//             password: 'titi'
-//         });
-//         console.log(id);
-//         const user = await api.fetchUser({id});
-//         console.log(user);
-//     }
-//     catch (err) {
-//         console.log(err);
-//     }
-//     finally {
-//         await api.signOut();
-//     }
-// })();
+const api = new API('../../api', '../../api/public');

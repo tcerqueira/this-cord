@@ -222,6 +222,7 @@ input[type=email]:focus {
     width: var(--side-size);
     border-radius: 50%;
     background-color: var(--icon-bg-color, var(--color-medium-grey-1));
+    overflow: hidden;
 
     -webkit-transition: .3s -webkit-filter linear;
     -moz-transition: .3s -moz-filter linear;
@@ -230,14 +231,33 @@ input[type=email]:focus {
     -o-transition: .3s -o-filter linear;
     transition: .3s filter linear, .3s -webkit-filter linear;
 }
-/* 
-.icon-card:hover {
-    -webkit-filter: blur(3px);
-    -moz-filter: blur(3px);
-    -ms-filter: blur(3px);
-    -o-filter: blur(3px);
-    filter: blur(3px);
-} */
+
+.icon-card img {
+    height: var(--side-size);
+    width: var(--side-size);
+    object-fit: cover;
+}
+
+.status-wrapper {
+    position: relative;
+}
+
+.status-wrapper::before {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: auto auto 0 0;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid var(--color-light-grey);
+    border-radius: 50%;
+
+    background-color: var(--color-green);
+}
+
+.status-wrapper.status-offline::before {
+    background-color: var(--color-medium-grey-2);
+}
 
 .user-text-input {
     border: 1px solid var(--color-light-grey);

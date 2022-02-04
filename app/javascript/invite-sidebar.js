@@ -10,10 +10,11 @@ function renderGuildInvites(guilds) {
 }
 
 function createGuildInviteItem(guild) {
-    const inviteItem = document.getElementById('inviteItemTemplate').content.cloneNode(true);
+    const inviteItem = document.getElementById('inviteItemTemplate').content.firstElementChild.cloneNode(true);
 
     inviteItem.querySelector('.icon-card').style = `--icon-bg-color: ${guild.theme_color};`;
     inviteItem.querySelector('span').innerText = guild.guildname;
+    inviteItem.querySelector('.icon-card img').src = `${api.imgUrl}/${guild.img_name}`;
 
     // icon click handlers
     inviteItem.querySelector('img[alt=accept-guild-icon]').parentNode.addEventListener('click', async () => {

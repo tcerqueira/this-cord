@@ -30,38 +30,40 @@ require 'scripts/SendHeaders.php';
             <ul id="usersList" class="users-list">
 
             </ul>
-            <li id="userItemTemplate" class="user-item" style="display: none;">
-                <div class="icon-card icon-size-small">
-
-                </div>
-                <div class="user-item-info">
-                    <span class="user-item-username">Username <span class="user-item-shortid">#123456</span></span>
-                    <span>Status</span>
-                </div>
-                <div class="user-item-options">
-                    <a href="#" style="display: none;">
-                        <div class="home-options-icon home-icon-size-2" data-tooltip="Message">
-                            <img src="../public/message-svgrepo-com.svg" alt="message-icon">
+            <template id="userItemTemplate">
+                <li class="user-item">
+                    <div class="icon-card icon-size-small">
+                        <img src="" alt="user_avatar">
+                    </div>
+                    <div class="user-item-info">
+                        <span class="user-item-username">Username <span class="user-item-shortid">#123456</span></span>
+                        <span>Status</span>
+                    </div>
+                    <div class="user-item-options">
+                        <a href="#" style="display: none;">
+                            <div class="home-options-icon home-icon-size-2" data-tooltip="Message">
+                                <img src="../public/message-svgrepo-com.svg" alt="message-icon">
+                            </div>
+                        </a>
+                        <div class="home-options-icon home-icon-size-2 bg-green" data-tooltip="Request friend" style="display: none;">
+                            <img src="../public/add-plus-svgrepo-com.svg" alt="add-icon">
                         </div>
-                    </a>
-                    <div class="home-options-icon home-icon-size-2 bg-green" data-tooltip="Request friend" style="display: none;">
-                        <img src="../public/add-plus-svgrepo-com.svg" alt="add-icon">
+                        <div class="home-options-icon home-icon-size-2 bg-blue" data-tooltip="Cancel request" style="display: none;">
+                            <img src="../public/mail-sent-svgrepo-com.svg" alt="sent-icon">
+                            <img style="display: none;" src="../public/cancel-nofill-svgrepo-com.svg" alt="cancel-sent-icon">
+                        </div>
+                        <div class="home-options-icon home-icon-size-2 bg-red" data-tooltip="Remove friend" style="display: none;">
+                            <img src="../public/remove-user-svgrepo-com.svg" alt="remove-icon">
+                        </div>
+                        <div class="home-options-icon home-icon-size-2 bg-green" data-tooltip="Accept request" style="display: none;">
+                            <img src="../public/check-svgrepo-com.svg" alt="accept-icon">
+                        </div>
+                        <div class="home-options-icon home-icon-size-2 bg-red" data-tooltip="Decline request" style="display: none;">
+                            <img src="../public/remove-user-svgrepo-com.svg" alt="decline-icon">
+                        </div>
                     </div>
-                    <div class="home-options-icon home-icon-size-2 bg-blue" data-tooltip="Cancel request" style="display: none;">
-                        <img src="../public/mail-sent-svgrepo-com.svg" alt="sent-icon">
-                        <img style="display: none;" src="../public/cancel-nofill-svgrepo-com.svg" alt="cancel-sent-icon">
-                    </div>
-                    <div class="home-options-icon home-icon-size-2 bg-red" data-tooltip="Remove friend" style="display: none;">
-                        <img src="../public/remove-user-svgrepo-com.svg" alt="remove-icon">
-                    </div>
-                    <div class="home-options-icon home-icon-size-2 bg-green" data-tooltip="Accept request" style="display: none;">
-                        <img src="../public/check-svgrepo-com.svg" alt="accept-icon">
-                    </div>
-                    <div class="home-options-icon home-icon-size-2 bg-red" data-tooltip="Decline request" style="display: none;">
-                        <img src="../public/remove-user-svgrepo-com.svg" alt="decline-icon">
-                    </div>
-                </div>
-            </li>
+                </li>
+            </template>
         </main>
         <?php include "../components/invite-sidebar.php"; ?>
     </div>

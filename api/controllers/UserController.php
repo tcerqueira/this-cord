@@ -76,6 +76,7 @@ class UserController
             $response = internalServerErrorResponse('Problem deleting user.');
             return $response;
         }
+        unlink('../../public/user_'.$id);
         $response = okResponse(['success' => true]);
         return $response;
     }
@@ -194,6 +195,24 @@ class UserController
             $response = internalServerErrorResponse('Problem removing friend.');
         else
             $response = okResponse(['success' => true]);
+        return $response;
+    }
+
+    public function updateUserAvatar($id, $file)
+    {
+        $filename = $file['name'] != '' ? 'user_'.$id : 'user_default.gif';
+        if($file['name'] != '') {
+            if(!move_uploaded_file($file['tmp_name'], '../../public/'.$filename)) {
+                $response = internalServerErrorResponse('Problem uploading user avatar.');
+                return $response;
+            }
+        }
+        $result = $this->userGateway->updateAvatar($id, $filename);
+        if(!$result) {
+            $response = internalServerErrorResponse('Problem updating guild avatar.');
+            return $response;
+        }
+        $response = okResponse(['success' => true]);
         return $response;
     }
 }

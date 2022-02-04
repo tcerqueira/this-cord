@@ -37,7 +37,7 @@ require 'scripts/SendHeaders.php';
                 <span>Need an account? <a href="register.php">Register</a></span>
             </div>
             <div class="login-side">
-                Some cute message.
+                <img src="../public/wolf-logo.svg" alt="logo">
             </div>
         </div>
     </main>
