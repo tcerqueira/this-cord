@@ -180,7 +180,7 @@ function openCreateChannelModal(guildId) {
             });
             const guildsContainer = document.getElementById('guilds-container');
             if(guildsContainer) {
-                const navGuild = [...guildsContainer.children].find(g => g.children[0].dataset.id === guildId);
+                const navGuild = [...guildsContainer.children].find(g => g.children[0].children[0].dataset.id === guildId);
                 navGuild.href = `text-channel.php?id=${channelId}`;
             }
             closeModal();
