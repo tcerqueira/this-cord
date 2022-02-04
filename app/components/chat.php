@@ -1,3 +1,4 @@
+<a id="toPresentBtn" href="#bottom">Jump to present</a>
 <div class="messages-container">
     <!-- Empty element to reference to go back to bottom messages -->
     <div id="bottom"></div>
