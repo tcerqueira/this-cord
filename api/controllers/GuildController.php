@@ -339,6 +339,29 @@ class GuildController
         return $response;
     }
 
+    public function leaveGuild($id, $member_id)
+    {
+        $membership = $this->authorization->membershipByGuild($id, $member_id);
+        if(!$membership['is_member'] || $membership['invite_status'] == 0)
+        {
+            $response = forbiddenResponse();
+            return $response;
+        }
+        if(intval($membership['role']) == 2)
+        {
+            $response = forbiddenResponse("You need to transfer guild ownership first.");
+            return $response;
+        }
+        $result = $this->guildGateway->deleteMember($id, $member_id);
+        if(!$result)
+        {
+            $response = internalServerErrorResponse('Problem kicking member.');
+            return $response;
+        }
+        $response = okResponse(['success' => true]);
+        return $response;
+    }
+
     public function transferAdmin($id, $new_admin, $old_admin, $password)
     {
         $membership = $this->authorization->membershipByGuild($id, $old_admin);
