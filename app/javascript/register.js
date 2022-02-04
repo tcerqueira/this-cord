@@ -1,8 +1,8 @@
 async function register()
 {
+    document.getElementById('register-button').disabled = true;
     const container = document.querySelector('.register-container');
     const errorMsg = document.getElementById('register-error-message');
-    console.log(container);
     // clear all red borders
     container.querySelectorAll('.text-input-container').forEach(input => {
         input.classList.remove('invalid-input');
@@ -25,6 +25,14 @@ async function register()
         errorMsg.innerText = 'Complete all fields.';
         return;
     }
+
+    const usernameRegEx = /^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$/;
+    const match = form.username.match(usernameRegEx);
+    if(!match) {
+        document.getElementById('username-input').classList.add('invalid-input');
+        errorMsg.innerText = 'Invalid username.';
+        return;
+    }
     
     // confirm passwords are identical
     confPassword = document.getElementById('conf-password-input').value;
@@ -36,7 +44,6 @@ async function register()
     }
 
     try {
-        document.getElementById('register-button').disabled = true;
         const { id } = await api.signUp(form);
         window.location.replace('login.php');
     }
@@ -51,6 +58,5 @@ async function register()
 
 document.getElementById('register-form').addEventListener('submit', evt => {
     evt.preventDefault();
-
     register();
 })

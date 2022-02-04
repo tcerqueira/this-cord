@@ -27,9 +27,11 @@
             <h1>Create your guild</h1>
         </header>
         <main class="create-guild-main">
-            <img id="guildImagePreview" src="" alt="guild-img-preview">
+            <div id="iconCardPreview" class="icon-card icon-size-xbig">
+                <img id="guildImagePreview" src="" alt="guild-img-preview">
+            </div>
             <form id="guildImageForm">
-                <!-- <label for="guild-img-input">Image</label> -->
+                <label for="guild-img-input">Avatar</label>
                 <input type="file" name="guild_img" id="guild-img-input">
             </form>
             <form id="createGuildForm" autocomplete="off">
@@ -79,10 +81,12 @@
         <ul id="toInviteList">
 
         </ul>
-        <li id="toInviteItemTemplate" class="to-invite-item" style="display: none;">
-            <span>username</span>
-            <img src="../public/cancel-nofill-svgrepo-com.svg" alt="remove-invite-icon">
-        </li>
+        <template id="toInviteItemTemplate">
+            <li class="to-invite-item">
+                <span>username</span>
+                <img src="../public/cancel-nofill-svgrepo-com.svg" alt="remove-invite-icon">
+            </li>
+        </template>
         <header>
             <form id="searchGuildInviteForm" class="search-input-container modal-search" autocomplete="off">
                 <input type="text" id="inviteModalInput" placeholder="Search">
@@ -93,16 +97,18 @@
             <ul id="searchModalList">
 
             </ul>
-            <li id="searchItemTemplate" class="search-modal-item rounded-container" style="display: none;">
-                <div class="icon-card icon-size-xsmall"></div>
-                <span>
-                    username
-                    <span id="shortIdSpan"> #123456</span>
-                </span>
-                <div class="invite-to-guild-icon bg-green">
-                    <img src="../public/add-plus-svgrepo-com.svg" alt="add-to-invite-list-icon">
-                </div>
-            </li>
+            <template id="searchItemTemplate">
+                <li class="search-modal-item rounded-container">
+                    <div class="icon-card icon-size-xsmall"></div>
+                    <span>
+                        username
+                        <span id="shortIdSpan"> #123456</span>
+                    </span>
+                    <div class="invite-to-guild-icon bg-green">
+                        <img src="../public/add-plus-svgrepo-com.svg" alt="add-to-invite-list-icon">
+                    </div>
+                </li>
+            </template>
             <hr>
             <div id="guildInviteError" class="error-message one-liner"></div>
             <button id="inviteModalBtn" class="button bg-green">Invite</button>

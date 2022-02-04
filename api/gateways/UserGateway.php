@@ -148,5 +148,14 @@ class UserGateway
         $result = pg_query_params($this->db, $query, [$friend1, $friend2]);
         return $result;
     }
+
+    public function updateAvatar($id, $filename)
+    {
+        $query = "UPDATE this_user
+                SET img_name=$2
+                WHERE id=$1;";
+        $result = pg_query_params($this->db, $query, [$id, $filename]);
+        return $result;
+    }
 }
 ?>

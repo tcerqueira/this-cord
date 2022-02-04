@@ -118,7 +118,8 @@ class MessageController
             'author' => [
                 'id' => $result['author_id'],
                 'username' => $result['username'],
-                'theme_color' => $result['theme_color']
+                'theme_color' => $result['theme_color'],
+                'img_name' => $result['img_name']
             ],
             'reply' => $reply_res
         ];

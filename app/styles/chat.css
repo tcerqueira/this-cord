@@ -5,6 +5,7 @@
         "messages"
         "input";
     overflow: hidden;
+    position: relative;
 
     background-color: var(--color-medium-grey-2);
 }
@@ -17,6 +18,26 @@
         "input";
 }
 
+#toPresentBtn {
+    position: absolute;
+    inset: 0 1rem auto auto;
+    padding: .1em .2em;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+    text-decoration: none;
+    background: linear-gradient(to bottom, var(--color-medium-grey-2), var(--color-primary) 25%, var(--color-primary));
+    /* background-color: var(--color-primary); */
+    color: var(--font-color);
+    font-size: .8em;
+    transition: color .1s linear;
+    z-index: 1;
+}
+
+#toPresentBtn:active {
+    color: var(--color-light);
+}
+
 .messages-container {
     display: flex;
     flex-direction: column-reverse;
@@ -26,6 +47,7 @@
     /* hide scrollbar */
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+    scroll-behavior: smooth;
 }
 
 .messages-container > ol {
@@ -45,6 +67,7 @@
 
 .message > p {
     margin: 0;
+    word-wrap: break-word;
 }
 
 .message > p > a:hover {
@@ -236,7 +259,7 @@
 
 @keyframes highlight-message {
     from {
-        background-color: var(--color-yellow);
+        background-color: var(--color-primary);
     }
     to {
         background-color: transparent;

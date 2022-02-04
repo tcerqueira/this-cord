@@ -4,16 +4,18 @@ render();
 async function render()
 {
     try {
-        let [ myGuilds, friendsList, guildInvites ] = await Promise.all([
+        let [ myGuilds, friendsList, guildInvites, user ] = await Promise.all([
             api.fetchMyGuilds(),
             api.fetchFriends(),
-            api.fetchGuildInvites()
+            api.fetchGuildInvites(),
+            api.fetchUser({ id: currentProfileId })
         ]);
         friends.push(...friendsList);
 
         renderNav(myGuilds);
         renderDmNav(getAllList(friends));
         renderGuildInvites(guildInvites);
+        renderUserbar(user);
 
         let currentTab = window.location.hash?.slice(1) || 'online';
         switchTab('online', currentTab);
@@ -103,14 +105,13 @@ function renderUsersList(usersList, friendsList) {
 }
 
 function createUserItem(user) {
-    const userItem = document.getElementById('userItemTemplate').cloneNode(true);
-    userItem.style = '';
-    userItem.removeAttribute('id');
+    const userItem = document.getElementById('userItemTemplate').content.firstElementChild.cloneNode(true);
     userItem.addEventListener('click', () => {
         openUserModal(user);
     });
 
     userItem.querySelector('.icon-card').style = `--icon-bg-color: ${user.theme_color};`;
+    userItem.querySelector('.icon-card img').src = `${api.imgUrl}/${user.img_name}`;
     userItem.querySelector('.user-item-username').innerText = user.username;
     const spanShortId = document.createElement('span');
     spanShortId.className = 'user-item-shortid';

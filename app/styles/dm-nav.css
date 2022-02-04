@@ -4,21 +4,24 @@
 }
 
 .dm-item {
+    border-radius: 5px;
+}
+
+.dm-item a {
     display: flex;
     align-items: center;
     padding: .3em .5em;
-    border-radius: 5px;
 }
 
 .dm-item:hover {
     background-color: rgba(255, 255, 255, 0.025);
 }
 
-.dm-item:hover > span {
+.dm-item:hover span {
     filter: brightness(125%);
 }
 
-.dm-item > span {
+.dm-item span {
     margin-left: 1rem;
     font-size: 1rem;
     font-weight: bold;

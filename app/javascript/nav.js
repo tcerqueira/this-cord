@@ -13,7 +13,15 @@ function renderNav(myGuilds, currentId = null)
             isHome = false;
     });
     if(isHome)
-        document.querySelector('.icon-card[data-tooltip=Home]').classList.add('current-server');
+        document.querySelector('.side-card[data-tooltip=Home]').classList.add('current-server');
+}
+
+function renderUserbar(user)
+{
+    document.getElementById('userbarAvatar').src = `${api.imgUrl}/${user.img_name}`;
+    document.getElementById('userbarUsername').innerText = user.username;
+    document.getElementById('userbarShortId').innerText = `#${user.id.slice(0,6)}`;
+    document.querySelector('.user').style = `--user-theme-color: ${user.theme_color}; --icon-bg-color: ${user.theme_color};`;
 }
 
 document.getElementById('createGuildNavIcon').onclick = () => {
@@ -42,15 +50,21 @@ function renderServerCard(server, isCurrent) {
     const anchor = document.createElement('a');
     anchor.href = server.channels.length ? `text-channel.php?id=${server.channels[0]}` : `guild-home.php?id=${server.id}`;
 
-    const serverCard = document.createElement('div');
-    anchor.append(serverCard);
-    serverCard.className = "icon-size-medium icon-card side-card";
+    const wrapper = document.createElement('div');
+    wrapper.className = 'side-card';
+    wrapper.dataset.tooltip = server.guildname;
     if(isCurrent)
-        serverCard.classList.add('current-server');
-    serverCard.dataset.tooltip = server.guildname;
+        wrapper.classList.add('current-server');
+    const serverCard = document.createElement('div');
+    wrapper.append(anchor);
+    anchor.append(serverCard);
+    serverCard.className = "icon-size-medium icon-card";
     serverCard.dataset.id = server.id;
-    serverCard.innerText = server.initials;
     serverCard.style = '--icon-bg-color: ' + server.theme_color + ';';
 
-    return anchor;
+    const img = document.createElement('img');
+    img.src = `${api.imgUrl}/${server.img_name}`;
+    serverCard.append(img);
+
+    return wrapper;
 }

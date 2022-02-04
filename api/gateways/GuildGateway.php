@@ -11,12 +11,13 @@ class GuildGateway
 
     public function find($id)
     {
-        $query = "SELECT guild.id AS guild_id,guildname,initials, guild.theme_color AS guild_theme_color, public_user.*, array_to_json(array_agg(text_channel.id)) channels
+        $query = "SELECT guild.id AS guild_id, guildname, initials, guild.theme_color AS guild_theme_color, guild.img_name AS guild_img,
+                    public_user.*, array_to_json(array_agg(text_channel.id)) channels
                 FROM guild
                 JOIN public_user_VIEW AS public_user ON admin_id=public_user.id
                 LEFT JOIN text_channel ON guild.id=guild_id
                 WHERE guild.id=$1
-                GROUP BY guild.id, public_user.id, public_user.username, public_user.userstatus, public_user.theme_color, public_user.user_description;";
+                GROUP BY guild.id, public_user.id, public_user.username, public_user.userstatus, public_user.theme_color, public_user.user_description, public_user.img_name;";
         $result = pg_query_params($this->db, $query, [$id]);
         return $result;
     }
@@ -30,14 +31,8 @@ class GuildGateway
 
     public function findMembers($id)
     {
-        // $query = "SELECT DISTINCT member_id, member.username, member.userstatus, member.theme_color, guild_role,invite_status, inviter.username 
-        //           FROM guild_members
-        //           JOIN this_user AS member
-        //           ON member.id=member_id
-        //           JOIN this_user AS inviter
-        //           ON inviter.id=invite_sender
-        //           WHERE guild_id=$1;";
-        $query = "SELECT DISTINCT member_id, member.username, member.userstatus, member.theme_color, guild_role,invite_status, invite_sender, user_description
+        $query = "SELECT DISTINCT member_id, member.username, member.userstatus, member.theme_color, member.img_name,
+                    guild_role, invite_status, invite_sender, user_description
                   FROM guild_members
                   JOIN this_user AS member
                   ON member.id=member_id
@@ -59,7 +54,7 @@ class GuildGateway
 
     public function findAllOfMember($member_id, $invite_status)
     {
-        $query = "SELECT guild.id, guildname, initials, theme_color, array_to_json(array_agg(text_channel.id)) channels
+        $query = "SELECT guild.id, guildname, initials, theme_color, img_name, array_to_json(array_agg(text_channel.id)) channels
                 FROM guild_members
                 JOIN guild ON guild.id=guild_id
                 LEFT JOIN text_channel USING (guild_id)
@@ -127,6 +122,15 @@ class GuildGateway
         $query = "DELETE FROM guild_members
                  WHERE guild_id=$1 AND member_id=$2;";
         $result = pg_query_params($this->db, $query, [$id, $member_id]);
+        return $result;
+    }
+
+    public function updateAvatar($id, $filename)
+    {
+        $query = "UPDATE guild
+                SET img_name=$2
+                WHERE id=$1;";
+        $result = pg_query_params($this->db, $query, [$id, $filename]);
         return $result;
     }
 }
