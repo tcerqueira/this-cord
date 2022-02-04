@@ -3,7 +3,7 @@
         <a href="home.php">
             <div class="side-card" data-tooltip="Home">
                 <div id="homeIcon" class="icon-size-medium icon-card">
-                    <div><span>Home</span></div>
+                    <img src="../public/wolf-logo.svg" alt="">
                 </div>
             </div>
         </a>

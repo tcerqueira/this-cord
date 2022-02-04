@@ -216,6 +216,11 @@
     background-color: var(--color-primary);
 }
 
+#homeIcon img {
+    height: calc(var(--side-size) - 1rem);
+    width: calc(var(--side-size) - 1rem);
+}
+
 #createGuildNavIcon:hover {
     background-color: var(--color-green);
 }
