@@ -99,7 +99,9 @@
             </ul>
             <template id="searchItemTemplate">
                 <li class="search-modal-item rounded-container">
-                    <div class="icon-card icon-size-xsmall"></div>
+                    <div class="icon-card icon-size-xsmall">
+                        <img src="" alt="">
+                    </div>
                     <span>
                         username
                         <span id="shortIdSpan"> #123456</span>

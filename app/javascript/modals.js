@@ -312,6 +312,7 @@ function createModalSearchItem(user)
     const searchItem = document.getElementById('searchItemTemplate').content.firstElementChild.cloneNode(true);
 
     searchItem.querySelector('.icon-card').style = `--icon-bg-color: ${user.theme_color};`;
+    searchItem.querySelector('.icon-card > img').src = `${api.imgUrl}/${user.img_name}`;
     const usernameSpan = searchItem.querySelector(':scope > span');
     usernameSpan.innerText = user.username;
     usernameSpan.style = `--user-theme-color: ${user.theme_color};`;
