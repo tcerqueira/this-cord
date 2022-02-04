@@ -7,6 +7,7 @@ window.onclick = evt => {
 
 function openUserModal(user)
 {
+    closeModal();
     openModal('user-modal');
     const {
         id,
@@ -113,6 +114,7 @@ function renderUserFriendButton(user) {
 
 function openCreateGuildModal()
 {
+    closeModal();
     document.getElementById('createGuildError').innerText = '';
     openModal('create-guild-modal');
 }
@@ -164,6 +166,7 @@ document.getElementById('createGuildSubmitBtn').onclick = evt => {
 }
 
 function openCreateChannelModal(guildId) {
+    closeModal();
     document.getElementById('createChannelError').innerText = '';
     openModal('create-textchannel-modal');
     document.getElementById('createChannelForm').onsubmit = async evt => {
@@ -195,6 +198,7 @@ function openCreateChannelModal(guildId) {
 
 function openConfirmationModal(message, callbackFn)
 {
+    closeModal();
     openModal('confirmation-modal');
     document.getElementById('confirmation-message').innerText = message;
 
@@ -206,6 +210,7 @@ document.getElementById('cancel-btn-modal').onclick = closeModal;
 
 async function openGuildInviteModal(guildId)
 {
+    closeModal();
     document.getElementById('guildInviteError').innerText = '';
     openModal('guild-invite-modal');
     document.getElementById('searchGuildInviteForm').onsubmit =  async evt => {
@@ -328,6 +333,7 @@ function createModalToInviteItem(user)
 
 function openErrorModal(message, callbackFn)
 {
+    closeModal();
     openModal('error-modal');
     document.getElementById('errorModalMessage').innerText = message;
     document.getElementById('errorModalBtn').onclick = callbackFn;
