@@ -258,11 +258,12 @@ hr {
 }
 
 #guild-icon {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 #guild-color {
@@ -296,6 +297,7 @@ select {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding-bottom: 1rem;
   }
   
   /* arrows */
@@ -348,4 +350,8 @@ select {
   #create-text-channel-div div {
       margin: 1rem 0;
       background-color: var(--color-dark-grey);
+  }
+
+  .buttonSettings {
+      font-size: 1.1em;
   }

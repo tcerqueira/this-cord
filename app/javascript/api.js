@@ -793,7 +793,7 @@ class API
             }
             
             let xhr = new XMLHttpRequest();
-            xhr.open('GET', this.apiRoot+'/r/text-channel/delete.php', true);
+            xhr.open('POST', this.apiRoot+'/r/text-channel/delete.php', true);
         
             xhr.onload = () => {
                 switch(xhr.status)
