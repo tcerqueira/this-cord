@@ -27,7 +27,7 @@
             <h1>Create your guild</h1>
         </header>
         <main class="create-guild-main">
-            <div id="iconCardPreview" class="icon-card icon-size-big">
+            <div id="iconCardPreview" class="icon-card icon-size-xbig">
                 <img id="guildImagePreview" src="" alt="guild-img-preview">
             </div>
             <form id="guildImageForm">

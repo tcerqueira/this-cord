@@ -3,7 +3,7 @@
     position: fixed; /* Stay in place */
     justify-content: center;
     align-items: center;
-    z-index: 1; /* Sit on top */
+    z-index: 999; /* Sit on top */
     left: 0;
     top: 0;
     width: 100vw; /* Full width */

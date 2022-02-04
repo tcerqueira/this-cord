@@ -383,6 +383,10 @@ input.button:active {
     width: 1.1rem;
 }
 
+.icon-size-xbig {
+    --side-size: calc(var(--card-size) + 2rem);
+}
+
 .icon-size-big {
     --side-size: calc(var(--card-size) + 1rem);
 }
