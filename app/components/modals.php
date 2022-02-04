@@ -28,7 +28,7 @@
         </header>
         <main class="create-guild-main">
             <div id="iconCardPreview" class="icon-card icon-size-xbig">
-                <img id="guildImagePreview" src="" alt="guild-img-preview">
+                <img id="guildImagePreview" src="" alt="" accept="image/*">
             </div>
             <form id="guildImageForm">
                 <label for="guild-img-input">Avatar</label>

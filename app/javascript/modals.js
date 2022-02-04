@@ -126,6 +126,14 @@ document.getElementById('guildThemePicker').addEventListener('input', evt => {
 
 document.getElementById('guild-img-input').onchange = () => {
     const avatar = document.getElementById('guild-img-input').files[0];
+    document.getElementById('createGuildError').innerText = '';
+    // check size bigger than 5MB
+    if(avatar?.size > 5*1048576) {
+        document.getElementById('createGuildError').innerText = 'File size too big.';
+        document.getElementById('guild-img-input').value = '';
+        document.getElementById('guildImagePreview').src = '#';
+        return;
+    }
     document.getElementById('guildImagePreview').src = avatar ? URL.createObjectURL(avatar) : '#';
 }
 
@@ -133,6 +141,7 @@ document.getElementById('createGuildForm').onsubmit = async evt => {
     evt.preventDefault();
     const guildname = document.getElementById('guildnameInput').value;
     const initials = document.getElementById('initialsInput').value;
+
     if(!guildname || !initials) {
         document.getElementById('createGuildError').innerText = 'Invalid input.';
         return;
@@ -144,6 +153,7 @@ document.getElementById('createGuildForm').onsubmit = async evt => {
             openInviteKey: document.getElementById('inviteKeyInput').value ? document.getElementById('inviteKeyInput').value: null,
             themeColor: document.getElementById('guildThemePicker').value
         }
+
         const { id: guildId } = await api.createGuild(form);
         await api.updateGuildAvatar({
             guildId,
