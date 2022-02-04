@@ -1,6 +1,8 @@
 <div class="user">
-    <!-- <div class="icon-card icon-size-small"></div> -->
     <div class="one-liner">
+        <div class="icon-card icon-size-small">
+            <img id="userbarAvatar" src="" alt="profile_avatar">
+        </div>
         <span id="userbarUsername"></span>
         <span id="userbarShortId"></span>
     </div>

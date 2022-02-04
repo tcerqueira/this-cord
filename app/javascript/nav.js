@@ -18,9 +18,10 @@ function renderNav(myGuilds, currentId = null)
 
 function renderUserbar(user)
 {
+    document.getElementById('userbarAvatar').src = `${api.imgUrl}/${user.img_name}`;
     document.getElementById('userbarUsername').innerText = user.username;
     document.getElementById('userbarShortId').innerText = `#${user.id.slice(0,6)}`;
-    document.querySelector('.user').style = `--user-theme-color: ${user.theme_color};`;
+    document.querySelector('.user').style = `--user-theme-color: ${user.theme_color}; --icon-bg-color: ${user.theme_color};`;
 }
 
 document.getElementById('createGuildNavIcon').onclick = () => {
