@@ -223,21 +223,30 @@ async function openGuildInviteModal(guildId)
     closeModal();
     document.getElementById('guildInviteError').innerText = '';
     openModal('guild-invite-modal');
-    document.getElementById('searchGuildInviteForm').onsubmit =  async evt => {
+    document.getElementById('searchGuildInviteForm').onsubmit = async evt => {
         evt.preventDefault();
-        if(!document.getElementById('inviteModalInput').value)
-            return;
-        try {
-            const searchQuery = document.getElementById('inviteModalInput').value;
-            const searchResults = await api.searchUser({ username: searchQuery });
-            const usersList = searchResults.filter(u => u.id !== currentProfileId);
-            renderModalSearchResults(usersList);
-        }
-        catch (err) {
-            console.log(err);
-            document.getElementById('guildInviteError').innerText = err.error;
-        }
     };
+
+    var searchDelay;
+    document.getElementById('inviteModalInput').oninput = () => {
+        clearTimeout(searchDelay);
+        searchDelay = setTimeout(async () => {
+            if(!document.getElementById('inviteModalInput').value) {
+                renderModalSearchResults([]);
+                return;
+            }
+            try {
+                const searchQuery = document.getElementById('inviteModalInput').value;
+                const searchResults = await api.searchUser({ username: searchQuery });
+                const usersList = searchResults.filter(u => u.id !== currentProfileId);
+                renderModalSearchResults(usersList);
+            }
+            catch (err) {
+                console.log(err);
+                document.getElementById('guildInviteError').innerText = err.error;
+            }
+        }, 200);
+    }
     
     document.getElementById('inviteModalBtn').onclick = async evt => {
         try {
