@@ -126,6 +126,14 @@ document.getElementById('guildThemePicker').addEventListener('input', evt => {
 
 document.getElementById('guild-img-input').onchange = () => {
     const avatar = document.getElementById('guild-img-input').files[0];
+    document.getElementById('createGuildError').innerText = '';
+    // check size bigger than 5MB
+    if(avatar?.size > 5*1048576) {
+        document.getElementById('createGuildError').innerText = 'File size too big.';
+        document.getElementById('guild-img-input').value = '';
+        document.getElementById('guildImagePreview').src = '#';
+        return;
+    }
     document.getElementById('guildImagePreview').src = avatar ? URL.createObjectURL(avatar) : '#';
 }
 
@@ -133,6 +141,7 @@ document.getElementById('createGuildForm').onsubmit = async evt => {
     evt.preventDefault();
     const guildname = document.getElementById('guildnameInput').value;
     const initials = document.getElementById('initialsInput').value;
+
     if(!guildname || !initials) {
         document.getElementById('createGuildError').innerText = 'Invalid input.';
         return;
@@ -144,6 +153,7 @@ document.getElementById('createGuildForm').onsubmit = async evt => {
             openInviteKey: document.getElementById('inviteKeyInput').value ? document.getElementById('inviteKeyInput').value: null,
             themeColor: document.getElementById('guildThemePicker').value
         }
+
         const { id: guildId } = await api.createGuild(form);
         await api.updateGuildAvatar({
             guildId,
@@ -213,27 +223,40 @@ async function openGuildInviteModal(guildId)
     closeModal();
     document.getElementById('guildInviteError').innerText = '';
     openModal('guild-invite-modal');
-    document.getElementById('searchGuildInviteForm').onsubmit =  async evt => {
+    document.getElementById('searchGuildInviteForm').onsubmit = async evt => {
         evt.preventDefault();
-        if(!document.getElementById('inviteModalInput').value)
-            return;
-        try {
-            const searchQuery = document.getElementById('inviteModalInput').value;
-            const searchResults = await api.searchUser({ username: searchQuery });
-            const usersList = searchResults.filter(u => u.id !== currentProfileId);
-            renderModalSearchResults(usersList);
-        }
-        catch (err) {
-            console.log(err);
-            document.getElementById('guildInviteError').innerText = err.error;
-        }
     };
+
+    var searchDelay;
+    document.getElementById('inviteModalInput').oninput = () => {
+        clearTimeout(searchDelay);
+        searchDelay = setTimeout(async () => {
+            if(!document.getElementById('inviteModalInput').value) {
+                renderModalSearchResults([]);
+                return;
+            }
+            try {
+                const searchQuery = document.getElementById('inviteModalInput').value;
+                const searchResults = await api.searchUser({ username: searchQuery });
+                const usersList = searchResults.filter(u => u.id !== currentProfileId);
+                renderModalSearchResults(usersList);
+            }
+            catch (err) {
+                console.log(err);
+                document.getElementById('guildInviteError').innerText = err.error;
+            }
+        }, 200);
+    }
     
     document.getElementById('inviteModalBtn').onclick = async evt => {
         try {
             evt.target.disabled = true;
             const toInviteItems = document.getElementById('toInviteList').children;
             const idList = [...toInviteItems].map(item => item.dataset.id);
+            if(idList.length === 0) {
+                document.getElementById('guildInviteError').innerText = 'Invite list is empty.';
+                return;
+            }
             const responses = await Promise.all(idList.map(id => {
                 return api.inviteToGuild({
                     guildId,
@@ -302,6 +325,7 @@ function createModalSearchItem(user)
     const searchItem = document.getElementById('searchItemTemplate').content.firstElementChild.cloneNode(true);
 
     searchItem.querySelector('.icon-card').style = `--icon-bg-color: ${user.theme_color};`;
+    searchItem.querySelector('.icon-card > img').src = `${api.imgUrl}/${user.img_name}`;
     const usernameSpan = searchItem.querySelector(':scope > span');
     usernameSpan.innerText = user.username;
     usernameSpan.style = `--user-theme-color: ${user.theme_color};`;

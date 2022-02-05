@@ -19,6 +19,7 @@ async function render() {
         renderMembers(members);
         renderSendMessage(currentTextChannelId);
         renderChat(messages);
+        renderChatHeader(channel.channelname);
         renderTextChannels(textChannels, currentTextChannelId);
         renderUserbar(user);
         

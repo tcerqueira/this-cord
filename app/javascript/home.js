@@ -48,27 +48,36 @@ async function render()
 
         document.getElementById('searchTopbarForm').addEventListener('submit', async (evt) => {
             evt.preventDefault();
-            try {
-                const searchQuery = document.getElementById('topbar-search-input').value;
-                if(!searchQuery)
-                    return;
-                document.querySelector('.home-container > h3').innerText = 'Search';
-                const searchResult = await api.searchUser({ username: searchQuery });
-                const searchList = searchResult.map(u => {
-                    const friend = friends.find(f => f.id === u.id);
-                    if(!friend)
-                        return u;
-                    u.invite_status = friend.invite_status;
-                    u.request_sender = friend.request_sender;
-                    u.message_channel = friend.message_channel;
-                    return u;
-                });
-                renderUsersList(searchList);
-            }
-            catch (err) {
-                console.log(err);
-            }
         });
+
+        var searchDelay;
+        document.getElementById('topbar-search-input').oninput = () => {
+            clearTimeout(searchDelay);
+            searchDelay = setTimeout(async () => {
+                try {
+                    const searchQuery = document.getElementById('topbar-search-input').value;
+                    if(!searchQuery) {
+                        renderUsersList([]);
+                        return;
+                    }
+                    document.querySelector('.home-container > h3').innerText = 'Search';
+                    const searchResult = await api.searchUser({ username: searchQuery });
+                    const searchList = searchResult.map(u => {
+                        const friend = friends.find(f => f.id === u.id);
+                        if(!friend)
+                            return u;
+                        u.invite_status = friend.invite_status;
+                        u.request_sender = friend.request_sender;
+                        u.message_channel = friend.message_channel;
+                        return u;
+                    });
+                    renderUsersList(searchList);
+                }
+                catch (err) {
+                    console.log(err);
+                }
+            }, 200);
+        };
     }
     catch (err) {
         console.log(err);
