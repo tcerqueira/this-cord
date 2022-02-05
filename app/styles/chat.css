@@ -103,10 +103,6 @@
     animation: highlight-message 1s ease-in;
 }
 
-.message > a {
-    color: inherit;
-}
-
 .message::before {
     content: attr(data-sent-at);
     display: none;
@@ -140,6 +136,7 @@
 
 .message > a {
     position: relative;
+    color: inherit
 }
 
 .message > a::before {
@@ -187,7 +184,7 @@
     display: none;
     transform: scale(0);
     margin: 0;
-    padding: 0;
+    padding: .1em .1em 0 .1em; 
     border-radius: 0.3rem;
     border: solid 1px var(--color-dark-grey);
     background-color: var(--color-medium-grey-2);
