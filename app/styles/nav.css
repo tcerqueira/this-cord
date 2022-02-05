@@ -31,8 +31,8 @@
     display: flex;
     grid-area: server-overview;
     flex-direction: column;
-    padding: 0.5rem;
-    overflow: hidden;
+    /* width: 100%; */
+    /* overflow: hidden; */
 }
 
 .server-overview a {
@@ -42,8 +42,7 @@
 }
 
 .server-overview ul {
-    padding-top: 1rem;
-    padding-bottom: 2rem;
+    padding: 1rem .5rem;
 }
 
 .text-channel { 
@@ -52,11 +51,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-left: 1rem;
-    padding-top: 0.6rem;
-    padding-bottom: 0.6rem;
-    padding-right: 0.5rem;
-    height: fit-content;
+    flex-grow: 1;
+    padding: .6rem .5rem;
     border-radius: 10px;
     font-size: .9rem;
 }
@@ -75,9 +71,8 @@
 
 
 .text-channel-icons {
-    display: none;
+    visibility: hidden;
     cursor: pointer;
-    
 }
 
 .text-channel-icons:hover {
@@ -85,13 +80,12 @@
 }
 
 .text-channel:hover .text-channel-icons {
-    display: flex;
+    visibility: visible;
 
 }
 
 .text-channel:hover {
     background-color: rgba(0,0,0, .1);
-
 }
 
 .selected-channel {
@@ -103,13 +97,22 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-right: 0.5rem;
-    padding-bottom: 0;
+    /* align-self: stretch; */
+    padding: 0.5rem;
 }
 
-.title > img {
+.title img {
     cursor: pointer;
 }
+
+.title div {
+    position: relative;
+}
+
+/* .title div:hover::after {
+    position: absolute;
+    inset: 0 0 auto auto;
+} */
 
 .user {
     grid-area: user;
@@ -172,19 +175,10 @@
     border-radius: 40%;
 }
 
-.side-card:hover::after {
-    content: attr(data-tooltip);
+.side-card:hover::after,
+.title div:hover::after {
     position: absolute;
-    top: 10%;
-    left: 150%;
-    color: white;
-    transition: all 200ms ease-in-out;
-
-    white-space: nowrap;
-
-    padding: 0.3rem;
-    background-color: var(--color-dark-grey);
-    box-shadow: 0px 0px 7px black;
+    inset: 10% auto auto 150%;
 }
 
 .current-server::before {

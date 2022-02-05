@@ -89,15 +89,9 @@
     height: 1rem;
 } */
 
-.home-options-icon[data-tooltip]:hover::before {
-    content: attr(data-tooltip);
+.home-options-icon[data-tooltip]:hover::after {
     position: absolute;
     inset: -150% -50% auto auto;
-    white-space: nowrap;
-    padding: .3em;
-    border-radius: 5px;
-    color: var(--font-color);
-    background-color: var(--color-black);
 }
 
 .user-item-username {

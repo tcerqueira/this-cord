@@ -143,7 +143,8 @@ input[type=email]:focus {
     grid-template-areas: 
         "server-overview"
         "user";
-    overflow: hidden;
+    /* overflow: hidden; */
+    z-index: 1;
 }
 
 .nav-header {
@@ -298,6 +299,16 @@ input.button:active {
 [data-tooltip]::before,
 [data-tooltip]::after {
     animation: scale-in .2s var(--bounce-curve);
+}
+
+[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    white-space: nowrap;
+    padding: .3em;
+    border-radius: 5px;
+    box-shadow: 0px 0px 7px black;
+    color: var(--font-color);
+    background-color: var(--color-black);
 }
 
 @keyframes scale-in {

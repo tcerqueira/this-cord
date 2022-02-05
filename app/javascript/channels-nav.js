@@ -51,13 +51,16 @@ function createTextChannelItem(textChannel)
     // const anchorsettingsIcon = document.createElement('a');
     // anchorsettingsIcon.href = '#';
     // div.append(anchorsettingsIcon);
-    
+
     const settingsIcon = document.createElement('img');
     listItem.append(settingsIcon);
     settingsIcon.className = 'text-channel-icons icon-text-size';
     settingsIcon.src = "../public/settings.svg";
     settingsIcon.alt = "settings";
-
+    settingsIcon.addEventListener('click', evt => {
+        evt.stopPropagation();
+        window.location.href = `guild-settings?id=${textChannel.guild_id}`;
+    });
     return anchorListItem;
 }
 
