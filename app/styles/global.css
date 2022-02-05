@@ -218,18 +218,15 @@ input[type=email]:focus {
 }
 
 .icon-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     height: var(--side-size);
     width: var(--side-size);
     border-radius: 50%;
     background-color: var(--icon-bg-color, var(--color-medium-grey-1));
     overflow: hidden;
-
-    -webkit-transition: .3s -webkit-filter linear;
-    -moz-transition: .3s -moz-filter linear;
-    -moz-transition: .3s filter linear;
-    -ms-transition: .3s -ms-filter linear;
-    -o-transition: .3s -o-filter linear;
-    transition: .3s filter linear, .3s -webkit-filter linear;
 }
 
 .icon-card img {

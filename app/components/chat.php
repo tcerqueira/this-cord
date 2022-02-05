@@ -24,6 +24,13 @@
         </li> -->
         <!-- FETCHED CLIENT-SIDE -->
     </ol>
+    <header id="messagesHeader">
+        <div class="icon-card icon-size-xbig">
+            <img src="../public/text-channel.svg" alt="hash_icon">
+        </div>
+        <h1>Welcome!</h1>
+        <span>This is the start of the chat.</span>
+    </header>
 </div>
 <div id="reply-container" class="reply-container">
     <span>Replying to <span id="replyingToUsername" class="username"></span></span>

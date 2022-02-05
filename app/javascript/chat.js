@@ -97,6 +97,12 @@ function renderSendMessage(channelId) {
     };
 }
 
+function renderChatHeader(channelName) {
+    const messagesHeader = document.getElementById('messagesHeader');
+    messagesHeader.querySelector('h1').innerText = `Welcome to #${channelName}!`;
+    messagesHeader.querySelector('span').innerText = `This is the start of the #${channelName} channel.`;
+}
+
 // ############################################################### FUNCTIONS #####################################################################
 // ###############################################################################################################################################
 
