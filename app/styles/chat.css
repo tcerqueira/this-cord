@@ -138,6 +138,19 @@
     opacity: 1;
 }
 
+.message > a {
+    position: relative;
+}
+
+.message > a::before {
+    content: '';
+    position: absolute;
+    inset: .5em 101% .3em calc(var(--card-size) * (-.85));
+    border-top: 2px solid var(--color-light-grey);
+    border-left: 2px solid var(--color-light-grey);
+    border-top-left-radius: 5px;
+}
+
 .message-replying-to-me {
     border-left: solid 2px var(--color-yellow);
     background-color: var(--color-dark-yellow);
