@@ -253,6 +253,10 @@ async function openGuildInviteModal(guildId)
             evt.target.disabled = true;
             const toInviteItems = document.getElementById('toInviteList').children;
             const idList = [...toInviteItems].map(item => item.dataset.id);
+            if(idList.length === 0) {
+                document.getElementById('guildInviteError').innerText = 'Invite list is empty.';
+                return;
+            }
             const responses = await Promise.all(idList.map(id => {
                 return api.inviteToGuild({
                     guildId,
