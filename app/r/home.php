@@ -11,8 +11,8 @@ require 'scripts/SendHeaders.php';
     <?php include "scripts/head.php" ?>
     <link rel="stylesheet" href="../styles/home.css">
     <link rel="stylesheet" href="../styles/dm-nav.css">
-    <script src="../javascript/dm-nav.js" defer></script>
-    <script src="../javascript/invite-sidebar.js" defer></script>
+    <script src="../javascript/components/dm-nav.js" defer></script>
+    <script src="../javascript/components/invite-sidebar.js" defer></script>
     <script src="../javascript/home.js" defer></script>
 </head>
 

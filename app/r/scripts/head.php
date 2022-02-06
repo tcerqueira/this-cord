@@ -12,6 +12,6 @@
 <link rel="stylesheet" href="../styles/modals.css">
 <!-- JavaScript -->
 <script src="../javascript/api.js" defer></script>
-<script src="../javascript/modals.js" defer></script>
-<script src="../javascript/nav.js" defer></script>
-<script src="../javascript/user.js" defer></script>
+<script src="../javascript/components/modals.js" defer></script>
+<script src="../javascript/components/nav.js" defer></script>
+<script src="../javascript/components/user.js" defer></script>

@@ -7,7 +7,7 @@ require 'scripts/SendHeaders.php';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include "scipts/head-outside.php" ?>
+    <?php include "scripts/head-outside.php" ?>
     <link rel="stylesheet" href="../styles/login.css">
     <script src="../javascript/login.js" defer></script>
 </head>

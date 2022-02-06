@@ -22,7 +22,7 @@ async function render()
         });
 
         document.querySelector('.page-header').innerText = `Welcome to guild`;
-        document.querySelector('.title > img').addEventListener('click', () => {
+        document.querySelector('.title img').addEventListener('click', () => {
             openCreateChannelModal(currentGuildlId);
         });
     } catch (err) {

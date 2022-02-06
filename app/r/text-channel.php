@@ -10,9 +10,9 @@ require 'scripts/SendHeaders.php';
     <?php include "scripts/head.php" ?>
     <link rel="stylesheet" href="../styles/chat.css">
     <link rel="stylesheet" href="../styles/sidebar.css">
-    <script src="../javascript/chat.js" defer></script>
-    <script src="../javascript/guild.js" defer></script>
-    <script src="../javascript/channels-nav.js" defer></script>
+    <script src="../javascript/components/chat.js" defer></script>
+    <script src="../javascript/components/member-sidebar.js" defer></script>
+    <script src="../javascript/components/channels-nav.js" defer></script>
     <script src="../javascript/text-channel.js" defer></script>
 </head>
 <body>
