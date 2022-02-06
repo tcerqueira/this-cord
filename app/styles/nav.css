@@ -4,6 +4,7 @@
     justify-content: space-between;
     background-color: var(--color-dark-grey);
     grid-area: primary-nav;
+    z-index: 2;
     /* overflow-y: hidden;
     overflow-x: visible; */
     /* overflow: hidden; */
