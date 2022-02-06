@@ -7,7 +7,7 @@ require 'scripts/SendHeaders.php';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include "../components/head.php" ?>
+    <?php include "scripts/head.php" ?>
     <link rel="stylesheet" href="../styles/chat.css">
     <link rel="stylesheet" href="../styles/sidebar.css">
     <script src="../javascript/chat.js" defer></script>

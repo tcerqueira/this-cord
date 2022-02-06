@@ -8,7 +8,7 @@ require 'scripts/SendHeaders.php';
 <html lang="en">
 
 <head>
-    <?php include "../components/head.php"; ?>
+    <?php include "scripts/head.php" ?>
     <link rel="stylesheet" href="../styles/home.css">
     <link rel="stylesheet" href="../styles/dm-nav.css">
     <script src="../javascript/dm-nav.js" defer></script>
