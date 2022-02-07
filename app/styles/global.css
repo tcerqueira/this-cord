@@ -168,9 +168,13 @@ input[type=email]:focus {
 }
 
 .server-options-container {
-    position: relative;
+    /* position: relative; */
     display: flex;
     flex-wrap: nowrap;
+}
+
+.server-options-container > div {
+    position: relative;
 }
 
 .server-options-container div::after {
