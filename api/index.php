@@ -894,13 +894,27 @@ h2 {
 {
     id,
     channel_id,
-    author_id,
-    reply_to,
     sent_at,
     content,
-    username,
-    theme_color,
-    img_name
+    author: {
+        id,
+        username,
+        theme_color,
+        img_name
+    },
+    reply: {
+        id,
+        channel_id,
+        sent_at,
+        content,
+        author: {
+            id,
+            username,
+            theme_color,
+            img_name
+        },
+        reply
+    }
 }
 </code>
             </div>
@@ -936,7 +950,7 @@ h2 {
             theme_color,
             img_name
         },
-        reply_to
+        reply
     }
 }
 </code>
@@ -978,7 +992,7 @@ h2 {
             theme_color,
             img_name
         },
-        reply_to
+        reply
     }
 }
 </code>
