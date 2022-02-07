@@ -231,8 +231,16 @@ class GuildController
             $response = internalServerErrorResponse('Problem finding invites for guilds.');
             return $response;
         }
-        $result = pg_fetch_all($result);
-        $response = okResponse($result ? $result : []);
+        
+        $result_arr = [];
+        while($row = pg_fetch_assoc($result)) {
+            if($row['channels'] == "[null]")
+                $row['channels'] = [];
+            else
+                $row['channels'] = json_decode($row['channels']);
+            array_push($result_arr, $row);
+        }
+        $response = okResponse($result_arr);
         return $response;
     }
 
