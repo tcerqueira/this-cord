@@ -16,15 +16,14 @@ if(!isAuthenticated())
 }
 
 $input = (Array) json_decode(file_get_contents('php://input'), TRUE);
-if(!isset($input['guild_id']) ||
-    (!isset($input['guildname']) && !isset($input['initials']) && !isset($input['open_invite_key']) && !isset($input['theme_color'])))
+if(!isset($input['guild_id']))
 {
     sendResponse(unprocessableEntityResponse());
     exit();
 }
 
 $controller = new GuildController($dbConnection);
-$response = $controller->updateGuild($input['guild_id'], $input, getId());
+$response = $controller->leaveGuild($input['guild_id'], getId());
 
 sendResponse($response);
 ?>

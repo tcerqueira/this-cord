@@ -6,6 +6,7 @@ CREATE TABLE this_user (
     userstatus SMALLINT NOT NULL DEFAULT 0,
     theme_color CHAR(7) DEFAULT '#7289da',
     user_description TEXT DEFAULT '',
+    img_name VARCHAR(64) DEFAULT 'user_default.gif',
     PRIMARY KEY (id)
 );
 
@@ -16,6 +17,7 @@ CREATE TABLE guild (
     admin_id UUID NOT NULL,
     open_invite_key VARCHAR(64) DEFAULT 'this-cord',
     theme_color CHAR(7) DEFAULT '#7289da',
+    img_name VARCHAR(64) DEFAULT 'guild_default.gif',
     PRIMARY KEY (id),
     FOREIGN KEY (admin_id) REFERENCES this_user(id)
 );
@@ -36,7 +38,6 @@ CREATE TABLE channel_message (
     reply_to UUID,
     sent_at TIMESTAMPTZ DEFAULT Now(),
     content TEXT NOT NULL,
-    -- attachment_id (???)
     PRIMARY KEY (id),
     FOREIGN KEY (channel_id) REFERENCES text_channel(id) ON DELETE CASCADE
 );
@@ -63,15 +64,13 @@ CREATE TABLE this_friends (
     FOREIGN KEY (friend_2) REFERENCES this_user(id) ON DELETE CASCADE,
     FOREIGN KEY (request_sender) REFERENCES this_user(id) ON DELETE CASCADE,
     FOREIGN KEY (message_channel) REFERENCES text_channel(id) ON DELETE CASCADE
-    -- UNIQUE (friend_1, friend_2)
-    -- CONSTRAINT U_Friendship UNIQUE (LEAST(friend_1, friend_2), GREATEST(friend_1, friend_2))
 );
 
 CREATE UNIQUE INDEX unique_friend_pairs ON this_friends(least(friend_1,friend_2), greatest(friend_1,friend_2));
 CREATE INDEX ordered_channel_messages_index ON channel_message(channel_id, sent_at);
 
 CREATE VIEW public_user_VIEW AS
-SELECT id, username, userstatus, theme_color, user_description
+SELECT id, username, userstatus, theme_color, user_description, img_name
 FROM this_user;
 
 CREATE OR REPLACE FUNCTION update_reply() RETURNS TRIGGER AS $$

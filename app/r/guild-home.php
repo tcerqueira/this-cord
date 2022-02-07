@@ -7,10 +7,10 @@ require 'scripts/SendHeaders.php';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include "../components/head.php" ?>
+    <?php include "scripts/head.php" ?>
     <link rel="stylesheet" href="../styles/guild-home.css">
     <link rel="stylesheet" href="../styles/sidebar.css">
-    <script src="../javascript/guild.js" defer></script>
+    <script src="../javascript/components/member-sidebar.js" defer></script>
     <script src="../javascript/guild-home.js" defer></script>
 </head>
 <body>

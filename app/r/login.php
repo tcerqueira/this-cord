@@ -7,7 +7,7 @@ require 'scripts/SendHeaders.php';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include "../components/head-outside.php" ?>
+    <?php include "scripts/head-outside.php" ?>
     <link rel="stylesheet" href="../styles/login.css">
     <script src="../javascript/login.js" defer></script>
 </head>
@@ -37,7 +37,7 @@ require 'scripts/SendHeaders.php';
                 <span>Need an account? <a href="register.php">Register</a></span>
             </div>
             <div class="login-side">
-                Some cute message.
+                <img src="../public/wolf-logo.svg" alt="logo">
             </div>
         </div>
     </main>

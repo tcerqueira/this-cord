@@ -1,6 +1,7 @@
+<a id="toPresentBtn" href="#bottom">Jump to present</a>
 <div class="messages-container">
     <!-- Empty element to reference to go back to bottom messages -->
-    <div id="back-to-bottom"></div>
+    <div id="bottom"></div>
     <ol id="messages-list">
         <!-- <li id="message_2" class="message">
             <a href="#message_123">
@@ -23,6 +24,13 @@
         </li> -->
         <!-- FETCHED CLIENT-SIDE -->
     </ol>
+    <header id="messagesHeader">
+        <div class="icon-card icon-size-xbig">
+            <img src="../public/text-channel.svg" alt="hash_icon">
+        </div>
+        <h1>Welcome!</h1>
+        <span>This is the start of the chat.</span>
+    </header>
 </div>
 <div id="reply-container" class="reply-container">
     <span>Replying to <span id="replyingToUsername" class="username"></span></span>

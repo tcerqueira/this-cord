@@ -8,13 +8,13 @@ require 'scripts/SendHeaders.php';
 <html lang="en">
 
 <head>
-    <?php include "../components/head.php"; ?>
+    <?php include "scripts/head.php" ?>
     <link rel="stylesheet" href="../styles/chat.css">
     <link rel="stylesheet" href="../styles/home.css">
     <link rel="stylesheet" href="../styles/dm-nav.css">
-    <script src="../javascript/dm-nav.js" defer></script>
-    <script src="../javascript/invite-sidebar.js" defer></script>
-    <script src="../javascript/chat.js" defer></script>
+    <script src="../javascript/components/dm-nav.js" defer></script>
+    <script src="../javascript/components/invite-sidebar.js" defer></script>
+    <script src="../javascript/components/chat.js" defer></script>
     <script src="../javascript/direct-message.js" defer></script>
 </head>
 

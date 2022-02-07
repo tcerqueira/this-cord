@@ -1,6 +1,7 @@
 <?php
 require "../../bootstrap.php";
 use controllers\GuildController;
+use controllers\AuthorizationController;
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 if($requestMethod != 'POST')
@@ -15,16 +16,22 @@ if(!isAuthenticated())
     exit();
 }
 
-$input = (Array) json_decode(file_get_contents('php://input'), TRUE);
-if(!isset($input['guild_id']) ||
-    (!isset($input['guildname']) && !isset($input['initials']) && !isset($input['open_invite_key']) && !isset($input['theme_color'])))
+if(!isset($_POST['guild_id']))
 {
     sendResponse(unprocessableEntityResponse());
     exit();
 }
 
+$authorization = new AuthorizationController($dbConnection);
+$mem = $authorization->membershipByGuild($_POST['guild_id'], getId());
+if(!$mem['is_member'] || $mem['role'] < 1)
+{
+    $response = forbiddenResponse();
+    return $response;
+}
+
 $controller = new GuildController($dbConnection);
-$response = $controller->updateGuild($input['guild_id'], $input, getId());
+$response = $controller->updateGuildAvatar($_POST['guild_id'], $_FILES['guild_avatar']);
 
 sendResponse($response);
 ?>

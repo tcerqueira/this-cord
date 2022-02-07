@@ -7,6 +7,7 @@ window.onclick = evt => {
 
 function openUserModal(user)
 {
+    closeModal();
     openModal('user-modal');
     const {
         id,
@@ -113,18 +114,34 @@ function renderUserFriendButton(user) {
 
 function openCreateGuildModal()
 {
+    closeModal();
     document.getElementById('createGuildError').innerText = '';
     openModal('create-guild-modal');
 }
 
 document.getElementById('guildThemePicker').addEventListener('input', evt => {
     document.getElementById('createGuildBanner').style = `--guild-bg-color: ${evt.target.value};`;
+    document.getElementById('iconCardPreview').style = `--icon-bg-color: ${evt.target.value};`;
 });
+
+document.getElementById('guild-img-input').onchange = () => {
+    const avatar = document.getElementById('guild-img-input').files[0];
+    document.getElementById('createGuildError').innerText = '';
+    // check size bigger than 5MB
+    if(avatar?.size > 5*1048576) {
+        document.getElementById('createGuildError').innerText = 'File size too big.';
+        document.getElementById('guild-img-input').value = '';
+        document.getElementById('guildImagePreview').src = '#';
+        return;
+    }
+    document.getElementById('guildImagePreview').src = avatar ? URL.createObjectURL(avatar) : '#';
+}
 
 document.getElementById('createGuildForm').onsubmit = async evt => {
     evt.preventDefault();
     const guildname = document.getElementById('guildnameInput').value;
     const initials = document.getElementById('initialsInput').value;
+
     if(!guildname || !initials) {
         document.getElementById('createGuildError').innerText = 'Invalid input.';
         return;
@@ -136,7 +153,12 @@ document.getElementById('createGuildForm').onsubmit = async evt => {
             openInviteKey: document.getElementById('inviteKeyInput').value ? document.getElementById('inviteKeyInput').value: null,
             themeColor: document.getElementById('guildThemePicker').value
         }
+
         const { id: guildId } = await api.createGuild(form);
+        await api.updateGuildAvatar({
+            guildId,
+            avatar: document.getElementById('guild-img-input').files[0]
+        });
         const guild = await api.fetchGuild({ id: guildId });
         addServerCard(guild);
         closeModal();
@@ -154,6 +176,7 @@ document.getElementById('createGuildSubmitBtn').onclick = evt => {
 }
 
 function openCreateChannelModal(guildId) {
+    closeModal();
     document.getElementById('createChannelError').innerText = '';
     openModal('create-textchannel-modal');
     document.getElementById('createChannelForm').onsubmit = async evt => {
@@ -170,7 +193,7 @@ function openCreateChannelModal(guildId) {
             });
             const guildsContainer = document.getElementById('guilds-container');
             if(guildsContainer) {
-                const navGuild = [...guildsContainer.children].find(g => g.children[0].dataset.id === guildId);
+                const navGuild = [...guildsContainer.children].find(g => g.children[0].children[0].dataset.id === guildId);
                 navGuild.href = `text-channel.php?id=${channelId}`;
             }
             closeModal();
@@ -185,6 +208,7 @@ function openCreateChannelModal(guildId) {
 
 function openConfirmationModal(message, callbackFn)
 {
+    closeModal();
     openModal('confirmation-modal');
     document.getElementById('confirmation-message').innerText = message;
 
@@ -196,29 +220,43 @@ document.getElementById('cancel-btn-modal').onclick = closeModal;
 
 async function openGuildInviteModal(guildId)
 {
+    closeModal();
     document.getElementById('guildInviteError').innerText = '';
     openModal('guild-invite-modal');
-    document.getElementById('searchGuildInviteForm').onsubmit =  async evt => {
+    document.getElementById('searchGuildInviteForm').onsubmit = async evt => {
         evt.preventDefault();
-        if(!document.getElementById('inviteModalInput').value)
-            return;
-        try {
-            const searchQuery = document.getElementById('inviteModalInput').value;
-            const searchResults = await api.searchUser({ username: searchQuery });
-            const usersList = searchResults.filter(u => u.id !== currentProfileId);
-            renderModalSearchResults(usersList);
-        }
-        catch (err) {
-            console.log(err);
-            document.getElementById('guildInviteError').innerText = err.error;
-        }
     };
+
+    var searchDelay;
+    document.getElementById('inviteModalInput').oninput = () => {
+        clearTimeout(searchDelay);
+        searchDelay = setTimeout(async () => {
+            if(!document.getElementById('inviteModalInput').value) {
+                renderModalSearchResults([]);
+                return;
+            }
+            try {
+                const searchQuery = document.getElementById('inviteModalInput').value;
+                const searchResults = await api.searchUser({ username: searchQuery });
+                const usersList = searchResults.filter(u => u.id !== currentProfileId);
+                renderModalSearchResults(usersList);
+            }
+            catch (err) {
+                console.log(err);
+                document.getElementById('guildInviteError').innerText = err.error;
+            }
+        }, 200);
+    }
     
     document.getElementById('inviteModalBtn').onclick = async evt => {
         try {
             evt.target.disabled = true;
             const toInviteItems = document.getElementById('toInviteList').children;
             const idList = [...toInviteItems].map(item => item.dataset.id);
+            if(idList.length === 0) {
+                document.getElementById('guildInviteError').innerText = 'Invite list is empty.';
+                return;
+            }
             const responses = await Promise.all(idList.map(id => {
                 return api.inviteToGuild({
                     guildId,
@@ -284,18 +322,16 @@ function addToInviteList(toInvite)
 
 function createModalSearchItem(user)
 {
-    const searchItem = document.getElementById('searchItemTemplate').cloneNode(true);
-    searchItem.style = '';
-    searchItem.removeAttribute('id');
+    const searchItem = document.getElementById('searchItemTemplate').content.firstElementChild.cloneNode(true);
 
     searchItem.querySelector('.icon-card').style = `--icon-bg-color: ${user.theme_color};`;
+    searchItem.querySelector('.icon-card > img').src = `${api.imgUrl}/${user.img_name}`;
     const usernameSpan = searchItem.querySelector(':scope > span');
     usernameSpan.innerText = user.username;
     usernameSpan.style = `--user-theme-color: ${user.theme_color};`;
-    const idSpan = document.getElementById('shortIdSpan').cloneNode(true);
+    const idSpan = document.createElement('span');
     idSpan.innerText = ` #${user.id.slice(0,6)}`;
-    idSpan.removeAttribute('id');
-    searchItem.querySelector(':scope > span').append(idSpan);
+    usernameSpan.append(idSpan);
 
     searchItem.querySelector('.invite-to-guild-icon').addEventListener('click', () => {
         searchItem.parentNode.removeChild(searchItem);
@@ -307,9 +343,7 @@ function createModalSearchItem(user)
 
 function createModalToInviteItem(user)
 {
-    const inviteItem = document.getElementById('toInviteItemTemplate').cloneNode(true);
-    inviteItem.style = '';
-    inviteItem.removeAttribute('id');
+    const inviteItem = document.getElementById('toInviteItemTemplate').content.firstElementChild.cloneNode(true);
 
     inviteItem.querySelector('span').innerText = user.username;
     inviteItem.querySelector('img').addEventListener('click', () => {
@@ -323,6 +357,7 @@ function createModalToInviteItem(user)
 
 function openErrorModal(message, callbackFn)
 {
+    closeModal();
     openModal('error-modal');
     document.getElementById('errorModalMessage').innerText = message;
     document.getElementById('errorModalBtn').onclick = callbackFn;

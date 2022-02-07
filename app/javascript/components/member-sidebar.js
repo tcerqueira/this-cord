@@ -46,18 +46,22 @@ function renderMembers(members) {
 }
 
 function createMemberItem(member) {
-    const li = document.createElement('li');
-    const div = document.createElement('div');
-    const span = document.createElement('span');
+    const li = document.getElementById('memberItemTemplate').content.firstElementChild.cloneNode(true);
+    const wrapper = li.querySelector('.status-wrapper');
+    const div = li.querySelector('.icon-card');
+    const span = li.querySelector('span');
+    const img = li.querySelector('img');
 
-    li.className = 'member-container rounded-container';
-    if(member.userstatus === '0') li.classList.add('offline');
+    if(member.userstatus === '1') {
+        li.classList.remove('offline');
+        wrapper.classList.remove('status-offline');
+    }
     div.className = 'icon-card icon-size-medium';
     div.style = '--icon-bg-color: ' + member.theme_color + ';';
     span.innerText = member.username;
     span.style = '--sidebar-username-color: ' + member.theme_color + ';';
+    img.src = `${api.imgUrl}/${member.img_name}`;
 
-    li.append(div, span);
     li.addEventListener('click', async () => {
         try {
             const friend = await api.fetchFriend({ id: member.member_id });
@@ -66,6 +70,6 @@ function createMemberItem(member) {
         catch (err) {
             console.log(err);
         }        
-    })
+    });
     return li;
 }

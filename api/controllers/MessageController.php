@@ -23,6 +23,7 @@ class MessageController
             return $response;
         }
         $result = pg_fetch_assoc($result);
+        $result = $this->messageObjectFromResult($result);
         $response = okResponse($result ? $result : new stdClass());
         return $response;
     }
@@ -93,22 +94,16 @@ class MessageController
         return $response;
     }
 
-    private function messageObjectFromResult($result)
+    private function messageObjectFromResult($result, $deep = true)
     {
         $reply_res = null;
-        if($result['reply_to'] != null) {
+        if($result['reply_to'] != null && $deep) {
             $reply_aux = $this->messageGateway->find($result['reply_to']);
             $reply_aux = pg_fetch_assoc($reply_aux);
             if(!$reply_res) {
                 $reply_res = null;
             }
-            $reply_res = array_merge($reply_aux, [
-                'author' => [
-                    'id' => $reply_aux['author_id'],
-                    'username' => $reply_aux['username'],
-                    'theme_color' => $reply_aux['theme_color']
-                ]
-            ]);
+            $reply_res = $this->messageObjectFromResult($reply_aux, false);
         }
         $res = [
             'id' => $result['id'],
@@ -118,9 +113,10 @@ class MessageController
             'author' => [
                 'id' => $result['author_id'],
                 'username' => $result['username'],
-                'theme_color' => $result['theme_color']
+                'theme_color' => $result['theme_color'],
+                'img_name' => $result['img_name']
             ],
-            'reply' => $reply_res
+            'reply' => $deep ? $reply_res : $result['reply_to']
         ];
         return $res;
     }

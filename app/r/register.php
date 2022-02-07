@@ -7,7 +7,7 @@ require 'scripts/SendHeaders.php';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include "../components/head-outside.php" ?>
+    <?php include "scripts/head-outside.php" ?>
     <link rel="stylesheet" href="../styles/register.css">
     <script src="../javascript/register.js" defer></script>
 </head>

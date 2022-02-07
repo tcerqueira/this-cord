@@ -143,7 +143,8 @@ input[type=email]:focus {
     grid-template-areas: 
         "server-overview"
         "user";
-    overflow: hidden;
+    /* overflow: hidden; */
+    z-index: 1;
 }
 
 .nav-header {
@@ -218,26 +219,43 @@ input[type=email]:focus {
 }
 
 .icon-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     height: var(--side-size);
     width: var(--side-size);
     border-radius: 50%;
     background-color: var(--icon-bg-color, var(--color-medium-grey-1));
-
-    -webkit-transition: .3s -webkit-filter linear;
-    -moz-transition: .3s -moz-filter linear;
-    -moz-transition: .3s filter linear;
-    -ms-transition: .3s -ms-filter linear;
-    -o-transition: .3s -o-filter linear;
-    transition: .3s filter linear, .3s -webkit-filter linear;
+    overflow: hidden;
 }
-/* 
-.icon-card:hover {
-    -webkit-filter: blur(3px);
-    -moz-filter: blur(3px);
-    -ms-filter: blur(3px);
-    -o-filter: blur(3px);
-    filter: blur(3px);
-} */
+
+.icon-card img {
+    height: var(--side-size);
+    width: var(--side-size);
+    object-fit: cover;
+}
+
+.status-wrapper {
+    position: relative;
+}
+
+.status-wrapper::before {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: auto auto 0 0;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid var(--color-light-grey);
+    border-radius: 50%;
+
+    background-color: var(--color-green);
+}
+
+.status-wrapper.status-offline::before {
+    background-color: var(--color-medium-grey-2);
+}
 
 .user-text-input {
     border: 1px solid var(--color-light-grey);
@@ -281,6 +299,16 @@ input.button:active {
 [data-tooltip]::before,
 [data-tooltip]::after {
     animation: scale-in .2s var(--bounce-curve);
+}
+
+[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    white-space: nowrap;
+    padding: .3em;
+    border-radius: 5px;
+    box-shadow: 0px 0px 7px black;
+    color: var(--font-color);
+    background-color: var(--color-black);
 }
 
 @keyframes scale-in {
@@ -361,6 +389,10 @@ input.button:active {
 .icon-text-size {
     height: 1.1rem;
     width: 1.1rem;
+}
+
+.icon-size-xbig {
+    --side-size: calc(var(--card-size) + 2rem);
 }
 
 .icon-size-big {

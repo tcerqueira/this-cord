@@ -1,2 +1,5 @@
 .vscode
 vendor
+api/public/*
+!api/public/user_default.gif
+!api/public/guild_default.gif

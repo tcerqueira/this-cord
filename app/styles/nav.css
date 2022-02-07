@@ -4,6 +4,7 @@
     justify-content: space-between;
     background-color: var(--color-dark-grey);
     grid-area: primary-nav;
+    z-index: 2;
     /* overflow-y: hidden;
     overflow-x: visible; */
     /* overflow: hidden; */
@@ -21,39 +22,18 @@
     /* overflow: hidden; */
 }
 
-.guilds-container {
-    /* overflow-y: auto;
-    overflow-x: hidden; */
-    /* overflow: auto; */
-}
-
-.side-card {
-    /* --side-size: var(--card-size); */
-    position: relative;
-    margin: 15px auto;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: border-radius 200ms ease-in-out,
-                background-color 100ms ease-in-out;
-
-    /* background-color: var(--color-medium-grey-1); */
-    color: var(--color-light);
-    cursor: pointer;
-}
-
-.side-card:hover {
-    border-radius: 40%;
-    /* background-color: var(--color-primary); */
-}
+/* .guilds-container {
+    overflow-y: auto;
+    overflow-x: hidden;
+    overflow: auto;
+} */
 
 .server-overview {
     display: flex;
     grid-area: server-overview;
     flex-direction: column;
-    padding: 0.5rem;
-    overflow: hidden;
+    /* width: 100%; */
+    /* overflow: hidden; */
 }
 
 .server-overview a {
@@ -63,8 +43,7 @@
 }
 
 .server-overview ul {
-    padding-top: 1rem;
-    padding-bottom: 2rem;
+    padding: 1rem .5rem;
 }
 
 .text-channel { 
@@ -73,16 +52,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-left: 1rem;
-    padding-top: 0.6rem;
-    padding-bottom: 0.6rem;
-    padding-right: 0.5rem;
-    height: fit-content;
-    /* height: calc(var(--font-height) + (2 * var(--padding-height)));    */
+    flex-grow: 1;
+    padding: .6rem .5rem;
+    border-radius: 10px;
+    font-size: .9rem;
 }
 
 .text-channel div {
-    max-width: 75%;
+    max-width: 85%;
     display: flex;
     align-items: center;
 }
@@ -95,9 +72,8 @@
 
 
 .text-channel-icons {
-    display: none;
+    visibility: hidden;
     cursor: pointer;
-    
 }
 
 .text-channel-icons:hover {
@@ -105,31 +81,39 @@
 }
 
 .text-channel:hover .text-channel-icons {
-    display: flex;
+    visibility: visible;
 
 }
 
 .text-channel:hover {
-    background-color: var(--color-dark-grey);
-    border-radius: 10px;
+    background-color: rgba(0,0,0, .1);
 }
 
 .selected-channel {
     color: var(--color-light);
-    font-size: 1.1em;
+    background-color: rgba(255,255,255, .05);
 }
 
 .title {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-right: 0.5rem;
-    padding-bottom: 0;
+    /* align-self: stretch; */
+    padding: 0.5rem;
 }
 
-.title > img {
+.title img {
     cursor: pointer;
 }
+
+.title div {
+    position: relative;
+}
+
+/* .title div:hover::after {
+    position: absolute;
+    inset: 0 0 auto auto;
+} */
 
 .user {
     grid-area: user;
@@ -137,10 +121,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem;
+    padding: .7rem;
 
-    border-left: 3px solid var(--user-theme-color, var(--color-primary));
+    border-left: 3px solid var(--user-theme-color, transparent);
     border-top-left-radius: 5px;
+}
+
+.user .icon-card {
+    display: inline-block;
 }
 
 .user > div {
@@ -148,6 +136,7 @@
 }
 
 #userbarUsername {
+    margin-left: 1em;
     color: var(--user-theme-color, var(--color-primary));
 }
 
@@ -156,38 +145,42 @@
     z-index: -1;
 }
 
-.user img {
+.user > a img {
     height: 1.5rem;
     border-radius: 40px;
 }
 
-.side-card:hover::after {
-    content: attr(data-tooltip);
+.side-card {
+    position: relative;
+    width: fit-content;
+    margin: 15px auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: var(--color-light);
+}
+
+.side-card .icon-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: border-radius 200ms ease-in-out,
+                background-color 100ms ease-in-out;
+    cursor: pointer;
+}
+
+.side-card .icon-card:hover {
+    border-radius: 40%;
+}
+
+.side-card:hover::after,
+.title div:hover::after {
     position: absolute;
-    top: 10%;
-    left: 150%;
-    color: white;
-    transition: all 200ms ease-in-out;
-
-    white-space: nowrap;
-    /* overflow: hidden; */
-
-    padding: 0.6rem;
-    background-color: black;
-    box-shadow: 0px 0px 10px black;
+    inset: 10% auto auto 150%;
 }
-
-/* .side-card > .tooltip {
-    transform: scale(0);
-    transition: all 200ms ease;
-    top: 45%;
-    left: 0%;
-}
-
-.side-card:hover > .tooltip {
-    transform: scale(1);
-    z-index: 999;
-} */
 
 .current-server::before {
     content: '';
@@ -214,16 +207,13 @@
     animation: ball-to-bar .3s linear forwards;
 }
 
-#homeIcon {
-    transition: background-color .3s linear;
-}
-
 #homeIcon:hover {
     background-color: var(--color-primary);
 }
 
-#createGuildNavIcon {
-    transition: background-color .3s linear;
+#homeIcon img {
+    height: calc(var(--side-size) - 1rem);
+    width: calc(var(--side-size) - 1rem);
 }
 
 #createGuildNavIcon:hover {
@@ -236,7 +226,6 @@
 
 #logoutIcon {
     flex-shrink: 0;
-    transition: background-color .3s linear;
 }
 
 #logoutIcon:hover {

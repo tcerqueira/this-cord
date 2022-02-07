@@ -4,16 +4,18 @@ render();
 async function render()
 {
     try {
-        let [ myGuilds, friendsList, guildInvites ] = await Promise.all([
+        let [ myGuilds, friendsList, guildInvites, user ] = await Promise.all([
             api.fetchMyGuilds(),
             api.fetchFriends(),
-            api.fetchGuildInvites()
+            api.fetchGuildInvites(),
+            api.fetchUser({ id: currentProfileId })
         ]);
         friends.push(...friendsList);
 
         renderNav(myGuilds);
         renderDmNav(getAllList(friends));
         renderGuildInvites(guildInvites);
+        renderUserbar(user);
 
         let currentTab = window.location.hash?.slice(1) || 'online';
         switchTab('online', currentTab);
@@ -46,27 +48,36 @@ async function render()
 
         document.getElementById('searchTopbarForm').addEventListener('submit', async (evt) => {
             evt.preventDefault();
-            try {
-                const searchQuery = document.getElementById('topbar-search-input').value;
-                if(!searchQuery)
-                    return;
-                document.querySelector('.home-container > h3').innerText = 'Search';
-                const searchResult = await api.searchUser({ username: searchQuery });
-                const searchList = searchResult.map(u => {
-                    const friend = friends.find(f => f.id === u.id);
-                    if(!friend)
-                        return u;
-                    u.invite_status = friend.invite_status;
-                    u.request_sender = friend.request_sender;
-                    u.message_channel = friend.message_channel;
-                    return u;
-                });
-                renderUsersList(searchList);
-            }
-            catch (err) {
-                console.log(err);
-            }
         });
+
+        var searchDelay;
+        document.getElementById('topbar-search-input').oninput = () => {
+            clearTimeout(searchDelay);
+            searchDelay = setTimeout(async () => {
+                try {
+                    const searchQuery = document.getElementById('topbar-search-input').value;
+                    if(!searchQuery) {
+                        renderUsersList([]);
+                        return;
+                    }
+                    document.querySelector('.home-container > h3').innerText = 'Search';
+                    const searchResult = await api.searchUser({ username: searchQuery });
+                    const searchList = searchResult.map(u => {
+                        const friend = friends.find(f => f.id === u.id);
+                        if(!friend)
+                            return u;
+                        u.invite_status = friend.invite_status;
+                        u.request_sender = friend.request_sender;
+                        u.message_channel = friend.message_channel;
+                        return u;
+                    });
+                    renderUsersList(searchList);
+                }
+                catch (err) {
+                    console.log(err);
+                }
+            }, 200);
+        };
     }
     catch (err) {
         console.log(err);
@@ -103,14 +114,13 @@ function renderUsersList(usersList, friendsList) {
 }
 
 function createUserItem(user) {
-    const userItem = document.getElementById('userItemTemplate').cloneNode(true);
-    userItem.style = '';
-    userItem.removeAttribute('id');
+    const userItem = document.getElementById('userItemTemplate').content.firstElementChild.cloneNode(true);
     userItem.addEventListener('click', () => {
         openUserModal(user);
     });
 
     userItem.querySelector('.icon-card').style = `--icon-bg-color: ${user.theme_color};`;
+    userItem.querySelector('.icon-card img').src = `${api.imgUrl}/${user.img_name}`;
     userItem.querySelector('.user-item-username').innerText = user.username;
     const spanShortId = document.createElement('span');
     spanShortId.className = 'user-item-shortid';

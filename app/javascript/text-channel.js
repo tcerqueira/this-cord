@@ -19,6 +19,7 @@ async function render() {
         renderMembers(members);
         renderSendMessage(currentTextChannelId);
         renderChat(messages);
+        renderChatHeader(channel.channelname);
         renderTextChannels(textChannels, currentTextChannelId);
         renderUserbar(user);
         
@@ -30,7 +31,7 @@ async function render() {
         });
 
         document.querySelector('.page-header').innerText = `# ${channel.channelname}`;
-        document.querySelector('.title > img').addEventListener('click', () => {
+        document.querySelector('.title img').addEventListener('click', () => {
             openCreateChannelModal(channel.guild_id);
         });
 

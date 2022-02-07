@@ -7,7 +7,7 @@ require 'scripts/SendHeaders.php';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include "../components/head-outside.php" ?>
+    <?php include "scripts/head-outside.php" ?>
     <link rel="stylesheet" href="../styles/invite-to-guild.css">
     <script src="../javascript/invite-to-guild.js" defer></script>
 </head>

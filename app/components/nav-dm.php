@@ -1,10 +1,14 @@
 <nav class="secondary-nav server-nav">
-        <a id="dmItemTemplate" href="#" style="display: none;" data-dm-channel-id="">
-            <li class="dm-item">
-                <div class="icon-card icon-size-xsmall"></div>
+    <template id="dmItemTemplate">
+        <li class="dm-item">
+            <a href="#" data-dm-channel-id="">
+                <div class="icon-card icon-size-xsmall">
+                    <img src="" alt="user_avatar">
+                </div>
                 <span class="one-liner">username</span>
-            </li>
-        </a>
+            </a>
+        </li>
+    </template>
     <ul id="dmList" class="dm-list">
         
     </ul>
