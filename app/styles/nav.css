@@ -150,6 +150,15 @@
     border-radius: 40px;
 }
 
+.user > a {
+    position: relative;
+}
+
+.user > a::after {
+    position: absolute;
+    inset: -150% auto auto -3rem;
+}
+
 .side-card {
     position: relative;
     width: fit-content;
@@ -176,10 +185,14 @@
     border-radius: 40%;
 }
 
-.side-card:hover::after,
+.side-card:hover::after {
+    position: absolute;
+    inset: 20% auto auto 130%;
+}
+
 .title div:hover::after {
     position: absolute;
-    inset: 10% auto auto 150%;
+    inset: 120% auto auto -3.5rem;;
 }
 
 .current-server::before {
