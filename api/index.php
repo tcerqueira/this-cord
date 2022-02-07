@@ -165,9 +165,6 @@ h2 {
             <p>POST /api/auth/signout.php</p>
             <div>
 <code>
-
-</code>
-<code>
 // Response
 {
     success
@@ -179,9 +176,6 @@ h2 {
             <h3>// Get profile of logged user</h3>
             <p>GET /api/auth/profile.php</p>
             <div>
-<code>
-    
-</code>
 <code>
 // Response
 {
@@ -224,9 +218,6 @@ h2 {
             <p>GET /api/r/user/?id=c00171c5-65ae-09e9-d226-9958b7ffff11</p>
             <div>
 <code>
-
-</code>
-<code>
 // Response
 {
     id,
@@ -243,9 +234,6 @@ h2 {
             <h3>// Search User by username</h3>
             <p>GET /api/r/user/?username=resende</p>
             <div>
-<code>
-
-</code>
 <code>
 // Response
 {
@@ -324,9 +312,6 @@ h2 {
             <p>GET /api/r/user/friends/</p>
             <div>
 <code>
-
-</code>
-<code>
 // Response
 [{
     id,
@@ -346,9 +331,6 @@ h2 {
             <h3>// Get a Friend</h3>
             <p>GET /api/r/user/friends/?id=c00171c5-65ae-09e9-d226-9958b7ffff11</p>
             <div>
-<code>
-
-</code>
 <code>
 // Response
 {
@@ -453,9 +435,6 @@ h2 {
             <p>GET /api/r/guild/?id=2a5864ba-f83a-57af-bcf9-8502f2c1bc09</p>
             <div>
 <code>
-    
-</code>
-<code>
 // Response
 {
     id,
@@ -480,9 +459,6 @@ h2 {
             <h3>// Get my Guilds</h3>
             <p>GET /api/r/guild/my.php</p>
             <div>
-<code>
-    
-</code>
 <code>
 // Response
 {
@@ -631,9 +607,6 @@ h2 {
             <p>GET /api/r/guild/members/?id=2a5864ba-f83a-57af-bcf9-8502f2c1bc09</p>
             <div>
 <code>
-
-</code>
-<code>
 // Response
 [{
     member_id,
@@ -696,9 +669,6 @@ h2 {
             <p>GET /api/r/guild/invite/list.php</p>
             <div>
 <code>
-
-</code>
-<code>
 // Response
 {
     id,
@@ -734,9 +704,6 @@ h2 {
             <h3>// Generate open guild invite</h3>
             <p>GET /api/r/guild/invite/generate.php?guild_id=2a5864ba-f83a-57af-bcf9-8502f2c1bc09</p>
             <div>
-<code>
-
-</code>
 <code>
 // Response
 {
@@ -792,9 +759,6 @@ h2 {
             <p>GET /api/r/text-channel/?channel_id=9fe6fe9d-ed83-6bad-2c9c-8a33fab5d803</p>
             <div>
 <code>
-
-</code>
-<code>
 // Response
 {
     id,
@@ -809,9 +773,6 @@ h2 {
             <h3>// Get all text channels from a guild</h3>
             <p>GET /api/r/text-channel/?guild_id=2a5864ba-f83a-57af-bcf9-8502f2c1bc09</p>
             <div>
-<code>
-
-</code>
 <code>
 // Response
 [{
@@ -887,9 +848,6 @@ h2 {
             <p>GET /api/r/message/?message_id=9fe6fe9d-ed83-6bad-2c9c-8a33fab5d803</p>
             <div>
 <code>
-
-</code>
-<code>
 // Response
 {
     id,
@@ -923,9 +881,6 @@ h2 {
             <h3>// Get messages from channel</h3>
             <p>GET /api/r/mesasagr/?channel_id=9fe6fe9d-ed83-6bad-2c9c-8a33fab5d803&since=2022-02-02%2000:50:07.01932-00&until=2022-02-02%2000:50:07.01932-00</p>
             <div>
-<code>
-
-</code>
 <code>
 // Response
 {
