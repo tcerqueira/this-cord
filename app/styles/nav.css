@@ -150,6 +150,15 @@
     border-radius: 40px;
 }
 
+.user > a {
+    position: relative;
+}
+
+.user > a::after {
+    position: absolute;
+    inset: -150% auto auto -3rem;
+}
+
 .side-card {
     position: relative;
     width: fit-content;

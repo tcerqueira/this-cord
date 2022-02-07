@@ -6,5 +6,5 @@
         <span id="userbarUsername"></span>
         <span id="userbarShortId"></span>
     </div>
-    <a href="../r/settings.php"><img src="../public/settings.svg" alt=""></a>
+    <a href="../r/settings.php" data-tooltip="User settings"><img src="../public/settings.svg" alt=""></a>
 </div>
