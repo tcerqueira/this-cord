@@ -26,7 +26,7 @@ async function register()
         return;
     }
 
-    const usernameRegEx = /^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$/;
+    const usernameRegEx = /^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,16}[a-zA-Z0-9]$/;
     const match = form.username.match(usernameRegEx);
     if(!match) {
         document.getElementById('username-input').classList.add('invalid-input');

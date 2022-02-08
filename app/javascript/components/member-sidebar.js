@@ -56,7 +56,7 @@ function createMemberItem(member) {
         li.classList.remove('offline');
         wrapper.classList.remove('status-offline');
     }
-    div.className = 'icon-card icon-size-medium';
+    // div.className = 'icon-card icon-size-medium';
     div.style = '--icon-bg-color: ' + member.theme_color + ';';
     span.innerText = member.username;
     span.style = '--sidebar-username-color: ' + member.theme_color + ';';
