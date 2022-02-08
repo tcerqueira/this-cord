@@ -155,6 +155,14 @@ document.getElementById('createGuildForm').onsubmit = async evt => {
         document.getElementById('createGuildError').innerText = 'Invalid input.';
         return;
     }
+    if(guildname.length > 24) {
+        document.getElementById('createGuildError').innerText = 'Guild name too long';
+        return;
+    }
+    if(initials.length > 3) {
+        document.getElementById('createGuildError').innerText = 'Guild initials too long';
+        return;
+    }
     try {
         let form = {
             guildname,
@@ -193,6 +201,10 @@ function openCreateChannelModal(guildId) {
         const channelName = document.getElementById('channelNameInput').value;
         if(!channelName) {
             document.getElementById('createChannelError').innerText = 'Invalid input.';
+            return;
+        }
+        if(channelName.length > 24) {
+            document.getElementById('createChannelError').innerText = 'Too long.';
             return;
         }
         try {
