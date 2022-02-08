@@ -279,6 +279,10 @@ input[type=email]:focus {
     --status-size: 1.2rem;
 }
 
+.status-size-xbig {
+    --status-size: 1.5rem;
+}
+
 .user-text-input {
     border: 1px solid var(--color-light-grey);
 }

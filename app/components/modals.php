@@ -3,7 +3,17 @@
         <header>
             <div id="theme-user-modal" class="theme-user-panel"></div>
             <div class="username-container">
-                <span id="username-user-modal">User</span>
+                <div>
+                    <div class="status-wrapper status-size-xbig">
+                        <div class="icon-card icon-size-xbig">
+                            <img src="https://c.tenor.com/gQV5VzHLWQIAAAAM/among-us-sus.gif" alt="">
+                        </div>
+                    </div>
+                    <div class="user-info one-liner">
+                        <span id="username-user-modal">User</span>
+                        <span id="shortIdUserModal">#123</span>
+                    </div>
+                </div>
                 <button id="add-remove-friend-btn" class="button bg-green">Add</button>
             </div>
         </header>
