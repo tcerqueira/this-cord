@@ -21,7 +21,7 @@
     </ul>
     <template id="memberItemTemplate">
         <li class="member-container rounded-container offline">
-            <div class="status-wrapper status-offline">
+            <div class="status-wrapper status-size-small status-offline">
                 <div class="icon-card icon-size-xsmall">
                     <img src="" alt="user_avatar">
                 </div>
