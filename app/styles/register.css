@@ -1,6 +1,7 @@
 main {
     padding-top: 25vh;
     height: 100vh;
+    
 
     background-color: #7289DA;
     background-image: url("../public/bullseye-gradient.svg");
@@ -15,6 +16,7 @@ main a:hover {
 .register-container {
     border: solid 1px black;
     max-width: 550px;
+    width: 95%;
     margin: 0 auto;
 
     background-color: var(--color-dark-grey);
