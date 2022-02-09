@@ -15,17 +15,26 @@ function openUserModal(user)
         theme_color,
         user_description,
         userstatus,
-        message_channel
+        message_channel,
+        img_name
     } = user;
 
     const user_note = localStorage.getItem(`note_${currentProfileId.slice(0,6)}_${id}`);
     const usernameSpan = document.getElementById('username-user-modal');
+    const shortId = document.getElementById('shortIdUserModal');
     const themeDiv = document.getElementById('theme-user-modal');
     const aboutP = document.getElementById('about-user-modal');
     const noteP = document.getElementById('note-user-modal');
+    const statusWrapper = document.querySelector('.username-container .status-wrapper');
 
     usernameSpan.innerText = username;
-    usernameSpan.style = userstatus === '1' ? '--bg-color: var(--color-green);' : '--bg-color: var(--color-dark-grey);';
+    shortId.innerText = `#${id.slice(0,6)}`;
+    statusWrapper.classList.remove('status-offline');
+    if(userstatus === '0')
+        statusWrapper.classList.add('status-offline');
+    
+    document.querySelector('.username-container img').src = `${api.imgUrl}/${img_name}`;
+    document.querySelector('.username-container .icon-card').style = `--icon-bg-color: ${theme_color};`;
     themeDiv.style = `--user-bg-panel: ${theme_color};`;
     aboutP.innerText = user_description;
     noteP.value = user_note;
@@ -146,12 +155,30 @@ document.getElementById('createGuildForm').onsubmit = async evt => {
         document.getElementById('createGuildError').innerText = 'Invalid input.';
         return;
     }
+    if(guildname.length > 24) {
+        document.getElementById('createGuildError').innerText = 'Guild name too long';
+        return;
+    }
+    if(initials.length > 3) {
+        document.getElementById('createGuildError').innerText = 'Guild initials too long';
+        return;
+    }
+
     try {
         let form = {
             guildname,
             initials,
             openInviteKey: document.getElementById('inviteKeyInput').value ? document.getElementById('inviteKeyInput').value: null,
             themeColor: document.getElementById('guildThemePicker').value
+        }
+
+        const regEx = /^(?=[a-zA-Z0-9._]{3,16}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
+        if(form.openInviteKey !== null) {
+            const match = form.openInviteKey.match(regEx);
+            if(!match) {
+                document.getElementById('createGuildError').innerText = 'Invalid invite key.';
+                return;
+            }
         }
 
         const { id: guildId } = await api.createGuild(form);
@@ -184,6 +211,10 @@ function openCreateChannelModal(guildId) {
         const channelName = document.getElementById('channelNameInput').value;
         if(!channelName) {
             document.getElementById('createChannelError').innerText = 'Invalid input.';
+            return;
+        }
+        if(channelName.length > 24) {
+            document.getElementById('createChannelError').innerText = 'Too long.';
             return;
         }
         try {
@@ -223,6 +254,36 @@ async function openGuildInviteModal(guildId)
     closeModal();
     document.getElementById('guildInviteError').innerText = '';
     openModal('guild-invite-modal');
+    let friends;
+    try {
+        const { open_invite_key: inviteKey } = await api.generateOpenInvite({ guildId });
+        friends = await api.fetchFriends();
+        renderModalSearchResults(friends);
+        if(inviteKey === null) {
+            document.getElementById('copyInviteButton').style.display = 'none';
+            return;
+        }
+        document.getElementById('copyInviteButton').style.display = 'block';
+        document.getElementById('copyInviteButton').onclick = async () => {
+            try {            
+                const index = window.location.href.search('/r/');
+                const subUrl = window.location.href.slice(0, index);
+                const guild = await api.fetchGuild({ id: guildId });
+                const inviteLink = `${subUrl}/r/invite-to-guild.php?guild_id=${guildId}&open_invite_key=${inviteKey}&guildname=${guild.guildname}&avatar=${guild.img_name}`
+                    .replaceAll(' ', '%20');
+                await navigator.clipboard.writeText(inviteLink);
+            }
+            catch (err) {
+                console.log(err);
+                document.getElementById('guildInviteError').innerText = err.error;
+            }
+        };
+    }
+    catch (err) {
+        console.log(err);
+        document.getElementById('guildInviteError').innerText = err.error;
+    }
+
     document.getElementById('searchGuildInviteForm').onsubmit = async evt => {
         evt.preventDefault();
     };
@@ -232,7 +293,7 @@ async function openGuildInviteModal(guildId)
         clearTimeout(searchDelay);
         searchDelay = setTimeout(async () => {
             if(!document.getElementById('inviteModalInput').value) {
-                renderModalSearchResults([]);
+                renderModalSearchResults(friends);
                 return;
             }
             try {
@@ -273,30 +334,6 @@ async function openGuildInviteModal(guildId)
             evt.target.disabled = false;
         }
     };
-
-    try {
-        const { open_invite_key: inviteKey } = await api.generateOpenInvite({ guildId });
-        if(inviteKey === null) {
-            document.getElementById('copyInviteButton').style.display = 'none';
-            return;
-        }
-        document.getElementById('copyInviteButton').style.display = 'block';
-        document.getElementById('copyInviteButton').onclick = async () => {
-            try {            
-                const index = window.location.href.search('/r/');
-                const subUrl = window.location.href.slice(0, index);
-                await navigator.clipboard.writeText(`${subUrl}/r/invite-to-guild.php?guild_id=${guildId}&open_invite_key=${inviteKey}`);
-            }
-            catch (err) {
-                console.log(err);
-                document.getElementById('guildInviteError').innerText = err.error;
-            }
-        };
-    }
-    catch (err) {
-        console.log(err);
-        document.getElementById('guildInviteError').innerText = err.error;
-    }
 }
 
 function renderModalSearchResults(results)

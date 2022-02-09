@@ -44,10 +44,6 @@
     max-width: 500px;
 }
 
-.user-modal > header {
-    height: 10rem;
-}
-
 .user-modal > main {
     padding: 1rem;
 }
@@ -87,35 +83,39 @@
 }
 
 .theme-user-panel {
+    height: 5rem;
+    width: 100%;
     background-color: var(--user-bg-panel, var(--color-primary));
-    min-height: 50%;
 }
 
 .username-container {
     position: relative;
     display: flex;
     justify-content: space-between;
-    height: 50%;
+    flex-wrap: wrap;
+    gap: 2rem;
     padding: 1.5rem 3rem;
 }
 
-.username-container > span {
-    font-size: 1.3rem;
+.username-container > div {
+    display: flex;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 2em;
+    align-self: flex-end;
+}
+
+#username-user-modal {
+    font-size: 1.2rem;
     color: var(--color-primary);
 }
 
-.username-container > span::before {
-    content: '';
-    display: block;
-    position: absolute;
-    top: -1rem;
-    left: 1rem;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-
-    border: 2px solid var(--color-light-grey);
-    background-color: var(--bg-color, var(--color-dark-grey));
+#add-remove-friend-btn {
+    align-self: flex-start;
+    font-size: 1rem
 }
 
 /* ##################################################### GUILD ######################################################## */

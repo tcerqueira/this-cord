@@ -16,6 +16,7 @@
     --color-red:            #ed4245;
     --color-green:          #3ba55d;
     --color-yellow:         #faa81a;
+    --colorrgb-yellow:      250, 168, 26;
     --color-dark-yellow:    #715b34;
     --color-dark-yellow-2:  #49443c;
     --font-color:           #dee0fc;
@@ -91,6 +92,11 @@ input[type=email]:focus {
     outline: none;
 }
 
+body, div, main, section, nav, ul, ol {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-medium-grey-1) var(--color-dark-grey);
+}
+
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -108,9 +114,9 @@ input[type=email]:focus {
 }
 
 /* Handle on hover */
-/* ::-webkit-scrollbar-thumb:hover {
-  background: #555;
-} */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-black);
+}
 
 .global-container {
     /* min-height: 850px; */
@@ -218,6 +224,23 @@ input[type=email]:focus {
     background-color: var(--color-medium-grey-1);
 }
 
+.rainbow-bg {
+    background: linear-gradient(
+        45deg,
+        rgba(255, 0, 0, 1) 0%,
+        rgba(255, 154, 0, 1) 10%,
+        rgba(208, 222, 33, 1) 20%,
+        rgba(79, 220, 74, 1) 30%,
+        rgba(63, 218, 216, 1) 40%,
+        rgba(47, 201, 226, 1) 50%,
+        rgba(28, 127, 238, 1) 60%,
+        rgba(95, 21, 242, 1) 70%,
+        rgba(186, 12, 248, 1) 80%,
+        rgba(251, 7, 217, 1) 90%,
+        rgba(255, 0, 0, 1) 100%
+    );
+}
+
 .username {
     font-weight: bold;
     color: var(--user-theme);
@@ -255,8 +278,8 @@ input[type=email]:focus {
     display: block;
     position: absolute;
     inset: auto auto 0 0;
-    width: 1rem;
-    height: 1rem;
+    width: var(--status-size, 1rem);
+    height: var(--status-size, 1rem);
     border: 2px solid var(--color-light-grey);
     border-radius: 50%;
 
@@ -265,6 +288,22 @@ input[type=email]:focus {
 
 .status-wrapper.status-offline::before {
     background-color: var(--color-medium-grey-2);
+}
+
+.status-size-small {
+    --status-size: .8rem;
+}
+
+.status-size-medium {
+    --status-size: 1rem;
+}
+
+.status-size-big {
+    --status-size: 1.2rem;
+}
+
+.status-size-xbig {
+    --status-size: 1.5rem;
 }
 
 .user-text-input {

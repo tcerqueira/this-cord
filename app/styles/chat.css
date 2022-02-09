@@ -96,7 +96,8 @@
 }
 
 .message:hover {
-    background-color: var(--color-medium-grey-1);
+    /* background-color: var(--color-medium-grey-1); */
+    background-color: rgba(0,0,0,.15);
 }
 
 .message:target {
@@ -150,11 +151,13 @@
 
 .message-replying-to-me {
     border-left: solid 2px var(--color-yellow);
-    background-color: var(--color-dark-yellow);
+    /* background-color: var(--color-dark-yellow); */
+    background-color: rgba(var(--colorrgb-yellow), .25);
 }
 
 .message-replying-to-me:hover {
-    background-color: var(--color-dark-yellow-2);
+    /* background-color: var(--color-dark-yellow-2); */
+    background-color: rgba(var(--colorrgb-yellow), .1);
 }
 
 .message-author {

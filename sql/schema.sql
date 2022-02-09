@@ -47,7 +47,7 @@ CREATE TABLE guild_members (
     member_id UUID,
     invite_status SMALLINT NOT NULL DEFAULT 0 CHECK(invite_status IN (0,1)), -- 0 - invited; 1 - accepted
     invite_sender UUID,
-    guild_role SMALLINT NOT NULL CHECK(guild_role IN (0,2)),
+    guild_role SMALLINT NOT NULL CHECK(guild_role IN (0,1,2)),  -- 0-member; 1-mod; 2-admin
     PRIMARY KEY (guild_id, member_id),
     FOREIGN KEY (guild_id) REFERENCES guild(id) ON DELETE CASCADE,
     FOREIGN KEY (member_id) REFERENCES this_user(id) ON DELETE CASCADE

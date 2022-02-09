@@ -32,7 +32,7 @@ class UserGateway
 
     public function searchByUsername($username)
     {
-        $query = "SELECT * FROM public_user_VIEW WHERE username LIKE $1 AND id<>'00000000-0000-0000-0000-000000000000'
+        $query = "SELECT * FROM public_user_VIEW WHERE LOWER(username) LIKE LOWER($1) AND id<>'00000000-0000-0000-0000-000000000000'
                 LIMIT 50;";
         $result = pg_query_params($this->db, $query, ['%'.$username.'%']);
         return $result;

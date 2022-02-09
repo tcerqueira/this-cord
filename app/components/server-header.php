@@ -1,7 +1,7 @@
 <header class="nav-header">
     <h1 id="guildHeader" class="one-liner"></h1>
     <div class="server-options-container">
-        <div data-tooltip="Invite to guild">
+        <div id="serverHeaderInviteIcon" data-tooltip="Invite to guild">
             <img id="inviteToGuildIcon" src="../public/add-user-symbol-of-interface-svgrepo-com.svg" alt="invite-member-icon">
         </div>
         <div data-tooltip="Guild settings">

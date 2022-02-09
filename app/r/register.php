@@ -22,7 +22,7 @@ require 'scripts/SendHeaders.php';
                 <form class="flex-column" id="register-form" method="post" action="">
                     <label for="email-input">Email</label>
                     <div class="text-input-container">
-                        <input type="email" name="email" id="email-input">
+                        <input type="text" name="email" id="email-input">
                     </div>
                     <label for="username-input">Username</label>
                     <div class="text-input-container">
