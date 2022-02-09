@@ -24,6 +24,29 @@ function renderUserbar(user)
     document.querySelector('.user').style = `--user-theme-color: ${user.theme_color}; --icon-bg-color: ${user.theme_color};`;
 }
 
+var clickCount = 0;
+var clickTimeout;
+document.querySelector('.user').addEventListener('click', () => {
+    clickCount++;
+    clearTimeout(clickTimeout);
+    clickTimeout = setTimeout(() => {
+        clickCount = 0;
+    }, 500);
+
+    if(clickCount == 10) {
+        const sheeesh = [
+            document.querySelector('.nav-header'),
+            document.querySelector('.page-header'),
+            document.querySelector('.primary-nav'),
+            document.querySelector('.secondary-nav'),
+            document.querySelector('.main-container'),
+            document.querySelector('.right-sidebar')
+        ];
+        sheeesh.forEach(bruh => bruh.classList.add('rainbow-bg'));
+        console.log('You found an 🐇🐰🥚!!');
+    }
+});
+
 document.getElementById('createGuildNavIcon').onclick = () => {
     openCreateGuildModal();
 };
