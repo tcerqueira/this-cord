@@ -163,12 +163,22 @@ document.getElementById('createGuildForm').onsubmit = async evt => {
         document.getElementById('createGuildError').innerText = 'Guild initials too long';
         return;
     }
+
     try {
         let form = {
             guildname,
             initials,
             openInviteKey: document.getElementById('inviteKeyInput').value ? document.getElementById('inviteKeyInput').value: null,
             themeColor: document.getElementById('guildThemePicker').value
+        }
+
+        const regEx = /^(?=[a-zA-Z0-9._]{3,16}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
+        if(form.openInviteKey !== null) {
+            const match = form.openInviteKey.match(regEx);
+            if(!match) {
+                document.getElementById('createGuildError').innerText = 'Invalid invite key.';
+                return;
+            }
         }
 
         const { id: guildId } = await api.createGuild(form);
