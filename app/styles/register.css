@@ -1,7 +1,8 @@
 main {
-    padding-top: 25vh;
     height: 100vh;
-    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     background-color: #7289DA;
     background-image: url("../public/bullseye-gradient.svg");
@@ -17,7 +18,6 @@ main a:hover {
     border: solid 1px black;
     max-width: 550px;
     width: 95%;
-    margin: 0 auto;
 
     background-color: var(--color-dark-grey);
 }
