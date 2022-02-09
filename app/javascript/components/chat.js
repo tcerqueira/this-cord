@@ -260,6 +260,7 @@ function parseMessageContent(content) {
             const urlRef = document.createElement('a')
             urlRef.href = match[0];
             urlRef.innerText = match[0];
+            urlRef.target = '_blank';
             parsedContent.push(text, urlRef);
             lastIndex = match.index + match[0].length;
         }

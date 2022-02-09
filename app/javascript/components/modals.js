@@ -258,7 +258,10 @@ async function openGuildInviteModal(guildId)
             try {            
                 const index = window.location.href.search('/r/');
                 const subUrl = window.location.href.slice(0, index);
-                await navigator.clipboard.writeText(`${subUrl}/r/invite-to-guild.php?guild_id=${guildId}&open_invite_key=${inviteKey}`);
+                const guild = await api.fetchGuild({ id: guildId });
+                const inviteLink = `${subUrl}/r/invite-to-guild.php?guild_id=${guildId}&open_invite_key=${inviteKey}&guildname=${guild.guildname}&avatar=${guild.img_name}`
+                    .replaceAll(' ', '%20');
+                await navigator.clipboard.writeText(inviteLink);
             }
             catch (err) {
                 console.log(err);

@@ -1,6 +1,8 @@
 main {
-    padding-top: 25vh;
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     background-color: #7289DA;
     background-image: url("../public/bullseye-gradient.svg");
@@ -13,7 +15,6 @@ main {
     justify-content: center;
     flex-wrap: wrap;
     width: 100%;
-    margin: 0 auto;
     padding: 1rem;
     max-width: 750px;
     min-height: 200px;
@@ -22,6 +23,34 @@ main {
 }
 
 .invite-to-guild-container a:hover {
+    text-decoration: underline;
+}
+
+.display-prompt {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: fit-content;
+    padding: 1em;
+    font-size: 1.2rem;
+    background-color: var(--color-dark-grey);
+}
+
+.display-prompt > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5em;
+}
+
+.display-prompt button {
+    font-size: 1.2em;
+    align-self: stretch;
+}
+
+.display-prompt a:hover {
     text-decoration: underline;
 }
 
