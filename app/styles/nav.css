@@ -125,6 +125,7 @@
     padding: .7rem;
     width: 16rem;
     /* width: 100%; */
+    cursor: pointer;
 
     border-left: 3px solid var(--user-theme-color, transparent);
     border-top-left-radius: 5px;

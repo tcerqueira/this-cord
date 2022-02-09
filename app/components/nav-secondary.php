@@ -4,7 +4,7 @@
         <section>
             <div class="title">
                 <h2> Text channels </h2>
-                <div data-tooltip="Create channel">
+                <div id="createChannelIcon" data-tooltip="Create channel">
                     <img src="../public/add_button.svg" alt="add_button">
                 </div>
             </div>
