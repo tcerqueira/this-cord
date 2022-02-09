@@ -41,9 +41,10 @@ document.querySelector('.user').addEventListener('click', () => {
             document.querySelector('.secondary-nav'),
             document.querySelector('.main-container'),
             document.querySelector('.right-sidebar'),
-            document.querySelector('.user')
+            document.querySelector('.user'),
+            ...document.querySelectorAll('.modal-container')
         ];
-        sheeesh.forEach(bruh => bruh.classList.add('rainbow-bg'));
+        sheeesh.forEach(bruh => bruh.classList.toggle('rainbow-bg'));
         console.log('You found an 🐇🐰🥚!!');
     }
 });

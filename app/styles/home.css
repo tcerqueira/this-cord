@@ -23,7 +23,8 @@
 
 .user-item:hover {
     border-radius: 10px;
-    background-color: var(--color-light-grey);
+    /* background-color: var(--color-light-grey); */
+    background-color: rgba(255, 255, 255, .05);
 }
 
 .user-item:hover + .user-item {
