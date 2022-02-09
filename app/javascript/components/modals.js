@@ -244,6 +244,33 @@ async function openGuildInviteModal(guildId)
     closeModal();
     document.getElementById('guildInviteError').innerText = '';
     openModal('guild-invite-modal');
+    let friends;
+    try {
+        const { open_invite_key: inviteKey } = await api.generateOpenInvite({ guildId });
+        friends = await api.fetchFriends();
+        renderModalSearchResults(friends);
+        if(inviteKey === null) {
+            document.getElementById('copyInviteButton').style.display = 'none';
+            return;
+        }
+        document.getElementById('copyInviteButton').style.display = 'block';
+        document.getElementById('copyInviteButton').onclick = async () => {
+            try {            
+                const index = window.location.href.search('/r/');
+                const subUrl = window.location.href.slice(0, index);
+                await navigator.clipboard.writeText(`${subUrl}/r/invite-to-guild.php?guild_id=${guildId}&open_invite_key=${inviteKey}`);
+            }
+            catch (err) {
+                console.log(err);
+                document.getElementById('guildInviteError').innerText = err.error;
+            }
+        };
+    }
+    catch (err) {
+        console.log(err);
+        document.getElementById('guildInviteError').innerText = err.error;
+    }
+
     document.getElementById('searchGuildInviteForm').onsubmit = async evt => {
         evt.preventDefault();
     };
@@ -253,7 +280,7 @@ async function openGuildInviteModal(guildId)
         clearTimeout(searchDelay);
         searchDelay = setTimeout(async () => {
             if(!document.getElementById('inviteModalInput').value) {
-                renderModalSearchResults([]);
+                renderModalSearchResults(friends);
                 return;
             }
             try {
@@ -294,30 +321,6 @@ async function openGuildInviteModal(guildId)
             evt.target.disabled = false;
         }
     };
-
-    try {
-        const { open_invite_key: inviteKey } = await api.generateOpenInvite({ guildId });
-        if(inviteKey === null) {
-            document.getElementById('copyInviteButton').style.display = 'none';
-            return;
-        }
-        document.getElementById('copyInviteButton').style.display = 'block';
-        document.getElementById('copyInviteButton').onclick = async () => {
-            try {            
-                const index = window.location.href.search('/r/');
-                const subUrl = window.location.href.slice(0, index);
-                await navigator.clipboard.writeText(`${subUrl}/r/invite-to-guild.php?guild_id=${guildId}&open_invite_key=${inviteKey}`);
-            }
-            catch (err) {
-                console.log(err);
-                document.getElementById('guildInviteError').innerText = err.error;
-            }
-        };
-    }
-    catch (err) {
-        console.log(err);
-        document.getElementById('guildInviteError').innerText = err.error;
-    }
 }
 
 function renderModalSearchResults(results)
