@@ -40,7 +40,8 @@ document.querySelector('.user').addEventListener('click', () => {
             document.querySelector('.primary-nav'),
             document.querySelector('.secondary-nav'),
             document.querySelector('.main-container'),
-            document.querySelector('.right-sidebar')
+            document.querySelector('.right-sidebar'),
+            document.querySelector('.user')
         ];
         sheeesh.forEach(bruh => bruh.classList.add('rainbow-bg'));
         console.log('You found an 🐇🐰🥚!!');
