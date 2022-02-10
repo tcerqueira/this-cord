@@ -1,5 +1,7 @@
 .home-container {
     padding: 1.5rem 0;
+    overflow: auto;
+    height: 100%;
 }
 
 .home-container > h3 {
