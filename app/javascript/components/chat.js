@@ -26,8 +26,6 @@ async function fetchMessagesPeriodically() {
 
 var g_lastMessage = undefined;
 function renderChat(messages) {
-    let lastMsg = g_lastMessage;
-    let lastMsgItem = undefined;
     const messagesList = document.getElementById('messages-list');
     messages.forEach(message => {
         const messageItem = renderMessage(message);
@@ -37,18 +35,12 @@ function renderChat(messages) {
             renderMessageAuthor(messageItem, message);
             renderReply(messageItem, message.reply);
         }
-        if (lastMsg && lastMsg.author.id !== message.author.id) {
+        if (!g_lastMessage || g_lastMessage.author.id !== message.author.id) {
             renderMessageAuthor(messageItem, message);
         }
 
-        lastMsg = message;
-        lastMsgItem = messageItem;
+        g_lastMessage = message;
     });
-
-    if(g_lastMessage === undefined)
-        renderMessageAuthor(document.querySelector('#messages-list > li:last-child'), messages[0]);
-    if(messages.length)
-        g_lastMessage = messages[0];
 }
 
 document.getElementById('cancel-reply-icon').addEventListener('click', evt => {
