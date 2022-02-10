@@ -254,6 +254,54 @@ async function openGuildInviteModal(guildId)
     closeModal();
     document.getElementById('guildInviteError').innerText = '';
     openModal('guild-invite-modal');
+    document.getElementById('inviteModalBtn').onclick = async evt => {
+        try {
+            evt.target.disabled = true;
+            const toInviteItems = document.getElementById('toInviteList').children;
+            const idList = [...toInviteItems].map(item => item.dataset.id);
+            console.log(idList);
+            if(idList.length === 0) {
+                document.getElementById('guildInviteError').innerText = 'Invite list is empty.';
+                return;
+            }
+            const responses = await Promise.all(idList.map(id => {
+                return api.inviteToGuild({
+                    guildId,
+                    userId: id
+                });
+            }));
+            closeModal();
+        }
+        catch (err) {
+            console.log(err);
+            document.getElementById('guildInviteError').innerText = err.error;
+        }
+        finally {
+            evt.target.disabled = false;
+        }
+    };
+
+    var searchDelay;
+    document.getElementById('inviteModalInput').oninput = () => {
+        clearTimeout(searchDelay);
+        searchDelay = setTimeout(async () => {
+            if(!document.getElementById('inviteModalInput').value) {
+                renderModalSearchResults(friends);
+                return;
+            }
+            try {
+                const searchQuery = document.getElementById('inviteModalInput').value;
+                const searchResults = await api.searchUser({ username: searchQuery });
+                const usersList = searchResults.filter(u => u.id !== currentProfileId);
+                renderModalSearchResults(usersList);
+            }
+            catch (err) {
+                console.log(err);
+                document.getElementById('guildInviteError').innerText = err.error;
+            }
+        }, 200);
+    };
+
     let friends;
     try {
         const { open_invite_key: inviteKey } = await api.generateOpenInvite({ guildId });
@@ -286,53 +334,6 @@ async function openGuildInviteModal(guildId)
 
     document.getElementById('searchGuildInviteForm').onsubmit = async evt => {
         evt.preventDefault();
-    };
-
-    var searchDelay;
-    document.getElementById('inviteModalInput').oninput = () => {
-        clearTimeout(searchDelay);
-        searchDelay = setTimeout(async () => {
-            if(!document.getElementById('inviteModalInput').value) {
-                renderModalSearchResults(friends);
-                return;
-            }
-            try {
-                const searchQuery = document.getElementById('inviteModalInput').value;
-                const searchResults = await api.searchUser({ username: searchQuery });
-                const usersList = searchResults.filter(u => u.id !== currentProfileId);
-                renderModalSearchResults(usersList);
-            }
-            catch (err) {
-                console.log(err);
-                document.getElementById('guildInviteError').innerText = err.error;
-            }
-        }, 200);
-    }
-    
-    document.getElementById('inviteModalBtn').onclick = async evt => {
-        try {
-            evt.target.disabled = true;
-            const toInviteItems = document.getElementById('toInviteList').children;
-            const idList = [...toInviteItems].map(item => item.dataset.id);
-            if(idList.length === 0) {
-                document.getElementById('guildInviteError').innerText = 'Invite list is empty.';
-                return;
-            }
-            const responses = await Promise.all(idList.map(id => {
-                return api.inviteToGuild({
-                    guildId,
-                    userId: id
-                });
-            }));
-            closeModal();
-        }
-        catch (err) {
-            console.log(err);
-            document.getElementById('guildInviteError').innerText = err.error;
-        }
-        finally {
-            evt.target.disabled = false;
-        }
     };
 }
 
