@@ -1,11 +1,7 @@
-//id para o delete password
-//update de coisas separadas
 const changePasswordDiv = document.getElementById('change-password');
 changePasswordDiv.style.display == "none";
 const passwordMatch = document.getElementById('password-match');
 var colorPicker;
-let defaultColorUser;
-// let defaultColorUser = '#ffffff';
 let themeColor;
 
 
@@ -111,7 +107,6 @@ function submitPassword()
 {
     const newPasswordValue = document.getElementById('newPassword').value;
     const confNewPasswordValue = document.getElementById('confNewPassword').value;
-    const oldPasswordValue = document.getElementById('oldPassword').value;
     
     document.querySelectorAll('.user-password-input').forEach(input=>{
         input.classList.remove('invalid-input');
@@ -138,22 +133,38 @@ function submitPassword()
 }
 
 
+document.getElementById('usersettings-img-input').onchange = () => {
+const userAvatarSettings = document.getElementById('usersettings-img-input').files[0];
+document.getElementById('img-user-settings').src = userAvatarSettings ? URL.createObjectURL(userAvatarSettings) : '#';
+}
+
+//##################### Chose Theme ##########################
+document.getElementById('dark-theme').onchange = () => {
+    if (document.getElementById('dark-theme').checked)
+    console.log('dark')
+}
+ 
+document.getElementById('light-theme').onchange = () => {
+    if (document.getElementById('light-theme').checked)
+        console.log('light')
+}
+
+
 
 function getUserInfo(userInfo)
 {
     const usernameInput = document.getElementById('myaccount-username');
     const emailInput = document.getElementById('myaccount-email');
     
-    if (userInfo.userDescription == undefined)
+    if (userInfo.user_description == undefined)
     { 
         document.getElementById('about-me').value = '';
     }
     else
     {
-        document.getElementById('about-me').value = userInfo.userDescription;
+        document.getElementById('about-me').value = userInfo.user_description;
     }
     themeColor = userInfo.theme_color;
-    console.log('color user'+ defaultColorUser);
     const userProfileInput = document.getElementById('userprofile-username');
     userProfileInput.innerText = userInfo.username;
     
@@ -162,7 +173,9 @@ function getUserInfo(userInfo)
     
     emailInput.value = userInfo.email;
     emailInput.disabled = true;
-    
+
+    document.getElementById('img-user-settings').src = `${api.imgUrl}/${userInfo.img_name}`;
+
     // const phoneNumberButton = document.getElementById('phoneNumberButton');
     
     // if(userInfo.phoneNumber == null){
@@ -213,9 +226,8 @@ function confirmDelete()
     
     document.getElementById('confirm-delete').onclick = () =>{
         const password = document.getElementById('confirm-password-delete').value;
-        console.log(password);
-        openModal('confirmation-modal');  
-        renderConfirmationModal('Do you want to remove permanentely your account?', async () =>{
+        console.log(password);  
+        openConfirmationModal('Do you want to remove permanentely your account?', async () =>{
             try {
                 console.log(password);
                 const response = await api.deleteUser({password});
@@ -238,21 +250,21 @@ function confirmDelete()
 
 function confirmUpdateAccount()
 {
-    openModal('confirmation-modal');
-    renderConfirmationModal('Do you want to submit changes?', async () =>{
+    openConfirmationModal('Do you want to submit changes?', async () =>{
         try {
             document.getElementById('submitChangesButtonAccount').disabled = true;
             const username = document.getElementById('myaccount-username').value;
             const email = document.getElementById('myaccount-email').value;
-            const userDescription = document.getElementById('about-me').value;
+            let userDescription = document.getElementById('about-me').value;
             if( !userDescription)
             {
-                const userDescription = undefined;
+                userDescription = undefined;
             }
-            const response = await api.updateUser({username, email, themeColor, userDescription});
-            console.log(response);
+            await api.updateUser({username, email, themeColor, userDescription});
 
-            return response;
+            await api.updateUserAvatar({
+                avatar: document.getElementById('usersettings-img-input').files[0]
+                });
             
         }
         catch(err)
@@ -270,8 +282,7 @@ function confirmUpdateAccount()
 
 function confirmUpdatePassword()
 {
-    openModal('confirmation-modal');
-    renderConfirmationModal('Do you want to submit new password?', async () =>{
+    openConfirmationModal('Do you want to submit new password?', async () =>{
         try {
             const oldPassword = document.getElementById('oldPassword').value;
             const newPassword = document.getElementById('confNewPassword').value;
@@ -300,21 +311,23 @@ function confirmUpdatePassword()
 
 function confirmUpdateUser()
 {
-    openModal('confirmation-modal');
-    renderConfirmationModal('Do you want to submit changes?', async () =>{
+    openConfirmationModal('Do you want to submit changes?', async () =>{
         try {
             const username = document.getElementById('myaccount-username').value;
             const email = document.getElementById('myaccount-email').value;
-            const userDescription = document.getElementById('about-me').value;
+            let userDescription = document.getElementById('about-me').value;
+            
             if( !userDescription)
             {
-                const userDescription = undefined;
+               userDescription = undefined;
             }
     
-            
+            console.log(username, email, themeColor, userDescription)
             response = await api.updateUser({username, email, themeColor, userDescription});
-            console.log(response)
-            return response;
+            await api.updateUserAvatar({
+                avatar: document.getElementById('usersettings-img-input').files[0]
+                });
+
             
         }
         catch(err)
@@ -329,7 +342,6 @@ function confirmUpdateUser()
 function startupColor() 
 {
   colorPicker = document.querySelector("#user-color");
-  console.log('default picker'+defaultColorUser);
   colorPicker.value = themeColor;
   colorPicker.addEventListener("input", updateFirst, false);
   colorPicker.addEventListener("change", updateFirst, false);
@@ -339,7 +351,7 @@ function startupColor()
 function defaultColor(event)
 {
   var userColor = document.querySelector("#user-bar-color");
-  var userColorIcon = document.querySelector("#user-icon");
+  var userColorIcon = document.querySelector("#img-user-settings");
   if (userColor) {
     userColor.style.backgroundColor = themeColor;
     userColorIcon.style.backgroundColor = themeColor;
@@ -349,7 +361,7 @@ function defaultColor(event)
 function updateFirst(event) 
 {
   var userColor = document.querySelector("#user-bar-color");
-  var userColorIcon = document.querySelector("#user-icon");
+  var userColorIcon = document.querySelector("#img-user-settings");
   
   if (userColor) 
   {

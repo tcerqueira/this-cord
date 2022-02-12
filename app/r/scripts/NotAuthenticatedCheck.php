@@ -1,7 +1,7 @@
-<!-- <?php
-// if(!isAuthenticated())
-// {
-//     header('Location: login.php');
-//     exit();
-// }
-?> -->
+<?php
+if(!isAuthenticated())
+{
+    header('Location: login.php');
+    exit();
+}
+?>

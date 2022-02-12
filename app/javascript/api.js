@@ -181,7 +181,7 @@ class API
                         reject(JSON.parse(xhr.response));
                 }
             };
-            xhr.send();
+            xhr.send(JSON.stringify(body));
         });
     }
     
@@ -352,6 +352,31 @@ class API
         });
     }
 
+    updateUserAvatar({ avatar })
+    {
+        return new Promise((resolve, reject) => {
+
+            const body = new FormData();
+            body.append('user_avatar', avatar)
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/user/update-avatar.php', true);
+            
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(body);
+        });
+    }
+
     // #################################################### GUILD ########################################################
     // ###################################################################################################################
 
@@ -495,11 +520,12 @@ class API
         });
     }
 
-    updateGuild({guildname, initials, openInviteKey, themeColor})
+    updateGuild({guildId, guildname, initials, openInviteKey, themeColor})
     {
         return new Promise((resolve, reject) => {
             
             const body = {
+                guild_id:guildId,
                 guildname,
                 initials,
                 open_invite_key: openInviteKey,
@@ -688,6 +714,32 @@ class API
         });
     }
 
+    leaveGuild({guildId})
+    {
+        return new Promise((resolve, reject) => {
+            
+            const body = {
+                guild_id: guildId
+            }
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/guild/leave.php', true);
+
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
+
     kickMember({guildId, memberId})
     {
         return new Promise((resolve, reject) => {
@@ -841,7 +893,7 @@ class API
         });
     }
 
-    updateTextChannel({channel_id})
+    updateTextChannel({channel_id, channelname})
     {
         return new Promise((resolve, reject) => {
             
@@ -851,7 +903,7 @@ class API
             }
             
             let xhr = new XMLHttpRequest();
-            xhr.open('GET', this.apiRoot+'/r/text-channel/delete.php', true);
+            xhr.open('POST', this.apiRoot+'/r/text-channel/update.php', true);
         
             xhr.onload = () => {
                 switch(xhr.status)

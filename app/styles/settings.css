@@ -29,6 +29,7 @@
     padding-bottom: 6rem;
     padding-top: 3rem;
     justify-content: center;
+    min-height: 100vh;
 }
 
 .esc {
@@ -68,16 +69,14 @@ hr {
     border-radius: 7px;
 }
 
-#my-account-container {
+.settings-section {
     background-color: var(--color-light-grey);
     border-radius: 7px;
     align-items: center;
     justify-content: center;
-    margin: 0;
     padding: 3rem;
     width: 90%;
 }
-
 /* #my-account-container a{
     background-color: var(--color-medium-grey-1);
     padding: 0.5rem 1rem;
@@ -110,14 +109,7 @@ hr {
 
 #user-profile {
     margin-top: 2rem;
-    width: 90%;
-}
-#user-profile-container {
-    background-color: var(--color-light-grey);
-    border-radius: 7px;
-    align-items: center;
-    justify-content: center;
-    padding: 3rem;
+    margin-bottom: 2rem;
 }
 
 #user-bar-color {
@@ -183,9 +175,9 @@ hr {
     color: inherit;
 }
 
-.button {
+/* .button {
     background-color: var(--color-primary);
-}
+} */
 
 .user-password-input {
     background-color: var(--color-dark-grey);
@@ -218,28 +210,6 @@ hr {
     margin-top: 1rem;
 }
 
-/* .radio_label {
-    display: inline-flex;
-    align-items: center;
-    cursor: pointer;
-}
-
-.radio_input {
-    display: none;
-}
-
-.radio_radio {
-    width: 1.25em;
-    height: 1.25em;
-    border: 2px solid var(--color-light-grey);
-    border-radius: 50%;
-    margin-right: 10px;
-    box-sizing: border-box;
-    padding: 2px;
-} */
-
-
-
 .guild-sections-container {
     background-color: var(--color-light-grey);
     border-radius: 7px;
@@ -255,15 +225,6 @@ hr {
     justify-content: space-between;
     align-items: center;
     
-}
-
-#guild-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 #guild-color {
@@ -293,16 +254,16 @@ select {
     -moz-appearance: none;
   }
   
-  .member-role {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 1rem;
-  }
+.member-role {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+}
   
   /* arrows */
   
-  select.classic {
+select.classic {
     background-image:
       linear-gradient(45deg, transparent 50%, var(--color-light-grey) 50%),
       linear-gradient(135deg, var(--color-light-grey) 50%, transparent 50%),
@@ -318,7 +279,7 @@ select {
     background-repeat: no-repeat;
   }
   
-  select.classic:focus {
+select.classic:focus {
     background-image:
       linear-gradient(45deg, white 50%, transparent 50%),
       linear-gradient(135deg, transparent 50%, white 50%),
@@ -334,24 +295,97 @@ select {
     background-repeat: no-repeat;
     border-color: var(--color-primary);
     outline: 0;
-  }
+}
   
-  .guild-section {
+.guild-section {
       margin-bottom: 1.5rem;
-  }
+}
 
-  #create-text-channel-div {
+#create-text-channel-div {
     display: none;
     flex-direction: column;
     width: fit-content;
     padding: 1rem;
-  }
+}
 
-  #create-text-channel-div div {
-      margin: 1rem 0;
-      background-color: var(--color-dark-grey);
-  }
+#create-text-channel-div div {
+    margin: 1rem 0;
+    background-color: var(--color-dark-grey);
+}
 
-  .buttonSettings {
-      font-size: 1.1em;
+.buttonSettings {
+    font-size: 1.1em;
+}
+
+.buttonGuildSettings {
+    font-size: 1.1em;
+    display: none;
+}
+
+/* ############## Radio Buttons ############## */
+
+/* Customize the label (the container) */
+.container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: inherit;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default radio button */
+  .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom radio button */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: var(--color-dark-grey);
+    border-radius: 50%;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .container:hover input ~ .checkmark {
+    background-color: var(--color-medium-grey-2);
+  }
+  
+  /* When the radio button is checked, add a blue background */
+  .container input:checked ~ .checkmark {
+    background-color: var(--color-dark-grey);
+  }
+  
+  /* Create the indicator (the dot/circle - hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the indicator (dot/circle) when checked */
+  .container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the indicator (dot/circle) */
+  .container .checkmark:after {
+    top: 6.5px;
+    left: 6.5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--color-primary);
   }

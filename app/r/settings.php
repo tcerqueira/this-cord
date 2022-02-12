@@ -24,14 +24,14 @@ require 'scripts/SendHeaders.php';
             <section id="my-account">
                 <h2>My Account</h2>
                
-                <div id="my-account-container">
+                <div class="settings-section">
                     <div class="userProfileItem">
                         <div>
                             <p><b>Username:</b></p>
                             <div id= "text-input-container-color-username" class="text-input-container text-input-container-color"><input class="user-text-input" type="text" id="myaccount-username"></div>
                             <!-- <span id="myaccount-username"></span> -->
                         </div>
-                        <button class="button" type="button" id ="editUserButton"> Edit</button>
+                        <button class="button buttonSettings bg-blue" type="button " id ="editUserButton"> Edit</button>
                     </div>
                     
                     <div class="userProfileItem">
@@ -40,7 +40,7 @@ require 'scripts/SendHeaders.php';
                             <div id= "text-input-container-color-email" class="text-input-container text-input-container-color" ><input class = "user-text-input" type="text" id="myaccount-email"></div>
                             <!-- <span id=myaccount-email></span> -->
                         </div>
-                        <button class="button" type="button" id= "editEmailButton"> Edit </button>
+                        <button class="button buttonSettings bg-blue" type="button" id= "editEmailButton"> Edit </button>
                     </div>
                     
                     <!-- <div class="userProfileItem">
@@ -52,12 +52,12 @@ require 'scripts/SendHeaders.php';
                         <button class="button" type="button" id="phoneNumberButton"></button>
                     </div> -->
                     <hr>
-                    <button class="button" type="submit" id="submitChangesButtonAccount">Save Changes</button>
+                    <button class="button buttonSettings bg-green" type="submit" id="submitChangesButtonAccount">Save Changes</button>
                     <hr>
                     
                     <div class="userProfileItem">
                         <p><b>Password</b></p>
-                        <button class="button" type="submit" id="changePasswordButton"> Change Password</button>
+                        <button class="button buttonSettings bg-blue" type="submit" id="changePasswordButton"> Change Password</button>
                     </div>
                     <hr>
                     
@@ -73,15 +73,16 @@ require 'scripts/SendHeaders.php';
                         <div class="new-user-password-input" ><input type="password" id="confNewPassword"></div>
                         <span id="password-match"></span>
                         <hr>
-                        <button class="button" type="submit" id="submitNewPassword">Confirm</button>
+                        <button class="button buttonSettings bg-green" type="submit" id="submitNewPassword">Confirm</button>
                     </div>
                 
                 </div>
-                <button class="button"  id="delete-account"> Delete Account</button>
+                <button class="button buttonSettings bg-red "  id="delete-account"> Delete Account</button>
                 <div id="confirm-password-delete-container">
                     <p>Confirm your password</p>
                     <div class = "text-input-container"><input type="password" id ="confirm-password-delete"></div>
-                    <button class="button button-color" id = "confirm-delete" type="button"> Confirm </button>
+                    <br>
+                    <button class="button buttonSettings bg-red" id = "confirm-delete" type="button"> Confirm </button>
                 </div>
             </section>
             
@@ -89,15 +90,24 @@ require 'scripts/SendHeaders.php';
 
             <section id="user-profile">
                 <h2>User Profile</h2>
-                <div id="user-profile-container">
+                <div class="settings-section">
+                    <div class="userProfileItem">
+                        <form id="userSettingsImageForm">
+                            <label for="usersettings-img-input"><b>Avatar</b></label>
+                            <input type="file" name="usersettings_img" id="usersettings-img-input">
+                            <hr>
+                        </form>
+                            <!-- <button class="button buttonSettings bg-green" type="button" id= "submitImgButton"> Submit </button> -->
+                    </div> 
+
                     <div class="color-user">
                         <div id="user-bar-color">
                             <div id="user-preview">
-                                <div id="user-icon">user</div>
-                                <section>
+                            <div class="icon-card icon-size-xbig"><img src="" alt="user-icon" id="img-user-settings" ></div>
+                                <div>
                                     <span><b>Username:</b></span>
                                     <span id="userprofile-username"> </span>
-                                </section>
+                                </div>
                                 <div id="pick-color">
                                     <span>Custom color:</span>
                                     <input type="color" id="user-color" value="#ff0000">
@@ -111,35 +121,22 @@ require 'scripts/SendHeaders.php';
                             <textarea name="about-me" id="about-me" cols="30" rows="10" placeholder="Write a brief description about you"> </textarea>
                         </form>
                     </div>
-                    <button class= "button" id="submitChangesButtonUser"> Save Changes</button>
+                    <button class= "button buttonSettings bg-green" id="submitChangesButtonUser"> Save Changes</button>
                 </div>
             </section>
 
-            <section>
+            <section id="theme-color">
             <h2>Color Theme</h2>
-                <div class = "radio-section">
-                    <form action="">
-                        <div class="radio-item">
-                            
-                            
-                            <label class ="radio_label" for="this-cord-darktheme">
-                                <input type="radio" id="this-cord-darktheme" name="app-theme" class = "radio_input">
-                                <div class="radio_radio"></div>
-                                Dark theme
-                            </label>
-                        </div>
-
-                        <div class="radio-item">
-                                                 
-                            
-                            <label class ="radio_label" for="this-cord-lighttheme" >
-                                <input type="radio" id="this-cord-lighttheme" name="app-theme" class = "radio_input">
-                                <div class="radio_radio"></div>
-                                Light Theme
-                            </label>
-                        </div>
-                    </form>
-                </div>
+            <div class="settings-section">
+                <label class="container">Dark Theme
+                <input type="radio" checked="checked" name="radio" id="dark-theme">
+                <span class="checkmark"></span>
+                </label>
+                <label class="container">Light Theme
+                <input type="radio" name="radio" id="light-theme">
+                <span class="checkmark"></span>
+                </label>
+            </div>
             </section>
         </div>
         

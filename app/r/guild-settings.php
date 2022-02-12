@@ -19,6 +19,9 @@ require 'scripts/SendHeaders.php';
         <?php include "../components/nav-settings-guild.php" ?>
         
        <div class="settings-display">
+            <div class="esc">
+                <a href="#"> <img src="../public/esc.svg" alt="esc"></a>
+            </div>
            <section>
                <!-- costumizaçao
                nome, cor icon, imagem, iniciais -->
@@ -33,7 +36,7 @@ require 'scripts/SendHeaders.php';
                                 <div id= "text-input-container-color-guild-name" class="text-input-container"><input class="user-text-input" type="text" id="guild-name-input"></div>
                                 <!-- <span id="myaccount-username"></span> -->
                             </div>
-                            <button class="button buttonSettings" type="button" id ="editGuildNameButton"> Edit</button>
+                            <button class="button buttonGuildSettings bg-blue moderator" type="button" id ="editGuildNameButton"> Edit</button>
                         </div>
            
                         <div class="settings-item">
@@ -42,24 +45,23 @@ require 'scripts/SendHeaders.php';
                                 <div id= "text-input-container-color-guild-init" class="text-input-container" ><input class = "user-text-input" type="text" id="guild-init-input"></div>
                                 <!-- <span id=myaccount-email></span> -->
                             </div>
-                            <button class="button buttonSettings" type="button" id= "editGuildInitialsButton"> Edit </button>
+                            <button class="button buttonGuildSettings bg-blue moderator" type="button" id= "editGuildInitialsButton"> Edit </button>
                         </div>
                         
-                        <!-- <div class="settings-item">
-                            <div>
-                                <p><b>Image: </b></p>
-                                <div id= "" class="text-input-container text-input-container-color" ><input class = "user-text-input" type="image" id="image-input"></div>
-                                <!-- <span id=myaccount-email></span> -->
-                            <!-- </div>
-                            <button class="button" type="button" id= "editImageButton"> Edit </button>
-                        </div> --> 
-                        
                         <div class="settings-item">
-                            <div id="guild-icon">Guild</div>
+                            <form id="guildSettingsImageForm">
+                                <label for="guildsettings-img-input"><b>Avatar</b></label>
+                                <input type="file" name="guildsettings_img" id="guildsettings-img-input">
+                            </form>
+                            <!-- <button class="button buttonGuildSettings bg-green" type="button" id= "submitImgButton"> Submit </button> -->
+                        </div> 
+                        <hr>
+                        <div class="settings-item">
+                            <div class="icon-card icon-size-xbig"><img src="" alt="guild-icon" id="img-guild-settings"></div>
                             <input type="color" id="guild-color" value="#ff0000">
                         </div>
                         <hr>
-                        <button class= "button buttonSettings" id="guild-save-changes"> Save Changes</button>
+                        <button class= "button buttonGuildSettings bg-green moderator" id="guild-save-changes"> Save Changes</button>
                     </div>
            
             </section>
@@ -71,22 +73,22 @@ require 'scripts/SendHeaders.php';
                         <li class="settings-item" id="channelItemTemplate" aria-hidden="true" style = "display: none">
                             <div>
                                 <p><b>Text-channel: </b></p>
-                                <div name="divColor" class="text-input-container text-input-container-color"><input class="user-text-input" type="text" id=""></div>
+                                <div name="divColor" class="text-input-container text-input-container-color"><input class="user-text-input" type="text"></div>
                                 <!-- <span id="myaccount-username"></span> -->
                             </div>
                             <div>
-                                <button class="button buttonSettings" type="button" name="editButton"> Edit</button>
-                                <button class="button buttonSettings" type="button" name="deleteButton"> Delete </button>
+                                <button class="button buttonGuildSettings bg-blue moderator" type="button" name="editButton"> Edit</button>
+                                <button class="button buttonGuildSettings bg-red moderator" type="button" name="deleteButton"> Delete </button>
                             </div>
                         </li>
                     </ul>
 
                     <hr>
-                    <button class="button buttonSettings" type="button" id ="create-text-channel-button"> Create new text-channel </button>
+                    <button class="button buttonGuildSettings bg-blue moderator" type="button" id ="create-text-channel-button"> Create new text-channel </button>
                     <div id="create-text-channel-div">
                         Channel Name:
                         <div class="text-input-container"><input type="text" id="add-text-channel-name"></div>
-                        <button class="button buttonSettings" type="button" id ="confirm-add-text-channel"> Add</button>
+                        <button class="button buttonGuildSettings bg-green moderator" type="button" id ="confirm-add-text-channel"> Add</button>
                     </div>
                 </div>
            </section>
@@ -95,32 +97,62 @@ require 'scripts/SendHeaders.php';
                 <h2>User-Roles</h2>
                 <div class="guild-sections-container" >
                 
-                <ul id="membersList">   
-                    <li id="memberItemTemplate" aria-hidden="true" style = "display: none">
-                        <div class="member-role" >
-                            <div>
-                                <span></span>
+                    <ul id="membersList">   
+                        <li id="memberItemTemplate" aria-hidden="true" style = "display: none">
+                            <div class="settings-item" >
+                                <div>
+                                    <span></span>
+                                </div>
+                                <!-- <label for="roles">Roles:</label> -->
+                                <div>
+                                    <select id="roles" name="roles" class = "classic">
+                                        <option value="role-moderator">Moderator</option>
+                                        <option value="role-user">User</option>
+                                    </select>
+                                    <button class="button buttonGuildSettings bg-red moderator" type="button" name="kickButton"> Kick </button>
+                                </div>
                             </div>
-                            <!-- <label for="roles">Roles:</label> -->
-                            <div>
-                                <select id="roles" name="roles" class = "classic">
-                                    <option value="role-admin">Admin</option>
-                                    <option value="role-moderator">Moderator</option>
-                                    <option value="role-user">User</option>
-                                </select>
-                                <button class="button buttonSettings" type="button" name="kickButton"> Kick </button>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                            <hr>
+                        </li>
+                    </ul>
                </div>
-               
-            </select>
-               user roles
+            </section>  
+
+            <section class="guild-section" id="transfer-admin" >
+                <h2>Transfer Admin</h2>
+                <div class="guild-sections-container" >
+                    <div class="settings-item">
+                        <div>
+                            <span> Admin</span>
+                        </div>
+                        <!-- <label for="roles">Roles:</label> -->
+                    
+                        <select id= 'transferAdmin' name="transferAdmin" class = "classic">
+                        </select>
+                    </div>
+
+                    <div id="confirmPasswordGuild" class="settings-item" style="display: none">
+                        <div class="user-password-input"><input type="password" id="passwordGuild"></div>
+                        <button id="confirmPasswordGuildButton" class="button buttonGuildSettings bg-green" type="button" name="confirmPasswordGuildButton">Confirm</button>
+                    </div>
+                </div>
            </section>
-           <section>
-               kick
+
+           <section class="guild-section" id="cancel-invites">
+                <h2>Cancel Invites</h2>
+                <div class="guild-sections-container" >
+                    <ul id="invitesList">
+                        <li id="inviteMemberItemTemplate" aria-hidden="true" style = "display: none">
+                            <div class="settings-item">
+                                <span></span>
+                                <button class="button buttonGuildSettings bg-red moderator" type="button" name="cancelInviteButton">Cancel</button>
+                            </div>
+                            <hr>
+                        </li>
+                    </ul>
+                </div>
            </section>
+           <button class="button buttonGuildSettings bg-red" type="button" name="LeaveGuild"> Leave</button>
        </div>
 
 
