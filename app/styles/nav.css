@@ -4,6 +4,7 @@
     justify-content: space-between;
     background-color: var(--color-dark-grey);
     grid-area: primary-nav;
+    z-index: 2;
     /* overflow-y: hidden;
     overflow-x: visible; */
     /* overflow: hidden; */
@@ -12,6 +13,7 @@
 .secondary-nav {
     background-color: var(--color-medium-grey-1);
     grid-area: secondary-nav;
+    width: 100%;
 }
 
 .primary-nav > div:first-child {
@@ -31,8 +33,8 @@
     display: flex;
     grid-area: server-overview;
     flex-direction: column;
-    padding: 0.5rem;
-    overflow: hidden;
+    /* width: 100%; */
+    /* overflow: hidden; */
 }
 
 .server-overview a {
@@ -42,8 +44,7 @@
 }
 
 .server-overview ul {
-    padding-top: 1rem;
-    padding-bottom: 2rem;
+    padding: 1rem .5rem;
 }
 
 .text-channel { 
@@ -52,11 +53,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-left: 1rem;
-    padding-top: 0.6rem;
-    padding-bottom: 0.6rem;
-    padding-right: 0.5rem;
-    height: fit-content;
+    flex-grow: 1;
+    padding: .6rem .5rem;
     border-radius: 10px;
     font-size: .9rem;
 }
@@ -75,9 +73,8 @@
 
 
 .text-channel-icons {
-    display: none;
+    visibility: hidden;
     cursor: pointer;
-    
 }
 
 .text-channel-icons:hover {
@@ -85,13 +82,12 @@
 }
 
 .text-channel:hover .text-channel-icons {
-    display: flex;
+    visibility: visible;
 
 }
 
 .text-channel:hover {
     background-color: rgba(0,0,0, .1);
-
 }
 
 .selected-channel {
@@ -103,13 +99,22 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-right: 0.5rem;
-    padding-bottom: 0;
+    /* align-self: stretch; */
+    padding: 0.5rem;
 }
 
-.title > img {
+.title img {
     cursor: pointer;
 }
+
+.title div {
+    position: relative;
+}
+
+/* .title div:hover::after {
+    position: absolute;
+    inset: 0 0 auto auto;
+} */
 
 .user {
     grid-area: user;
@@ -118,6 +123,9 @@
     justify-content: space-between;
     align-items: center;
     padding: .7rem;
+    width: 16rem;
+    /* width: 100%; */
+    cursor: pointer;
 
     border-left: 3px solid var(--user-theme-color, transparent);
     border-top-left-radius: 5px;
@@ -128,22 +136,38 @@
 }
 
 .user > div {
-    font-size: 1.1rem;
+    font-size: .9rem;
+    display: flex;
+}
+
+.userbar-id {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1em;
+    align-self: center;
 }
 
 #userbarUsername {
-    margin-left: 1em;
     color: var(--user-theme-color, var(--color-primary));
 }
 
 #userbarShortId {
     font-size: .75em;
-    z-index: -1;
+    /* z-index: -1; */
 }
 
 .user > a img {
     height: 1.5rem;
     border-radius: 40px;
+}
+
+.user > a {
+    position: relative;
+}
+
+.user > a::after {
+    position: absolute;
+    inset: -150% auto auto -3rem;
 }
 
 .side-card {
@@ -173,18 +197,13 @@
 }
 
 .side-card:hover::after {
-    content: attr(data-tooltip);
     position: absolute;
-    top: 10%;
-    left: 150%;
-    color: white;
-    transition: all 200ms ease-in-out;
+    inset: 20% auto auto 130%;
+}
 
-    white-space: nowrap;
-
-    padding: 0.3rem;
-    background-color: var(--color-dark-grey);
-    box-shadow: 0px 0px 7px black;
+.title div:hover::after {
+    position: absolute;
+    inset: 120% auto auto -3.5rem;;
 }
 
 .current-server::before {

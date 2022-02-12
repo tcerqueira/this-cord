@@ -5,20 +5,6 @@
 }
 
 :root {
-    /* color scheme */
-    --color-black:          #18191c;
-    --color-dark-grey:      #202225;
-    --color-medium-grey-1:  #2f3136;
-    --color-medium-grey-2:  #36393f;
-    --color-light-grey:     #40444b;
-    --color-light:          #ffffff;
-    --color-primary:        #7289da;
-    --color-red:            #ed4245;
-    --color-green:          #3ba55d;
-    --color-yellow:         #faa81a;
-    --color-dark-yellow:    #715b34;
-    --color-dark-yellow-2:  #49443c;
-    --font-color:           #dee0fc;
     /* fixed sizes */
     --card-size: 3.5rem;
     --border-radius-size: 10px;
@@ -92,6 +78,11 @@ input[type=email]:focus {
     outline: none;
 }
 
+body, div, main, section, nav, ul, ol {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-medium-grey-1) var(--color-dark-grey);
+}
+
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -109,9 +100,9 @@ input[type=email]:focus {
 }
 
 /* Handle on hover */
-/* ::-webkit-scrollbar-thumb:hover {
-  background: #555;
-} */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-black);
+}
 
 .global-container {
     /* min-height: 850px; */
@@ -147,7 +138,8 @@ input[type=email]:focus {
     grid-template-areas: 
         "server-overview"
         "user";
-    overflow: hidden;
+    /* overflow: hidden; */
+    z-index: 1;
 }
 
 .nav-header {
@@ -159,7 +151,7 @@ input[type=email]:focus {
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    /* z-index: 1; */
+    z-index: 1;
 }
 
 .nav-header:hover {
@@ -171,8 +163,18 @@ input[type=email]:focus {
 }
 
 .server-options-container {
+    /* position: relative; */
     display: flex;
     flex-wrap: nowrap;
+}
+
+.server-options-container > div {
+    position: relative;
+}
+
+.server-options-container div::after {
+    position: absolute;
+    inset: 120% auto auto -3rem;
 }
 
 .nav-header img {
@@ -211,6 +213,23 @@ input[type=email]:focus {
     background-color: var(--color-medium-grey-1);
 }
 
+.rainbow-bg {
+    background: linear-gradient(
+        45deg,
+        rgba(255, 0, 0, 1) 0%,
+        rgba(255, 154, 0, 1) 10%,
+        rgba(208, 222, 33, 1) 20%,
+        rgba(79, 220, 74, 1) 30%,
+        rgba(63, 218, 216, 1) 40%,
+        rgba(47, 201, 226, 1) 50%,
+        rgba(28, 127, 238, 1) 60%,
+        rgba(95, 21, 242, 1) 70%,
+        rgba(186, 12, 248, 1) 80%,
+        rgba(251, 7, 217, 1) 90%,
+        rgba(255, 0, 0, 1) 100%
+    );
+}
+
 .username {
     font-weight: bold;
     color: var(--user-theme);
@@ -222,18 +241,15 @@ input[type=email]:focus {
 }
 
 .icon-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     height: var(--side-size);
     width: var(--side-size);
     border-radius: 50%;
     background-color: var(--icon-bg-color, var(--color-medium-grey-1));
     overflow: hidden;
-
-    -webkit-transition: .3s -webkit-filter linear;
-    -moz-transition: .3s -moz-filter linear;
-    -moz-transition: .3s filter linear;
-    -ms-transition: .3s -ms-filter linear;
-    -o-transition: .3s -o-filter linear;
-    transition: .3s filter linear, .3s -webkit-filter linear;
 }
 
 .icon-card img {
@@ -251,8 +267,8 @@ input[type=email]:focus {
     display: block;
     position: absolute;
     inset: auto auto 0 0;
-    width: 1rem;
-    height: 1rem;
+    width: var(--status-size, 1rem);
+    height: var(--status-size, 1rem);
     border: 2px solid var(--color-light-grey);
     border-radius: 50%;
 
@@ -261,6 +277,22 @@ input[type=email]:focus {
 
 .status-wrapper.status-offline::before {
     background-color: var(--color-medium-grey-2);
+}
+
+.status-size-small {
+    --status-size: .8rem;
+}
+
+.status-size-medium {
+    --status-size: 1rem;
+}
+
+.status-size-big {
+    --status-size: 1.2rem;
+}
+
+.status-size-xbig {
+    --status-size: 1.5rem;
 }
 
 .user-text-input {
@@ -305,6 +337,16 @@ input.button:active {
 [data-tooltip]::before,
 [data-tooltip]::after {
     animation: scale-in .2s var(--bounce-curve);
+}
+
+[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    white-space: nowrap;
+    padding: .3em;
+    border-radius: 5px;
+    box-shadow: 0px 0px 7px black;
+    color: var(--font-color);
+    background-color: var(--color-black);
 }
 
 @keyframes scale-in {

@@ -1,4 +1,9 @@
-<?php session_start(); ?>
+<?php
+// session_set_cookie_params([
+//     'path' => '/~up201707238/sie/this-cord'
+// ]);
+session_start();
+?>
 <?php
 use gateways\UserGateway;
 require __DIR__ . '/vendor/autoload.php';

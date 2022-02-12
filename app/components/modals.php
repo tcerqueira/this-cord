@@ -3,7 +3,17 @@
         <header>
             <div id="theme-user-modal" class="theme-user-panel"></div>
             <div class="username-container">
-                <span id="username-user-modal">User</span>
+                <div>
+                    <div class="status-wrapper status-size-xbig">
+                        <div class="icon-card icon-size-xbig">
+                            <img src="https://c.tenor.com/gQV5VzHLWQIAAAAM/among-us-sus.gif" alt="">
+                        </div>
+                    </div>
+                    <div class="user-info one-liner">
+                        <span id="username-user-modal">User</span>
+                        <span id="shortIdUserModal">#123</span>
+                    </div>
+                </div>
                 <button id="add-remove-friend-btn" class="button bg-green">Add</button>
             </div>
         </header>
@@ -28,7 +38,7 @@
         </header>
         <main class="create-guild-main">
             <div id="iconCardPreview" class="icon-card icon-size-xbig">
-                <img id="guildImagePreview" src="" alt="guild-img-preview">
+                <img id="guildImagePreview" src="" alt="" accept="image/*">
             </div>
             <form id="guildImageForm">
                 <label for="guild-img-input">Avatar</label>
@@ -99,7 +109,9 @@
             </ul>
             <template id="searchItemTemplate">
                 <li class="search-modal-item rounded-container">
-                    <div class="icon-card icon-size-xsmall"></div>
+                    <div class="icon-card icon-size-xsmall">
+                        <img src="" alt="">
+                    </div>
                     <span>
                         username
                         <span id="shortIdSpan"> #123456</span>

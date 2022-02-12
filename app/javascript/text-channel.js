@@ -19,18 +19,25 @@ async function render() {
         renderMembers(members);
         renderSendMessage(currentTextChannelId);
         renderChat(messages);
+        renderChatHeader(channel.channelname);
         renderTextChannels(textChannels, currentTextChannelId);
         renderUserbar(user);
         
         const { guildname: currentGuildname } = myGuilds.find(g => g.id===channel.guild_id);
         document.getElementById('guildHeader').innerText = currentGuildname;
+        // Check guild privileges
+        const { guild_role: role } = members.find(m => m.member_id === currentProfileId);
+        if(parseInt(role) < 1) {
+            document.getElementById('serverHeaderInviteIcon').style.display = 'none';
+            document.getElementById('createChannelIcon').style.display = 'none';
+        }
 
         document.getElementById('inviteToGuildIcon').addEventListener('click', () => {
             openGuildInviteModal(channel.guild_id);
         });
 
         document.querySelector('.page-header').innerText = `# ${channel.channelname}`;
-        document.querySelector('.title > img').addEventListener('click', () => {
+        document.querySelector('.title img').addEventListener('click', () => {
             openCreateChannelModal(channel.guild_id);
         });
 

@@ -7,7 +7,7 @@ require 'scripts/SendHeaders.php';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include "../components/head-outside.php" ?>
+    <?php include "scripts/head-outside.php" ?>
     <link rel="stylesheet" href="../styles/register.css">
     <script src="../javascript/register.js" defer></script>
 </head>
@@ -22,7 +22,7 @@ require 'scripts/SendHeaders.php';
                 <form class="flex-column" id="register-form" method="post" action="">
                     <label for="email-input">Email</label>
                     <div class="text-input-container">
-                        <input type="email" name="email" id="email-input">
+                        <input type="text" name="email" id="email-input">
                     </div>
                     <label for="username-input">Username</label>
                     <div class="text-input-container">
