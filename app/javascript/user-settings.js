@@ -141,12 +141,12 @@ document.getElementById('img-user-settings').src = userAvatarSettings ? URL.crea
 //##################### Chose Theme ##########################
 document.getElementById('dark-theme').onchange = () => {
     if (document.getElementById('dark-theme').checked)
-    console.log('dark')
+    document.cookie = "theme=" + 'dark';
 }
  
 document.getElementById('light-theme').onchange = () => {
     if (document.getElementById('light-theme').checked)
-        console.log('light')
+    document.cookie = "theme=" + 'light';
 }
 
 

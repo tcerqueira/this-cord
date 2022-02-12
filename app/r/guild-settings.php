@@ -7,7 +7,7 @@ require 'scripts/SendHeaders.php';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include "../components/head.php" ?>
+    <?php include "scripts/head.php" ?>
     <link rel="stylesheet" href="../styles/settings.css">
     <script src="../javascript/guild-settings.js" defer></script>
 </head>
@@ -20,7 +20,7 @@ require 'scripts/SendHeaders.php';
         
        <div class="settings-display">
             <div class="esc">
-                <a href="#"> <img src="../public/esc.svg" alt="esc"></a>
+                <a href="home.php"> <img src="../public/esc.svg" alt="esc"></a>
             </div>
            <section>
                <!-- costumizaçao

@@ -188,7 +188,7 @@ function createMemberItem(member)
 
             memberItem.querySelector("select").value = "role-admin";
             memberItem.querySelector("button[name=kickButton]").disabled = true;
-            memberItem.querySelector("button[name=kickButton]").classList.add("bg-light-grey"); 
+            // memberItem.querySelector("button[name=kickButton]").classList.add("disab"); 
             memberItem.querySelector("select").disabled = true;
             
             break;
@@ -196,6 +196,9 @@ function createMemberItem(member)
     }
 
     let newRole;
+    if(member.member_id==currentUserId)
+        memberItem.querySelector("button[name=kickButton]").disabled = true;
+        
     memberItem.querySelector("button[name=kickButton]").onclick = ()=>{
         openConfirmationModal('Do you want to kick this member?', async () =>{
         try 
@@ -308,12 +311,12 @@ function checkPermissions()
             {
                 const buttons = document.querySelectorAll('button');
                 buttons.forEach(button =>{
-                    button.style.display = 'flex';
+                    button.style.display = 'inline-block';
                 });
-                const selects = document.querySelectorAll('select');
-                selects.forEach(select =>{
-                    select.disabled = false;
-                } );
+                // const selects = document.querySelectorAll('select');
+                // selects.forEach(select =>{
+                //     select.disabled = false;
+                // } );
                 break;
             }
         case '1':
@@ -386,6 +389,10 @@ document.querySelector("button[name=LeaveGuild]").onclick = () =>{
         catch(err)
         {
             console.log(err);
+        }
+        finally
+        {
+            closeModal();
         }
     });
 }

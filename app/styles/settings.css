@@ -322,6 +322,11 @@ select.classic:focus {
     display: none;
 }
 
+button:disabled, button:disabled:hover {
+    background-color: var(--color-medium-grey-2) !important;
+    cursor:  not-allowed;
+}
+
 /* ############## Radio Buttons ############## */
 
 /* Customize the label (the container) */
