@@ -1,10 +1,10 @@
 :root {
     /* color scheme */
     --color-black:          #080a2c;
-    --color-dark-grey:      #272591;
-    --color-medium-grey-1:  #373991;
-    --color-medium-grey-2:  #565ec4;
-    --color-light-grey:     #93a4c2;
+    --color-dark-grey:      #333294;
+    --color-medium-grey-1:  #54558a;
+    --color-medium-grey-2:  #7d80aa;
+    --color-light-grey:     #b6b9dd;
     --color-light:          #ffffff;
     --color-primary:        #868697;
     --color-red:            #ed4245;
