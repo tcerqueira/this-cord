@@ -1,3 +1,7 @@
+body {
+    background-color: var(--color-medium-grey-1);
+}
+
 .nav-settings {
     grid-area: nav-settings;
     background-color: var(--color-medium-grey-1);
