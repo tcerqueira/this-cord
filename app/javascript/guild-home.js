@@ -30,6 +30,10 @@ async function render()
         document.querySelector('.title img').addEventListener('click', () => {
             openCreateChannelModal(currentGuildlId);
         });
+
+        document.getElementById('openGuildSettings').onclick = () => {
+            window.location.href = `guild-settings.php?guild_id=${currentGuildlId}`;
+        }
     } catch (err) {
         console.log(err);
         openErrorModal(err.error, () => {

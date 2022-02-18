@@ -41,6 +41,10 @@ async function render() {
             openCreateChannelModal(channel.guild_id);
         });
 
+        document.getElementById('openGuildSettings').onclick = () => {
+            window.location.href = `guild-settings.php?guild_id=${channel.guild_id}`;
+        }
+
         // schedule the first invocation:
         setTimeout(fetchMessagesPeriodically, 1000);
 
