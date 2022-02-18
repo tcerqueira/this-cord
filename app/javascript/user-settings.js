@@ -69,8 +69,8 @@ document.getElementById("editUserButton").onclick = usernameDisable =>{
     else
     {
         document.getElementById('myaccount-username').disabled = false;
-        document.getElementById('text-input-container-color-username').style.background = "#202225";
-        document.getElementById('text-input-container-color-username').style.border = "1px solid #202225";
+        document.getElementById('text-input-container-color-username').style.background = "var(--color-dark-grey)";
+        document.getElementById('text-input-container-color-username').style.border = "1px solid var(--color-dark-grey)";
     }
     
 }
@@ -85,8 +85,8 @@ document.getElementById("editEmailButton").onclick = emailDisable =>{
     else
     {
         document.getElementById('myaccount-email').disabled = false;
-        document.getElementById('text-input-container-color-email').style.background = "#202225";
-        document.getElementById('text-input-container-color-email').style.border = "1px solid #202225";
+        document.getElementById('text-input-container-color-email').style.background = "var(--color-dark-grey)";
+        document.getElementById('text-input-container-color-email').style.border = "1px solid var(--color-dark-grey)";
     }
     
 }
@@ -149,6 +149,9 @@ document.getElementById('light-theme').onchange = () => {
     document.cookie = "theme=" + 'light';
 }
 
+console.log(getCookie( "theme"))
+if (getCookie( "theme") == "light")
+document.getElementById('light-theme').checked = true;
 
 
 function getUserInfo(userInfo)
@@ -371,4 +374,19 @@ function updateFirst(event)
   }
 }
 
-
+//######################### read cookie ##########################
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }

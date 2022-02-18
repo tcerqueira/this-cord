@@ -407,7 +407,7 @@ document.getElementById("editGuildNameButton").onclick = ()=>{
     else
     {
         document.getElementById('guild-name-input').disabled = false;
-        document.getElementById('text-input-container-color-guild-name').style.background = "#202225";
+        document.getElementById('text-input-container-color-guild-name').style.background = "var(--color-dark-grey)";
         // document.getElementById('text-input-container-color-guild-name').style.border = "1px solid #202225";
     }
     
@@ -423,7 +423,7 @@ document.getElementById("editGuildInitialsButton").onclick = () =>{
     else
     {
         document.getElementById('guild-init-input').disabled = false;
-        document.getElementById('text-input-container-color-guild-init').style.background = "#202225";
+        document.getElementById('text-input-container-color-guild-init').style.background = "var(--color-dark-grey)";
         // document.getElementById('text-input-container-color-guild-init').style.border = "1px solid #202225";
     }
     

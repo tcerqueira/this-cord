@@ -10,9 +10,13 @@ function renderTextChannels(textChannels, currentTextChannelId)
 
 function createTextChannelItem(textChannel)
 {
-    const anchorListItem =document.createElement('a');
-    anchorListItem.href= `text-channel.php?id=${textChannel.id}`;
-    
+    const anchorListItem =document.createElement('div');
+    // anchorListItem.href= `text-channel.php?id=${textChannel.id}`;
+    anchorListItem.addEventListener('click', evt => {
+        evt.stopPropagation();
+        window.location.href = `text-channel.php?id=${textChannel.id}`;
+    });
+    anchorListItem.style.cursor = "pointer";
     const listItem = document.createElement('li');
     anchorListItem.append(listItem);
     listItem.id = 'textChannel_' + textChannel.id;
@@ -59,7 +63,7 @@ function createTextChannelItem(textChannel)
     settingsIcon.alt = "settings";
     settingsIcon.addEventListener('click', evt => {
         evt.stopPropagation();
-        window.location.href = `guild-settings?id=${textChannel.guild_id}`;
+        window.location.href = `guild-settings.php?guild_id=${textChannel.guild_id}`;
     });
     return anchorListItem;
 }
