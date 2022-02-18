@@ -1,6 +1,5 @@
 const currentGuildId = document.getElementById('currentGuildId').dataset.guildId;
 const currentUserId = document.getElementById('currentUserId').dataset.id;
-console.log(currentUserId)
 var colorPicker;
 let themeColor;
 let currentUserRole;
@@ -35,7 +34,6 @@ async function render()
                 const guildname = document.getElementById('guild-name-input').value;
                 const initials = document.getElementById('guild-init-input').value;
                     
-                console.log(guildname, initials, openInviteKey, themeColor)
                 const response = await api.updateGuild({guildId: currentGuildId, guildname, initials, openInviteKey, themeColor});
                     
                 await api.updateGuildAvatar({
@@ -136,7 +134,6 @@ function renderTextChannels(textChannels)
 
 function renderMembers(members)
 {
-    console.log(members)
     const list = document.getElementById('membersList');
     const selectorAdmin = document.getElementById ('transferAdmin'); 
     members.forEach(member => {
@@ -293,7 +290,6 @@ function renderGuildInfo(guild)
     document.getElementById('guild-name-input').value = guild.guildname;
     document.getElementById('guild-init-input').value = guild.initials;
     themeColor = guild.theme_color;
-    console.log(guild)
     const avatarSettings = guild.img_name;
     document.getElementById('img-guild-settings').src = `${api.imgUrl}/${avatarSettings}`;
     
@@ -362,9 +358,7 @@ document.getElementById("confirmPasswordGuildButton").onclick  = async ()=>{
         {
             const password = document.getElementById("passwordGuild").value;
             const newAdmin = document.getElementById ('transferAdmin').value;
-            console.log(newAdmin)
             const response = await api.transferAdmin({guildId: currentGuildId, newAdmin, password });
-            console.log(response)
         }
         catch (err)
         {
@@ -429,26 +423,10 @@ document.getElementById("editGuildInitialsButton").onclick = () =>{
     
 }
 
-// document.getElementById('submitImgButton').onclick = async ()=>{
-    
-//     try
-//     {
-//         await api.updateGuildAvatar({
-//         guildId: currentGuildId,
-//         avatar: document.getElementById('guildsettigns-img-input').files[0]
-//         });
-//     }
-//      catch(err)
-//      {
-//          console.log(err);
-//      }
-// }
-
 document.getElementById('guildsettings-img-input').onchange = () => {
     const avatarSettings = document.getElementById('guildsettings-img-input').files[0];
     document.getElementById('img-guild-settings').src = avatarSettings ? URL.createObjectURL(avatarSettings) : '#';
 }
-
 
 
  document.getElementById('create-text-channel-button').onclick = ()=>{
@@ -472,7 +450,6 @@ function confirmUpdateTextChannel()
             const channelname = document.getElementById('guild-name-input').value;
             
             const response = await api.updateTextChannel({channel_id, channelname});
-            console.log(response);
 
             return response;
             
@@ -496,7 +473,6 @@ function addTextChannel()
         try {
             const textChannelName = document.getElementById('add-text-channel-name').value;
             const response = await api.createTextChannel({guildId: currentGuildId, channelName: textChannelName});
-            console.log(response);
 
             return response;
             

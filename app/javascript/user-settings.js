@@ -115,7 +115,6 @@ function submitPassword()
     if ((confNewPasswordValue === newPasswordValue) && newPasswordValue != null)
     {
         confirmUpdatePassword();
-        console.log('dddd');
         document.querySelectorAll('.new-user-password-input').forEach(input=>{
             input.classList.remove('invalid-input');
 
@@ -124,7 +123,6 @@ function submitPassword()
     else
     {
         document.getElementById('confNewPassword').value = '';
-        console.log('erro');
         document.querySelectorAll('.new-user-password-input').forEach(input=>{
             input.classList.add('invalid-input');
 
@@ -149,7 +147,6 @@ document.getElementById('light-theme').onchange = () => {
     document.cookie = "theme=" + 'light';
 }
 
-console.log(getCookie( "theme"))
 if (getCookie( "theme") == "light")
 document.getElementById('light-theme').checked = true;
 
@@ -228,13 +225,10 @@ function confirmDelete()
     
     
     document.getElementById('confirm-delete').onclick = () =>{
-        const password = document.getElementById('confirm-password-delete').value;
-        console.log(password);  
+        const password = document.getElementById('confirm-password-delete').value; 
         openConfirmationModal('Do you want to remove permanentely your account?', async () =>{
             try {
-                console.log(password);
                 const response = await api.deleteUser({password});
-                console.log(response);
                 document.getElementById('confirm-password-delete-container').style.display = 'none';
             }
             catch(err)
@@ -320,12 +314,11 @@ function confirmUpdateUser()
             const email = document.getElementById('myaccount-email').value;
             let userDescription = document.getElementById('about-me').value;
             
-            if( !userDescription)
+            if( userDescription == '')
             {
-               userDescription = undefined;
+               userDescription = ' ';
             }
     
-            console.log(username, email, themeColor, userDescription)
             response = await api.updateUser({username, email, themeColor, userDescription});
             await api.updateUserAvatar({
                 avatar: document.getElementById('usersettings-img-input').files[0]
