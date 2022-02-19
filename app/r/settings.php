@@ -18,9 +18,11 @@ require 'scripts/SendHeaders.php';
         
         <div class="settings-display">
             
-            <div class="esc">
-                <a href="home.php"> <img src="../public/esc.svg" alt="esc"></a>
-            </div>
+            <a href="home.php">
+                <div class="esc">
+                    <img src="../public/esc.svg" alt="esc">
+                </div>
+            </a>
             <section id="my-account">
                 <h2>My Account</h2>
                
@@ -29,7 +31,6 @@ require 'scripts/SendHeaders.php';
                         <div>
                             <p><b>Username:</b></p>
                             <div id= "text-input-container-color-username" class="text-input-container text-input-container-color"><input class="user-text-input" type="text" id="myaccount-username"></div>
-                            <!-- <span id="myaccount-username"></span> -->
                         </div>
                         <button class="button buttonSettings bg-blue" type="button " id ="editUserButton"> Edit</button>
                     </div>
