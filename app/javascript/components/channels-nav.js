@@ -63,7 +63,7 @@ function createTextChannelItem(textChannel)
     settingsIcon.alt = "settings";
     settingsIcon.addEventListener('click', evt => {
         evt.stopPropagation();
-        window.location.href = `guild-settings.php?guild_id=${textChannel.guild_id}`;
+        window.location.href = `guild-settings.php?guild_id=${textChannel.guild_id}#text-channels`;
     });
     return anchorListItem;
 }

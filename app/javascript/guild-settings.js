@@ -54,12 +54,14 @@ async function render()
             } );  
         
         };
+        document.getElementById("esc-guild-settings").onclick = ()=>{
+            window.location.href = `guild-home.php?id=${currentGuildId}`;
+        }
     }
     catch(err)
     {
         console.log(err)
-    }
-    
+    }  
     
 } 
 
@@ -85,6 +87,7 @@ function createChannelItem(channel)
         finally
         {
             closeModal();
+            location.reload();
         } 
         });  
     }
@@ -97,7 +100,6 @@ function createChannelItem(channel)
             openConfirmationModal("Do you want to update the text-channel?", async()=>{
                 try
                 {
-                    
                     const channelname = textChannelItem.querySelector("input").value;
                     const response = await api.updateTextChannel({channel_id: channel.id, channelname})
                 }
@@ -108,29 +110,29 @@ function createChannelItem(channel)
                 finally
                 {
                     closeModal();
+                    location.reload();
                 }
             })
-            // textChannelItem.querySelector("div[name=divColor]").style.border = "transparent";
         }
         else
         {
             textChannelItem.querySelector("input").disabled = false;
             textChannelItem.querySelector("div[name=divColor]").style.background = "#202225";
-            // document.getElementById('text-input-container-color-guild-name').style.border = "1px solid #202225";
         }
         
-        }
+    }
     return textChannelItem;
 }
+
 
 function renderTextChannels(textChannels)
 {
     const list = document.getElementById('textChannelsList');
     textChannels.forEach(textChannel => {
-        list.append(createChannelItem(textChannel));
-        
+        list.append(createChannelItem(textChannel));  
     });    
 }
+
 
 function renderMembers(members)
 {
@@ -156,6 +158,7 @@ function renderMembers(members)
             selectorAdmin.value = member.member_id;
     });    
 }
+
 
 function createMemberItem(member)
 {
@@ -185,7 +188,6 @@ function createMemberItem(member)
 
             memberItem.querySelector("select").value = "role-admin";
             memberItem.querySelector("button[name=kickButton]").disabled = true;
-            // memberItem.querySelector("button[name=kickButton]").classList.add("disab"); 
             memberItem.querySelector("select").disabled = true;
             
             break;
@@ -209,6 +211,7 @@ function createMemberItem(member)
         finally
         {
             closeModal();
+            location.reload();
         } 
         });  
     }
@@ -240,12 +243,14 @@ function createMemberItem(member)
             finally
             {
                 closeModal();
+                location.reload();
             }
         });
     }
 
     return memberItem;
 }
+
 
 function renderInviteMembers(members)
 {
@@ -257,6 +262,7 @@ function renderInviteMembers(members)
         }
     });    
 }
+
 
 function createInviteMemberItem(member)
 {
@@ -279,11 +285,13 @@ function createInviteMemberItem(member)
             finally
             {
                 closeModal();
+                location.reload();
             }
         });
     }
     return inviteMemberItem;
 }
+
 
 function renderGuildInfo(guild)
 {
@@ -304,46 +312,43 @@ function checkPermissions()
     switch (currentUserRole)
     {
         case '2':
-            {
-                const buttons = document.querySelectorAll('button');
-                buttons.forEach(button =>{
-                    button.style.display = 'inline-block';
-                });
-                // const selects = document.querySelectorAll('select');
-                // selects.forEach(select =>{
-                //     select.disabled = false;
-                // } );
-                break;
-            }
+        {
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button =>{
+                button.style.display = 'inline-block';
+            });
+            break;
+        }
         case '1':
-            {
-                const buttons = document.querySelectorAll('.moderator');
-                buttons.forEach(button =>{
-                    button.style.display = 'inline-block';
-                });
-                const selects = document.querySelectorAll('select');
-                selects.forEach(select =>{
-                    select.disabled = true;
-                });
-                document.querySelector("button[name=LeaveGuild]").style.display = 'flex'; 
-                break;
-            }
+        {
+            const buttons = document.querySelectorAll('.moderator');
+            buttons.forEach(button =>{
+                button.style.display = 'inline-block';
+            });
+            const selects = document.querySelectorAll('select');
+            selects.forEach(select =>{
+                select.disabled = true;
+            });
+            document.querySelector("button[name=LeaveGuild]").style.display = 'flex'; 
+            break;
+        }
         case '0':
-            {
-                const buttons = document.querySelectorAll('.buttonSettings');
-                buttons.forEach(button =>{
-                    button.style.display = 'none';
-                } );
-                const selects = document.querySelectorAll('select');
-                selects.forEach(select =>{
-                    select.disabled = true;
-                } );
-                document.querySelector("button[name=LeaveGuild]").style.display = 'flex';
-                break;
-            }
+        {
+            const buttons = document.querySelectorAll('.buttonSettings');
+            buttons.forEach(button =>{
+                button.style.display = 'none';
+            } );
+            const selects = document.querySelectorAll('select');
+            selects.forEach(select =>{
+                select.disabled = true;
+            } );
+            document.querySelector("button[name=LeaveGuild]").style.display = 'flex';
+            break;
+        }
 
     }
 }
+
 //######################## Transfer Admin #############################
 
 document.getElementById ('transferAdmin').onchange = ()=>{
@@ -367,11 +372,13 @@ document.getElementById("confirmPasswordGuildButton").onclick  = async ()=>{
         finally
         {
             closeModal();
-            document.getElementById("confirmPasswordGuild").style.display = 'none';   
+            document.getElementById("confirmPasswordGuild").style.display = 'none';
+            location.reload();   
         }
 
     });
 }
+
 //######################## Leave Guild ################################
 
 document.querySelector("button[name=LeaveGuild]").onclick = () =>{
@@ -386,10 +393,12 @@ document.querySelector("button[name=LeaveGuild]").onclick = () =>{
         }
         finally
         {
+            window.location.href = "home.php";
             closeModal();
         }
     });
 }
+
 //######################## Button clicks ##############################
 document.getElementById("editGuildNameButton").onclick = ()=>{
     if(document.getElementById('guild-name-input').disabled == false)
@@ -402,10 +411,10 @@ document.getElementById("editGuildNameButton").onclick = ()=>{
     {
         document.getElementById('guild-name-input').disabled = false;
         document.getElementById('text-input-container-color-guild-name').style.background = "var(--color-dark-grey)";
-        // document.getElementById('text-input-container-color-guild-name').style.border = "1px solid #202225";
-    }
-    
-    }
+
+    }    
+}
+
 
 document.getElementById("editGuildInitialsButton").onclick = () =>{
     if(document.getElementById('guild-init-input').disabled == false)
@@ -418,29 +427,27 @@ document.getElementById("editGuildInitialsButton").onclick = () =>{
     {
         document.getElementById('guild-init-input').disabled = false;
         document.getElementById('text-input-container-color-guild-init').style.background = "var(--color-dark-grey)";
-        // document.getElementById('text-input-container-color-guild-init').style.border = "1px solid #202225";
-    }
-    
+    }  
 }
+
 
 document.getElementById('guildsettings-img-input').onchange = () => {
     const avatarSettings = document.getElementById('guildsettings-img-input').files[0];
     document.getElementById('img-guild-settings').src = avatarSettings ? URL.createObjectURL(avatarSettings) : '#';
 }
 
+document.getElementById('create-text-channel-button').onclick = ()=>{
+    if (document.getElementById('create-text-channel-div').style.display == 'flex')
+    {
+       document.getElementById('create-text-channel-div').style.display = 'none';
+    }
+    else
+    {
+       document.getElementById('create-text-channel-div').style.display = 'flex';
+    }
+}
 
- document.getElementById('create-text-channel-button').onclick = ()=>{
-     if (document.getElementById('create-text-channel-div').style.display == 'flex')
-     {
-        document.getElementById('create-text-channel-div').style.display = 'none';
-     }
-     else
-     {
-        document.getElementById('create-text-channel-div').style.display = 'flex';
-     }
- }
-
- document.getElementById('confirm-add-text-channel').onclick = addTextChannel;
+document.getElementById('confirm-add-text-channel').onclick = addTextChannel;
 
 
 function confirmUpdateTextChannel()
@@ -461,6 +468,7 @@ function confirmUpdateTextChannel()
         finally
         {
             closeModal();
+            location.reload();
         }
         
     } );  
@@ -485,17 +493,14 @@ function addTextChannel()
         {
             closeModal();
             document.getElementById('create-text-channel-div').style.display = 'none';
+            location.reload();
         }
         
-    } );  
+    });  
 }
 
 
-
-
-
-
-// // ################################# Functions colorPicker ####################################
+// ################################# Functions colorPicker ####################################
 function startupColor() 
 {
   colorPicker = document.querySelector("#guild-color");

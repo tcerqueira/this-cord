@@ -6,9 +6,7 @@
         </ul>
         <hr>
         <ul>
-            <li><a href="#"> Change color theme </a></li>
-            <li><a href="#"> </a></li>
-            <li><a href="#"> </a></li>
+            <li><a href="#theme-color"> Change color theme </a></li>
         </ul>
     </div>
 </nav>

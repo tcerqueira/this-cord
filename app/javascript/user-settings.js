@@ -28,7 +28,6 @@ document.getElementById('newPassword').onkeyup = validateSize =>{
     const newPassword = document.getElementById('newPassword').value;
     const passwordValidation = document.getElementById('passwordValidation');
 
-
     switch (true)
     {
         case (newPassword.length <= 4):
@@ -46,16 +45,14 @@ document.getElementById('newPassword').onkeyup = validateSize =>{
             passwordValidation.innerText = 'strong password';
             passwordValidation.style.color = "green";
     }
-
 }
-
 
 
 getProfile().then(userInfo => {
     getUserInfo(userInfo);
     startupColor();
     defaultColor();
-    });
+});
 
 
 //######################## Button clicks ##############################
@@ -70,10 +67,9 @@ document.getElementById("editUserButton").onclick = usernameDisable =>{
     {
         document.getElementById('myaccount-username').disabled = false;
         document.getElementById('text-input-container-color-username').style.background = "var(--color-dark-grey)";
-        document.getElementById('text-input-container-color-username').style.border = "1px solid var(--color-dark-grey)";
     }
-    
 }
+
 
 document.getElementById("editEmailButton").onclick = emailDisable =>{
     if(document.getElementById('myaccount-email').disabled == false)
@@ -86,13 +82,10 @@ document.getElementById("editEmailButton").onclick = emailDisable =>{
     {
         document.getElementById('myaccount-email').disabled = false;
         document.getElementById('text-input-container-color-email').style.background = "var(--color-dark-grey)";
-        document.getElementById('text-input-container-color-email').style.border = "1px solid var(--color-dark-grey)";
     }
-    
 }
-// document.getElementById("phoneNumberButton").onclick = phoneDisable =>{
-//     phoneNumberInput.disabled = false;
-// }
+
+
 document.getElementById("changePasswordButton").onclick = passwordButtonClick;
 
 document.getElementById("delete-account").onclick = confirmDelete;
@@ -102,6 +95,7 @@ document.getElementById('submitChangesButtonAccount').onclick = confirmUpdateAcc
 document.getElementById('submitChangesButtonUser').onclick = confirmUpdateUser;
 
 document.getElementById('submitNewPassword').onclick = submitPassword;
+
 
 function submitPassword()
 {
@@ -132,9 +126,10 @@ function submitPassword()
 
 
 document.getElementById('usersettings-img-input').onchange = () => {
-const userAvatarSettings = document.getElementById('usersettings-img-input').files[0];
-document.getElementById('img-user-settings').src = userAvatarSettings ? URL.createObjectURL(userAvatarSettings) : '#';
+    const userAvatarSettings = document.getElementById('usersettings-img-input').files[0];
+    document.getElementById('img-user-settings').src = userAvatarSettings ? URL.createObjectURL(userAvatarSettings) : '#';
 }
+
 
 //##################### Chose Theme ##########################
 document.getElementById('dark-theme').onchange = () => {
@@ -142,13 +137,15 @@ document.getElementById('dark-theme').onchange = () => {
     document.cookie = "theme=" + 'dark';
 }
  
+
 document.getElementById('light-theme').onchange = () => {
     if (document.getElementById('light-theme').checked)
     document.cookie = "theme=" + 'light';
 }
 
+
 if (getCookie( "theme") == "light")
-document.getElementById('light-theme').checked = true;
+    document.getElementById('light-theme').checked = true;
 
 
 function getUserInfo(userInfo)
@@ -176,29 +173,15 @@ function getUserInfo(userInfo)
 
     document.getElementById('img-user-settings').src = `${api.imgUrl}/${userInfo.img_name}`;
 
-    // const phoneNumberButton = document.getElementById('phoneNumberButton');
-    
-    // if(userInfo.phoneNumber == null){
-    //     phoneNumberButton.innerText = 'Add';
-    //     phoneNumberInput.disabled = true;
-    // }
-    // else{
-    //     phoneNumberButton.innerText = 'Edit';
-    //     phoneNumberInput.value = userInfo.phoneNumber;
-    //     phoneNumberInput.disabled = true;
-    // }
-
 }
-
-
 
 
 function passwordButtonClick()
 {    
     if(changePasswordDiv.style.display == "flex")
-        {
-            changePasswordDiv.style.display = "none";
-        }
+    {
+        changePasswordDiv.style.display = "none";
+    }
     else
     {
         changePasswordDiv.style.display = "flex";
@@ -223,11 +206,11 @@ function confirmDelete()
 {
     document.getElementById('confirm-password-delete-container').style.display = 'flex';
     
-    
     document.getElementById('confirm-delete').onclick = () =>{
         const password = document.getElementById('confirm-password-delete').value; 
         openConfirmationModal('Do you want to remove permanentely your account?', async () =>{
             try {
+                console.log(password)
                 const response = await api.deleteUser({password});
                 document.getElementById('confirm-password-delete-container').style.display = 'none';
             }
@@ -239,6 +222,7 @@ function confirmDelete()
             finally
             {
                 closeModal();
+                // window.location.href = "login.php";
             }
         });
     }  
@@ -272,10 +256,12 @@ function confirmUpdateAccount()
         {
             closeModal();
             document.getElementById('submitChangesButtonAccount').disabled = false;
+            location.reload();
         }
         
     } );  
 }
+
 
 function confirmUpdatePassword()
 {
@@ -286,10 +272,7 @@ function confirmUpdatePassword()
             response = await api.changePassword({oldPassword, newPassword});
             document.getElementById('oldPassword').value = '';
             document.getElementById('newPassword').value = '';
-            document.getElementById('confNewPassword').value = '';
-            
-            return response;
-            
+            document.getElementById('confNewPassword').value = '';            
         }
         catch(err)
         {
@@ -305,6 +288,7 @@ function confirmUpdatePassword()
         }
     });  
 }
+
 
 function confirmUpdateUser()
 {
@@ -323,16 +307,16 @@ function confirmUpdateUser()
             await api.updateUserAvatar({
                 avatar: document.getElementById('usersettings-img-input').files[0]
                 });
-
-            
         }
         catch(err)
         {
             console.log(err);
         }
         closeModal();
+        location.reload();
     });  
 }
+
 
 // ################################# Functions colorPicker ####################################
 function startupColor() 

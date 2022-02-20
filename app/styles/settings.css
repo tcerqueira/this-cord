@@ -45,6 +45,7 @@
     top: 2rem;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .esc a {
@@ -77,12 +78,6 @@ hr {
     padding: 3rem;
     width: 90%;
 }
-/* #my-account-container a{
-    background-color: var(--color-medium-grey-1);
-    padding: 0.5rem 1rem;
-    border-radius: 7px;
-    height: fit-content;
-} */
 
 .userProfileItem {
     display: flex;
@@ -116,7 +111,7 @@ hr {
     display: flex;
     position: relative;
     border-radius: 10px;
-    width: 60%;
+    width: 80%;
     min-width: 270px;
     height: 200px;
     margin: 0;
