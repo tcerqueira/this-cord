@@ -48,7 +48,7 @@ require 'scripts/SendHeaders.php';
                </div>
             </section>
            
-            <section class="guild-section" id="Downloads">
+            <section class="guild-section" id="downloads">
                 <h2>Downloads</h2>
                 <div class="guild-sections-container">
                     <div class="settings-item">
@@ -63,7 +63,10 @@ require 'scripts/SendHeaders.php';
                         </a>
                     </div>
                 </div>
-            </section class="guild-section" id="other informations"> 
+            </section>
+            
+            <section class="guild-section" id="other-informations"> 
+                <h2>Additional Information</h2>
                 <div class="guild-sections-container">
                     <span>
                         As permissões vão ser diferentes para dependo dos roles que cada utilizador tem dentro dos servers, ou seja criando um server fica o admin do mesmo, e depois os utilizadores convidados para o server vão ter permissões diferentes de acordo com a tabela apresentada no relatório.
@@ -76,8 +79,6 @@ require 'scripts/SendHeaders.php';
                         Conta exemplo: admin:titi   password:titi
                     </p>
                 </div> 
-            <section>
-
             </section>
            
        </div>
