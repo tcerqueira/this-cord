@@ -19,13 +19,9 @@ require 'scripts/SendHeaders.php';
         <?php include "../components/nav-settings-guild.php" ?>
         
        <div class="settings-display">
-            <div class="esc">
-                <a href="home.php"> <img src="../public/esc.svg" alt="esc"></a>
+            <div class="esc" id="esc-guild-settings">
+                <img src="../public/esc.svg" alt="esc">
             </div>
-           <section>
-               <!-- costumizaçao
-               nome, cor icon, imagem, iniciais -->
-           </section>
            <section class="guild-section" id="costumize-server">
                     <h2>Costumize Server</h2>
            
