@@ -389,3 +389,51 @@ button:disabled, button:disabled:hover {
     border-radius: 50%;
     background: var(--color-primary);
   }
+
+#confirmPasswordGuildDelete {
+    width: 90%;
+}
+
+.borderStyling {
+    background-color: var(--color-medium-grey-2);
+}
+
+.inputEnable {
+    background-color: var(--color-dark-grey);
+}
+
+#javascriptSvg svg {
+    background-color: rgb(240, 219, 79);
+}
+
+#cssSvg svg {
+    background-color: rgb(21, 114, 182);
+}
+
+#phpSvg svg {
+    background-color: rgb(136, 150, 198);
+}
+
+#apiSvg svg {
+    background-color: rgb(117, 172, 99);
+}
+
+.download-icon {
+    position: relative;
+}
+
+.download-icon::after {
+    position: absolute;
+    inset: 110% auto auto -70%;
+}
+
+.download-icon svg {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 10px;
+    fill: var(--color-dark-grey);
+}
+
+.creators-img {
+    width: 45%;
+}

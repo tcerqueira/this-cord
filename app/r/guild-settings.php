@@ -29,7 +29,7 @@ require 'scripts/SendHeaders.php';
                         <div class="settings-item">
                             <div>
                                 <p><b>Guild Name: </b></p>
-                                <div id= "text-input-container-color-guild-name" class="text-input-container"><input class="user-text-input" type="text" id="guild-name-input"></div>
+                                <div id= "text-input-container-color-guild-name" class="text-input-container borderStyling"><input class="user-text-input" type="text" id="guild-name-input"></div>
                                 <!-- <span id="myaccount-username"></span> -->
                             </div>
                             <button class="button buttonGuildSettings bg-blue moderator" type="button" id ="editGuildNameButton"> Edit</button>
@@ -38,7 +38,7 @@ require 'scripts/SendHeaders.php';
                         <div class="settings-item">
                             <div>
                                 <p><b>Guild Initials</b></p>
-                                <div id= "text-input-container-color-guild-init" class="text-input-container" ><input class = "user-text-input" type="text" id="guild-init-input"></div>
+                                <div id= "text-input-container-color-guild-init" class="text-input-container borderStyling" ><input class = "user-text-input" type="text" id="guild-init-input"></div>
                                 <!-- <span id=myaccount-email></span> -->
                             </div>
                             <button class="button buttonGuildSettings bg-blue moderator" type="button" id= "editGuildInitialsButton"> Edit </button>
@@ -69,7 +69,7 @@ require 'scripts/SendHeaders.php';
                         <li class="settings-item" id="channelItemTemplate" aria-hidden="true" style = "display: none">
                             <div>
                                 <p><b>Text-channel: </b></p>
-                                <div name="divColor" class="text-input-container text-input-container-color"><input class="user-text-input" type="text"></div>
+                                <div name="divColor" class="text-input-container text-input-container-color "><input class="user-text-input" type="text"></div>
                                 <!-- <span id="myaccount-username"></span> -->
                             </div>
                             <div>
@@ -149,6 +149,14 @@ require 'scripts/SendHeaders.php';
                 </div>
            </section>
            <button class="button buttonGuildSettings bg-red" type="button" name="LeaveGuild"> Leave</button>
+           
+           <button id="PasswordGuildDeleteButton" class="button buttonGuildSettings bg-red" type="button" name="confirmPasswordGuildButton">Delete Guild</button>
+           <br>
+           <br>
+           <div id="confirmPasswordGuildDelete" class="settings-item" style="display: none">
+                <div class="user-password-input bg-light-grey"><input type="password" id="passwordGuildDelete"></div>
+                <button id="confirmPasswordGuildDeleteButton" class="button buttonGuildSettings bg-green" type="button" name="confirmPasswordGuildButton">Confirm</button>
+            </div>
        </div>
 
 

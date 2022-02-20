@@ -793,6 +793,33 @@ class API
         });
     }
 
+    deleteGuild({guildId, password})
+    {
+        return new Promise((resolve, reject) => {
+            
+            const body = {
+                guild_id: guildId,
+                password
+            }
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', this.apiRoot+'/r/guild/delete.php', true);
+
+            xhr.onload = () => {
+                switch(xhr.status)
+                {
+                    case 200:
+                        resolve(JSON.parse(xhr.response));
+                        break;
+                    default:
+                        // TODO: handle more gracefully errors
+                        reject(JSON.parse(xhr.response));
+                }
+            };
+            xhr.send(JSON.stringify(body));
+        });
+    }
+
     // ################################################# TEXT CHANNEL ####################################################
     // ###################################################################################################################
 

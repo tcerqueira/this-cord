@@ -214,7 +214,7 @@ body, div, main, section, nav, ul, ol {
 }
 
 .rainbow-bg {
-    background: linear-gradient(
+    /* background: linear-gradient(
         45deg,
         rgba(255, 0, 0, 1) 0%,
         rgba(255, 154, 0, 1) 10%,
@@ -227,6 +227,14 @@ body, div, main, section, nav, ul, ol {
         rgba(186, 12, 248, 1) 80%,
         rgba(251, 7, 217, 1) 90%,
         rgba(255, 0, 0, 1) 100%
+    ); */
+    background: linear-gradient(
+        45deg,
+        var(--color-dark-grey) 0%,
+        var(--color-medium-grey-1) 25%,
+        var(--color-medium-grey-2) 50%,
+        var(--color-light-grey) 75%,
+        var(--font-color) 100%
     );
 }
 
@@ -247,6 +255,7 @@ body, div, main, section, nav, ul, ol {
 
     height: var(--side-size);
     width: var(--side-size);
+    min-width: var(--side-size);
     border-radius: 50%;
     background-color: var(--icon-bg-color, var(--color-medium-grey-1));
     overflow: hidden;

@@ -1,0 +1,17 @@
+:root {
+    /* color scheme */
+    --color-black:          #18191c;
+    --color-dark-grey:      #191A19;
+    --color-medium-grey-1:  #1E5128;
+    --color-medium-grey-2:  #4E9F3D;
+    --color-light-grey:     #b0bd8d;
+    --color-light:          #ffffff;
+    --color-primary:        #7289da;
+    --color-red:            #ed4245;
+    --color-green:          #3ba55d;
+    --color-yellow:         #faa81a;
+    --colorrgb-yellow:      250, 168, 26;
+    --color-dark-yellow:    #715b34;
+    --color-dark-yellow-2:  #49443c;
+    --font-color:           #d8d8d8;
+}

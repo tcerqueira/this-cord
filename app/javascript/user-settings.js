@@ -60,13 +60,12 @@ document.getElementById("editUserButton").onclick = usernameDisable =>{
     if(document.getElementById('myaccount-username').disabled == false)
     {
         document.getElementById('myaccount-username').disabled = true;
-        document.getElementById('text-input-container-color-username').style.background = "transparent";
-        document.getElementById('text-input-container-color-username').style.border = "transparent";
+        document.getElementById('text-input-container-color-username').classList.remove("inputEnable");
     }
     else
     {
         document.getElementById('myaccount-username').disabled = false;
-        document.getElementById('text-input-container-color-username').style.background = "var(--color-dark-grey)";
+        document.getElementById('text-input-container-color-username').classList.add("inputEnable");
     }
 }
 
@@ -75,13 +74,13 @@ document.getElementById("editEmailButton").onclick = emailDisable =>{
     if(document.getElementById('myaccount-email').disabled == false)
     {
         document.getElementById('myaccount-email').disabled = true;
-        document.getElementById('text-input-container-color-email').style.background = "transparent";
-        document.getElementById('text-input-container-color-email').style.border = "transparent";
+        document.getElementById('text-input-container-color-email').classList.remove("inputEnable");
+        // document.getElementById('text-input-container-color-email').style.border = "transparent";
     }
     else
     {
         document.getElementById('myaccount-email').disabled = false;
-        document.getElementById('text-input-container-color-email').style.background = "var(--color-dark-grey)";
+        document.getElementById('text-input-container-color-email').classList.add("inputEnable");
     }
 }
 
@@ -127,7 +126,7 @@ function submitPassword()
 
 document.getElementById('usersettings-img-input').onchange = () => {
     const userAvatarSettings = document.getElementById('usersettings-img-input').files[0];
-    document.getElementById('img-user-settings').src = userAvatarSettings ? URL.createObjectURL(userAvatarSettings) : '#';
+    document.getElementById('img-user-settings').src = userAvatarSettings ? URL.createObjectURL(userAvatarSettings) : `${api.imgUrl}/user_default.gif`;
 }
 
 
@@ -145,10 +144,48 @@ document.getElementById('light-theme').onchange = () => {
     location.reload();
 }
 
+document.getElementById('purple-theme').onchange = () => {
+    if (document.getElementById('purple-theme').checked)
+    document.cookie = "theme=" + 'purple';
+    location.reload();
+}
+
+document.getElementById('christmas-theme').onchange = () => {
+    if (document.getElementById('christmas-theme').checked)
+    document.cookie = "theme=" + 'christmas';
+    location.reload();
+}
+
+document.getElementById('green-theme').onchange = () => {
+    if (document.getElementById('green-theme').checked)
+    document.cookie = "theme=" + 'green';
+    location.reload();
+}
+
+document.getElementById('ugly-theme').onchange = () => {
+    if (document.getElementById('ugly-theme').checked)
+    document.cookie = "theme=" + 'ugly';
+    location.reload();
+}
+
 
 if (getCookie( "theme") == "light")
     document.getElementById('light-theme').checked = true;
 
+if (getCookie( "theme") == "purple")
+    document.getElementById('purple-theme').checked = true;
+
+if (getCookie( "theme") == "dark")
+    document.getElementById('dark-theme').checked = true;
+    
+if (getCookie( "theme") == "christmas")
+    document.getElementById('christmas-theme').checked = true;
+
+if (getCookie( "theme") == "green")
+    document.getElementById('green-theme').checked = true;
+
+if (getCookie( "theme") == "ugly")
+    document.getElementById('ugly-theme').checked = true;
 
 function getUserInfo(userInfo)
 {
@@ -200,6 +237,9 @@ async function getProfile()
     catch(err)
     {
         console.log(err);
+        openErrorModal(err.error, ()=>{
+            closeModal()
+        });
     }
 }
 
@@ -212,21 +252,16 @@ function confirmDelete()
         const password = document.getElementById('confirm-password-delete').value; 
         openConfirmationModal('Do you want to remove permanentely your account?', async () =>{
             try {
-                console.log(password)
                 const response = await api.deleteUser({password});
                 document.getElementById('confirm-password-delete-container').style.display = 'none';
             }
             catch(err)
             {
+                console.log(err);
                 openErrorModal(err.error, ()=>{
                     closeModal()
                 });
                 document.getElementById('confirm-password-delete').value = '';
-            }
-            finally
-            {
-                closeModal();
-                // window.location.href = "login.php";
             }
         });
     }  
@@ -261,27 +296,25 @@ function confirmUpdateAccount()
                 return;
             }
            
-            if( !userDescription)
-            {
-                userDescription = undefined;
-            }
             await api.updateUser({username, email, themeColor, userDescription});
 
-            await api.updateUserAvatar({
+            if(document.getElementById('usersettings-img-input').files[0])
+            {
+                await api.updateUserAvatar({
                 avatar: document.getElementById('usersettings-img-input').files[0]
                 });
+            }
             
         }
         catch(err)
         {
-            openErrorModal(err.error, ()=>{
-                closeModal()
-            });
             console.log(err);
+            openErrorModal(err.error, () => {
+                closeModal();
+            });
         }
         finally
         {
-            closeModal();
             document.getElementById('submitChangesButtonAccount').disabled = false;
         }
         
@@ -302,6 +335,7 @@ function confirmUpdatePassword()
         }
         catch(err)
         {
+            console.log(err);
             openErrorModal(err.error, ()=>{
                 closeModal()
             });
@@ -312,7 +346,6 @@ function confirmUpdatePassword()
         }
         finally
         {
-            closeModal();
             changePasswordDiv.style.display == "none";
         }
     });  
@@ -327,10 +360,10 @@ function confirmUpdateUser()
             const email = document.getElementById('myaccount-email').value;
             let userDescription = document.getElementById('about-me').value;
             
-            if( userDescription == '')
-            {
-               userDescription = ' ';
-            }
+            // if( userDescription == '')
+            // {
+            //    userDescription = '';
+            // }
     
             response = await api.updateUser({username, email, themeColor, userDescription});
             
@@ -343,11 +376,11 @@ function confirmUpdateUser()
         }
         catch(err)
         {
+            console.log(err);
             openErrorModal(err.error, ()=>{
                 closeModal()
             });
         }
-        closeModal();
     });  
 }
 
