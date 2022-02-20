@@ -193,8 +193,21 @@ body, div, main, section, nav, ul, ol {
     grid-area: channel-header;
     background-color: var(--color-medium-grey-2);
 
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; */
+
     padding: 1rem;
     /* z-index: 1; */
+}
+
+.page-header > a > svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: var(--font-color);
+    border-radius: 50%;
+    border: 1px solid var(--font-color);
+    margin-top: .3rem;
 }
 
 .nav-header, .page-header {

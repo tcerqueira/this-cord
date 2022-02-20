@@ -36,7 +36,7 @@ async function render() {
             openGuildInviteModal(channel.guild_id);
         });
 
-        document.querySelector('.page-header').innerText = `# ${channel.channelname}`;
+        document.getElementById('channelHeader').innerText = `# ${channel.channelname}`;
         document.querySelector('.title img').addEventListener('click', () => {
             openCreateChannelModal(channel.guild_id);
         });

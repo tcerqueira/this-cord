@@ -143,7 +143,7 @@ document.getElementById('guild-img-input').onchange = () => {
         document.getElementById('guildImagePreview').src = '#';
         return;
     }
-    document.getElementById('guildImagePreview').src = avatar ? URL.createObjectURL(avatar) : '#';
+    document.getElementById('guildImagePreview').src = avatar ? URL.createObjectURL(avatar) : `${api.imgUrl}/guild_default.gif`;
 }
 
 document.getElementById('createGuildForm').onsubmit = async evt => {

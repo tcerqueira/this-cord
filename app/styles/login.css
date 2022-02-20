@@ -24,9 +24,6 @@ main a:hover {
     background-color: var(--color-dark-grey);
 }
 
-#login-form {
-}
-
 .login-inputs {
     justify-content: space-between;
     flex-grow: 6;
@@ -53,4 +50,18 @@ main a:hover {
     /* width: 60%; */
     margin: 1.5rem 0;
     align-self: center;
+}
+
+.login-container > a {
+    position: fixed;
+    inset: auto 1rem 1rem auto;
+}
+
+.login-container > a > svg {
+    width: 3rem;
+    height: 3rem;
+    fill: var(--font-color);
+    border-radius: 50%;
+    border: 1px solid var(--font-color);
+    margin-top: .3rem;
 }
