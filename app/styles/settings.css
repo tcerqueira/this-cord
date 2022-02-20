@@ -402,12 +402,8 @@ button:disabled, button:disabled:hover {
     background-color: var(--color-dark-grey);
 }
 
-#javascriptSvg svg {
-    background-color: rgb(240, 219, 79);
-}
-
-#cssSvg svg {
-    background-color: rgb(21, 114, 182);
+#pptSvg svg {
+    background-color: #E64A19;
 }
 
 #phpSvg svg {
@@ -436,4 +432,5 @@ button:disabled, button:disabled:hover {
 
 .creators-img {
     width: 45%;
+    border-radius: 10px;
 }
