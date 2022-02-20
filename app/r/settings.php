@@ -30,7 +30,7 @@ require 'scripts/SendHeaders.php';
                     <div class="userProfileItem">
                         <div>
                             <p><b>Username:</b></p>
-                            <div id= "text-input-container-color-username" class="text-input-container text-input-container-color"><input class="user-text-input" type="text" id="myaccount-username"></div>
+                            <div id= "text-input-container-color-username" class="text-input-container text-input-container-color borderStyling"><input class="user-text-input" type="text" id="myaccount-username"></div>
                         </div>
                         <button class="button buttonSettings bg-blue" type="button " id ="editUserButton"> Edit</button>
                     </div>
@@ -38,21 +38,13 @@ require 'scripts/SendHeaders.php';
                     <div class="userProfileItem">
                         <div>
                             <p><b>Email:</b></p>
-                            <div id= "text-input-container-color-email" class="text-input-container text-input-container-color" ><input class = "user-text-input" type="text" id="myaccount-email"></div>
+                            <div id= "text-input-container-color-email" class="text-input-container text-input-container-color borderStyling" ><input class = "user-text-input" type="email" id="myaccount-email"></div>
                             <!-- <span id=myaccount-email></span> -->
                         </div>
                         <button class="button buttonSettings bg-blue" type="button" id= "editEmailButton"> Edit </button>
                     </div>
-                    
-                    <!-- <div class="userProfileItem">
-                        <div>
-                            <p> <b>Phone Number:</b></p>
-                            <div class="text-input-container text-input-container-color"><input class="user-text-input" type="text" id="myaccount-phoneNumber"></div>
-                            
-                        </div>
-                        <button class="button" type="button" id="phoneNumberButton"></button>
-                    </div> -->
                     <hr>
+                    <div id="UserSettingsError" class="error-message one-liner"></div>
                     <button class="button buttonSettings bg-green" type="submit" id="submitChangesButtonAccount">Save Changes</button>
                     <hr>
                     
@@ -135,6 +127,22 @@ require 'scripts/SendHeaders.php';
                 </label>
                 <label class="container">Light Theme
                 <input type="radio" name="radio" id="light-theme">
+                <span class="checkmark"></span>
+                </label>
+                <label class="container">Purple Theme
+                <input type="radio" name="radio" id="purple-theme">
+                <span class="checkmark"></span>
+                </label>
+                <label class="container">Blue and Red Theme
+                <input type="radio" name="radio" id="christmas-theme">
+                <span class="checkmark"></span>
+                </label>
+                <label class="container">Green Theme
+                <input type="radio" name="radio" id="green-theme">
+                <span class="checkmark"></span>
+                </label>
+                <label class="container">Clown Theme
+                <input type="radio" name="radio" id="ugly-theme">
                 <span class="checkmark"></span>
                 </label>
             </div>

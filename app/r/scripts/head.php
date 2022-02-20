@@ -6,6 +6,18 @@ if (!empty($_COOKIE['theme']) && $_COOKIE['theme'] == 'light') {
 if (!empty($_COOKIE['theme']) && $_COOKIE['theme'] == 'dark') {
     $theme = 'dark';
 }
+if (!empty($_COOKIE['theme']) && $_COOKIE['theme'] == 'purple') {
+  $theme = 'purple';
+}
+if (!empty($_COOKIE['theme']) && $_COOKIE['theme'] == 'christmas') {
+  $theme = 'christmas';
+}
+if (!empty($_COOKIE['theme']) && $_COOKIE['theme'] == 'green') {
+  $theme = 'green';
+}
+if (!empty($_COOKIE['theme']) && $_COOKIE['theme'] == 'ugly') {
+  $theme = 'ugly';
+}
 ?>
 
 <meta charset="UTF-8">

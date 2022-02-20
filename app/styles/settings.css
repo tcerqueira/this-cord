@@ -116,7 +116,7 @@ hr {
     position: relative;
     border-radius: 10px;
     width: 80%;
-    min-width: 270px;
+    min-width: 400px;
     height: 200px;
     margin: 0;
 }
@@ -125,7 +125,7 @@ hr {
     background-color: var(--color-dark-grey);
     display: flex;
     width: 100%;
-    height: 80%;    
+    height: 80%;   
     position: absolute;
     bottom: 0;
     border-bottom-left-radius: 10px;
@@ -393,3 +393,48 @@ button:disabled, button:disabled:hover {
     border-radius: 50%;
     background: var(--color-primary);
   }
+
+#confirmPasswordGuildDelete {
+    width: 90%;
+}
+
+.borderStyling {
+    background-color: var(--color-medium-grey-2);
+}
+
+.inputEnable {
+    background-color: var(--color-dark-grey);
+}
+
+#pptSvg svg {
+    background-color: #E64A19;
+}
+
+#phpSvg svg {
+    background-color: rgb(136, 150, 198);
+}
+
+#apiSvg svg {
+    background-color: rgb(117, 172, 99);
+}
+
+.download-icon {
+    position: relative;
+}
+
+.download-icon::after {
+    position: absolute;
+    inset: 110% auto auto -70%;
+}
+
+.download-icon svg {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 10px;
+    fill: var(--color-dark-grey);
+}
+
+.creators-img {
+    width: 45%;
+    border-radius: 10px;
+}

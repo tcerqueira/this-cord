@@ -32,18 +32,18 @@ document.getElementById('newPassword').onkeyup = validateSize =>{
     {
         case (newPassword.length <= 4):
             passwordValidation.innerText = 'password to weak';
-            passwordValidation.style.color = "red";
+            passwordValidation.style.color = "var(--color-red)";
             passwordValidation.style.fontSize = "0.9rem";
             break;
         
         case (newPassword.length > 4 && newPassword.length <=6):
             passwordValidation.innerText = 'medium password';
-            passwordValidation.style.color = "yellow";
+            passwordValidation.style.color = "var(--color-yellow)";
             break;
         
         default:
             passwordValidation.innerText = 'strong password';
-            passwordValidation.style.color = "green";
+            passwordValidation.style.color = "var(--color-green)";
     }
 }
 
@@ -60,13 +60,12 @@ document.getElementById("editUserButton").onclick = usernameDisable =>{
     if(document.getElementById('myaccount-username').disabled == false)
     {
         document.getElementById('myaccount-username').disabled = true;
-        document.getElementById('text-input-container-color-username').style.background = "transparent";
-        document.getElementById('text-input-container-color-username').style.border = "transparent";
+        document.getElementById('text-input-container-color-username').classList.remove("inputEnable");
     }
     else
     {
         document.getElementById('myaccount-username').disabled = false;
-        document.getElementById('text-input-container-color-username').style.background = "var(--color-dark-grey)";
+        document.getElementById('text-input-container-color-username').classList.add("inputEnable");
     }
 }
 
@@ -75,13 +74,13 @@ document.getElementById("editEmailButton").onclick = emailDisable =>{
     if(document.getElementById('myaccount-email').disabled == false)
     {
         document.getElementById('myaccount-email').disabled = true;
-        document.getElementById('text-input-container-color-email').style.background = "transparent";
-        document.getElementById('text-input-container-color-email').style.border = "transparent";
+        document.getElementById('text-input-container-color-email').classList.remove("inputEnable");
+        // document.getElementById('text-input-container-color-email').style.border = "transparent";
     }
     else
     {
         document.getElementById('myaccount-email').disabled = false;
-        document.getElementById('text-input-container-color-email').style.background = "var(--color-dark-grey)";
+        document.getElementById('text-input-container-color-email').classList.add("inputEnable");
     }
 }
 
@@ -127,7 +126,7 @@ function submitPassword()
 
 document.getElementById('usersettings-img-input').onchange = () => {
     const userAvatarSettings = document.getElementById('usersettings-img-input').files[0];
-    document.getElementById('img-user-settings').src = userAvatarSettings ? URL.createObjectURL(userAvatarSettings) : '#';
+    document.getElementById('img-user-settings').src = userAvatarSettings ? URL.createObjectURL(userAvatarSettings) : `${api.imgUrl}/user_default.gif`;
 }
 
 
@@ -135,18 +134,58 @@ document.getElementById('usersettings-img-input').onchange = () => {
 document.getElementById('dark-theme').onchange = () => {
     if (document.getElementById('dark-theme').checked)
     document.cookie = "theme=" + 'dark';
+    location.reload();
 }
  
 
 document.getElementById('light-theme').onchange = () => {
     if (document.getElementById('light-theme').checked)
     document.cookie = "theme=" + 'light';
+    location.reload();
+}
+
+document.getElementById('purple-theme').onchange = () => {
+    if (document.getElementById('purple-theme').checked)
+    document.cookie = "theme=" + 'purple';
+    location.reload();
+}
+
+document.getElementById('christmas-theme').onchange = () => {
+    if (document.getElementById('christmas-theme').checked)
+    document.cookie = "theme=" + 'christmas';
+    location.reload();
+}
+
+document.getElementById('green-theme').onchange = () => {
+    if (document.getElementById('green-theme').checked)
+    document.cookie = "theme=" + 'green';
+    location.reload();
+}
+
+document.getElementById('ugly-theme').onchange = () => {
+    if (document.getElementById('ugly-theme').checked)
+    document.cookie = "theme=" + 'ugly';
+    location.reload();
 }
 
 
 if (getCookie( "theme") == "light")
     document.getElementById('light-theme').checked = true;
 
+if (getCookie( "theme") == "purple")
+    document.getElementById('purple-theme').checked = true;
+
+if (getCookie( "theme") == "dark")
+    document.getElementById('dark-theme').checked = true;
+    
+if (getCookie( "theme") == "christmas")
+    document.getElementById('christmas-theme').checked = true;
+
+if (getCookie( "theme") == "green")
+    document.getElementById('green-theme').checked = true;
+
+if (getCookie( "theme") == "ugly")
+    document.getElementById('ugly-theme').checked = true;
 
 function getUserInfo(userInfo)
 {
@@ -198,6 +237,9 @@ async function getProfile()
     catch(err)
     {
         console.log(err);
+        openErrorModal(err.error, ()=>{
+            closeModal()
+        });
     }
 }
 
@@ -210,19 +252,16 @@ function confirmDelete()
         const password = document.getElementById('confirm-password-delete').value; 
         openConfirmationModal('Do you want to remove permanentely your account?', async () =>{
             try {
-                console.log(password)
                 const response = await api.deleteUser({password});
                 document.getElementById('confirm-password-delete-container').style.display = 'none';
             }
             catch(err)
             {
                 console.log(err);
+                openErrorModal(err.error, ()=>{
+                    closeModal()
+                });
                 document.getElementById('confirm-password-delete').value = '';
-            }
-            finally
-            {
-                closeModal();
-                // window.location.href = "login.php";
             }
         });
     }  
@@ -233,30 +272,50 @@ function confirmUpdateAccount()
 {
     openConfirmationModal('Do you want to submit changes?', async () =>{
         try {
+            document.getElementById('text-input-container-color-email').classList.remove('invalid-input');
+            document.getElementById('text-input-container-color-username').classList.remove('invalid-input');
+            document.getElementById('UserSettingsError').innerText = '';
             document.getElementById('submitChangesButtonAccount').disabled = true;
             const username = document.getElementById('myaccount-username').value;
             const email = document.getElementById('myaccount-email').value;
             let userDescription = document.getElementById('about-me').value;
-            if( !userDescription)
-            {
-                userDescription = undefined;
+            const emailRegEx = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
+            
+            let match = email.match(emailRegEx);
+            if(!match) {
+                document.getElementById('text-input-container-color-email').classList.add('invalid-input');
+                document.getElementById('UserSettingsError').innerText = 'Invalid email.';
+                return;
             }
+    
+            const usernameRegEx = /^(?=[a-zA-Z0-9._]{3,16}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
+            match = username.match(usernameRegEx);
+            if(!match) {
+                document.getElementById('text-input-container-color-username').classList.add('invalid-input');
+                document.getElementById('UserSettingsError').innerText = 'Invalid username.';
+                return;
+            }
+           
             await api.updateUser({username, email, themeColor, userDescription});
 
-            await api.updateUserAvatar({
+            if(document.getElementById('usersettings-img-input').files[0])
+            {
+                await api.updateUserAvatar({
                 avatar: document.getElementById('usersettings-img-input').files[0]
                 });
+            }
             
         }
         catch(err)
         {
             console.log(err);
+            openErrorModal(err.error, () => {
+                closeModal();
+            });
         }
         finally
         {
-            closeModal();
             document.getElementById('submitChangesButtonAccount').disabled = false;
-            location.reload();
         }
         
     } );  
@@ -277,6 +336,9 @@ function confirmUpdatePassword()
         catch(err)
         {
             console.log(err);
+            openErrorModal(err.error, ()=>{
+                closeModal()
+            });
             document.getElementById('oldPassword').value = '';
             document.querySelectorAll('.user-password-input').forEach(input=>{
                 input.classList.add('invalid-input');
@@ -284,7 +346,7 @@ function confirmUpdatePassword()
         }
         finally
         {
-            closeModal();
+            changePasswordDiv.style.display == "none";
         }
     });  
 }
@@ -298,22 +360,27 @@ function confirmUpdateUser()
             const email = document.getElementById('myaccount-email').value;
             let userDescription = document.getElementById('about-me').value;
             
-            if( userDescription == '')
-            {
-               userDescription = ' ';
-            }
+            // if( userDescription == '')
+            // {
+            //    userDescription = '';
+            // }
     
             response = await api.updateUser({username, email, themeColor, userDescription});
-            await api.updateUserAvatar({
+            
+            if(document.getElementById('usersettings-img-input').files[0])
+            {
+                await api.updateUserAvatar({
                 avatar: document.getElementById('usersettings-img-input').files[0]
                 });
+            }
         }
         catch(err)
         {
             console.log(err);
+            openErrorModal(err.error, ()=>{
+                closeModal()
+            });
         }
-        closeModal();
-        location.reload();
     });  
 }
 

@@ -29,6 +29,23 @@ async function render()
         
         document.getElementById('guild-save-changes').onclick = ()=>{
         openConfirmationModal('Do you want to submit changes?', async () =>{
+            
+            const guildname = document.getElementById('guild-name-input').value;
+            const initials = document.getElementById('guild-init-input').value;
+
+            if(!guildname || !initials) {
+                document.getElementById('GuildSettingsError').innerText = 'Invalid input.';
+                return;
+            }
+            if(guildname.length > 24) {
+                document.getElementById('GuildSettingsError').innerText = 'Guild name too long';
+                return;
+            }
+            if(initials.length > 3) {
+                document.getElementById('GuildSettingsError').innerText = 'Guild initials too long';
+                return;
+            }
+
             try 
             {   
                 const guildname = document.getElementById('guild-name-input').value;
@@ -36,31 +53,36 @@ async function render()
                     
                 const response = await api.updateGuild({guildId: currentGuildId, guildname, initials, openInviteKey, themeColor});
                     
-                await api.updateGuildAvatar({
-                    guildId: currentGuildId,
-                    avatar: document.getElementById('guildsettings-img-input').files[0]
-                    });
+                if(document.getElementById('guildsettings-img-input').files[0])
+                {
+                    await api.updateGuildAvatar({
+                        guildId: currentGuildId,
+                        avatar: document.getElementById('guildsettings-img-input').files[0]
+                        });
+                }
                     
                 }
                 catch(err)
                 {
-                    console.log(err.error);
-                }
-                finally
-                {
-                    closeModal();
-                }
-                
-            } );  
+                    openErrorModal(err.error, ()=>{
+                        closeModal()
+                    });
+                }              
+            });  
         
         };
         document.getElementById("esc-guild-settings").onclick = ()=>{
-            window.location.href = `guild-home.php?id=${currentGuildId}`;
+            if(textChannels[0])
+                window.location.href = `text-channel.php?id=${textChannels[0].id}`;
+            else
+                window.location.href = `text-channel.php?id=${currentGuildId}`;
         }
     }
     catch(err)
     {
-        console.log(err)
+        openErrorModal(err.error, ()=>{
+            closeModal()
+        });
     }  
     
 } 
@@ -76,19 +98,15 @@ function createChannelItem(channel)
     textChannelItem.querySelector("input").disabled = true;
     textChannelItem.querySelector("button[name=deleteButton]").onclick = ()=>{
         openConfirmationModal('Do you want to delete text-channel?', async () =>{
-        try 
-        {        
-            const response = await api.deleteTextChannel({channel_id: channel.id});
-        }
-        catch(err)
-        {
-            console.log(err);
-        }
-        finally
-        {
-            closeModal();
-            location.reload();
-        } 
+            try 
+            {        
+                const response = await api.deleteTextChannel({channel_id: channel.id});
+                location.reload();
+            }
+            catch(err)
+            {
+                console.log(err);
+            }
         });  
     }
     
@@ -105,14 +123,11 @@ function createChannelItem(channel)
                 }
                 catch(err)
                 {
-                    console.log(err)
+                    openErrorModal(err.error, ()=>{
+                        closeModal()
+                    });
                 }
-                finally
-                {
-                    closeModal();
-                    location.reload();
-                }
-            })
+            });
         }
         else
         {
@@ -200,19 +215,17 @@ function createMemberItem(member)
         
     memberItem.querySelector("button[name=kickButton]").onclick = ()=>{
         openConfirmationModal('Do you want to kick this member?', async () =>{
-        try 
-        {        
-            const response = await api.kickMember({guildId: currentGuildId, memberId: member.member_id});
-        }
-        catch(err)
-        {
-            console.log(err);
-        }
-        finally
-        {
-            closeModal();
-            location.reload();
-        } 
+            try 
+            {        
+                const response = await api.kickMember({guildId: currentGuildId, memberId: member.member_id});
+                location.reload();
+            }
+            catch(err)
+            {
+                openErrorModal(err.error, ()=>{
+                    closeModal()
+                });
+            } 
         });  
     }
 
@@ -235,15 +248,13 @@ function createMemberItem(member)
             try
             {
                 const response = await api.updateMemberRole({guildId: currentGuildId, memberId: member.member_id, guildRole: newRole});
+                location.reload();
             }
             catch(err)
             {
-                console.log(err);
-            }
-            finally
-            {
-                closeModal();
-                location.reload();
+                openErrorModal(err.error, ()=>{
+                    closeModal()
+                });
             }
         });
     }
@@ -277,15 +288,13 @@ function createInviteMemberItem(member)
             try
             {
                 const response = await api.kickMember({guildId: currentGuildId, memberId: member.member_id});
+                location.reload();
             }
             catch(err)
             {
-                console.log(err);
-            }
-            finally
-            {
-                closeModal();
-                location.reload();
+                openErrorModal(err.error, ()=>{
+                    closeModal()
+                });
             }
         });
     }
@@ -353,7 +362,6 @@ function checkPermissions()
 
 document.getElementById ('transferAdmin').onchange = ()=>{
     document.getElementById("confirmPasswordGuild").style.display = 'flex';
-    
 }
 
 document.getElementById("confirmPasswordGuildButton").onclick  = async ()=>{
@@ -364,16 +372,46 @@ document.getElementById("confirmPasswordGuildButton").onclick  = async ()=>{
             const password = document.getElementById("passwordGuild").value;
             const newAdmin = document.getElementById ('transferAdmin').value;
             const response = await api.transferAdmin({guildId: currentGuildId, newAdmin, password });
+            location.reload();
         }
         catch (err)
         {
-            console.log(err);
+            openErrorModal(err.error, ()=>{
+                closeModal()
+            });
         }
         finally
         {
-            closeModal();
-            document.getElementById("confirmPasswordGuild").style.display = 'none';
-            location.reload();   
+            document.getElementById("confirmPasswordGuild").style.display = 'none';   
+        }
+
+    });
+}
+
+//######################## Delete Guild ###############################
+
+document.getElementById ('PasswordGuildDeleteButton').onclick = ()=>{
+    document.getElementById("confirmPasswordGuildDelete").style.display = 'flex';
+}
+
+document.getElementById("confirmPasswordGuildDeleteButton").onclick  = async ()=>{
+    
+    openConfirmationModal("Do you want to delete Guild?", async ()=>{
+        try
+        {
+            const password = document.getElementById("passwordGuildDelete").value;
+            const response = await api.deleteGuild({guildId: currentGuildId, password });
+            window.location.href = "home.php";
+        }
+        catch (err)
+        {
+            openErrorModal(err.error, ()=>{
+                closeModal()
+            });
+        }
+        finally
+        {
+            document.getElementById("confirmPasswordGuildDelete").style.display = 'none';   
         }
 
     });
@@ -386,15 +424,13 @@ document.querySelector("button[name=LeaveGuild]").onclick = () =>{
         try
         {
             await api.leaveGuild({guildId:currentGuildId});
+            window.location.href = "home.php";
         }
         catch(err)
         {
-            console.log(err);
-        }
-        finally
-        {
-            window.location.href = "home.php";
-            closeModal();
+            openErrorModal(err.error, ()=>{
+                closeModal()
+            });
         }
     });
 }
@@ -404,13 +440,12 @@ document.getElementById("editGuildNameButton").onclick = ()=>{
     if(document.getElementById('guild-name-input').disabled == false)
     {
         document.getElementById('guild-name-input').disabled = true;
-        document.getElementById('text-input-container-color-guild-name').style.background = "transparent";
-        document.getElementById('text-input-container-color-guild-name').style.border = "transparent";
+        document.getElementById('text-input-container-color-guild-name').classList.remove("inputEnable");
     }
     else
     {
         document.getElementById('guild-name-input').disabled = false;
-        document.getElementById('text-input-container-color-guild-name').style.background = "var(--color-dark-grey)";
+        document.getElementById('text-input-container-color-guild-name').classList.add("inputEnable");
 
     }    
 }
@@ -420,20 +455,19 @@ document.getElementById("editGuildInitialsButton").onclick = () =>{
     if(document.getElementById('guild-init-input').disabled == false)
     {
         document.getElementById('guild-init-input').disabled = true;
-        document.getElementById('text-input-container-color-guild-init').style.background = "transparent";
-        document.getElementById('text-input-container-color-guild-init').style.border = "transparent";
+        document.getElementById('text-input-container-color-guild-init').classList.remove("inputEnable");;
     }
     else
     {
         document.getElementById('guild-init-input').disabled = false;
-        document.getElementById('text-input-container-color-guild-init').style.background = "var(--color-dark-grey)";
+        document.getElementById('text-input-container-color-guild-init').classList.add("inputEnable");
     }  
 }
 
 
 document.getElementById('guildsettings-img-input').onchange = () => {
     const avatarSettings = document.getElementById('guildsettings-img-input').files[0];
-    document.getElementById('img-guild-settings').src = avatarSettings ? URL.createObjectURL(avatarSettings) : '#';
+    document.getElementById('img-guild-settings').src = avatarSettings ? URL.createObjectURL(avatarSettings) : `${api.imgUrl}/guild_default.gif`;
 }
 
 document.getElementById('create-text-channel-button').onclick = ()=>{
@@ -455,23 +489,16 @@ function confirmUpdateTextChannel()
     openConfirmationModal('Do you want to save changes?', async () =>{
         try {
             const channelname = document.getElementById('guild-name-input').value;
-            
-            const response = await api.updateTextChannel({channel_id, channelname});
-
-            return response;
-            
+            const response = await api.updateTextChannel({channel_id, channelname});            
+            location.reload(); 
         }
         catch(err)
         {
-            console.log(err);
-        }
-        finally
-        {
-            closeModal();
-            location.reload();
-        }
-        
-    } );  
+            openErrorModal(err.error, ()=>{
+                closeModal()
+            });
+        }        
+    });  
 }
 
 
@@ -481,19 +508,18 @@ function addTextChannel()
         try {
             const textChannelName = document.getElementById('add-text-channel-name').value;
             const response = await api.createTextChannel({guildId: currentGuildId, channelName: textChannelName});
-
-            return response;
+            location.reload();
             
         }
         catch(err)
         {
-            console.log(err);
+            openErrorModal(err.error, ()=>{
+                closeModal()
+            });
         }
         finally
         {
-            closeModal();
             document.getElementById('create-text-channel-div').style.display = 'none';
-            location.reload();
         }
         
     });  
