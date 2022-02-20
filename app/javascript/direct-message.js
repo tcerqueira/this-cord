@@ -19,7 +19,7 @@ async function render() {
         renderUserbar(user);
 
         const friend = friendsList.find(f => f.message_channel === currentTextChannelId);
-        document.querySelector('.page-header').innerText = `Chatting with ${friend.username.toUpperCase()}`;
+        document.querySelector('#channelHeader').innerText = `Chatting with ${friend.username.toUpperCase()}`;
 
         // schedule the first invocation:
         setTimeout(fetchMessagesPeriodically, 1000);
