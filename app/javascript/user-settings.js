@@ -32,18 +32,18 @@ document.getElementById('newPassword').onkeyup = validateSize =>{
     {
         case (newPassword.length <= 4):
             passwordValidation.innerText = 'password to weak';
-            passwordValidation.style.color = "red";
+            passwordValidation.style.color = "var(--color-red)";
             passwordValidation.style.fontSize = "0.9rem";
             break;
         
         case (newPassword.length > 4 && newPassword.length <=6):
             passwordValidation.innerText = 'medium password';
-            passwordValidation.style.color = "yellow";
+            passwordValidation.style.color = "var(--color-yellow)";
             break;
         
         default:
             passwordValidation.innerText = 'strong password';
-            passwordValidation.style.color = "green";
+            passwordValidation.style.color = "var(--color-green)";
     }
 }
 
@@ -135,12 +135,14 @@ document.getElementById('usersettings-img-input').onchange = () => {
 document.getElementById('dark-theme').onchange = () => {
     if (document.getElementById('dark-theme').checked)
     document.cookie = "theme=" + 'dark';
+    location.reload();
 }
  
 
 document.getElementById('light-theme').onchange = () => {
     if (document.getElementById('light-theme').checked)
     document.cookie = "theme=" + 'light';
+    location.reload();
 }
 
 
@@ -216,7 +218,9 @@ function confirmDelete()
             }
             catch(err)
             {
-                console.log(err);
+                openErrorModal(err.error, ()=>{
+                    closeModal()
+                });
                 document.getElementById('confirm-password-delete').value = '';
             }
             finally
@@ -233,10 +237,30 @@ function confirmUpdateAccount()
 {
     openConfirmationModal('Do you want to submit changes?', async () =>{
         try {
+            document.getElementById('text-input-container-color-email').classList.remove('invalid-input');
+            document.getElementById('text-input-container-color-username').classList.remove('invalid-input');
+            document.getElementById('UserSettingsError').innerText = '';
             document.getElementById('submitChangesButtonAccount').disabled = true;
             const username = document.getElementById('myaccount-username').value;
             const email = document.getElementById('myaccount-email').value;
             let userDescription = document.getElementById('about-me').value;
+            const emailRegEx = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
+            
+            let match = email.match(emailRegEx);
+            if(!match) {
+                document.getElementById('text-input-container-color-email').classList.add('invalid-input');
+                document.getElementById('UserSettingsError').innerText = 'Invalid email.';
+                return;
+            }
+    
+            const usernameRegEx = /^(?=[a-zA-Z0-9._]{3,16}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
+            match = username.match(usernameRegEx);
+            if(!match) {
+                document.getElementById('text-input-container-color-username').classList.add('invalid-input');
+                document.getElementById('UserSettingsError').innerText = 'Invalid username.';
+                return;
+            }
+           
             if( !userDescription)
             {
                 userDescription = undefined;
@@ -250,13 +274,15 @@ function confirmUpdateAccount()
         }
         catch(err)
         {
+            openErrorModal(err.error, ()=>{
+                closeModal()
+            });
             console.log(err);
         }
         finally
         {
             closeModal();
             document.getElementById('submitChangesButtonAccount').disabled = false;
-            location.reload();
         }
         
     } );  
@@ -276,7 +302,9 @@ function confirmUpdatePassword()
         }
         catch(err)
         {
-            console.log(err);
+            openErrorModal(err.error, ()=>{
+                closeModal()
+            });
             document.getElementById('oldPassword').value = '';
             document.querySelectorAll('.user-password-input').forEach(input=>{
                 input.classList.add('invalid-input');
@@ -285,6 +313,7 @@ function confirmUpdatePassword()
         finally
         {
             closeModal();
+            changePasswordDiv.style.display == "none";
         }
     });  
 }
@@ -304,16 +333,21 @@ function confirmUpdateUser()
             }
     
             response = await api.updateUser({username, email, themeColor, userDescription});
-            await api.updateUserAvatar({
+            
+            if(document.getElementById('usersettings-img-input').files[0])
+            {
+                await api.updateUserAvatar({
                 avatar: document.getElementById('usersettings-img-input').files[0]
                 });
+            }
         }
         catch(err)
         {
-            console.log(err);
+            openErrorModal(err.error, ()=>{
+                closeModal()
+            });
         }
         closeModal();
-        location.reload();
     });  
 }
 

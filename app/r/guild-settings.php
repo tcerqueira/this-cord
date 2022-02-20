@@ -49,7 +49,6 @@ require 'scripts/SendHeaders.php';
                                 <label for="guildsettings-img-input"><b>Avatar</b></label>
                                 <input type="file" name="guildsettings_img" id="guildsettings-img-input">
                             </form>
-                            <!-- <button class="button buttonGuildSettings bg-green" type="button" id= "submitImgButton"> Submit </button> -->
                         </div> 
                         <hr>
                         <div class="settings-item">
@@ -57,6 +56,7 @@ require 'scripts/SendHeaders.php';
                             <input type="color" id="guild-color" value="#ff0000">
                         </div>
                         <hr>
+                        <div id="GuildSettingsError" class="error-message one-liner"></div>
                         <button class= "button buttonGuildSettings bg-green moderator" id="guild-save-changes"> Save Changes</button>
                     </div>
            

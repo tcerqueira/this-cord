@@ -29,6 +29,23 @@ async function render()
         
         document.getElementById('guild-save-changes').onclick = ()=>{
         openConfirmationModal('Do you want to submit changes?', async () =>{
+            
+            const guildname = document.getElementById('guild-name-input').value;
+            const initials = document.getElementById('guild-init-input').value;
+
+            if(!guildname || !initials) {
+                document.getElementById('GuildSettingsError').innerText = 'Invalid input.';
+                return;
+            }
+            if(guildname.length > 24) {
+                document.getElementById('GuildSettingsError').innerText = 'Guild name too long';
+                return;
+            }
+            if(initials.length > 3) {
+                document.getElementById('GuildSettingsError').innerText = 'Guild initials too long';
+                return;
+            }
+
             try 
             {   
                 const guildname = document.getElementById('guild-name-input').value;
@@ -44,7 +61,9 @@ async function render()
                 }
                 catch(err)
                 {
-                    console.log(err.error);
+                    openErrorModal(err.error, ()=>{
+                        closeModal()
+                    });
                 }
                 finally
                 {
@@ -55,12 +74,17 @@ async function render()
         
         };
         document.getElementById("esc-guild-settings").onclick = ()=>{
-            window.location.href = `guild-home.php?id=${currentGuildId}`;
+            if(textChannels[0])
+                window.location.href = `text-channel.php?id=${textChannels[0].id}`;
+            else
+                window.location.href = `text-channel.php?id=${currentGuildId}`;
         }
     }
     catch(err)
     {
-        console.log(err)
+        openErrorModal(err.error, ()=>{
+            closeModal()
+        });
     }  
     
 } 
@@ -79,6 +103,7 @@ function createChannelItem(channel)
         try 
         {        
             const response = await api.deleteTextChannel({channel_id: channel.id});
+            location.reload();
         }
         catch(err)
         {
@@ -87,7 +112,6 @@ function createChannelItem(channel)
         finally
         {
             closeModal();
-            location.reload();
         } 
         });  
     }
@@ -110,7 +134,6 @@ function createChannelItem(channel)
                 finally
                 {
                     closeModal();
-                    location.reload();
                 }
             })
         }
@@ -203,15 +226,17 @@ function createMemberItem(member)
         try 
         {        
             const response = await api.kickMember({guildId: currentGuildId, memberId: member.member_id});
+            location.reload();
         }
         catch(err)
         {
-            console.log(err);
+            openErrorModal(err.error, ()=>{
+                closeModal()
+            });
         }
         finally
         {
             closeModal();
-            location.reload();
         } 
         });  
     }
@@ -235,15 +260,17 @@ function createMemberItem(member)
             try
             {
                 const response = await api.updateMemberRole({guildId: currentGuildId, memberId: member.member_id, guildRole: newRole});
+                location.reload();
             }
             catch(err)
             {
-                console.log(err);
+                openErrorModal(err.error, ()=>{
+                    closeModal()
+                });
             }
             finally
             {
                 closeModal();
-                location.reload();
             }
         });
     }
@@ -277,15 +304,17 @@ function createInviteMemberItem(member)
             try
             {
                 const response = await api.kickMember({guildId: currentGuildId, memberId: member.member_id});
+                location.reload();
             }
             catch(err)
             {
-                console.log(err);
+                openErrorModal(err.error, ()=>{
+                    closeModal()
+                });
             }
             finally
             {
                 closeModal();
-                location.reload();
             }
         });
     }
@@ -364,16 +393,18 @@ document.getElementById("confirmPasswordGuildButton").onclick  = async ()=>{
             const password = document.getElementById("passwordGuild").value;
             const newAdmin = document.getElementById ('transferAdmin').value;
             const response = await api.transferAdmin({guildId: currentGuildId, newAdmin, password });
+            location.reload();
         }
         catch (err)
         {
-            console.log(err);
+            openErrorModal(err.error, ()=>{
+                closeModal()
+            });
         }
         finally
         {
             closeModal();
-            document.getElementById("confirmPasswordGuild").style.display = 'none';
-            location.reload();   
+            document.getElementById("confirmPasswordGuild").style.display = 'none';   
         }
 
     });
@@ -386,14 +417,16 @@ document.querySelector("button[name=LeaveGuild]").onclick = () =>{
         try
         {
             await api.leaveGuild({guildId:currentGuildId});
+            window.location.href = "home.php";
         }
         catch(err)
         {
-            console.log(err);
+            openErrorModal(err.error, ()=>{
+                closeModal()
+            });
         }
         finally
         {
-            window.location.href = "home.php";
             closeModal();
         }
     });
@@ -455,20 +488,18 @@ function confirmUpdateTextChannel()
     openConfirmationModal('Do you want to save changes?', async () =>{
         try {
             const channelname = document.getElementById('guild-name-input').value;
-            
-            const response = await api.updateTextChannel({channel_id, channelname});
-
-            return response;
-            
+            const response = await api.updateTextChannel({channel_id, channelname});            
+            location.reload(); 
         }
         catch(err)
         {
-            console.log(err);
+            openErrorModal(err.error, ()=>{
+                closeModal()
+            });
         }
         finally
         {
             closeModal();
-            location.reload();
         }
         
     } );  
@@ -481,19 +512,19 @@ function addTextChannel()
         try {
             const textChannelName = document.getElementById('add-text-channel-name').value;
             const response = await api.createTextChannel({guildId: currentGuildId, channelName: textChannelName});
-
-            return response;
+            location.reload();
             
         }
         catch(err)
         {
-            console.log(err);
+            openErrorModal(err.error, ()=>{
+                closeModal()
+            });
         }
         finally
         {
             closeModal();
             document.getElementById('create-text-channel-div').style.display = 'none';
-            location.reload();
         }
         
     });  
