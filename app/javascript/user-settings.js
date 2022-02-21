@@ -254,6 +254,7 @@ function confirmDelete()
             try {
                 const response = await api.deleteUser({password});
                 document.getElementById('confirm-password-delete-container').style.display = 'none';
+                closeModal();
             }
             catch(err)
             {
@@ -304,7 +305,7 @@ function confirmUpdateAccount()
                 avatar: document.getElementById('usersettings-img-input').files[0]
                 });
             }
-            
+            closeModal();
         }
         catch(err)
         {
@@ -331,7 +332,8 @@ function confirmUpdatePassword()
             response = await api.changePassword({oldPassword, newPassword});
             document.getElementById('oldPassword').value = '';
             document.getElementById('newPassword').value = '';
-            document.getElementById('confNewPassword').value = '';            
+            document.getElementById('confNewPassword').value = '';
+            closeModal();          
         }
         catch(err)
         {
@@ -359,11 +361,6 @@ function confirmUpdateUser()
             const username = document.getElementById('myaccount-username').value;
             const email = document.getElementById('myaccount-email').value;
             let userDescription = document.getElementById('about-me').value;
-            
-            // if( userDescription == '')
-            // {
-            //    userDescription = '';
-            // }
     
             response = await api.updateUser({username, email, themeColor, userDescription});
             
@@ -373,6 +370,7 @@ function confirmUpdateUser()
                 avatar: document.getElementById('usersettings-img-input').files[0]
                 });
             }
+            closeModal();
         }
         catch(err)
         {

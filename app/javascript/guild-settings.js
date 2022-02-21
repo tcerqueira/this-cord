@@ -60,16 +60,15 @@ async function render()
                         avatar: document.getElementById('guildsettings-img-input').files[0]
                         });
                 }
-                    
-                }
-                catch(err)
-                {
-                    openErrorModal(err.error, ()=>{
-                        closeModal()
-                    });
-                }              
-            });  
-        
+                closeModal();                    
+            }
+            catch(err)
+            {
+                openErrorModal(err.error, ()=>{
+                    closeModal()
+                });
+            }              
+        });  
         };
         document.getElementById("esc-guild-settings").onclick = ()=>{
             if(textChannels[0])
@@ -119,7 +118,8 @@ function createChannelItem(channel)
                 try
                 {
                     const channelname = textChannelItem.querySelector("input").value;
-                    const response = await api.updateTextChannel({channel_id: channel.id, channelname})
+                    const response = await api.updateTextChannel({channel_id: channel.id, channelname});
+                    closeModal();
                 }
                 catch(err)
                 {
