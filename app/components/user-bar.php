@@ -1,7 +1,7 @@
 <div class="user">
     <div>
         <div class="icon-card icon-size-small">
-            <img id="userbarAvatar" src="" alt="profile_avatar">
+            <img id="userbarAvatar" src="../public/wolf-logo.svg" alt="">
         </div>
         <div class="userbar-id one-liner">
             <span id="userbarUsername"></span>
