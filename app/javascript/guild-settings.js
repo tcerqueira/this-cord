@@ -74,7 +74,7 @@ async function render()
             if(textChannels[0])
                 window.location.href = `text-channel.php?id=${textChannels[0].id}`;
             else
-                window.location.href = `text-channel.php?id=${currentGuildId}`;
+                window.location.href = `guild-home.php?id=${currentGuildId}`;
         }
     }
     catch(err)
