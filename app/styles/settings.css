@@ -1,0 +1,440 @@
+body {
+    background-color: var(--color-medium-grey-1);
+}
+
+.nav-settings {
+    grid-area: nav-settings;
+    background-color: var(--color-medium-grey-1);
+    display: flex;
+    justify-content: flex-end;
+    padding: 2rem;
+}
+
+.nav-settings-content {
+    display: flex;
+    flex-direction: column;
+    color: var(--font-color);
+    position: fixed;
+}
+
+.nav-settings-content li {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+.settings-display {
+    grid-area: settings-display;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-left: 6rem;
+    padding-right: 6rem;
+    padding-bottom: 6rem;
+    padding-top: 3rem;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.esc {
+    grid-area: esc;
+    border:2px solid var(--color-light-grey);
+    border-radius: 50%;
+    padding: 0.8rem;
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    display: flex;
+    right: 2rem;
+    top: 2rem;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.esc a {
+    margin: 0;
+    padding: 0;
+    height: fit-content;
+    display: flex;
+}
+
+.esc:hover {
+    background-color: var(--color-medium-grey-1);
+}
+
+hr {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+}
+
+.nav-settings-content li:hover {
+    background-color: var(--color-light-grey);
+    border-radius: 7px;
+}
+
+.settings-section {
+    background-color: var(--color-light-grey);
+    border-radius: 7px;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    width: 90%;
+}
+
+.userProfileItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#delete-account {
+    border-radius: 5px;
+    background-color: var(--color-red);
+    color: inherit;
+    border: none;
+    padding: 0.5rem 0.5rem;
+    margin-top: 1rem;
+}
+
+#change-password {
+    display: none;
+    flex-direction: column;
+    align-items: none;
+    width: fit-content;
+    margin-bottom: 1rem;
+}
+
+#user-profile {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+#user-bar-color {
+    display: flex;
+    position: relative;
+    border-radius: 10px;
+    width: 80%;
+    min-width: 400px;
+    height: 200px;
+    margin: 0;
+}
+
+#user-preview {
+    background-color: var(--color-dark-grey);
+    display: flex;
+    width: 100%;
+    height: 80%;   
+    position: absolute;
+    bottom: 0;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 1rem;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#user-icon {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.color-user {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#user-color {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+}
+
+#pick-color {
+    display: flex;
+    align-items: center;
+}
+
+#pick-color span {
+    padding-right: 0.5rem;
+}
+
+#about-me {
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    width: 60%;
+    height: 200px;
+    background-color: var(--color-dark-grey);
+    color: inherit;
+}
+
+/* .button {
+    background-color: var(--color-primary);
+} */
+
+.user-password-input {
+    background-color: var(--color-dark-grey);
+    color: inherit;
+    border-radius: 10px;
+    padding: 0.7rem 1rem;
+}
+
+.new-user-password-input {
+    background-color: var(--color-dark-grey);
+    color: inherit;
+    border-radius: 10px;
+    padding: 0.7rem 1rem;
+}
+
+.user-password-input:focus-within {
+    border: 1px solid var(--color-primary);
+}
+
+#confirm-password-delete-container {
+    display: none;
+    flex-direction: column;
+    width: fit-content;
+    padding: 1rem;
+
+}
+
+.button-color {
+    background-color: var(--color-red);
+    margin-top: 1rem;
+}
+
+.guild-sections-container {
+    background-color: var(--color-light-grey);
+    border-radius: 7px;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 3rem;
+    width: 90%;
+}
+
+.settings-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+#guild-color {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+}
+
+select {
+
+    /* styling */
+    background-color: var(--color-medium-grey-1);
+    border: thin solid var(--color-light-grey);
+    border-radius: 4px;
+    display: inline-block;
+    font: inherit;
+    line-height: 1.5em;
+    padding: 0.5em 3.5em 0.5em 1em;
+    color: inherit;
+    /* reset */
+  
+    margin: 0;      
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  
+.member-role {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+}
+  
+  /* arrows */
+  
+select.classic {
+    background-image:
+      linear-gradient(45deg, transparent 50%, var(--color-light-grey) 50%),
+      linear-gradient(135deg, var(--color-light-grey) 50%, transparent 50%),
+      linear-gradient(to right, var(--color-medium-grey-2), var(--color-medium-grey-2));
+    background-position:
+      calc(100% - 20px) calc(1em + 2px),
+      calc(100% - 15px) calc(1em + 2px),
+      100% 0;
+    background-size:
+      5px 5px,
+      5px 5px,
+      2.5em 2.5em;
+    background-repeat: no-repeat;
+  }
+  
+select.classic:focus {
+    background-image:
+      linear-gradient(45deg, white 50%, transparent 50%),
+      linear-gradient(135deg, transparent 50%, white 50%),
+      linear-gradient(to right, var(--color-medium-grey-1), var(--color-medium-grey-1));
+    background-position:
+      calc(100% - 15px) 1em,
+      calc(100% - 20px) 1em,
+      100% 0;
+    background-size:
+      5px 5px,
+      5px 5px,
+      2.5em 2.5em;
+    background-repeat: no-repeat;
+    border-color: var(--color-primary);
+    outline: 0;
+}
+  
+.guild-section {
+      margin-bottom: 1.5rem;
+}
+
+#create-text-channel-div {
+    display: none;
+    flex-direction: column;
+    width: fit-content;
+    padding: 1rem;
+}
+
+#create-text-channel-div div {
+    margin: 1rem 0;
+    background-color: var(--color-dark-grey);
+}
+
+.buttonSettings {
+    font-size: 1.1em;
+}
+
+.buttonGuildSettings {
+    font-size: 1.1em;
+    display: none;
+}
+
+button:disabled, button:disabled:hover {
+    background-color: var(--color-medium-grey-2) !important;
+    cursor:  not-allowed;
+}
+
+/* ############## Radio Buttons ############## */
+
+/* Customize the label (the container) */
+.container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: inherit;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default radio button */
+  .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom radio button */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: var(--color-dark-grey);
+    border-radius: 50%;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .container:hover input ~ .checkmark {
+    background-color: var(--color-medium-grey-2);
+  }
+  
+  /* When the radio button is checked, add a blue background */
+  .container input:checked ~ .checkmark {
+    background-color: var(--color-dark-grey);
+  }
+  
+  /* Create the indicator (the dot/circle - hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the indicator (dot/circle) when checked */
+  .container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the indicator (dot/circle) */
+  .container .checkmark:after {
+    top: 6.5px;
+    left: 6.5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--color-primary);
+  }
+
+#confirmPasswordGuildDelete {
+    width: 90%;
+}
+
+.borderStyling {
+    background-color: var(--color-medium-grey-2);
+}
+
+.inputEnable {
+    background-color: var(--color-dark-grey);
+}
+
+#pptSvg svg {
+    background-color: #E64A19;
+}
+
+#phpSvg svg {
+    background-color: rgb(136, 150, 198);
+}
+
+#apiSvg svg {
+    background-color: rgb(117, 172, 99);
+}
+
+.download-icon {
+    position: relative;
+}
+
+.download-icon::after {
+    position: absolute;
+    inset: 110% auto auto -70%;
+}
+
+.download-icon svg {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 10px;
+    fill: var(--color-dark-grey);
+}
+
+.creators-img {
+    width: 45%;
+    border-radius: 10px;
+}

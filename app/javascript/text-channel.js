@@ -36,10 +36,14 @@ async function render() {
             openGuildInviteModal(channel.guild_id);
         });
 
-        document.querySelector('.page-header').innerText = `# ${channel.channelname}`;
+        document.getElementById('channelHeader').innerText = `# ${channel.channelname}`;
         document.querySelector('.title img').addEventListener('click', () => {
             openCreateChannelModal(channel.guild_id);
         });
+
+        document.getElementById('openGuildSettings').onclick = () => {
+            window.location.href = `guild-settings.php?guild_id=${channel.guild_id}`;
+        }
 
         // schedule the first invocation:
         setTimeout(fetchMessagesPeriodically, 1000);
