@@ -315,10 +315,10 @@ async function openGuildInviteModal(guildId)
         document.getElementById('copyInviteButton').onclick = async () => {
             try {            
                 const index = window.location.href.search('/r/');
-                const subUrl = window.location.href.slice(0, index);
+                // const subUrl = window.location.href.slice(0, index);
+                const subUrl = 'https://paginas.fe.up.pt/~up201707238/sie/this-cord/app';
                 const guild = await api.fetchGuild({ id: guildId });
-                const inviteLink = `${subUrl}/r/invite-to-guild.php?guild_id=${guildId}&open_invite_key=${inviteKey}&guildname=${guild.guildname}&avatar=${guild.img_name}`
-                    .replaceAll(' ', '%20');
+                const inviteLink = encodeURI(`${subUrl}/r/invite-to-guild.php?guild_id=${guildId}&open_invite_key=${inviteKey}&guildname=${guild.guildname}&avatar=${guild.img_name}`);
                 await navigator.clipboard.writeText(inviteLink);
             }
             catch (err) {
